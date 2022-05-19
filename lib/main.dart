@@ -1,7 +1,9 @@
 import 'package:building_navigator/screens/list_buildings.dart';
 import 'package:building_navigator/screens/panorama_screen.dart';
+import 'package:building_navigator/screens/splash_screen.dart';
 import 'package:building_navigator/screens/test_panorama_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 import 'loader/dormitory_3/rooms_dormitory_3.dart';
 import 'loader/dormitory_3/vertexes_path_dormitory_3.dart';
@@ -44,8 +46,8 @@ class _MyHomePageState extends State<MyHomePage> {
     PathInfo.building = buildings[0];
 
     return Scaffold(
-      body:
-      ParoramaScreenTest(panoramaImagePath: p711_713, nextVertexImagePath: r713)
+      body: Splash()
+
 
 /*
             GestureDetector(

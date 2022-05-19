@@ -1,5 +1,6 @@
 import 'package:building_navigator/screens/panorama_screen.dart';
 import 'package:building_navigator/screens/select_room.dart';
+import 'package:building_navigator/screens/widgets/building_widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../algorithm/building_navigator.dart';
@@ -14,7 +15,6 @@ class FindPathPage extends StatefulWidget{
 
   @override
   State<StatefulWidget> createState() => FindPathPageState(building: building);
-
 }
 
 class FindPathPageState extends State<FindPathPage> {
@@ -22,7 +22,6 @@ class FindPathPageState extends State<FindPathPage> {
   final Building building;
 
   FindPathPageState({Key? key, required this.building});
-
 
   TextEditingController txtSource = TextEditingController(text: PathInfo.sourceRoom);
   TextEditingController txtDestination = TextEditingController(text: PathInfo.destinationRoom);
@@ -34,35 +33,71 @@ class FindPathPageState extends State<FindPathPage> {
   }
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(title: Text('df'),),
-      body: Column(children: [
-        TextFormField(
-            controller: txtSource,
-            style: const TextStyle(fontSize: 22),
-            onChanged: _changeSource),
-        ElevatedButton(onPressed: () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => SelectRoomPage(building: building, isSource: true,))),
-            child: Text("select")),
-        TextFormField(
-            controller: txtDestination,
-            style: const TextStyle(fontSize: 22),
-            onChanged: _changeDestinaton),
-        ElevatedButton(onPressed: () => Navigator.push(context,
-            MaterialPageRoute(builder: (context) => SelectRoomPage(building: building, isSource: false,))),
-            child: const Text("select")),
-        ElevatedButton(onPressed: () =>
-            {
-              setPath(building),
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) =>
-                    PanoramaScreen(
-                      panoramaImagePath: PathInfo.currentVertex.imagePath,
-                      nextVertexImagePath: PathInfo.nextVertexImagePath)))
-            },
-            child: const Text("Find")),
+      appBar: getAppBar('Find route'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            height: 60,
+            margin: EdgeInsets.all(10),
+            child: TextFormField(
+                controller: txtSource,
+                decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    hintText: "Source room",
+                    suffixIcon: IconButton(
+                      onPressed: () => Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => SelectRoomScreen(building: building, isSource: true, func: () =>
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) => FindPathPage(building: building))),))),
+                      icon: const Icon(Icons.add),
+                      iconSize: 40,
+                    )
+                ),
+                style: const TextStyle(fontSize: 22),
 
+                onChanged: _changeSource),
+          ),
+          Container(
+            height: 60,
+            margin: EdgeInsets.all(10),
+            child: TextFormField(
+                controller: txtDestination,
+                decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    hintText: "Destination room",
+                    suffixIcon: IconButton(
+                      onPressed: () => Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => SelectRoomScreen(building: building, isSource: false, func: () =>
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) => FindPathPage(building: building)))))),
+                      icon: const Icon(Icons.add),
+                      iconSize: 40,
+                    )
+                ),
+                style: const TextStyle(fontSize: 22),
+
+                onChanged: _changeDestinaton),
+          ),
+          Container(
+              height: 50,
+              width: MediaQuery.of(context).size.width - 20,
+              margin: EdgeInsets.only(top: 10),
+              child: ElevatedButton(
+                child: const Text('Start route', style: TextStyle(
+                  fontSize: 22,
+                )),
+                onPressed: () {
+                  setPath(building);
+                  Navigator.push(context,
+                  MaterialPageRoute(builder: (context) =>
+                  PanoramaScreen(
+                  panoramaImagePath: PathInfo.currentVertex.imagePath,
+                  nextVertexImagePath: PathInfo.nextVertexImagePath)));
+                },
+              )
+          ),
       ],),
     );
   }

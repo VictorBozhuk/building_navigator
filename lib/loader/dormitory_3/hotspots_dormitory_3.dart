@@ -51,7 +51,7 @@ List<Hotspot> getHotspots704_706(BuildContext context, String nextVertexImagePat
       hotspots.addAll([balcony]);
     }
   } else{
-    hotspots.addAll([balcony, to707]);
+    hotspots.addAll([to707, balcony]);
   }
 
   return hotspots;

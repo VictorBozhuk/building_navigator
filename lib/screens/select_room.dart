@@ -1,4 +1,5 @@
 import 'package:building_navigator/screens/find_path.dart';
+import 'package:building_navigator/screens/widgets/building_widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../algorithm/building_navigator.dart';
@@ -7,24 +8,26 @@ import '../models/building_model.dart';
 import '../models/path_model.dart';
 import '../models/room_model.dart';
 
-class SelectRoomPage extends StatefulWidget {
-  SelectRoomPage({required this.building, required this.isSource});
+class SelectRoomScreen extends StatefulWidget {
+  SelectRoomScreen({required this.building, required this.isSource, required this.func});
   final Building building;
   final bool isSource;
+  final Function func;
   @override
-  State<StatefulWidget> createState() => SelectRoomPageState(building: building, isSource: isSource);
+  State<StatefulWidget> createState() => SelectRoomScreenState(building: building, isSource: isSource, func: func);
 }
 
-class SelectRoomPageState extends State<SelectRoomPage> {
+class SelectRoomScreenState extends State<SelectRoomScreen> {
 
-  SelectRoomPageState({required this.building, required this.isSource}){
+  SelectRoomScreenState({required this.building, required this.isSource, required this.func}){
     rooms = getRoomsOfBuilding(building);
   }
   final Building building;
   final bool isSource;
   late List<Room> rooms;
-  TextEditingController txt = TextEditingController(text: "");
-  _changeName(String text){
+  final Function func;
+  TextEditingController txtSelectedRoom = TextEditingController(text: "");
+  _changeSelectedRoom(String text){
     setState(() => {
       if(isSource) {
         PathInfo.setSource(getRoomByTitle((rooms), text))
@@ -39,26 +42,37 @@ class SelectRoomPageState extends State<SelectRoomPage> {
     var rooms = getRoomsOfBuilding(building);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('fd')),
+      appBar: getAppBar("All rooms"),
       body: Column(
         children: [
-          TextFormField(
-              controller: txt,
-              style: const TextStyle(fontSize: 22),
-              onChanged: _changeName),
-          ElevatedButton(onPressed: () => Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => FindPathPage(building: building))),
-              child: const Text("select")),
+          Container(
+            height: 60,
+            margin: EdgeInsets.all(10),
+            child: TextFormField(
+                controller: txtSelectedRoom,
+                decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    hintText: "Room",
+                    suffixIcon: IconButton(
+                      onPressed: () => txtSelectedRoom.clear(),
+                      icon: const Icon(Icons.clear),
+                      iconSize: 30,
+                    )
+                ),
+                style: const TextStyle(fontSize: 22),
+                onChanged: _changeSelectedRoom),
+          ),
           Expanded(child:
-            ListView.builder(
+            ListView.separated(
+
               itemBuilder: (BuildContext, index){
-                return GestureDetector(
-                  child: Card(
-                      child: Text(rooms[index].Title,
-                                style: const TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w600))),
+                return ListTile(
+                  leading: Icon(Icons.room),
+                  title: Text(rooms[index].Title,
+                      style: const TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 30,
+                          fontWeight: FontWeight.w600)),
                   onTap: () => {
                     if(isSource) {
                       PathInfo.setSource(rooms[index])
@@ -66,17 +80,19 @@ class SelectRoomPageState extends State<SelectRoomPage> {
                     else {
                       PathInfo.setDestination(rooms[index])
                     },
-                    setState(() {
-                      txt.text = rooms[index].Title;
-                  }),
+                    func(),
                   },
                 );
+              },
+              separatorBuilder: (BuildContext,index)
+              {
+                return Divider(height: 1);
               },
               itemCount: rooms.length,
               shrinkWrap: true,
               padding: EdgeInsets.all(5),
               scrollDirection: Axis.vertical,
-            )
+            ),
           )
         ],
       )

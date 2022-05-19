@@ -9,9 +9,9 @@ class PathInfo {
   static late String destinationRoom = '';
   static late String sourceVertex = '';
   static late String destinationVertex = '';
-  static late List<Vertex>? listVertexes;
+  static late List<Vertex>? listVertexes = [];
   static late Vertex currentVertex;
-  static late String nextVertexImagePath;
+  static late String nextVertexImagePath = '';
   static late Building building;
 
   static late int _currentIndex = 0;
@@ -38,7 +38,7 @@ class PathInfo {
   }
 
   static move(String nextImagePath){
-    if(nextVertexImagePath == nextImagePath){
+    if(nextImagePath.isEmpty == false && nextVertexImagePath == nextImagePath){
       if(_currentIndex + 2 != listVertexes?.length){
         currentVertex = listVertexes![++_currentIndex];
         nextVertexImagePath = listVertexes![1 + _currentIndex].imagePath;
@@ -57,5 +57,17 @@ class PathInfo {
     destinationVertex = '';
     listVertexes?.clear();
     _currentIndex = 0;
+  }
+
+  static String getVertexImagePath(){
+    for (int i = 0; i < building.vertexes.length; ++i)
+      {
+        if(sourceVertex == building.vertexes[i].Title)
+          {
+            return building.vertexes[i].imagePath;
+          }
+      }
+
+    return "";
   }
 }
