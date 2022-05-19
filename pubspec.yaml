@@ -1,0 +1,42 @@
+name: building_navigator
+description: A new Flutter project.
+
+
+publish_to: 'none'
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.1 <3.0.0"
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.2
+  equatable: ^2.0.3
+  flutter_bloc: ^8.0.0-dev.3
+  freezed_annotation: ^0.15.0
+  panorama: ^0.4.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  freezed: ^0.15.1+1
+  build_runner: ^2.1.5
+  flutter_lints: ^1.0.0
+
+
+flutter:
+  assets:
+    - assets/
+    - assets/icons/
+    - assets/buildings/
+    - assets/dormitory_3/
+    - assets/dormitory_3/6/
+    - assets/dormitory_3/7/
+
+  uses-material-design: true
