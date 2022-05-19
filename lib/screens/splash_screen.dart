@@ -17,7 +17,9 @@ class _SplashState extends State<Splash> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => ListBuildingsPage()));
+              //builder: (context) => ListBuildingsPage()));
+              builder: (context) => ParoramaScreenTest(panoramaImagePath: p707, nextVertexImagePath: '',)));
+
     });
 
     super.initState();

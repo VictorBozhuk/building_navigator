@@ -48,6 +48,7 @@ class PanoramaScreenState extends State<ParoramaScreenTest> {
         sensitivity: 2,
         hotspots: hotspots,
         child: Image.asset(panoramaImagePath),
+
       ),
       floatingActionButton: FloatingActionButton(
         // isExtended: true,
