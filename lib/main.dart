@@ -1,4 +1,6 @@
 import 'package:building_navigator/screens/splash_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'loader/loader.dart';
 import 'models/path_model.dart';
@@ -33,6 +35,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  void initFirebase() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initFirebase();
+    //FirebaseFirestore.instance.collection('buildings').add({'building': buildings[0]});
+  }
 
   @override
   Widget build(BuildContext context) {
