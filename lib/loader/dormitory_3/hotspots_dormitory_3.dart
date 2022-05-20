@@ -1,12 +1,11 @@
 import 'package:building_navigator/loader/dormitory_3/rooms_dormitory_3.dart';
-import 'package:building_navigator/loader/dormitory_3/vertexes_path_dormitory_3.dart';
 import 'package:panorama/panorama.dart';
 import 'package:flutter/material.dart';
 
 import '../hotspots/hotspots.dart';
 
 
-
+/*
 List<Hotspot> getHotspotsDormitory3(BuildContext context, String vertex, String nextVertexImagePath){
   switch(vertex) {
     case p704_706:
@@ -244,3 +243,5 @@ List<Hotspot> getHotspots711_713(BuildContext context, String nextVertexImagePat
 
   return hotspots;
 }
+
+*/

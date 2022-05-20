@@ -12,19 +12,19 @@ class BuildingNavigator
     graph = Graph(Vertices: []);
     for(int i = 0; i < vertexes.length; ++i)
     {
-      graph.AddVertex(vertexes[i].Title);
+      graph.AddVertex(vertexes[i].title);
     }
 
     for(int i = 0; i < edges.length; ++i)
     {
-      graph.AddEdge(edges[i].source, edges[i].destination, edges[i].length.toInt());
+      graph.AddEdge(edges[i].vertex1.title, edges[i].vertex2.title, edges[i].length.toInt());
     }
   }
 
 
-  List<String>? GetPath(String from, String to)
+  List<String>? GetPath(String source, String destination)
   {
     var dijkstra = Dijkstra(graph: graph);
-    return dijkstra.FindShortestPathString(from, to);
+    return dijkstra.FindShortestPathString(source, destination);
   }
 }

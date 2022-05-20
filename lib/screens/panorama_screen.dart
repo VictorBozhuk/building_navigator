@@ -14,7 +14,7 @@ class PanoramaScreen extends StatelessWidget {
       drawer: const NavigationDrawer(),
       body:
       Panorama(
-        longitude: PathInfo.building.getDirection(panoramaImagePath, nextVertexImagePath),
+        longitude:  PathInfo.building.getNextVertexDirection(panoramaImagePath, nextVertexImagePath),
         sensitivity: 2,
         hotspots: PathInfo.building.getHotspots(context, panoramaImagePath, nextVertexImagePath),
         child: Image.asset(panoramaImagePath),

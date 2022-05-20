@@ -1,8 +1,4 @@
-import 'package:building_navigator/screens/test_panorama_screen.dart';
 import 'package:flutter/material.dart';
-
-import '../loader/dormitory_3/rooms_dormitory_3.dart';
-import '../loader/dormitory_3/vertexes_path_dormitory_3.dart';
 import 'list_buildings.dart';
 
 class Splash extends StatefulWidget {
@@ -17,8 +13,8 @@ class _SplashState extends State<Splash> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              //builder: (context) => ListBuildingsPage()));
-              builder: (context) => ParoramaScreenTest(panoramaImagePath: p707, nextVertexImagePath: '',)));
+              builder: (context) => ListBuildingsPage()));
+              //builder: (context) => ParoramaScreenTest(panoramaImagePath: v707., nextVertexImagePath: '',)));
 
     });
 

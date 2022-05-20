@@ -1,38 +1,36 @@
-
 import 'package:building_navigator/models/room_model.dart';
 import 'package:building_navigator/models/vertex_model.dart';
 
 import 'building_model.dart';
 
 class PathInfo {
-  static late String sourceRoom = '';
-  static late String destinationRoom = '';
-  static late String sourceVertex = '';
-  static late String destinationVertex = '';
+  static late String sourceRoomTitle;
+  static late String destinationRoomTitle;
+  static late String sourceVertexTitle;
+  static late String destinationVertexTitle;
   static late List<Vertex>? listVertexes = [];
   static late Vertex currentVertex;
   static late String nextVertexImagePath = '';
   static late Building building;
-
   static late int _currentIndex = 0;
 
   static setSource(Room? room)
   {
-    sourceRoom = room?.Title ?? '';
-    sourceVertex = room?.vertex ?? '';
+    sourceRoomTitle = room?.title ?? '';
+    sourceVertexTitle = room?.vertexTitle ?? '';
   }
 
   static setDestination(Room? room)
   {
-    destinationRoom = room?.Title ?? '';
-    destinationVertex = room?.vertex ?? '';
+    destinationRoomTitle = room?.title ?? '';
+    destinationVertexTitle = room?.vertexTitle ?? '';
   }
 
   static setVertexes(List<Vertex> _listVertexes){
     listVertexes = _listVertexes;
     currentVertex = _listVertexes[0];
     try{
-      nextVertexImagePath = _listVertexes[1 + _currentIndex].imagePath;
+      nextVertexImagePath = _listVertexes[1 + _currentIndex].imagePath ?? '';
     }
     catch (e){}
   }
@@ -41,20 +39,20 @@ class PathInfo {
     if(nextImagePath.isEmpty == false && nextVertexImagePath == nextImagePath){
       if(_currentIndex + 2 != listVertexes?.length){
         currentVertex = listVertexes![++_currentIndex];
-        nextVertexImagePath = listVertexes![1 + _currentIndex].imagePath;
+        nextVertexImagePath = listVertexes![1 + _currentIndex].imagePath ?? '';
       }
       else{
         currentVertex = listVertexes![++_currentIndex];
-        nextVertexImagePath = destinationRoom;
+        nextVertexImagePath = destinationRoomTitle;
       }
     }
   }
 
   static void clear(){
-    sourceRoom = '';
-    destinationRoom = '';
-    sourceVertex = '';
-    destinationVertex = '';
+    sourceRoomTitle = '';
+    destinationRoomTitle = '';
+    sourceVertexTitle = '';
+    destinationVertexTitle = '';
     listVertexes?.clear();
     _currentIndex = 0;
   }
@@ -62,9 +60,9 @@ class PathInfo {
   static String getVertexImagePath(){
     for (int i = 0; i < building.vertexes.length; ++i)
       {
-        if(sourceVertex == building.vertexes[i].Title)
+        if(sourceVertexTitle == building.vertexes[i].title)
           {
-            return building.vertexes[i].imagePath;
+            return building.vertexes[i].imagePath ?? "";
           }
       }
 

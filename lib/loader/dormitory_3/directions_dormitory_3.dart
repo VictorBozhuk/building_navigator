@@ -1,8 +1,7 @@
 import 'package:building_navigator/loader/dormitory_3/rooms_dormitory_3.dart';
-import 'package:building_navigator/loader/dormitory_3/vertexes_path_dormitory_3.dart';
 
 
-
+/*
 double getDirectionDormitory3(String vertex, String nextVertex){
   switch(vertex) {
     case p704_706:
@@ -177,3 +176,4 @@ double _getDirection711_713(String nextVertex){
 
   return 0;
 }
+*/

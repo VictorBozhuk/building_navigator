@@ -23,13 +23,13 @@ class FindPathPageState extends State<FindPathPage> {
 
   FindPathPageState({Key? key, required this.building});
 
-  TextEditingController txtSource = TextEditingController(text: PathInfo.sourceRoom);
-  TextEditingController txtDestination = TextEditingController(text: PathInfo.destinationRoom);
+  TextEditingController txtSource = TextEditingController(text: PathInfo.sourceRoomTitle);
+  TextEditingController txtDestination = TextEditingController(text: PathInfo.destinationRoomTitle);
   _changeSource(String text){
-    setState(() => PathInfo.sourceRoom = text);
+    setState(() => PathInfo.sourceRoomTitle = text);
   }
   _changeDestinaton(String text){
-    setState(() => PathInfo.destinationRoom = text);
+    setState(() => PathInfo.destinationRoomTitle = text);
   }
   @override
   Widget build(BuildContext context) {
@@ -93,7 +93,7 @@ class FindPathPageState extends State<FindPathPage> {
                   Navigator.push(context,
                   MaterialPageRoute(builder: (context) =>
                   PanoramaScreen(
-                  panoramaImagePath: PathInfo.currentVertex.imagePath,
+                  panoramaImagePath: PathInfo.currentVertex.getImagePath(),
                   nextVertexImagePath: PathInfo.nextVertexImagePath)));
                 },
               )
@@ -104,7 +104,7 @@ class FindPathPageState extends State<FindPathPage> {
   String getPath(Building building)
   {
     BuildingNavigator client = BuildingNavigator(building.edges, building.vertexes);
-    var ListPath = client.GetPath(PathInfo.sourceVertex, PathInfo.destinationVertex);
+    var ListPath = client.GetPath(PathInfo.sourceVertexTitle, PathInfo.destinationVertexTitle);
     String path = '';
     int length = ListPath?.length ?? 0;
     for(int i = 0; i < length; ++i)
@@ -117,14 +117,14 @@ class FindPathPageState extends State<FindPathPage> {
 
   void setPath(Building building){
     BuildingNavigator client = BuildingNavigator(building.edges, building.vertexes);
-    var VertexesStr = client.GetPath(PathInfo.sourceVertex, PathInfo.destinationVertex);
+    var VertexesStr = client.GetPath(PathInfo.sourceVertexTitle, PathInfo.destinationVertexTitle);
     List<Vertex> vertexes = [];
     int vertexesStrLength = VertexesStr?.length ?? 0;
     for(int i = 0; i < vertexesStrLength; ++i)
     {
       for(int j = 0; j < building.vertexes.length; ++j)
       {
-        if(VertexesStr?[i] == building.vertexes[j].Title)
+        if(VertexesStr?[i] == building.vertexes[j].title)
         {
           vertexes.add(building.vertexes[j]);
           break;

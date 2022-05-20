@@ -30,7 +30,7 @@ class SelectRoomScreenState extends State<SelectRoomScreen> {
   _changeSelectedRoom(String text){
     setState(() => {
       if(isSource) {
-        PathInfo.setSource(getRoomByTitle((rooms), text))
+        PathInfo.setSource(getRoomByTitle(rooms, text))
       }
       else {
         PathInfo.setDestination(getRoomByTitle((rooms), text))
@@ -68,7 +68,7 @@ class SelectRoomScreenState extends State<SelectRoomScreen> {
               itemBuilder: (BuildContext, index){
                 return ListTile(
                   leading: Icon(Icons.room),
-                  title: Text(rooms[index].Title,
+                  title: Text(rooms[index].title,
                       style: const TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 30,
@@ -101,27 +101,24 @@ class SelectRoomScreenState extends State<SelectRoomScreen> {
 
   List<Room> getRoomsOfBuilding(Building building)
   {
-    var vertexes = building.vertexes.where((x) => x.Rooms != null).toList();
+    var vertexes = building.vertexes.where((x) => x.rooms != null).toList();
     var rooms = <Room>[];
     for(int i = 0; i < vertexes.length; ++i)
     {
-      var length = vertexes[i].Rooms?.length ?? 0;
+      var length = vertexes[i].rooms?.length ?? 0;
 
       for(int j = 0; j < length; ++j)
       {
-        rooms.add(vertexes[i].Rooms![j]);
+        rooms.add(vertexes[i].rooms![j]);
       }
     }
     return rooms;
   }
 
-
-
-
   Room? getRoomByTitle(List<Room> rooms, String title){
     for(int i = 0; i < rooms.length; ++i)
     {
-      if(title == rooms[i].Title)
+      if(title == rooms[i].title)
         {
           return rooms[i];
         }
