@@ -6,8 +6,8 @@ import 'dormitory_3/vertexes_dormitory_3.dart';
 
 List<Building> buildings = [
   Building("LNU Dormitory 3", 'assets/buildings/dormitory_3.jpg',
-      vertexesDormitory_3,
-      edgesDormitory_3),
+      vertexesDormitory_3
+      ),
 ];
 
 

@@ -103,7 +103,7 @@ class FindPathPageState extends State<FindPathPage> {
   }
   String getPath(Building building)
   {
-    BuildingNavigator client = BuildingNavigator(building.edges, building.vertexes);
+    BuildingNavigator client = BuildingNavigator(building.getEdges(), building.vertexes);
     var ListPath = client.GetPath(PathInfo.sourceVertexTitle, PathInfo.destinationVertexTitle);
     String path = '';
     int length = ListPath?.length ?? 0;
@@ -116,7 +116,7 @@ class FindPathPageState extends State<FindPathPage> {
   }
 
   void setPath(Building building){
-    BuildingNavigator client = BuildingNavigator(building.edges, building.vertexes);
+    BuildingNavigator client = BuildingNavigator(building.getEdges(), building.vertexes);
     var VertexesStr = client.GetPath(PathInfo.sourceVertexTitle, PathInfo.destinationVertexTitle);
     List<Vertex> vertexes = [];
     int vertexesStrLength = VertexesStr?.length ?? 0;

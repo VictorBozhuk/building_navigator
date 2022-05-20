@@ -56,8 +56,8 @@ var v714A = Vertex(t714A, imagePath: p714A,
     rooms: [ r714A ],
     vertexConnections: [
       VertexConnection(t714, p714, 12, 163, -18, 100, "assets/icons/point.png", 3),
-      VertexConnection(t701A, p701A, 2, -80, -13, 100, "assets/icons/point.png", 5),
-      VertexConnection(t708_710, p708_710, -2, 85, -8, 100, "assets/icons/point.png", 5)
+      VertexConnection(t701A, p701A, -2, -80, -13, 100, "assets/icons/point.png", 5),
+      VertexConnection(t708_710, p708_710, 2, 85, -8, 100, "assets/icons/point.png", 5)
     ]);
 
 var v714 = Vertex(t714, imagePath: p714,

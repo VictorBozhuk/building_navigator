@@ -17,7 +17,7 @@ class BuildingNavigator
 
     for(int i = 0; i < edges.length; ++i)
     {
-      graph.AddEdge(edges[i].vertex1.title, edges[i].vertex2.title, edges[i].length.toInt());
+      graph.AddEdge(edges[i].vertexTitle1, edges[i].vertexTitle2, edges[i].length.toInt());
     }
   }
 
