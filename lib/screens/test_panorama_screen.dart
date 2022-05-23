@@ -20,13 +20,10 @@ class PanoramaScreenState extends State<ParoramaScreenTest> {
   PanoramaScreenState({required this.panoramaImagePath, required this.nextVertexImagePath});
   final String panoramaImagePath;
   final String nextVertexImagePath;
-
   late double directionLongitude = 0;
-
   late double pointLongitude = 0;
   late double pointLatitude = 0;
   late List<Hotspot> hotspots = [];
-
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +41,9 @@ class PanoramaScreenState extends State<ParoramaScreenTest> {
         onViewChanged: ( longitude,  latitude,  tilt) {
           directionLongitude = longitude;
         },
-        longitude: directionLongitude,
+        longitude: PathInfo.building.getNextVertexDirection(panoramaImagePath, nextVertexImagePath),
         sensitivity: 2,
-        hotspots: hotspots,
+        hotspots: PathInfo.building.getHotspots(context, panoramaImagePath, nextVertexImagePath),
         child: Image.asset(panoramaImagePath),
 
       ),

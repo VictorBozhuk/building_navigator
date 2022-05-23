@@ -15,6 +15,9 @@ List<Vertex> vertexesDormitory_3 = [
   v711_713,
   v708_710,
   v701_707b,
+  v7,
+  v6_7,
+  v7_8,
 ];
 
 var v704_706 = Vertex(t704_706,imagePath: p704_706,
@@ -49,7 +52,9 @@ var v701A = Vertex(t701A, imagePath: p701A,
     rooms: [ r701A ],
     vertexConnections: [
       VertexConnection(t701_707, p701_707, -2, -86, -10, 100, "assets/icons/point.png", 5),
-      VertexConnection(t714A, p714A, 2, 92, -10, 100, "assets/icons/point.png", 5)
+      VertexConnection(t714A, p714A, 2, 92, -10, 100, "assets/icons/point.png", 5),
+      VertexConnection(t7, p7, 0, 10, -20, 160, "assets/icons/point.png", 5),
+
     ]);
 
 var v714A = Vertex(t714A, imagePath: p714A,
@@ -85,6 +90,24 @@ var v701_707b = Vertex(t701_707b, imagePath: p701_707b,
   VertexConnection(t701_703, p701_703, 0, -115, 10, 140, "assets/icons/open_door.png", 5),
 ]);
 
+var v7 = Vertex(t7, imagePath: p7,
+    vertexConnections: [
+      VertexConnection(t701A, p701A, 4, 190, -20, 140, "assets/icons/point.png", 5),
+      VertexConnection(t6_7, p6_7, 0, -5, -25, 120, "assets/icons/point.png", 5),
+      VertexConnection(t6_7, p6_7, 0, 15, 6, 120, "assets/icons/point.png", 5),
+    ]);
+
+var v6_7 = Vertex(t6_7, imagePath: p6_7,
+    vertexConnections: [
+      VertexConnection(t7, p7, 0, 20, 8, 120, "assets/icons/point.png", 5),
+      VertexConnection(t7, p7, 0, -5, -28, 120, "assets/icons/point.png", 5),
+    ]);
+
+var v7_8 = Vertex(t7_8, imagePath: p7_8,
+    vertexConnections: [
+      VertexConnection(t7, p7, 0, 40, 60, 70, "assets/icons/point.png", 5),
+    ]);
+
 const String p704_706 = "assets/dormitory_3/7/704-706.jpg";
 const String p707 = "assets/dormitory_3/7/707.jpg";
 const String p701_707 = "assets/dormitory_3/7/701-707.jpg";
@@ -95,6 +118,11 @@ const String p714 = "assets/dormitory_3/7/714.jpg";
 const String p711_713 = "assets/dormitory_3/7/711-713.jpg";
 const String p708_710 = "assets/dormitory_3/7/708-710.jpg";
 const String p701_707b = "assets/dormitory_3/7/701-707b.jpg";
+const String p7 = "assets/dormitory_3/7/7.jpg";
+const String p6_7 = "assets/dormitory_3/6-7.jpg";
+const String p7_8 = "assets/dormitory_3/6-7.jpg";
+
+
 
 const String t704_706 = "704-706";
 const String t707 = "707";
@@ -106,3 +134,9 @@ const String t714A = "714А";
 const String t714 = "714";
 const String t711_713 = "711-713";
 const String t708_710 = "708-710";
+const String t7 = "7";
+const String t6_7 = "6_7";
+const String t7_8 = "7_8";
+
+
+

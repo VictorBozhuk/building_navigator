@@ -1,7 +1,7 @@
 
 import 'package:building_navigator/models/vertex_model.dart';
 
-class Room {
+class Room extends Comparable<Room> {
   late String title;
   late String vertexTitle;
   late double? titleX;
@@ -16,4 +16,11 @@ class Room {
     titleY = y;
     this.direction = direction;
   }
+
+  @override
+  int compareTo(Room other) {
+    return title == other.title ? 1 : 0;
+  }
+
+
 }

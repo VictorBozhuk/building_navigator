@@ -2,6 +2,7 @@ import 'package:building_navigator/screens/find_path.dart';
 import 'package:building_navigator/screens/widgets/building_widgets.dart';
 import 'package:flutter/material.dart';
 
+import '../Style/images.dart';
 import '../algorithm/building_navigator.dart';
 import '../loader/dormitory_3/vertexes_dormitory_3.dart';
 import '../models/building_model.dart';
@@ -42,36 +43,59 @@ class SelectRoomScreenState extends State<SelectRoomScreen> {
     var rooms = getRoomsOfBuilding(building);
 
     return Scaffold(
-      appBar: getAppBar("All rooms"),
-      body: Column(
-        children: [
-          Container(
-            height: 60,
-            margin: EdgeInsets.all(10),
-            child: TextFormField(
-                controller: txtSelectedRoom,
-                decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    hintText: "Room",
-                    suffixIcon: IconButton(
-                      onPressed: () => txtSelectedRoom.clear(),
-                      icon: const Icon(Icons.clear),
-                      iconSize: 30,
-                    )
-                ),
-                style: const TextStyle(fontSize: 22),
-                onChanged: _changeSelectedRoom),
-          ),
-          Expanded(child:
+      appBar: getAppBar("Всі приміщення"),
+      body: Container(
+        decoration: BoxDecoration(
+          image: AppImages.backgroundImage,
+        ),
+        child:       Column(
+          children: [
+            Container(
+              height: 60,
+              margin: EdgeInsets.all(10),
+              child: TextFormField(
+                  controller: txtSelectedRoom,
+                  decoration: InputDecoration(
+                      hoverColor: Colors.white,
+                      fillColor: Colors.white,
+                      focusColor: Colors.white,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                          width: 2.0,
+                        ),
+                      ),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                      hintStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
+                      hintText: "Приміщення",
+                      suffixIcon: IconButton(
+                        onPressed: () => txtSelectedRoom.clear(),
+                        icon: const Icon(Icons.clear, color: Colors.white,),
+                        iconSize: 40,
+                      )
+                  ),
+                  style: const TextStyle(fontSize: 22, color: Colors.white),
+
+                  onChanged: _changeSelectedRoom),
+            ),
+            Expanded(child:
             ListView.separated(
 
               itemBuilder: (BuildContext, index){
                 return ListTile(
-                  leading: Icon(Icons.room),
+                  leading: Icon(Icons.room, color: Colors.white,),
                   title: Text(rooms[index].title,
                       style: const TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 30,
+                          color: Colors.white,
                           fontWeight: FontWeight.w600)),
                   onTap: () => {
                     if(isSource) {
@@ -93,16 +117,19 @@ class SelectRoomScreenState extends State<SelectRoomScreen> {
               padding: EdgeInsets.all(5),
               scrollDirection: Axis.vertical,
             ),
-          )
-        ],
+            )
+          ],
+        ),
       )
+
+
     );
   }
 
   List<Room> getRoomsOfBuilding(Building building)
   {
     var vertexes = building.vertexes.where((x) => x.rooms != null).toList();
-    var rooms = <Room>[];
+    List<Room> rooms = <Room>[];
     for(int i = 0; i < vertexes.length; ++i)
     {
       var length = vertexes[i].rooms?.length ?? 0;
@@ -112,6 +139,7 @@ class SelectRoomScreenState extends State<SelectRoomScreen> {
         rooms.add(vertexes[i].rooms![j]);
       }
     }
+    rooms.sort((a, b) => a.title.compareTo(b.title));
     return rooms;
   }
 

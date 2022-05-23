@@ -3,6 +3,7 @@ import 'package:building_navigator/screens/select_room.dart';
 import 'package:building_navigator/screens/widgets/building_widgets.dart';
 import 'package:flutter/material.dart';
 
+import '../Style/images.dart';
 import '../algorithm/building_navigator.dart';
 import '../models/building_model.dart';
 import '../models/path_model.dart';
@@ -34,71 +35,112 @@ class FindPathPageState extends State<FindPathPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar('Find route'),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            height: 60,
-            margin: EdgeInsets.all(10),
-            child: TextFormField(
-                controller: txtSource,
-                decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    hintText: "Source room",
-                    suffixIcon: IconButton(
-                      onPressed: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => SelectRoomScreen(building: building, isSource: true, func: () =>
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => FindPathPage(building: building))),))),
-                      icon: const Icon(Icons.add),
-                      iconSize: 40,
-                    )
-                ),
-                style: const TextStyle(fontSize: 22),
+      appBar: getAppBar('Пошук приміщення'),
+      body: Container(
+        decoration: BoxDecoration(
+          image: AppImages.backgroundImage,
+        ),
+        child:       Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 60,
+              margin: EdgeInsets.all(10),
+              child: TextFormField(
+                  controller: txtSource,
+                  decoration: InputDecoration(
+                    hoverColor: Colors.white,
+                      fillColor: Colors.white,
+                      focusColor: Colors.white,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                          width: 2.0,
+                        ),
+                      ),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                      hintStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
+                      hintText: "Поточне розташування",
+                      suffixIcon: IconButton(
+                        onPressed: () => Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => SelectRoomScreen(building: building, isSource: true, func: () =>
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) => FindPathPage(building: building))),))),
+                        icon: const Icon(Icons.add, color: Colors.white,),
+                        iconSize: 40,
+                      )
+                  ),
+                  style: const TextStyle(fontSize: 22, color: Colors.white),
 
-                onChanged: _changeSource),
-          ),
-          Container(
-            height: 60,
-            margin: EdgeInsets.all(10),
-            child: TextFormField(
-                controller: txtDestination,
-                decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    hintText: "Destination room",
-                    suffixIcon: IconButton(
-                      onPressed: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => SelectRoomScreen(building: building, isSource: false, func: () =>
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) => FindPathPage(building: building)))))),
-                      icon: const Icon(Icons.add),
-                      iconSize: 40,
-                    )
-                ),
-                style: const TextStyle(fontSize: 22),
+                  onChanged: _changeSource),
+            ),
+            Container(
+              height: 60,
+              margin: EdgeInsets.all(10),
+              child: TextFormField(
+                  controller: txtDestination,
+                  decoration: InputDecoration(
+                      hoverColor: Colors.white,
+                      fillColor: Colors.white,
+                      focusColor: Colors.white,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                          width: 2.0,
+                        ),
+                      ),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                      hintStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
+                      hintText: "Призначення",
+                      suffixIcon: IconButton(
+                        onPressed: () => Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => SelectRoomScreen(building: building, isSource: false, func: () =>
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) => FindPathPage(building: building)))))),
+                        icon: const Icon(Icons.add, color: Colors.white,),
+                        iconSize: 40,
+                      )
+                  ),
+                  style: const TextStyle(fontSize: 22, color: Colors.white),
 
-                onChanged: _changeDestinaton),
-          ),
-          Container(
-              height: 50,
-              width: MediaQuery.of(context).size.width - 20,
-              margin: EdgeInsets.only(top: 10),
-              child: ElevatedButton(
-                child: const Text('Start route', style: TextStyle(
-                  fontSize: 22,
-                )),
-                onPressed: () {
-                  setPath(building);
-                  Navigator.push(context,
-                  MaterialPageRoute(builder: (context) =>
-                  PanoramaScreen(
-                  panoramaImagePath: PathInfo.currentVertex.getImagePath(),
-                  nextVertexImagePath: PathInfo.nextVertexImagePath)));
-                },
-              )
-          ),
-      ],),
+                  onChanged: _changeDestinaton),
+            ),
+            Container(
+                height: 50,
+                width: MediaQuery.of(context).size.width - 20,
+                margin: EdgeInsets.only(top: 10),
+                child: ElevatedButton(
+                  child: const Text('Почати шлях', style: TextStyle(
+                    fontSize: 22,
+                  )),
+                  onPressed: () {
+                    setPath(building);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) =>
+                            PanoramaScreen(
+                                panoramaImagePath: PathInfo.currentVertex.getImagePath(),
+                                nextVertexImagePath: PathInfo.nextVertexImagePath)));
+                  },
+                )
+            ),
+          ],),
+      )
+
+
     );
   }
   String getPath(Building building)

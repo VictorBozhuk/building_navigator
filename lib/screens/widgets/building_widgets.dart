@@ -29,7 +29,7 @@ class ProfileItemButton extends StatelessWidget {
               children: [ Text(title,
                         textAlign: TextAlign.left,
                         style: const TextStyle(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontFamily: 'Poppins',
                             fontSize: 20,
                             overflow: TextOverflow.ellipsis,
@@ -44,7 +44,7 @@ class ProfileItemButton extends StatelessWidget {
           elevation: 0.0,
           shadowColor: Colors.transparent,
           fixedSize: const Size.fromHeight(48),
-          primary: Colors.black.withOpacity(0.1),
+          primary: Colors.indigo.withOpacity(0.5),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),

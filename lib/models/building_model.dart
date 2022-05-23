@@ -49,10 +49,11 @@ class Building {
             room?.titleX ?? 0,
             room?.titleY ?? 0,));
         }
-        if(isTitleAPathOfVertex(nextVertexImagePath) == false){
+        /*
+        if(isTitleAPathOfVertex(nextVertexImagePath) == true){
           return hotspots;
         }
-
+*/
         int vertexConnectionLength = vertexes[i].vertexConnections?.length ?? 0;
         for(int j = 0; j < vertexConnectionLength; ++ j){
           var nextVertex = vertexes[i].vertexConnections?[j];

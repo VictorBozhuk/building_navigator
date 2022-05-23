@@ -1,7 +1,9 @@
 import 'package:building_navigator/screens/splash_screen.dart';
+import 'package:building_navigator/screens/test_panorama_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'loader/dormitory_3/vertexes_dormitory_3.dart';
 import 'loader/loader.dart';
 import 'models/path_model.dart';
 
@@ -35,7 +37,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+/*
   void initFirebase() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
@@ -47,13 +49,15 @@ class _MyHomePageState extends State<MyHomePage> {
     initFirebase();
     //FirebaseFirestore.instance.collection('buildings').add({'building': buildings[0]});
   }
-
+*/
   @override
   Widget build(BuildContext context) {
     PathInfo.building = buildings[0];
 
-    return Scaffold(
-      body: Splash()
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Splash()
+        //home: ParoramaScreenTest(panoramaImagePath: v6_7.imagePath ?? '', nextVertexImagePath: '',)
 
 
 /*
