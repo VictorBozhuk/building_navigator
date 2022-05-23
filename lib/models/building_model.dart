@@ -5,11 +5,12 @@ import 'edge_model.dart';
 import 'package:flutter/material.dart';
 
 class Building {
+  late String uid;
   late String title;
   late List<Vertex> vertexes;
   late String imagePath;
 
-  Building(this.title, this.imagePath, this.vertexes);
+  Building(this.uid, this.title, this.imagePath, this.vertexes);
 
   double getNextVertexDirection(String currentVertexImagePath, String nextVertexImagePath)
   {
@@ -106,4 +107,18 @@ class Building {
     return false;
   }
 
+
+  Map<String, dynamic> toMap(){
+    return {
+      "title": title,
+      "imagePath": imagePath,
+      "vertexes": vertexes.map((w) => w.toMap()).toList(),
+    };
+  }
+
+  Building copy(){
+    var copiedVertexes = vertexes.map((w) => w.copy()).toList();
+
+    return Building(uid, title, imagePath, vertexes);
+  }
 }

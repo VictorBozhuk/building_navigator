@@ -24,6 +24,7 @@ dependencies:
   panorama: ^0.4.1
   splashscreen: ^1.3.5
   provider: ^6.0.3
+  uuid: 3.0.6
 
 dev_dependencies:
   flutter_test:

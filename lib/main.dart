@@ -1,14 +1,24 @@
 import 'package:building_navigator/screens/splash_screen.dart';
 import 'package:building_navigator/screens/test_panorama_screen.dart';
+import 'package:building_navigator/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'loader/dormitory_3/vertexes_dormitory_3.dart';
 import 'loader/loader.dart';
 import 'models/path_model.dart';
+//import 'firebase_options.dart';
 
-void main() {
+void main()  {
+  initFirebase();
+
   runApp(const MyApp());
+}
+
+void initFirebase() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  DatabaseService().addOrUpdateBuilding(buildings[0]);
 }
 
 class MyApp extends StatelessWidget {
@@ -37,19 +47,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-/*
-  void initFirebase() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
-  }
 
-  @override
-  void initState() {
-    super.initState();
-    initFirebase();
-    //FirebaseFirestore.instance.collection('buildings').add({'building': buildings[0]});
-  }
-*/
+
+
   @override
   Widget build(BuildContext context) {
     PathInfo.building = buildings[0];

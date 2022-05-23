@@ -12,4 +12,20 @@ class Vertex {
   String getImagePath() {
     return imagePath ?? '';
   }
+
+  Vertex copy(){
+    var copiedRooms = rooms?.map((w) => w.copy()).toList();
+    var copiedVertexConnections = vertexConnections?.map((w) => w.copy()).toList();
+
+    return Vertex(title, rooms: copiedRooms, vertexConnections: copiedVertexConnections, imagePath:  imagePath);
+  }
+
+  Map<String, dynamic> toMap(){
+    return {
+      "title": title,
+      "imagePath": imagePath,
+      "vertexConnections": vertexConnections?.map((w) => w.toMap()).toList(),
+      "rooms": rooms?.map((w) => w.toMap()).toList()
+    };
+  }
 }
