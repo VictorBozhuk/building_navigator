@@ -1,5 +1,5 @@
 import 'package:building_navigator/screens/splash_screen.dart';
-import 'package:building_navigator/screens/test_panorama_screen.dart';
+import 'package:building_navigator/screens/admin_panorama_screen.dart';
 import 'package:building_navigator/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';

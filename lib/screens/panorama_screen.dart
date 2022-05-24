@@ -1,4 +1,5 @@
 import 'package:building_navigator/screens/widgets/drawer/navigation_drawer.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,8 @@ class PanoramaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       drawer: const NavigationDrawer(),
       body:
@@ -20,7 +23,7 @@ class PanoramaScreen extends StatelessWidget {
         longitude:  PathInfo.building.getNextVertexDirection(panoramaImagePath, nextVertexImagePath),
         sensitivity: 2,
         hotspots: PathInfo.building.getHotspots(context, panoramaImagePath, nextVertexImagePath),
-        child: Image.network(panoramaImagePath),
+        child: Image.network(panoramaImagePath)
 
       ),
     );

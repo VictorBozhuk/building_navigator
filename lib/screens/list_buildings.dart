@@ -10,7 +10,6 @@ import '../services/database.dart';
 import 'building.dart';
 
 class ListBuildingsPage extends StatelessWidget{
-
   @override
   Widget build(BuildContext context) {
     double _screenHeight = MediaQuery.of(context).size.height;

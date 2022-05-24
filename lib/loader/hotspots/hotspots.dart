@@ -60,7 +60,9 @@ Hotspot getHotspotPoint(double x, double y, double size,
           ),
         ),
         onPressed: () => {
-          PathInfo.move(nextImagePath),
+          if(nextImagePath.isEmpty == false){
+            PathInfo.move(nextImagePath),
+          },
           Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) =>

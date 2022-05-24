@@ -56,7 +56,7 @@ class Building {
         }
 */
         int vertexConnectionLength = vertexes[i].vertexConnections?.length ?? 0;
-        for(int j = 0; j < vertexConnectionLength; ++ j){
+        for(int j = 0; j < vertexConnectionLength; ++j){
           var nextVertex = vertexes[i].vertexConnections?[j];
           hotspots.add(getHotspotPoint(
             nextVertex?.iconX ?? 0,
