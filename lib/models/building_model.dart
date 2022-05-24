@@ -65,7 +65,8 @@ class Building {
             context,
             nextVertex?.vertexImagePath ?? '',
             nextVertexImagePath,
-            nextVertex?.iconPath ?? '',));
+            nextVertex?.iconPath ?? '',
+              ));
         }
       }
     }
@@ -116,9 +117,20 @@ class Building {
     };
   }
 
+  Building.fromJson(String uid, Map<String, dynamic> data) {
+    this.uid = uid;
+    title = data['title'];
+    imagePath = data['imagePath'];
+    if(data['vertexes'] == null){
+      vertexes = [];
+    } else{
+      vertexes = (data['vertexes'] as List).map((w) => Vertex.fromJson(w)).toList();
+    }
+  }
+
   Building copy(){
     var copiedVertexes = vertexes.map((w) => w.copy()).toList();
 
-    return Building(uid, title, imagePath, vertexes);
+    return Building(uid, title, imagePath, copiedVertexes);
   }
 }

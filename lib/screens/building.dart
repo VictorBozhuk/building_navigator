@@ -1,6 +1,7 @@
 import 'package:building_navigator/screens/panorama_screen.dart';
 import 'package:building_navigator/screens/select_room.dart';
 import 'package:building_navigator/screens/widgets/building_widgets.dart';
+import 'package:building_navigator/services/database.dart';
 import 'package:flutter/material.dart';
 import '../Style/images.dart';
 import '../models/building_model.dart';
@@ -12,8 +13,15 @@ class BuildingPage extends StatelessWidget {
 
   const BuildingPage({Key? key, required this.building});
 
+  void loadAllImages() async {
+    for(int i = 0 ; i < building.vertexes.length; ++i){
+      building.vertexes[i].loadImage();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    loadAllImages();
     return Scaffold(
       appBar: getAppBar(building.title),
       body: Container(
@@ -54,7 +62,8 @@ class BuildingPage extends StatelessWidget {
                     MaterialPageRoute(builder:
                         (context) => SelectRoomScreen(building: building, isSource: true, func: () =>
                         Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => PanoramaScreen(panoramaImagePath: PathInfo.getVertexImagePath(), nextVertexImagePath: "",))),)))}),
+                            MaterialPageRoute(builder: (context) =>
+                                PanoramaScreen(panoramaImagePath: PathInfo.getVertexImagePath(), nextVertexImagePath: "",))),)))}),
           ],
         ),
       )

@@ -3,7 +3,9 @@ import 'package:uuid/uuid.dart';
 import '../models/building_model.dart';
 import 'dormitory_3/vertexes_dormitory_3.dart';
 
-List<Building> buildings = [
+List<Building> buildings = [];
+/*
+[
   Building(const Uuid().v1(), "LNU Dormitory 3", 'assets/buildings/dormitory_3.jpg',
       vertexesDormitory_3
       ),
@@ -14,7 +16,7 @@ List<Building> buildings = [
       vertexesDormitory_3
   )
 ];
-
+*/
 
 
 

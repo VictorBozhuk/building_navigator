@@ -43,7 +43,7 @@ class PanoramaScreenState extends State<ParoramaScreenTest> {
         },
         longitude: PathInfo.building.getNextVertexDirection(panoramaImagePath, nextVertexImagePath),
         sensitivity: 2,
-        hotspots: PathInfo.building.getHotspots(context, panoramaImagePath, nextVertexImagePath),
+        //hotspots: PathInfo.building.getHotspots(context, panoramaImagePath, nextVertexImagePath),
         child: Image.asset(panoramaImagePath),
 
       ),

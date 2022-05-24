@@ -14,8 +14,7 @@ class VertexConnection {
 
   VertexConnection(this.uid, this.vertexTitle, this.vertexImagePath, this.direction, this.iconX, this.iconY, this.iconSize, this.iconPath, this.length);
 
-  VertexConnection.fromJson(String uid, Map<String, dynamic> data) {
-    uid = uid;
+  VertexConnection.fromJson(Map<String, dynamic> data) {
     vertexImagePath = data['vertexImagePath'];
     vertexTitle = data['vertexTitle'];
     direction = data['direction'];

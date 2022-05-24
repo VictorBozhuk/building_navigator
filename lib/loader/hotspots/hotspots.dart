@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:panorama/panorama.dart';
 
 import '../../models/path_model.dart';
+import '../../models/vertex_model.dart';
 import '../../screens/panorama_screen.dart';
 
 Hotspot getHotspotTitleRoom(String title, double x, double y)
@@ -78,7 +79,7 @@ Hotspot getHotspotPoint(double x, double y, double size,
 }
 
 Hotspot getHotspotOpenDoor(double x, double y, double angle, double size,
-    BuildContext context, String imagePath, String nextVertexImagePath)
+    BuildContext context, String imagePath, String nextVertexImagePath, Vertex currentVertex)
 {
   return Hotspot(
       height: size,
@@ -98,7 +99,8 @@ Hotspot getHotspotOpenDoor(double x, double y, double angle, double size,
         onPressed: () => {Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) =>
-              PanoramaScreen(panoramaImagePath: imagePath,
+              PanoramaScreen(
+                  panoramaImagePath: imagePath,
                   nextVertexImagePath: nextVertexImagePath)),
         )},
         child: RotationTransition(

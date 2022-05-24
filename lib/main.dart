@@ -18,7 +18,7 @@ void main()  {
 void initFirebase() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  DatabaseService().addOrUpdateBuilding(buildings[0]);
+  //DatabaseService().addOrUpdateBuilding(buildings[0]);
 }
 
 class MyApp extends StatelessWidget {
@@ -52,7 +52,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    PathInfo.building = buildings[0];
+
+    //PathInfo.building = buildings[0];
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
