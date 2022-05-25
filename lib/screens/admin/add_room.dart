@@ -33,7 +33,7 @@ class AddRoomScreenState extends State<AddRoomScreen> {
 
   TextEditingController txtTitle = TextEditingController(text: AdminInfo.room.title);
   TextEditingController txtX = TextEditingController(text: AdminInfo.room.titleX.toString());
-  TextEditingController txtY = TextEditingController(text: AdminInfo.room.titleX.toString());
+  TextEditingController txtY = TextEditingController(text: AdminInfo.room.titleY.toString());
   TextEditingController txtDirection = TextEditingController(text: AdminInfo.room.direction.toString());
 
   _changeTitle(String text){
@@ -56,7 +56,7 @@ class AddRoomScreenState extends State<AddRoomScreen> {
     double _screenHeight = MediaQuery.of(context).size.height;
     double _screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-        appBar: getAppBar('Редагування вершини'),
+        appBar: getAppBar('Приміщення'),
         body: Container(
           height: _screenHeight,
           width: _screenWidth,
@@ -111,7 +111,7 @@ class AddRoomScreenState extends State<AddRoomScreen> {
                   width: MediaQuery.of(context).size.width - 20,
                   margin: EdgeInsets.only(top: 10),
                   child: ElevatedButton(
-                    child: const Text('Визначити на фото', style: TextStyle(
+                    child: const Text('Відзначити координати', style: TextStyle(
                       fontSize: 22,
                     )),
                     onPressed: () {

@@ -69,7 +69,7 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBar('Редагування вершини'),
+        appBar: getAppBar('Вершина сусід'),
         body: Container(
           decoration: BoxDecoration(
             image: AppImages.backgroundImage,
@@ -152,7 +152,7 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
                   width: MediaQuery.of(context).size.width - 20,
                   margin: EdgeInsets.only(top: 10),
                   child: ElevatedButton(
-                    child: const Text('Вказати на фото', style: TextStyle(
+                    child: const Text('Відзначити координати', style: TextStyle(
                       fontSize: 22,
                     )),
                     onPressed: () {
