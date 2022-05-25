@@ -62,7 +62,7 @@ class ListBuildingsAdminScreen extends StatelessWidget{
                                             borderRadius: const BorderRadius.only(
                                                 topLeft: Radius.circular(10),
                                                 topRight: Radius.circular(10)),
-                                            child: Image(fit: BoxFit.fitWidth, image: AssetImage(building.imagePath)),)
+                                            child: Image(fit: BoxFit.fitWidth, image: NetworkImage(building.imagePath)),)
                                       ),
                                       Container(
                                           decoration: const BoxDecoration(
@@ -84,10 +84,11 @@ class ListBuildingsAdminScreen extends StatelessWidget{
                           ),
                           onTap: () =>
                           {
-                            PathInfo.building = building,
+                            AdminInfo.clearBuilding(),
+                            AdminInfo.building = building,
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => BuildingPage(building: building)))},
+                                MaterialPageRoute(builder: (context) => AddBuildingScreen()))},
                         );
                       },
                       itemCount:  snapshot.data?.docs.length ?? 0,

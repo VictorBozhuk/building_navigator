@@ -30,7 +30,7 @@ class ListVertexConnectionsScreenState extends State<ListVertexConnectionsScreen
           AdminInfo.clearConnection(),
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AddVertexConnectionScreen(vertex: vertex)))
+              MaterialPageRoute(builder: (context) => AddVertexConnectionScreen(vertex: vertex, isCreate: true, index: 0,)))
         }),
         body: Container(
           decoration: BoxDecoration(
@@ -50,7 +50,11 @@ class ListVertexConnectionsScreenState extends State<ListVertexConnectionsScreen
                             color: Colors.white,
                             fontWeight: FontWeight.w600)),
                     onTap: () => {
-
+                      AdminInfo.clearConnection(),
+                      AdminInfo.connection = vertex.vertexConnections![index],
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => AddVertexConnectionScreen(vertex: vertex, isCreate: false, index: index,))),
                     },
                   );
                 },

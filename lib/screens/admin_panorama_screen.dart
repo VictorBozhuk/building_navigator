@@ -8,24 +8,27 @@ import '../models/admin_info.dart';
 import '../models/path_model.dart';
 
 class AdminParoramaScreen extends StatefulWidget{
-  AdminParoramaScreen({Key? key, required this.panoramaImagePath, required this.isRoom, required this.widget}) : super(key: key);
+  AdminParoramaScreen({Key? key, required this.panoramaImagePath, required this.isRoom, required this.widget, required this.isCreate, required this.index}) : super(key: key);
   final String panoramaImagePath;
   final Widget widget;
   final bool isRoom;
-
+  final bool isCreate;
+  final int index;
 
   @override
   State<StatefulWidget> createState() =>
       AdminParoramaScreenState(panoramaImagePath: panoramaImagePath, isRoom: isRoom,
-          currentWidget: widget);
+          currentWidget: widget,  isCreate: isCreate, index: index);
 }
 
 
 class AdminParoramaScreenState extends State<AdminParoramaScreen> {
-  AdminParoramaScreenState({required this.panoramaImagePath, required this.isRoom, required this.currentWidget});
+  AdminParoramaScreenState({required this.panoramaImagePath, required this.isRoom, required this.currentWidget, required this.isCreate, required this.index});
   final String panoramaImagePath;
   final Widget currentWidget;
   final bool isRoom;
+  final bool isCreate;
+  final int index;
   late List<Hotspot> hotspots = [];
 
   @override
@@ -59,12 +62,12 @@ class AdminParoramaScreenState extends State<AdminParoramaScreen> {
             if(isRoom == true){
               AdminInfo.setRoomCoordinates();
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-                  AddRoomScreen(vertex: AdminInfo.vertex)));
+                  AddRoomScreen(vertex: AdminInfo.vertex, isCreate: isCreate, index: index,)));
             }
             else{
               AdminInfo.setConnectionCoordinates();
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-                  AddVertexConnectionScreen(vertex: AdminInfo.vertex)));
+                  AddVertexConnectionScreen(vertex: AdminInfo.vertex, isCreate: isCreate, index: index)));
             }
           });
         },

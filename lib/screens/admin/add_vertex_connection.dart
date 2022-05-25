@@ -14,25 +14,30 @@ import 'list_vertexes.dart';
 
 class AddVertexConnectionScreen extends StatefulWidget{
 
-  AddVertexConnectionScreen({Key? key, required this.vertex});
+  AddVertexConnectionScreen({Key? key, required this.vertex, required this.isCreate, required this.index}){
+    AdminInfo.size = AdminInfo.connection.iconSize;
+  }
 
   final Vertex vertex;
+  final bool isCreate;
+  final int index;
   @override
-  State<StatefulWidget> createState() => AddVertexConnectionScreenState(vertex: vertex);
+  State<StatefulWidget> createState() => AddVertexConnectionScreenState(vertex: vertex,  isCreate: isCreate, index: index);
 }
 
 class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
 
   final Vertex vertex;
-
-  AddVertexConnectionScreenState({Key? key, required this.vertex});
+  final bool isCreate;
+  final int index;
+  AddVertexConnectionScreenState({Key? key, required this.vertex, required this.isCreate, required this.index});
 
   TextEditingController txtTitle = TextEditingController(text: AdminInfo.connection.vertexTitle);
   TextEditingController txtImagePath = TextEditingController(text: AdminInfo.connection.vertexImagePath);
   TextEditingController txtX = TextEditingController(text: AdminInfo.connection.iconX.toString());
   TextEditingController txtY = TextEditingController(text: AdminInfo.connection.iconY.toString());
   TextEditingController txtDirection = TextEditingController(text: AdminInfo.connection.direction.toString());
-  TextEditingController txtIconSize = TextEditingController(text: AdminInfo.size.toString());
+  TextEditingController txtIconSize = TextEditingController(text: AdminInfo.connection.iconSize.toString());
   TextEditingController txtIconPath = TextEditingController(text: AdminInfo.connection.iconPath.toString());
   TextEditingController txtLength = TextEditingController(text: AdminInfo.connection.length.toString());
 
@@ -53,7 +58,9 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
     setState(() => AdminInfo.connection.vertexImagePath = text);
   }
   _changeIconSize(String text){
-    setState(() => AdminInfo.size = double.parse(text));
+    setState(() => {
+      AdminInfo.connection.iconSize = double.parse(text),
+      AdminInfo.size = double.parse(text)});
   }
   _changeLength(String text){
     setState(() => AdminInfo.connection.length = double.parse(text));
@@ -152,7 +159,7 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) =>
                               AdminParoramaScreen(panoramaImagePath: vertex.imagePath ?? '', isRoom: false,
-                                  widget: Image.asset('assets/icons/point.png'))
+                                  widget: Image.asset('assets/icons/point.png'), isCreate: isCreate, index: index,)
                           ));
                     },
                   )
@@ -166,7 +173,12 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
                       fontSize: 22,
                     )),
                     onPressed: () {
-                      AdminInfo.vertex.vertexConnections?.add(AdminInfo.connection);
+                      if(isCreate == true){
+                        AdminInfo.vertex.vertexConnections?.add(AdminInfo.connection);
+                      }
+                      else{
+                        AdminInfo.vertex.vertexConnections![index] = AdminInfo.connection;
+                      }
                       Navigator.pop(context);
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
                           ListVertexConnectionsScreen(vertex: AdminInfo.vertex)));

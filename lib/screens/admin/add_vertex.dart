@@ -12,16 +12,19 @@ import 'list_vertexes.dart';
 
 class AddVertexScreen extends StatefulWidget{
 
-  AddVertexScreen({Key? key});
-
+  AddVertexScreen({Key? key, required this.isCreate, required this.index});
+  final bool isCreate;
+  final int index;
   @override
-  State<StatefulWidget> createState() => AddVertexScreenState();
+  State<StatefulWidget> createState() => AddVertexScreenState(isCreate: isCreate, index: index);
 }
 
 class AddVertexScreenState extends State<AddVertexScreen> {
 
 
-  AddVertexScreenState({Key? key});
+  AddVertexScreenState({Key? key, required this.isCreate, required this.index});
+  final bool isCreate;
+  final int index;
 
   TextEditingController txtTitle = TextEditingController(text: AdminInfo.vertex.title);
   TextEditingController txtImagePath = TextEditingController(text: AdminInfo.vertex.imagePath);
@@ -54,7 +57,6 @@ class AddVertexScreenState extends State<AddVertexScreen> {
                     controller: txtTitle,
                     decoration: getTextFieldDecoration("Назва"),
                     style: const TextStyle(fontSize: 22, color: Colors.white),
-
                     onChanged: _changeTitle),
               ),
               Container(
@@ -108,7 +110,12 @@ class AddVertexScreenState extends State<AddVertexScreen> {
                       fontSize: 22,
                     )),
                     onPressed: () {
-                      AdminInfo.building.vertexes.add(AdminInfo.vertex);
+                      if(isCreate == true){
+                        AdminInfo.building.vertexes.add(AdminInfo.vertex);
+                      }
+                      else{
+                        AdminInfo.building.vertexes[index] = AdminInfo.vertex;
+                      }
                       Navigator.pop(context);
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) =>

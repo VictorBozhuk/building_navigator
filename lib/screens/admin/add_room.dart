@@ -13,18 +13,23 @@ import 'list_vertexes.dart';
 
 class AddRoomScreen extends StatefulWidget{
 
-  AddRoomScreen({Key? key, required this.vertex});
+  AddRoomScreen({Key? key, required this.vertex, required this.isCreate, required this.index}){
+    AdminInfo.setSize(AdminInfo.room.title);
+  }
 
   final Vertex vertex;
+  final bool isCreate;
+  final int index;
   @override
-  State<StatefulWidget> createState() => AddRoomScreenState(vertex: vertex);
+  State<StatefulWidget> createState() => AddRoomScreenState(vertex: vertex,  isCreate: isCreate, index: index);
 }
 
 class AddRoomScreenState extends State<AddRoomScreen> {
 
   final Vertex vertex;
-
-  AddRoomScreenState({Key? key, required this.vertex});
+  final bool isCreate;
+  final int index;
+  AddRoomScreenState({Key? key, required this.vertex, required this.isCreate, required this.index});
 
   TextEditingController txtTitle = TextEditingController(text: AdminInfo.room.title);
   TextEditingController txtX = TextEditingController(text: AdminInfo.room.titleX.toString());
@@ -33,28 +38,32 @@ class AddRoomScreenState extends State<AddRoomScreen> {
 
   _changeTitle(String text){
     setState(() => {
-      AdminInfo.size = text.length * 1.5,
+      AdminInfo.setSize(text),
       AdminInfo.room.title = text});
   }
   _changeX(String text){
-    setState(() => AdminInfo.room.titleX = text as double);
+    setState(() => AdminInfo.room.titleX = double.parse(text));
   }
   _changeY(String text){
-    setState(() => AdminInfo.room.titleY = text as double);
+    setState(() => AdminInfo.room.titleY = double.parse(text));
   }
   _changeDirection(String text){
-    setState(() => AdminInfo.room.direction = text as double);
+    setState(() => AdminInfo.room.direction = double.parse(text));
   }
 
   @override
   Widget build(BuildContext context) {
+    double _screenHeight = MediaQuery.of(context).size.height;
+    double _screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: getAppBar('Редагування вершини'),
         body: Container(
+          height: _screenHeight,
+          width: _screenWidth,
           decoration: BoxDecoration(
             image: AppImages.backgroundImage,
           ),
-          child:       Column(
+          child: SingleChildScrollView(child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
@@ -114,7 +123,7 @@ class AddRoomScreenState extends State<AddRoomScreen> {
                                     color: Colors.red,
                                     fontFamily: 'Poppins',
                                     fontSize: 40,
-                                    fontWeight: FontWeight.w700)))
+                                    fontWeight: FontWeight.w700)), isCreate: isCreate, index: index,)
                           ));
                     },
                   )
@@ -128,14 +137,19 @@ class AddRoomScreenState extends State<AddRoomScreen> {
                       fontSize: 22,
                     )),
                     onPressed: () {
-                      AdminInfo.vertex.rooms?.add(AdminInfo.room);
+                      if(isCreate == true){
+                        AdminInfo.vertex.rooms?.add(AdminInfo.room);
+                      }
+                      else{
+                        AdminInfo.vertex.rooms![index] = AdminInfo.room;
+                      }
                       Navigator.pop(context);
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
                           ListRoomsScreen(vertex: AdminInfo.vertex)));
                     },
                   )
               ),
-            ],),
+            ],),)
         )
     );
   }

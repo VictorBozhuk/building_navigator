@@ -61,4 +61,8 @@ class AdminInfo{
       building.uid = const Uuid().v1();
     }
   }
+
+  static setSize(String text){
+    AdminInfo.size = text.length * 30;
+  }
 }

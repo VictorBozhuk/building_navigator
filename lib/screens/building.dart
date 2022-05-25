@@ -44,7 +44,7 @@ class BuildingPage extends StatelessWidget {
                         bottomLeft: Radius.circular(25),
                         bottomRight: Radius.circular(25)),
                     child: Image(fit: BoxFit.fitWidth,
-                        image: AssetImage(building.imagePath)))),
+                        image: NetworkImage(building.imagePath)))),
             ProfileItemButton(
                 title: 'Пошук приміщення',
                 icon: const Icon(Icons.arrow_forward, color: Colors.white, size: 30),

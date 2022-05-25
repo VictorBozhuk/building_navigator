@@ -58,7 +58,7 @@ class ListBuildingsPage extends StatelessWidget{
                                           borderRadius: const BorderRadius.only(
                                               topLeft: Radius.circular(10),
                                               topRight: Radius.circular(10)),
-                                          child: Image(fit: BoxFit.fitWidth, image: AssetImage(building.imagePath)),)
+                                          child: Image(fit: BoxFit.fitWidth, image: NetworkImage(building.imagePath)),)
                                     ),
                                     Container(
                                         decoration: const BoxDecoration(
