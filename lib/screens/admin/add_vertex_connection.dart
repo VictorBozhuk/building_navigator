@@ -174,6 +174,9 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
                     )),
                     onPressed: () {
                       if(isCreate == true){
+                        if(AdminInfo.vertex.vertexConnections == null){
+                          AdminInfo.vertex.vertexConnections = [];
+                        }
                         AdminInfo.vertex.vertexConnections?.add(AdminInfo.connection);
                       }
                       else{

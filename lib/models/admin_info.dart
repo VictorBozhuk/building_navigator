@@ -31,7 +31,7 @@ class AdminInfo{
 
   static void clearVertex(){
     clear();
-    vertex = Vertex('', '');
+    vertex = Vertex('', '', rooms: [], vertexConnections: []);
   }
 
   static void clearRoom(){

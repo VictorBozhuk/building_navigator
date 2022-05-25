@@ -23,11 +23,26 @@ class NavigationDrawer extends StatelessWidget {
   );
 
   Widget buildHeader(BuildContext context) => Container(
-    color: Colors.blue.shade700,
-    height: 100,
+    height: 200,
+    decoration: BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage("assets/DrawerLogo.jpg"),
+        fit: BoxFit.cover,
+      ),
+    ),
     padding: EdgeInsets.only(
       top: MediaQuery.of(context).padding.top,
     ),
+    child:        Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+        Image(
+          height: 130,
+          width: 130,
+          color: Colors.white.withOpacity(0.8),
+          image: AssetImage("assets/NB.png"),
+          fit: BoxFit.cover,
+        ),]),
   );
 
   Widget buildMenuItems(BuildContext context) => Container(
@@ -36,7 +51,7 @@ class NavigationDrawer extends StatelessWidget {
         children: [
           ListTile(
             leading:  const Icon(Icons.home_outlined),
-            title: const Text('Buildings'),
+            title: Text('Buildings', style: styleText,),
             onTap: () =>{
               //PathInfo.clear(),
               Navigator.push(
@@ -44,13 +59,13 @@ class NavigationDrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => ListBuildingsPage()))}
           ),
           ListTile(
-            leading:  const Icon(Icons.home_outlined),
-            title: const Text('Room search'),
+            leading:  const Icon(Icons.image_search),
+            title: Text('Room search', style: styleText,),
             onTap: (){},
           ),
           ListTile(
-            leading:  const Icon(Icons.home_outlined),
-            title: const Text('Admin'),
+            leading:  const Icon(Icons.admin_panel_settings),
+            title: Text('Admin', style: styleText),
             onTap: (){Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => ListBuildingsAdminScreen()));},
@@ -58,3 +73,5 @@ class NavigationDrawer extends StatelessWidget {
         ],
       ));
 }
+
+var styleText = TextStyle(fontSize: 18);

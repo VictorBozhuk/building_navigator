@@ -138,6 +138,9 @@ class AddRoomScreenState extends State<AddRoomScreen> {
                     )),
                     onPressed: () {
                       if(isCreate == true){
+                        if(AdminInfo.vertex.rooms == null){
+                          AdminInfo.vertex.rooms = [];
+                        }
                         AdminInfo.vertex.rooms?.add(AdminInfo.room);
                       }
                       else{
