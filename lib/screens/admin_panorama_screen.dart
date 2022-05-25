@@ -1,28 +1,31 @@
+import 'package:building_navigator/screens/admin/add_room.dart';
+import 'package:building_navigator/screens/admin/add_vertex_connection.dart';
 import 'package:building_navigator/screens/widgets/drawer/navigation_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:panorama/panorama.dart';
 import '../loader/hotspots/hotspots.dart';
+import '../models/admin_info.dart';
 import '../models/path_model.dart';
 
-class ParoramaScreenTest extends StatefulWidget{
-  ParoramaScreenTest({Key? key, required this.panoramaImagePath, required this.nextVertexImagePath}) : super(key: key);
+class AdminParoramaScreen extends StatefulWidget{
+  AdminParoramaScreen({Key? key, required this.panoramaImagePath, required this.isRoom, required this.widget}) : super(key: key);
   final String panoramaImagePath;
-  final String nextVertexImagePath;
+  final Widget widget;
+  final bool isRoom;
+
 
   @override
   State<StatefulWidget> createState() =>
-      PanoramaScreenState(panoramaImagePath: panoramaImagePath,
-          nextVertexImagePath: nextVertexImagePath);
+      AdminParoramaScreenState(panoramaImagePath: panoramaImagePath, isRoom: isRoom,
+          currentWidget: widget);
 }
 
 
-class PanoramaScreenState extends State<ParoramaScreenTest> {
-  PanoramaScreenState({required this.panoramaImagePath, required this.nextVertexImagePath});
+class AdminParoramaScreenState extends State<AdminParoramaScreen> {
+  AdminParoramaScreenState({required this.panoramaImagePath, required this.isRoom, required this.currentWidget});
   final String panoramaImagePath;
-  final String nextVertexImagePath;
-  late double directionLongitude = 0;
-  late double pointLongitude = 0;
-  late double pointLatitude = 0;
+  final Widget currentWidget;
+  final bool isRoom;
   late List<Hotspot> hotspots = [];
 
   @override
@@ -32,28 +35,37 @@ class PanoramaScreenState extends State<ParoramaScreenTest> {
       body:
       Panorama(
         onTap: (longitude, latitude, tilt) {
-          pointLongitude = longitude;
-          pointLatitude = latitude;
+          AdminInfo.x = longitude;
+          AdminInfo.y = latitude;
           setState(() {
-            hotspots = [getHotspotPointTest(pointLongitude, pointLatitude, 100)];
+            hotspots = [getHotspot(currentWidget, AdminInfo.x, AdminInfo.y)];
           });
         },
         onViewChanged: ( longitude,  latitude,  tilt) {
-          directionLongitude = longitude;
+          AdminInfo.direction = longitude;
         },
-        longitude: PathInfo.building.getNextVertexDirection(panoramaImagePath, nextVertexImagePath),
         sensitivity: 2,
-        //hotspots: PathInfo.building.getHotspots(context, panoramaImagePath, nextVertexImagePath),
-        child: Image.asset(panoramaImagePath),
+        hotspots: hotspots,
+        child: Image.network(panoramaImagePath),
 
       ),
       floatingActionButton: FloatingActionButton(
         // isExtended: true,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         backgroundColor: Colors.green,
         onPressed: () {
           setState(() {
-            hotspots = [getHotspotPointTest(pointLongitude, pointLatitude, 100)];
+            Navigator.pop(context);
+            if(isRoom == true){
+              AdminInfo.setRoomCoordinates();
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
+                  AddRoomScreen(vertex: AdminInfo.vertex)));
+            }
+            else{
+              AdminInfo.setConnectionCoordinates();
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
+                  AddVertexConnectionScreen(vertex: AdminInfo.vertex)));
+            }
           });
         },
       ),
@@ -61,14 +73,14 @@ class PanoramaScreenState extends State<ParoramaScreenTest> {
   }
 }
 
-Hotspot getHotspotPointTest(double x, double y, double size)
+Hotspot getHotspot(Widget widget, double x, double y)
 {
   return Hotspot(
-      height: size,
-      width: size,
+      height: AdminInfo.size,
+      width: AdminInfo.size,
       longitude: x,
       latitude: y,
       orgin: Offset.fromDirection(0),
-      widget:Image(image: AssetImage('assets/icons/point.png')),
+      widget: widget,
   );
 }

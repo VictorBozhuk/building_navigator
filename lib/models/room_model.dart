@@ -5,9 +5,9 @@ class Room extends Comparable<Room> {
   late String uid;
   late String title;
   late String vertexTitle;
-  late double? titleX;
-  late double? titleY;
-  late double? direction;
+  late double titleX = 0;
+  late double titleY = 0;
+  late double direction = 0;
   Room({required this.uid, required this.title, required this.vertexTitle});
 
   Room.setAll(this.uid, this.title, this.vertexTitle, this.titleX, this.titleY, this.direction);

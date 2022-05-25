@@ -1,4 +1,5 @@
 import 'package:building_navigator/screens/widgets/building_widgets.dart';
+import 'package:building_navigator/screens/widgets/drawer/navigation_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../Style/app_colors.dart';
@@ -13,12 +14,16 @@ class ListBuildingsPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     double _screenHeight = MediaQuery.of(context).size.height;
+    double _screenWidth = MediaQuery.of(context).size.width;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: getAppBar("Будівлі"),
+        drawer: const NavigationDrawer(),
         body: Container(
           height: _screenHeight,
+          width: _screenWidth,
           decoration: BoxDecoration(
             image: AppImages.backgroundImage,
           ),

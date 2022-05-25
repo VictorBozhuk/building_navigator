@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../models/path_model.dart';
+import '../../admin/list_buildings_admin.dart';
 import '../../list_buildings.dart';
 
 
@@ -49,15 +50,11 @@ class NavigationDrawer extends StatelessWidget {
           ),
           ListTile(
             leading:  const Icon(Icons.home_outlined),
-            title: const Text('Home'),
-            onTap: (){},
+            title: const Text('Admin'),
+            onTap: (){Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ListBuildingsAdminScreen()));},
           ),
-          ListTile(
-            leading:  const Icon(Icons.home_outlined),
-            title: const Text('Home'),
-            onTap: (){},
-          )
-
         ],
       ));
 }
