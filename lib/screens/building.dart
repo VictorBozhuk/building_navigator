@@ -4,6 +4,7 @@ import 'package:building_navigator/screens/widgets/building_widgets.dart';
 import 'package:building_navigator/services/database.dart';
 import 'package:flutter/material.dart';
 import '../Style/images.dart';
+import '../models/admin_info.dart';
 import '../models/building_model.dart';
 import '../models/path_model.dart';
 import 'find_path.dart';
@@ -50,6 +51,8 @@ class BuildingPage extends StatelessWidget {
                 icon: const Icon(Icons.arrow_forward, color: Colors.white, size: 30),
                 func: () {
                   PathInfo.clear();
+                  PathInfo.isWalk = false;
+                  //PathInfo.nextVertexImagePath = '';
                   Navigator.push(
                       context,
                       MaterialPageRoute(builder:
@@ -57,7 +60,9 @@ class BuildingPage extends StatelessWidget {
             ProfileItemButton(
                 title: 'Всі приміщення',
                 icon: const Icon(Icons.arrow_forward, color: Colors.white, size: 30),
-                func: () => {Navigator.push(
+                func: () => {
+                  PathInfo.isWalk = true,
+                  Navigator.push(
                     context,
                     MaterialPageRoute(builder:
                         (context) => SelectRoomScreen(building: building, isSource: true, func: () =>

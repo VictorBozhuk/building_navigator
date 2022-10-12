@@ -4,7 +4,6 @@ import '../models/building_model.dart';
 import 'dormitory_3/vertexes_dormitory_3.dart';
 
 List<Building> buildings =
-
 [
   Building(const Uuid().v1(), "LNU Dormitory 3", 'https://firebasestorage.googleapis.com/v0/b/buildingnavigator-b16ab.appspot.com/o/dormitory_3%2Fdormitory_3.jpg?alt=media&token=83fb1ae9-3906-4f5a-ae96-01ed94919583',
       vertexesDormitory_3

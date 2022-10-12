@@ -1,6 +1,3 @@
-
-import 'package:building_navigator/models/vertex_model.dart';
-
 class VertexConnection {
   late String uid;
   late String vertexTitle;

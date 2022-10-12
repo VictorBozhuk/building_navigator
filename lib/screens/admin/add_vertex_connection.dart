@@ -68,9 +68,13 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double _screenHeight = MediaQuery.of(context).size.height;
+    double _screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: getAppBar('Вершина сусід'),
         body: Container(
+          width: _screenWidth,
+          height: _screenHeight,
           decoration: BoxDecoration(
             image: AppImages.backgroundImage,
           ),

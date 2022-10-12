@@ -1,7 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import '../loader/loader.dart';
 import 'list_buildings.dart';
 
 class Splash extends StatefulWidget {
@@ -10,8 +7,6 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-
-
   @override
   void initState() {
     //FirebaseFirestore.instance.collection('buildings').add({'building': buildings[0]});
@@ -21,8 +16,6 @@ class _SplashState extends State<Splash> {
           context,
           MaterialPageRoute(
               builder: (context) => ListBuildingsPage()));
-              //builder: (context) => ParoramaScreenTest(panoramaImagePath: v707., nextVertexImagePath: '',)));
-
     });
 
     super.initState();

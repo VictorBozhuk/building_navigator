@@ -2,7 +2,6 @@ import 'package:building_navigator/models/room_model.dart';
 import 'package:building_navigator/models/vertex_connection_model.dart';
 import 'package:flutter/material.dart';
 
-
 class Vertex {
   late String uid;
   late String title;
@@ -24,7 +23,6 @@ class Vertex {
   Vertex.fromJson(Map<String, dynamic> data) {
     title = data['title'];
     imagePath = data['imagePath'];
-    //var t = (data['rooms'] as List).map((w) => Room.fromJson(w)).toList();
     if(data['rooms'] == null){
       rooms = [];
     }else{
