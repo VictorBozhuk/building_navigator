@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "819028649776",
-    "project_id": "buildingnavigator-b16ab",
-    "storage_bucket": "buildingnavigator-b16ab.appspot.com"
+    "project_number": "65961475182",
+    "project_id": "buildings-t",
+    "storage_bucket": "buildings-t.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:819028649776:android:79c02e46564b599f518af5",
+        "mobilesdk_app_id": "1:65961475182:android:2950e5b92983840e917a7f",
         "android_client_info": {
           "package_name": "com.example.building_navigator"
         }
       },
       "oauth_client": [
         {
-          "client_id": "819028649776-3di5vt31sevuatcn19ubfvk3tqnlf9kj.apps.googleusercontent.com",
+          "client_id": "65961475182-300bddess0b158svret633phmbclo2oj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyByX5Vq6XkPgTf8Yl5gIYux58rCqjNYkU8"
+          "current_key": "AIzaSyD4lSzz3xYj7Vy1MfRUO1w8HZ2AwolN014"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "819028649776-3di5vt31sevuatcn19ubfvk3tqnlf9kj.apps.googleusercontent.com",
+              "client_id": "65961475182-300bddess0b158svret633phmbclo2oj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

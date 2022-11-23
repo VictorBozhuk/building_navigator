@@ -10,9 +10,9 @@ void main() async {
 Future initFirebase() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  //DatabaseService.addOrUpdateBuilding(buildings[0]);
-  //DatabaseService.addOrUpdateBuilding(buildings[1]);
-  //DatabaseService.addOrUpdateBuilding(buildings[2]);
+  //await DatabaseService.addOrUpdateBuilding(buildings[0]);
+  //await DatabaseService.addOrUpdateBuilding(buildings[1]);
+  //await DatabaseService.addOrUpdateBuilding(buildings[2]);
 }
 
 class MyApp extends StatelessWidget {
