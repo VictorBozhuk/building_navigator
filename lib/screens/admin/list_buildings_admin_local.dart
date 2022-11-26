@@ -1,0 +1,93 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
+import '../../Style/images.dart';
+import '../../models/admin_info.dart';
+import '../../models/building_model.dart';
+import '../widgets/building_widgets.dart';
+import '../widgets/drawer/navigation_drawer.dart';
+import 'add_building.dart';
+/*
+class ListBuildingsAdminScreen extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    double _screenHeight = MediaQuery.of(context).size.height;
+    double _screenWidth = MediaQuery.of(context).size.width;
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        drawer: const NavigationDrawer(),
+        appBar: getAdminAppBar("Будівлі", () => {
+          AdminInfo.clear(),
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddBuildingScreen()))
+        }),
+        body: Container(
+            height: _screenHeight,
+            width: _screenWidth,
+            decoration: BoxDecoration(
+              image: AppImages.backgroundImage,
+            ),
+            child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                // list view to show images and list count
+                child: ListView.separated(
+                      separatorBuilder: (BuildContext context, int index) => Divider(),
+                      itemBuilder: (BuildContext, index){
+                        Building building = Building.fromJson(snapshot.data!.docs[index].id, snapshot.data!.docs[index].data() as Map<String, dynamic>);
+                        return GestureDetector(
+                          child: Card(
+                              color: Colors.transparent,
+                              child: Container(
+                                color: Colors.indigo.withOpacity(0.7),
+                                child: Column(
+                                    children: [
+                                      Container(
+                                          child:
+                                          ClipRRect(
+                                            borderRadius: const BorderRadius.only(
+                                                topLeft: Radius.circular(10),
+                                                topRight: Radius.circular(10)),
+                                            child: Image(fit: BoxFit.fitWidth, image: NetworkImage(building.imagePath)),)
+                                      ),
+                                      Container(
+                                          decoration: const BoxDecoration(
+                                              borderRadius: BorderRadius.all(Radius.circular(15))),
+                                          margin: EdgeInsets.only(top: 10, bottom: 10),
+                                          child:
+                                          Text(building.title,
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontFamily: 'Poppins',
+                                                  fontSize: 30,
+                                                  fontWeight: FontWeight.w600))
+                                      )
+
+                                    ]
+                                ) ,
+                              )
+
+                          ),
+                          onTap: () =>
+                          {
+                            AdminInfo.clearBuilding(),
+                            AdminInfo.building = building,
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => AddBuildingScreen()))},
+                        );
+                      },
+                      itemCount:  snapshot.data?.docs.length ?? 0,
+                      shrinkWrap: true,
+                      padding: EdgeInsets.all(5),
+                      scrollDirection: Axis.vertical,
+                    );
+                  },
+                )
+            )
+    );
+  }
+}
+*/

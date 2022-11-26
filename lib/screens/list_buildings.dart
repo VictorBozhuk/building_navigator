@@ -1,7 +1,7 @@
-import 'package:building_navigator/screens/widgets/building_widgets.dart';
-import 'package:building_navigator/screens/widgets/drawer/navigation_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
+import 'package:lnu_navigator/screens/widgets/drawer/navigation_drawer.dart';
 import '../Style/images.dart';
 import '../models/building_model.dart';
 import '../models/path_model.dart';

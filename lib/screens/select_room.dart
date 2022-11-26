@@ -1,10 +1,7 @@
-import 'package:building_navigator/screens/find_path.dart';
-import 'package:building_navigator/screens/widgets/building_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
 
 import '../Style/images.dart';
-import '../algorithm/building_navigator.dart';
-import '../loader/dormitory_3/vertexes_dormitory_3.dart';
 import '../models/building_model.dart';
 import '../models/path_model.dart';
 import '../models/room_model.dart';

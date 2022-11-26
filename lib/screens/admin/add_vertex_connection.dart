@@ -1,7 +1,3 @@
-import 'package:building_navigator/screens/admin/list_vertex_connections.dart';
-import 'package:building_navigator/screens/panorama_screen.dart';
-import 'package:building_navigator/screens/select_room.dart';
-import 'package:building_navigator/screens/widgets/building_widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../../Style/images.dart';
@@ -9,7 +5,9 @@ import '../../models/admin_info.dart';
 import '../../models/building_model.dart';
 import '../../models/vertex_model.dart';
 import '../admin_panorama_screen.dart';
+import '../widgets/building_widgets.dart';
 import 'list_rooms.dart';
+import 'list_vertex_connections.dart';
 import 'list_vertexes.dart';
 
 class AddVertexConnectionScreen extends StatefulWidget{
@@ -162,7 +160,7 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) =>
-                              AdminParoramaScreen(panoramaImagePath: vertex.imagePath ?? '', isRoom: false,
+                              AdminParoramaScreen(panoramaImagePath: vertex.panoramaImagePath ?? '', isRoom: false,
                                   widget: Image.asset('assets/icons/point.png'), isCreate: isCreate, index: index,)
                           ));
                     },

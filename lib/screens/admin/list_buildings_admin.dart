@@ -1,13 +1,13 @@
-import 'package:building_navigator/models/admin_info.dart';
-import 'package:building_navigator/screens/widgets/building_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../Style/images.dart';
+import '../../models/admin_info.dart';
 import '../../models/building_model.dart';
 import '../../models/path_model.dart';
 import '../../services/database.dart';
 import '../building.dart';
+import '../widgets/building_widgets.dart';
 import '../widgets/drawer/navigation_drawer.dart';
 import 'add_building.dart';
 

@@ -1,6 +1,6 @@
-import 'package:building_navigator/models/vertex_model.dart';
+import 'package:lnu_navigator/models/vertex_model.dart';
 import 'package:panorama/panorama.dart';
-import '../loader/hotspots/hotspots.dart';
+import '../screens/widgets/hotspots/hotspots.dart';
 import 'edge_model.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class Building {
   double getNextVertexDirection(String currentVertexImagePath, String nextVertexImagePath)
   {
     for(int i = 0; i < vertexes.length; ++i){
-      if(vertexes[i].imagePath == currentVertexImagePath){
+      if(vertexes[i].panoramaImagePath == currentVertexImagePath){
         int vertexConnectionLength = vertexes[i].vertexConnections?.length ?? 0;
         for(int j = 0; j < vertexConnectionLength; ++ j){
           if(vertexes[i].vertexConnections?[j].vertexImagePath == nextVertexImagePath){
@@ -41,7 +41,7 @@ class Building {
 
 
     for(int i = 0; i < vertexes.length; ++i){
-      if(vertexes[i].imagePath == currentVertexImagePath){
+      if(vertexes[i].panoramaImagePath == currentVertexImagePath){
         int roomsLength = vertexes[i].rooms?.length ?? 0;
         for(int j = 0; j < roomsLength; ++ j){
           var room = vertexes[i].rooms?[j];
@@ -100,7 +100,7 @@ class Building {
 
   bool isTitleAPathOfVertex(String text){
     for(int i = 0; i < vertexes.length; ++i){
-      if(vertexes[i].imagePath == text){
+      if(vertexes[i].panoramaImagePath == text){
         return true;
       }
     }

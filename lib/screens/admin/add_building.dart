@@ -1,13 +1,11 @@
-import 'package:building_navigator/screens/admin/list_buildings_admin.dart';
-import 'package:building_navigator/screens/panorama_screen.dart';
-import 'package:building_navigator/screens/select_room.dart';
-import 'package:building_navigator/screens/widgets/building_widgets.dart';
-import 'package:building_navigator/services/database.dart';
 import 'package:flutter/material.dart';
 
 import '../../Style/images.dart';
 import '../../models/admin_info.dart';
 import '../../models/building_model.dart';
+import '../../services/database.dart';
+import '../widgets/building_widgets.dart';
+import 'list_buildings_admin.dart';
 import 'list_vertexes.dart';
 
 class AddBuildingScreen extends StatefulWidget{

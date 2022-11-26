@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.building_navigator">
+    package="com.example.lnu_navigator">
    <application
-        android:label="building_navigator"
+        android:label="lnu_navigator"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

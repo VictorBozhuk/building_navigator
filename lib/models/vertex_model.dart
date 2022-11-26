@@ -1,28 +1,41 @@
-import 'package:building_navigator/models/room_model.dart';
-import 'package:building_navigator/models/vertex_connection_model.dart';
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/models/room_model.dart';
+import 'package:lnu_navigator/models/vertex_connection_model.dart';
 
 class Vertex {
   late String uid;
   late String title;
   late List<Room>? rooms = [];
-  late String? imagePath;
+  late String? panoramaImagePath;
   late List<VertexConnection>? vertexConnections = [];
+  late double? pointX;
+  late double? pointY;
+  late String? map2DPath;
+  late double? map2DWidth;
+  late double? map2DHeight;
 
   late Image imageWidget;
-  Vertex(this.uid, this.title, {this.imagePath, this.rooms, this.vertexConnections});
+  Vertex(this.uid, this.title,
+      {this.panoramaImagePath,
+        this.rooms,
+        this.pointX,
+        this.pointY,
+        this.map2DPath,
+        this.map2DWidth,
+        this.map2DHeight,
+        this.vertexConnections});
 
   String getImagePath() {
-    return imagePath ?? '';
+    return panoramaImagePath ?? '';
   }
 
   void loadImage(){
-    imageWidget = Image.network(imagePath ?? '');
+    imageWidget = Image.network(panoramaImagePath ?? '');
   }
 
   Vertex.fromJson(Map<String, dynamic> data) {
     title = data['title'];
-    imagePath = data['imagePath'];
+    panoramaImagePath = data['panoramaImagePath'];
     if(data['rooms'] == null){
       rooms = [];
     }else{
@@ -40,13 +53,13 @@ class Vertex {
     var copiedRooms = rooms?.map((w) => w.copy()).toList();
     var copiedVertexConnections = vertexConnections?.map((w) => w.copy()).toList();
 
-    return Vertex(uid, title, rooms: copiedRooms, vertexConnections: copiedVertexConnections, imagePath:  imagePath);
+    return Vertex(uid, title, rooms: copiedRooms, vertexConnections: copiedVertexConnections, panoramaImagePath:  panoramaImagePath);
   }
 
   Map<String, dynamic> toMap(){
     return {
       "title": title,
-      "imagePath": imagePath,
+      "panoramaImagePath": panoramaImagePath,
       "vertexConnections": vertexConnections?.map((w) => w.toMap()).toList(),
       "rooms": rooms?.map((w) => w.toMap()).toList()
     };

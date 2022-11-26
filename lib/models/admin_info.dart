@@ -1,7 +1,7 @@
 
-import 'package:building_navigator/models/room_model.dart';
-import 'package:building_navigator/models/vertex_connection_model.dart';
-import 'package:building_navigator/models/vertex_model.dart';
+import 'package:lnu_navigator/models/room_model.dart';
+import 'package:lnu_navigator/models/vertex_connection_model.dart';
+import 'package:lnu_navigator/models/vertex_model.dart';
 import 'package:uuid/uuid.dart';
 
 import 'building_model.dart';

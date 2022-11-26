@@ -1,4 +1,4 @@
-import 'package:building_navigator/loader/dormitory_3/vertexes_dormitory_3.dart';
+import 'package:lnu_navigator/loader/dormitory_3/vertexes_dormitory_3.dart';
 import 'package:uuid/uuid.dart';
 import '../../models/room_model.dart';
 

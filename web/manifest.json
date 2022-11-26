@@ -1,6 +1,6 @@
 {
-    "name": "building_navigator",
-    "short_name": "building_navigator",
+    "name": "lnu_navigator",
+    "short_name": "lnu_navigator",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

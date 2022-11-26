@@ -1,8 +1,6 @@
-import 'package:building_navigator/loader/dormitory_3/rooms_dormitory_3.dart';
 import 'package:panorama/panorama.dart';
 import 'package:flutter/material.dart';
 
-import '../hotspots/hotspots.dart';
 
 
 /*

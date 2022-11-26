@@ -1,4 +1,3 @@
-import 'package:building_navigator/loader/dormitory_3/vertexes_dormitory_3.dart';
 import '../../models/edge_model.dart';
 /*
 List<Edge> edgesDormitory_3 = [

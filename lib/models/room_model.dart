@@ -1,6 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:building_navigator/models/vertex_model.dart';
-
 class Room extends Comparable<Room> {
   late String uid;
   late String title;

@@ -1,11 +1,10 @@
-import 'package:building_navigator/models/admin_info.dart';
-import 'package:building_navigator/screens/find_path.dart';
-import 'package:building_navigator/screens/widgets/building_widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../../Style/images.dart';
+import '../../models/admin_info.dart';
 import '../../models/building_model.dart';
 import '../../models/vertex_model.dart';
+import '../widgets/building_widgets.dart';
 import 'add_room.dart';
 import 'add_vertex.dart';
 import 'add_vertex_connection.dart';

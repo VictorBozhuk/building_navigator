@@ -1,4 +1,3 @@
-import 'package:building_navigator/loader/dormitory_3/rooms_dormitory_3.dart';
 
 
 /*

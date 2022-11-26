@@ -1,12 +1,10 @@
-import 'package:building_navigator/screens/admin/list_rooms.dart';
-import 'package:building_navigator/screens/panorama_screen.dart';
-import 'package:building_navigator/screens/select_room.dart';
-import 'package:building_navigator/screens/widgets/building_widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../../Style/images.dart';
 import '../../models/admin_info.dart';
 import '../../models/building_model.dart';
+import '../widgets/building_widgets.dart';
+import 'list_rooms.dart';
 import 'list_vertex_connections.dart';
 import 'list_vertexes.dart';
 
@@ -27,12 +25,12 @@ class AddVertexScreenState extends State<AddVertexScreen> {
   final int index;
 
   TextEditingController txtTitle = TextEditingController(text: AdminInfo.vertex.title);
-  TextEditingController txtImagePath = TextEditingController(text: AdminInfo.vertex.imagePath);
+  TextEditingController txtImagePath = TextEditingController(text: AdminInfo.vertex.panoramaImagePath);
   _changeTitle(String text){
     setState(() => AdminInfo.vertex.title = text);
   }
   _changeImagePath(String text){
-    setState(() => AdminInfo.vertex.imagePath = text);
+    setState(() => AdminInfo.vertex.panoramaImagePath = text);
   }
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,5 @@
-import 'package:building_navigator/models/room_model.dart';
-import 'package:building_navigator/models/vertex_model.dart';
+import 'package:lnu_navigator/models/room_model.dart';
+import 'package:lnu_navigator/models/vertex_model.dart';
 
 import 'building_model.dart';
 
@@ -32,7 +32,7 @@ class PathInfo {
     listVertexes = _listVertexes;
     currentVertex = _listVertexes[0];
     try{
-      nextVertexImagePath = _listVertexes[1 + _currentIndex].imagePath ?? '';
+      nextVertexImagePath = _listVertexes[1 + _currentIndex].panoramaImagePath ?? '';
     }
     catch (e){}
   }
@@ -41,7 +41,7 @@ class PathInfo {
     if(isWalk == false && nextImagePath.isEmpty == false && nextVertexImagePath == nextImagePath){
       if(_currentIndex + 2 != listVertexes?.length){
         currentVertex = listVertexes![++_currentIndex];
-        nextVertexImagePath = listVertexes![1 + _currentIndex].imagePath ?? '';
+        nextVertexImagePath = listVertexes![1 + _currentIndex].panoramaImagePath ?? '';
       }
       else{
         currentVertex = listVertexes![++_currentIndex];
@@ -65,7 +65,7 @@ class PathInfo {
       {
         if(sourceVertexTitle == building.vertexes[i].title)
           {
-            return building.vertexes[i].imagePath ?? "";
+            return building.vertexes[i].panoramaImagePath ?? "";
           }
       }
 

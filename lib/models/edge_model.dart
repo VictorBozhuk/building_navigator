@@ -1,6 +1,3 @@
-
-import 'package:building_navigator/models/vertex_model.dart';
-
 class Edge {
   String vertexTitle1;
   String vertexTitle2;

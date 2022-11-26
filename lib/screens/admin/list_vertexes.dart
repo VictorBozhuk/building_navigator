@@ -1,10 +1,9 @@
-import 'package:building_navigator/screens/find_path.dart';
-import 'package:building_navigator/screens/widgets/building_widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../../Style/images.dart';
 import '../../models/admin_info.dart';
 import '../../models/building_model.dart';
+import '../widgets/building_widgets.dart';
 import 'add_vertex.dart';
 
 class ListVertexesScreen extends StatefulWidget {

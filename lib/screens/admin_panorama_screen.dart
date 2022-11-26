@@ -1,11 +1,10 @@
-import 'package:building_navigator/screens/admin/add_room.dart';
-import 'package:building_navigator/screens/admin/add_vertex_connection.dart';
-import 'package:building_navigator/screens/widgets/drawer/navigation_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/screens/widgets/drawer/navigation_drawer.dart';
 import 'package:panorama/panorama.dart';
-import '../loader/hotspots/hotspots.dart';
 import '../models/admin_info.dart';
 import '../models/path_model.dart';
+import 'admin/add_room.dart';
+import 'admin/add_vertex_connection.dart';
 
 class AdminParoramaScreen extends StatefulWidget{
   AdminParoramaScreen({Key? key, required this.panoramaImagePath, required this.isRoom, required this.widget, required this.isCreate, required this.index}) : super(key: key);

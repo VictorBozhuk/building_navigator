@@ -1,6 +1,3 @@
-import 'package:building_navigator/screens/panorama_screen.dart';
-import 'package:building_navigator/screens/select_room.dart';
-import 'package:building_navigator/screens/widgets/building_widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../../Style/images.dart';
@@ -8,6 +5,7 @@ import '../../models/admin_info.dart';
 import '../../models/building_model.dart';
 import '../../models/vertex_model.dart';
 import '../admin_panorama_screen.dart';
+import '../widgets/building_widgets.dart';
 import 'list_rooms.dart';
 import 'list_vertexes.dart';
 
@@ -117,7 +115,7 @@ class AddRoomScreenState extends State<AddRoomScreen> {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) =>
-                          AdminParoramaScreen(panoramaImagePath: vertex.imagePath ?? '', isRoom: true,
+                          AdminParoramaScreen(panoramaImagePath: vertex.panoramaImagePath ?? '', isRoom: true,
                               widget: Text(AdminInfo.room.title,
                                 style: const TextStyle(
                                     color: Colors.red,
