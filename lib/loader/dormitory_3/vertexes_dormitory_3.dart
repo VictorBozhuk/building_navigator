@@ -20,35 +20,35 @@ List<Vertex> vertexesDormitory_3 = [
   v7_8,
 ];
 
-var v704_706 = Vertex(const Uuid().v1(), t704_706,panoramaImagePath: p704_706,
+var v704_706 = Vertex(title: t704_706,panoramaImagePath: p704_706,
     rooms: [ r704, r705, r706],
     vertexConnections: [
       VertexConnection(const Uuid().v1(), t707, p707, 11, 115, -13, 100, "assets/icons/point.png", 3),
       VertexConnection(const Uuid().v1(), t701_707b, p701_707b, 5, -100, 0, 100, "assets/icons/open_door.png", 5),
     ]);
 
-var v707 = Vertex(const Uuid().v1(), t707, panoramaImagePath: p707,
+var v707 = Vertex(title: t707, panoramaImagePath: p707,
     rooms: [r707],
     vertexConnections: [
       VertexConnection(const Uuid().v1(), t704_706, p704_706, -2, -105, 0, 100, "assets/icons/point.png", 3),
       VertexConnection(const Uuid().v1(), t701_707, p701_707, 11, 120, -15, 100, "assets/icons/point.png", 3)
     ]);
 
-var v701_707 = Vertex(const Uuid().v1(), t701_707, panoramaImagePath: p701_707,
+var v701_707 = Vertex(title: t701_707, panoramaImagePath: p701_707,
     vertexConnections: [
   VertexConnection(const Uuid().v1(), t707, p707, -1, 337, -16, 100, "assets/icons/point.png", 3),
   VertexConnection(const Uuid().v1(), t701_703, p701_703, -2, 267, -5, 100, "assets/icons/point.png", 5),
   VertexConnection(const Uuid().v1(), t701A, p701A, 19, 105, -10, 150, "assets/icons/point.png", 5),
 ]);
 
-var v701_703 = Vertex(const Uuid().v1(), t701_703, panoramaImagePath: p701_703,
+var v701_703 = Vertex(title: t701_703, panoramaImagePath: p701_703,
     rooms: [ r701, r702, r703],
     vertexConnections: [
       VertexConnection(const Uuid().v1(), t701_707, p701_707, -11, -95, -10, 100, "assets/icons/point.png", 5),
       VertexConnection(const Uuid().v1(), t701_707b, p701_707b, 11, 105, 0, 100, "assets/icons/open_door.png", 5)
     ]);
 
-var v701A = Vertex(const Uuid().v1(), t701A, panoramaImagePath: p701A,
+var v701A = Vertex(title: t701A, panoramaImagePath: p701A,
     rooms: [ r701A ],
     vertexConnections: [
       VertexConnection(const Uuid().v1(), t701_707, p701_707, -2, -86, -10, 100, "assets/icons/point.png", 5),
@@ -57,7 +57,7 @@ var v701A = Vertex(const Uuid().v1(), t701A, panoramaImagePath: p701A,
 
     ]);
 
-var v714A = Vertex(const Uuid().v1(), t714A, panoramaImagePath: p714A,
+var v714A = Vertex(title: t714A, panoramaImagePath: p714A,
     rooms: [ r714A ],
     vertexConnections: [
       VertexConnection(const Uuid().v1(), t714, p714, 12, 163, -18, 100, "assets/icons/point.png", 3),
@@ -65,45 +65,45 @@ var v714A = Vertex(const Uuid().v1(), t714A, panoramaImagePath: p714A,
       VertexConnection(const Uuid().v1(), t708_710, p708_710, 2, 85, -8, 100, "assets/icons/point.png", 5)
     ]);
 
-var v714 = Vertex(const Uuid().v1(), t714, panoramaImagePath: p714,
+var v714 = Vertex(title: t714, panoramaImagePath: p714,
     rooms: [ r714 ],
     vertexConnections: [
       VertexConnection(const Uuid().v1(), t714A, p714A, 11, 123, -20, 120, "assets/icons/point.png", 3),
       VertexConnection(const Uuid().v1(), t711_713, p711_713, -11, 253, -10, 100, "assets/icons/point.png", 3)
     ]);
 
-var v711_713 = Vertex(const Uuid().v1(), t711_713, panoramaImagePath: p711_713,
+var v711_713 = Vertex(title: t711_713, panoramaImagePath: p711_713,
     rooms: [ r711, r712, r713 ],
     vertexConnections: [
       VertexConnection(const Uuid().v1(), t714, p714, 11, 120, -17, 100, "assets/icons/point.png", 3)
     ]);
 
-var v708_710 = Vertex(const Uuid().v1(), t708_710, panoramaImagePath: p708_710,
+var v708_710 = Vertex(title: t708_710, panoramaImagePath: p708_710,
     rooms: [ r708, r709, r710 ],
     vertexConnections: [
       VertexConnection(const Uuid().v1(), t714A, p714A, -11, -103, -10, 100, "assets/icons/point.png", 5)
     ]);
 
-var v701_707b = Vertex(const Uuid().v1(), t701_707b, panoramaImagePath: p701_707b,
+var v701_707b = Vertex(title: t701_707b, panoramaImagePath: p701_707b,
     vertexConnections: [
   VertexConnection(const Uuid().v1(), t704_706, p704_706, 0, 155, 10, 140, "assets/icons/open_door.png", 5),
   VertexConnection(const Uuid().v1(), t701_703, p701_703, 0, -115, 10, 140, "assets/icons/open_door.png", 5),
 ]);
 
-var v7 = Vertex(const Uuid().v1(), t7, panoramaImagePath: p7,
+var v7 = Vertex(title: t7, panoramaImagePath: p7,
     vertexConnections: [
       VertexConnection(const Uuid().v1(), t701A, p701A, 4, 190, -20, 140, "assets/icons/point.png", 5),
       VertexConnection(const Uuid().v1(), t6_7, p6_7, 0, -5, -25, 120, "assets/icons/point.png", 5),
       VertexConnection(const Uuid().v1(), t6_7, p6_7, 0, 15, 6, 120, "assets/icons/point.png", 5),
     ]);
 
-var v6_7 = Vertex(const Uuid().v1(), t6_7, panoramaImagePath: p6_7,
+var v6_7 = Vertex(title: t6_7, panoramaImagePath: p6_7,
     vertexConnections: [
       VertexConnection(const Uuid().v1(), t7, p7, 0, 20, 8, 120, "assets/icons/point.png", 5),
       VertexConnection(const Uuid().v1(), t7, p7, 0, -5, -28, 120, "assets/icons/point.png", 5),
     ]);
 
-var v7_8 = Vertex(const Uuid().v1(), t7_8, panoramaImagePath: p7_8,
+var v7_8 = Vertex(title: t7_8, panoramaImagePath: p7_8,
     vertexConnections: [
       VertexConnection(const Uuid().v1(), t7, p7, 0, 40, 60, 70, "assets/icons/point.png", 5),
     ]);

@@ -112,3 +112,12 @@ InputDecoration getTextFieldDecoration(String hintText){
         hintText: hintText,
       );
 }
+
+Widget getAreaImage(String imagePath){
+  try{
+    return Image.network(imagePath);
+  }
+  catch (ex) {
+    return Image.asset('assets/icons/floor_icon.png');
+  }
+}

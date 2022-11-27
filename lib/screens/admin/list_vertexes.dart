@@ -39,7 +39,7 @@ class ListVertexesScreenState extends State<ListVertexesScreen> {
                 itemBuilder: (BuildContext, index){
                   return ListTile(
                     leading: Icon(Icons.room, color: Colors.white,),
-                    title: Text(building.vertexes[index].title,
+                    title: Text(building.vertexes[index].title.toString(),
                         style: const TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 30,

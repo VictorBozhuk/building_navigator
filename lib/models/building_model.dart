@@ -1,16 +1,33 @@
 import 'package:lnu_navigator/models/vertex_model.dart';
 import 'package:panorama/panorama.dart';
 import '../screens/widgets/hotspots/hotspots.dart';
+import 'area_model.dart';
 import 'edge_model.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class Building {
   late String uid;
   late String title;
-  late List<Vertex> vertexes;
+  late List<Vertex> vertexes = [];
   late String imagePath;
+  late List<Area> areas = [];
 
-  Building(this.uid, this.title, this.imagePath, this.vertexes);
+  Building(this.title, this.imagePath, this.vertexes){
+    uid = const Uuid().v1();
+  }
+
+  Building.full(this.title, this.imagePath, this.areas){
+    uid = const Uuid().v1();
+  }
+
+  Building.createEmpty(){
+    uid = const Uuid().v1();
+    title = '';
+    imagePath = '';
+  }
+
+  Building.copy(this.uid, this.title, this.imagePath, this.areas);
 
   double getNextVertexDirection(String currentVertexImagePath, String nextVertexImagePath)
   {
@@ -80,7 +97,7 @@ class Building {
       int length = vertexes[i].vertexConnections?.length ?? 0;
       for(int j = 0; j < length; ++j){
         if(isSameEdge(edges, vertexes[i].vertexConnections?[j].vertexTitle ?? '') == false){
-          edges.add(Edge(vertexes[i].title, vertexes[i].vertexConnections?[j].vertexTitle ?? '', vertexes[i].vertexConnections?[j].length ?? 0));
+          edges.add(Edge(vertexes[i].title.toString(), vertexes[i].vertexConnections?[j].vertexTitle ?? '', vertexes[i].vertexConnections?[j].length ?? 0));
         }
       }
     }
@@ -108,29 +125,36 @@ class Building {
     return false;
   }
 
-
   Map<String, dynamic> toMap(){
     return {
+      "uid" : uid,
       "title": title,
       "imagePath": imagePath,
       "vertexes": vertexes.map((w) => w.toMap()).toList(),
+      "areas" : areas.map((w) => w.toMap()).toList(),
     };
   }
 
-  Building.fromJson(String uid, Map<String, dynamic> data) {
-    this.uid = uid;
+  Building.fromJson(Map<String, dynamic> data) {
+    uid = data['uid'];
     title = data['title'];
     imagePath = data['imagePath'];
     if(data['vertexes'] == null){
       vertexes = [];
-    } else{
+    } else {
       vertexes = (data['vertexes'] as List).map((w) => Vertex.fromJson(w)).toList();
+    }
+
+    if(data['areas'] == null){
+      areas = [];
+    } else{
+      areas = (data['areas'] as List).map((w) => Area.fromJson(w)).toList();
     }
   }
 
   Building copy(){
-    var copiedVertexes = vertexes.map((w) => w.copy()).toList();
+    var copiedAreas = areas.map((w) => w.copy()).toList();
 
-    return Building(uid, title, imagePath, copiedVertexes);
+    return Building.copy(uid, title, imagePath, copiedAreas);
   }
 }

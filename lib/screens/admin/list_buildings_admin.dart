@@ -50,7 +50,7 @@ class ListBuildingsAdminScreen extends StatelessWidget{
                     return ListView.separated(
                       separatorBuilder: (BuildContext context, int index) => Divider(),
                       itemBuilder: (BuildContext, index){
-                        Building building = Building.fromJson(snapshot.data!.docs[index].id, snapshot.data!.docs[index].data() as Map<String, dynamic>);
+                        Building building = Building.fromJson(snapshot.data!.docs[index].data() as Map<String, dynamic>);
                         return GestureDetector(
                           child: Card(
                               color: Colors.transparent,

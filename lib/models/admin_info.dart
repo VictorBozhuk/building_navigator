@@ -4,12 +4,13 @@ import 'package:lnu_navigator/models/vertex_connection_model.dart';
 import 'package:lnu_navigator/models/vertex_model.dart';
 import 'package:uuid/uuid.dart';
 
+import 'area_model.dart';
 import 'building_model.dart';
 
 class AdminInfo{
-
-  static Vertex vertex = Vertex('', '', rooms: [], vertexConnections: []);
-  static Building building = Building("", "", "", []);
+  static Vertex vertex = Vertex(title: '', rooms: [], vertexConnections: []);
+  static Area area = Area.createEmpty();
+  static Building building = Building.createEmpty();
   static Room room = Room(uid: '', title: '', vertexTitle: '');
   static VertexConnection connection = VertexConnection('', '', '', 0, 0, 0, 0, 'assets/icons/point.png', 0);
   static double x = 0;
@@ -26,12 +27,17 @@ class AdminInfo{
 
   static void clearBuilding(){
     clear();
-    building = Building("", "", "", []);
+    building = Building.createEmpty();
+  }
+
+  static void clearArea(){
+    clear();
+    area = Area.createEmpty();
   }
 
   static void clearVertex(){
     clear();
-    vertex = Vertex('', '', rooms: [], vertexConnections: []);
+    vertex = Vertex(title: '', rooms: [], vertexConnections: []);
   }
 
   static void clearRoom(){

@@ -3,26 +3,29 @@ import 'package:flutter/material.dart';
 
 import '../../Style/images.dart';
 import '../../models/admin_info.dart';
+import '../../models/area_model.dart';
 import '../../models/building_model.dart';
+import '../../services/database.dart';
 import '../widgets/building_widgets.dart';
 import '../widgets/drawer/navigation_drawer.dart';
+import 'add_area_screen.dart';
 import 'add_building.dart';
-/*
-class ListBuildingsAdminScreen extends StatelessWidget{
+import 'add_vertexes_to_area_screen.dart';
+
+class ListAreasAdminScreen extends StatelessWidget{
+  ListAreasAdminScreen(this.building);
+  final Building building;
   @override
   Widget build(BuildContext context) {
     double _screenHeight = MediaQuery.of(context).size.height;
     double _screenWidth = MediaQuery.of(context).size.width;
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        drawer: const NavigationDrawer(),
-        appBar: getAdminAppBar("Будівлі", () => {
+    return Scaffold(
+        appBar: getAdminAppBar("Зони", () => {
           AdminInfo.clear(),
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AddBuildingScreen()))
+              MaterialPageRoute(builder: (context) => AddAreaScreen(isCreate: true)))
         }),
         body: Container(
             height: _screenHeight,
@@ -36,7 +39,6 @@ class ListBuildingsAdminScreen extends StatelessWidget{
                 child: ListView.separated(
                       separatorBuilder: (BuildContext context, int index) => Divider(),
                       itemBuilder: (BuildContext, index){
-                        Building building = Building.fromJson(snapshot.data!.docs[index].id, snapshot.data!.docs[index].data() as Map<String, dynamic>);
                         return GestureDetector(
                           child: Card(
                               color: Colors.transparent,
@@ -50,14 +52,14 @@ class ListBuildingsAdminScreen extends StatelessWidget{
                                             borderRadius: const BorderRadius.only(
                                                 topLeft: Radius.circular(10),
                                                 topRight: Radius.circular(10)),
-                                            child: Image(fit: BoxFit.fitWidth, image: NetworkImage(building.imagePath)),)
+                                            child: Image(fit: BoxFit.fitWidth, image: NetworkImage(building.areas[index].imagePath)),)
                                       ),
                                       Container(
                                           decoration: const BoxDecoration(
                                               borderRadius: BorderRadius.all(Radius.circular(15))),
                                           margin: EdgeInsets.only(top: 10, bottom: 10),
                                           child:
-                                          Text(building.title,
+                                          Text(building.areas[index].title,
                                               style: const TextStyle(
                                                   color: Colors.white,
                                                   fontFamily: 'Poppins',
@@ -72,22 +74,20 @@ class ListBuildingsAdminScreen extends StatelessWidget{
                           ),
                           onTap: () =>
                           {
-                            AdminInfo.clearBuilding(),
-                            AdminInfo.building = building,
+                            AdminInfo.clearArea(),
+                            AdminInfo.area = building.areas[index],
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => AddBuildingScreen()))},
+                                MaterialPageRoute(builder: (context) => AddVertexesToAreaScreen(building.areas[index])))},
                         );
                       },
-                      itemCount:  snapshot.data?.docs.length ?? 0,
+                      itemCount:  building.areas.length,
                       shrinkWrap: true,
                       padding: EdgeInsets.all(5),
                       scrollDirection: Axis.vertical,
-                    );
-                  },
+                    ),
                 )
-            )
+            ),
     );
   }
 }
-*/

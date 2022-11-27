@@ -5,6 +5,8 @@ import '../../models/admin_info.dart';
 import '../../models/building_model.dart';
 import '../../services/database.dart';
 import '../widgets/building_widgets.dart';
+import 'add_vertexes_to_area_screen.dart';
+import 'list_areas_admin_screen.dart';
 import 'list_buildings_admin.dart';
 import 'list_vertexes.dart';
 
@@ -105,13 +107,13 @@ class AddBuildingScreenState extends State<AddBuildingScreen> {
                   width: MediaQuery.of(context).size.width - 20,
                   margin: EdgeInsets.only(top: 10),
                   child: ElevatedButton(
-                    child: const Text('Вершини', style: TextStyle(
+                    child: const Text('Зони', style: TextStyle(
                       fontSize: 22,
                     )),
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) =>
-                              ListVertexesScreen(building: AdminInfo.building)
+                              ListAreasAdminScreen(AdminInfo.building)
                           ));
                     },
                   )

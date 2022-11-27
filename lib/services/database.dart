@@ -15,6 +15,6 @@ class DatabaseService {
   static Stream<List<Building>> getBuildings()
   {
     return buildingConnection.snapshots().map((data) => data.docs.map((doc) =>
-        Building.fromJson(doc.id, doc.data() as Map<String, dynamic>)).toList());
+        Building.fromJson(doc.data() as Map<String, dynamic>)).toList());
   }
 }

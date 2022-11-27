@@ -26,7 +26,7 @@ class ListRoomsScreenState extends State<ListRoomsScreen> {
     return Scaffold(
         appBar: getAdminAppBar("Приміщення", () => {
           AdminInfo.clearRoom(),
-          AdminInfo.room.vertexTitle = vertex.title,
+          AdminInfo.room.vertexTitle = vertex.title.toString(),
           Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => AddRoomScreen(vertex: vertex, isCreate: true, index: 0,)))
@@ -51,7 +51,7 @@ class ListRoomsScreenState extends State<ListRoomsScreen> {
                     onTap: () => {
                       AdminInfo.clearRoom(),
                       AdminInfo.room = vertex.rooms![index],
-                      AdminInfo.room.vertexTitle = vertex.title,
+                      AdminInfo.room.vertexTitle = vertex.title.toString(),
                       Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => AddRoomScreen(vertex: vertex, isCreate: false, index: index,))),

@@ -12,7 +12,7 @@ class BuildingNavigator
     graph = Graph(Vertices: []);
     for(int i = 0; i < vertexes.length; ++i)
     {
-      graph.AddVertex(vertexes[i].title);
+      graph.AddVertex(vertexes[i].title.toString());
     }
 
     for(int i = 0; i < edges.length; ++i)
