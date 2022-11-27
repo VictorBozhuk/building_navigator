@@ -19,19 +19,14 @@ class AddVertexConnectionScreen extends StatefulWidget{
   final Vertex vertex;
   final bool isCreate;
   final int index;
+  String? nextVertexTitle;
   @override
-  State<StatefulWidget> createState() => AddVertexConnectionScreenState(vertex: vertex,  isCreate: isCreate, index: index);
+  State<StatefulWidget> createState() => AddVertexConnectionScreenState();
 }
 
 class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
-
-  final Vertex vertex;
-  final bool isCreate;
-  final int index;
-  AddVertexConnectionScreenState({Key? key, required this.vertex, required this.isCreate, required this.index});
-
-  TextEditingController txtTitle = TextEditingController(text: AdminInfo.connection.vertexTitle);
-  TextEditingController txtImagePath = TextEditingController(text: AdminInfo.connection.vertexImagePath);
+  TextEditingController txtTitle = TextEditingController(text: "");
+  TextEditingController txtImagePath = TextEditingController(text: "");
   TextEditingController txtX = TextEditingController(text: AdminInfo.connection.iconX.toString());
   TextEditingController txtY = TextEditingController(text: AdminInfo.connection.iconY.toString());
   TextEditingController txtDirection = TextEditingController(text: AdminInfo.connection.direction.toString());
@@ -41,7 +36,7 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
 
 
   _changeTitle(String text){
-    setState(() => AdminInfo.connection.vertexTitle = text);
+    setState(() => widget.nextVertexTitle = text);
   }
   _changeX(String text){
     setState(() => AdminInfo.connection.iconX = double.parse(text));
@@ -53,7 +48,7 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
     setState(() => AdminInfo.connection.direction = double.parse(text));
   }
   _changeImagePath(String text){
-    setState(() => AdminInfo.connection.vertexImagePath = text);
+    setState(() => { });
   }
   _changeIconSize(String text){
     setState(() => {
@@ -160,8 +155,8 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) =>
-                              AdminParoramaScreen(panoramaImagePath: vertex.panoramaImagePath ?? '', isRoom: false,
-                                  widget: Image.asset('assets/icons/point.png'), isCreate: isCreate, index: index,)
+                              AdminParoramaScreen(panoramaImagePath: widget.vertex.panoramaImagePath ?? '', isRoom: false,
+                                  widget: Image.asset('assets/icons/point.png'), isCreate: widget.isCreate, index: widget.index,)
                           ));
                     },
                   )
@@ -175,14 +170,14 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
                       fontSize: 22,
                     )),
                     onPressed: () {
-                      if(isCreate == true){
+                      if(widget.isCreate == true){
                         if(AdminInfo.vertex.vertexConnections == null){
                           AdminInfo.vertex.vertexConnections = [];
                         }
                         AdminInfo.vertex.vertexConnections?.add(AdminInfo.connection);
                       }
                       else{
-                        AdminInfo.vertex.vertexConnections![index] = AdminInfo.connection;
+                        AdminInfo.vertex.vertexConnections![widget.index] = AdminInfo.connection;
                       }
                       Navigator.pop(context);
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>

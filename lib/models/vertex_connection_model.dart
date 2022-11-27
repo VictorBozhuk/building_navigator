@@ -1,19 +1,32 @@
+import 'package:lnu_navigator/models/vertex_model.dart';
+import 'package:uuid/uuid.dart';
+
 class VertexConnection {
   late String uid;
-  late String vertexTitle;
-  late String vertexImagePath;
   late double direction;
   late double iconX;
   late double iconY;
   late double iconSize;
-  late String iconPath; //----------
+  late String iconPath;
   late double length;
+  late Vertex nextVertex;
 
-  VertexConnection(this.uid, this.vertexTitle, this.vertexImagePath, this.direction, this.iconX, this.iconY, this.iconSize, this.iconPath, this.length);
+  VertexConnection(this.nextVertex, this.direction, this.iconX, this.iconY, this.iconSize, this.iconPath, this.length){
+    uid = const Uuid().v1();
+  }
+  VertexConnection.createEmpty(){
+    uid = const Uuid().v1();
+    nextVertex = Vertex.createEmpty();
+    direction = 0;
+    iconX = 0;
+    iconY = 0;
+    iconSize = 0;
+    iconPath = 'assets/icons/point.png';
+    length = 0;
+  }
 
   VertexConnection.fromJson(Map<String, dynamic> data) {
-    vertexImagePath = data['vertexImagePath'];
-    vertexTitle = data['vertexTitle'];
+    nextVertex = data['nextVertex'];
     direction = data['direction'];
     iconX = data['iconX'];
     iconY = data['iconY'];
@@ -23,13 +36,13 @@ class VertexConnection {
   }
 
   VertexConnection copy(){
-    return VertexConnection(uid, vertexTitle, vertexImagePath, direction, iconX, iconY, iconSize, iconPath, length);
+    return VertexConnection(nextVertex, direction, iconX, iconY, iconSize, iconPath, length);
   }
 
   Map<String, dynamic> toMap(){
     return {
-      "vertexTitle": vertexTitle,
-      "vertexImagePath": vertexImagePath,
+      "uid" : uid,
+      "nextVertex": nextVertex,
       "direction": direction,
       "iconX": iconX,
       "iconY": iconY,

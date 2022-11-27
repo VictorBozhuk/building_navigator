@@ -8,11 +8,11 @@ import 'area_model.dart';
 import 'building_model.dart';
 
 class AdminInfo{
-  static Vertex vertex = Vertex(title: '', rooms: [], vertexConnections: []);
+  static Vertex vertex = Vertex.createEmpty();
   static Area area = Area.createEmpty();
   static Building building = Building.createEmpty();
   static Room room = Room(uid: '', title: '', vertexTitle: '');
-  static VertexConnection connection = VertexConnection('', '', '', 0, 0, 0, 0, 'assets/icons/point.png', 0);
+  static VertexConnection connection = VertexConnection.createEmpty();
   static double x = 0;
   static double y = 0;
   static double direction = 0;
@@ -47,7 +47,7 @@ class AdminInfo{
 
   static void clearConnection(){
     clear();
-    connection = VertexConnection('', '', '', 0, 0, 0, 0, 'assets/icons/point.png', 0);
+    connection = VertexConnection.createEmpty();
   }
 
   static void setRoomCoordinates(){

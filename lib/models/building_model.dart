@@ -35,7 +35,7 @@ class Building {
       if(vertexes[i].panoramaImagePath == currentVertexImagePath){
         int vertexConnectionLength = vertexes[i].vertexConnections?.length ?? 0;
         for(int j = 0; j < vertexConnectionLength; ++ j){
-          if(vertexes[i].vertexConnections?[j].vertexImagePath == nextVertexImagePath){
+          if(vertexes[i].vertexConnections?[j].nextVertex.panoramaImagePath == nextVertexImagePath){
             return vertexes[i].vertexConnections?[j].direction ?? 0;
           }
         }
@@ -80,7 +80,7 @@ class Building {
             nextVertex?.iconY ?? 0,
             nextVertex?.iconSize ?? 0,
             context,
-            nextVertex?.vertexImagePath ?? '',
+            nextVertex?.nextVertex.panoramaImagePath ?? '',
             nextVertexImagePath,
             nextVertex?.iconPath ?? '',
               ));
@@ -96,8 +96,8 @@ class Building {
     for(int i = 0; i < vertexes.length; ++i){
       int length = vertexes[i].vertexConnections?.length ?? 0;
       for(int j = 0; j < length; ++j){
-        if(isSameEdge(edges, vertexes[i].vertexConnections?[j].vertexTitle ?? '') == false){
-          edges.add(Edge(vertexes[i].title.toString(), vertexes[i].vertexConnections?[j].vertexTitle ?? '', vertexes[i].vertexConnections?[j].length ?? 0));
+        if(isSameEdge(edges, vertexes[i].vertexConnections?[j].nextVertex.panoramaImagePath ?? '') == false){
+          edges.add(Edge(vertexes[i].title.toString(), vertexes[i].vertexConnections?[j].nextVertex.panoramaImagePath ?? '', vertexes[i].vertexConnections?[j].length ?? 0));
         }
       }
     }

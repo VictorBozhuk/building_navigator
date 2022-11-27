@@ -42,7 +42,7 @@ class ListVertexConnectionsScreenState extends State<ListVertexConnectionsScreen
                 itemBuilder: (BuildContext, index){
                   return ListTile(
                     leading: Icon(Icons.room, color: Colors.white,),
-                    title: Text(vertex.vertexConnections![index].vertexTitle,
+                    title: Text(vertex.vertexConnections![index].nextVertex.title!,
                         style: const TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 30,

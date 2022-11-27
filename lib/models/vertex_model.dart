@@ -28,6 +28,19 @@ class Vertex {
     uid = const Uuid().v1();
   }
 
+  Vertex.createEmpty(){
+    uid = const Uuid().v1();
+    title = "";
+    panoramaImagePath = "";
+    rooms = [];
+    pointX = 0;
+    pointY = 0;
+    map2DPath = "";
+    map2DWidth = 0;
+    map2DHeight = 0;
+    vertexConnections = [];
+  }
+
   String getImagePath() {
     return panoramaImagePath ?? '';
   }
