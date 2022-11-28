@@ -7,27 +7,19 @@ import 'add_room.dart';
 import 'add_vertex_connection.dart';
 
 class AdminParoramaScreen extends StatefulWidget{
-  AdminParoramaScreen({Key? key, required this.panoramaImagePath, required this.isRoom, required this.widget, required this.isCreate, required this.index}) : super(key: key);
-  final String panoramaImagePath;
-  final Widget widget;
-  final bool isRoom;
-  final bool isCreate;
-  final int index;
-
-  @override
-  State<StatefulWidget> createState() =>
-      AdminParoramaScreenState(panoramaImagePath: panoramaImagePath, isRoom: isRoom,
-          currentWidget: widget,  isCreate: isCreate, index: index);
-}
-
-
-class AdminParoramaScreenState extends State<AdminParoramaScreen> {
-  AdminParoramaScreenState({required this.panoramaImagePath, required this.isRoom, required this.currentWidget, required this.isCreate, required this.index});
+  AdminParoramaScreen({Key? key, required this.panoramaImagePath, required this.isRoom, required this.currentWidget, required this.isCreate, required this.index}) : super(key: key);
   final String panoramaImagePath;
   final Widget currentWidget;
   final bool isRoom;
   final bool isCreate;
   final int index;
+
+  @override
+  State<StatefulWidget> createState() => AdminParoramaScreenState();
+}
+
+
+class AdminParoramaScreenState extends State<AdminParoramaScreen> {
   late List<Hotspot> hotspots = [];
 
   @override
@@ -40,7 +32,7 @@ class AdminParoramaScreenState extends State<AdminParoramaScreen> {
           AdminInfo.x = longitude;
           AdminInfo.y = latitude;
           setState(() {
-            hotspots = [getHotspot(currentWidget, AdminInfo.x, AdminInfo.y)];
+            hotspots = [getHotspot(widget.currentWidget, AdminInfo.x, AdminInfo.y)];
           });
         },
         onViewChanged: ( longitude,  latitude,  tilt) {
@@ -48,7 +40,7 @@ class AdminParoramaScreenState extends State<AdminParoramaScreen> {
         },
         sensitivity: 2,
         hotspots: hotspots,
-        child: Image.network(panoramaImagePath),
+        child: Image.network(widget.panoramaImagePath),
 
       ),
       floatingActionButton: FloatingActionButton(
@@ -58,15 +50,15 @@ class AdminParoramaScreenState extends State<AdminParoramaScreen> {
         onPressed: () {
           setState(() {
             Navigator.pop(context);
-            if(isRoom == true){
+            if(widget.isRoom == true){
               AdminInfo.setRoomCoordinates();
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-                  AddRoomScreen(vertex: AdminInfo.vertex, isCreate: isCreate, index: index,)));
+                  AddRoomScreen(isCreate: widget.isCreate)));
             }
             else{
               AdminInfo.setConnectionCoordinates();
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-                  AddVertexConnectionScreen(isCreate: isCreate)));
+                  AddVertexConnectionScreen(isCreate: widget.isCreate)));
             }
           });
         },

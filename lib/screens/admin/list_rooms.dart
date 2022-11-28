@@ -9,27 +9,20 @@ import 'add_room.dart';
 import 'add_vertex.dart';
 
 class ListRoomsScreen extends StatefulWidget {
-  ListRoomsScreen({required this.vertex});
-  final Vertex vertex;
   @override
-  State<StatefulWidget> createState() => ListRoomsScreenState(vertex: vertex);
+  State<StatefulWidget> createState() => ListRoomsScreenState();
 }
 
 class ListRoomsScreenState extends State<ListRoomsScreen> {
-
-  ListRoomsScreenState({required this.vertex}) {
-  }
-  final Vertex vertex;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: getAdminAppBar("Приміщення", () => {
           AdminInfo.clearRoom(),
-          AdminInfo.room.vertexTitle = vertex.title.toString(),
+          AdminInfo.room.vertex = AdminInfo.selectedVertex!,
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AddRoomScreen(vertex: vertex, isCreate: true, index: 0,)))
+              MaterialPageRoute(builder: (context) => AddRoomScreen(isCreate: true)))
         }),
         body: Container(
           decoration: BoxDecoration(
@@ -42,7 +35,7 @@ class ListRoomsScreenState extends State<ListRoomsScreen> {
                 itemBuilder: (BuildContext, index){
                   return ListTile(
                     leading: Icon(Icons.room, color: Colors.white,),
-                    title: Text(vertex.rooms![index].title,
+                    title: Text(AdminInfo.selectedVertex!.rooms![index].title,
                         style: const TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 30,
@@ -50,11 +43,11 @@ class ListRoomsScreenState extends State<ListRoomsScreen> {
                             fontWeight: FontWeight.w600)),
                     onTap: () => {
                       AdminInfo.clearRoom(),
-                      AdminInfo.room = vertex.rooms![index],
-                      AdminInfo.room.vertexTitle = vertex.title.toString(),
+                      AdminInfo.room = AdminInfo.selectedVertex!.rooms![index],
+                      AdminInfo.room.vertexTitle = AdminInfo.selectedVertex!.title.toString(),
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => AddRoomScreen(vertex: vertex, isCreate: false, index: index,))),
+                          MaterialPageRoute(builder: (context) => AddRoomScreen(isCreate: false))),
                     },
                   );
                 },
@@ -62,9 +55,9 @@ class ListRoomsScreenState extends State<ListRoomsScreen> {
                 {
                   return Divider(height: 1);
                 },
-                itemCount: vertex.rooms?.length ?? 0,
+                itemCount: AdminInfo.selectedVertex!.rooms!.length,
                 shrinkWrap: true,
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 scrollDirection: Axis.vertical,
               ),
               )

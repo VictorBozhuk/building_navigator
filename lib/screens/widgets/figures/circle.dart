@@ -40,6 +40,8 @@ Positioned getVertexAsButtonOn2DMap(Vertex vertex, Function func) {
           child: InkWell(
               splashColor: Colors.grey,
               onTap: () {
+                AdminInfo.selectedVertex = vertex;
+                /*
                 if(AdminInfo.selectedVertex == null){
                   AdminInfo.selectedVertex = vertex;
                   // вивети якусь функцію напис що виділено
@@ -50,7 +52,12 @@ Positioned getVertexAsButtonOn2DMap(Vertex vertex, Function func) {
                   // вивети якусь функцію напис що виділено
                   var t = 0;
                 }
+                */
                 print("pressed (${vertex.title}) $x , $y");
+                func();
+              },
+              onLongPress: (){
+                AdminInfo.secondSelectedVertex = vertex;
                 func();
               },
               child: Container(

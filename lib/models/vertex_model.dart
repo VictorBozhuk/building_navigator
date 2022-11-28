@@ -32,6 +32,7 @@ class Vertex {
     uid = const Uuid().v1();
     title = null;
     panoramaImagePath = null;
+    map2DPath = null;
     rooms = [];
     vertexConnections = [];
   }
@@ -88,6 +89,19 @@ class Vertex {
     }
   }
 
+  Vertex.fromJsonForConnection(Map<String, dynamic> data) {
+    uid = data["uid"];
+    title = data['title'];
+    panoramaImagePath = data['panoramaImagePath'];
+    pointX = data['pointX'];
+    pointY = data['pointY'];
+    map2DPath = data['map2DPath'];
+    map2DWidth = data['map2DWidth'];
+    map2DHeight = data['map2DHeight'];
+    rooms = [];
+    vertexConnections = [];
+  }
+
   Vertex copy(){
     var copiedRooms = rooms?.map((w) => w.copy()).toList();
     var copiedVertexConnections = vertexConnections?.map((w) => w.copy()).toList();
@@ -102,6 +116,19 @@ class Vertex {
       "panoramaImagePath": panoramaImagePath,
       "vertexConnections": vertexConnections?.map((w) => w.toMap()).toList(),
       "rooms": rooms?.map((w) => w.toMap()).toList(),
+      "pointX" : pointX,
+      "pointY" : pointY,
+      "map2DPath" : map2DPath,
+      "map2DWidth" : map2DWidth,
+      "map2DHeight" : map2DHeight,
+    };
+  }
+
+  Map<String, dynamic> toMapForConnection(){
+    return {
+      "uid" : uid,
+      "title": title,
+      "panoramaImagePath": panoramaImagePath,
       "pointX" : pointX,
       "pointY" : pointY,
       "map2DPath" : map2DPath,

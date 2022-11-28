@@ -71,23 +71,7 @@ class AddVertexScreenState extends State<AddVertexScreen> {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) =>
-                              ListRoomsScreen(vertex: AdminInfo.vertex)
-                          ));
-                    },
-                  )
-              ),
-              Container(
-                  height: 50,
-                  width: MediaQuery.of(context).size.width - 20,
-                  margin: EdgeInsets.only(top: 10),
-                  child: ElevatedButton(
-                    child: const Text('Сусідні вершини', style: TextStyle(
-                      fontSize: 22,
-                    )),
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) =>
-                              ListVertexConnectionsScreen(vertex: AdminInfo.vertex)
+                              ListRoomsScreen()
                           ));
                     },
                   )
@@ -104,6 +88,7 @@ class AddVertexScreenState extends State<AddVertexScreen> {
                       var edited_vertex = AdminInfo.area.vertexes?.firstWhere((x) => x.uid == AdminInfo.selectedVertex?.uid);
                       edited_vertex?.title = AdminInfo.selectedVertex?.title;
                       edited_vertex?.panoramaImagePath = AdminInfo.selectedVertex?.panoramaImagePath;
+                      edited_vertex?.rooms = AdminInfo.selectedVertex?.rooms;
 
                       Navigator.pop(context);
                       Navigator.pushReplacement(context,

@@ -10,25 +10,15 @@ import 'list_rooms.dart';
 import 'list_vertexes.dart';
 
 class AddRoomScreen extends StatefulWidget{
-
-  AddRoomScreen({Key? key, required this.vertex, required this.isCreate, required this.index}){
+  AddRoomScreen({Key? key, required this.isCreate}){
     AdminInfo.setSize(AdminInfo.room.title);
   }
-
-  final Vertex vertex;
   final bool isCreate;
-  final int index;
   @override
-  State<StatefulWidget> createState() => AddRoomScreenState(vertex: vertex,  isCreate: isCreate, index: index);
+  State<StatefulWidget> createState() => AddRoomScreenState();
 }
 
 class AddRoomScreenState extends State<AddRoomScreen> {
-
-  final Vertex vertex;
-  final bool isCreate;
-  final int index;
-  AddRoomScreenState({Key? key, required this.vertex, required this.isCreate, required this.index});
-
   TextEditingController txtTitle = TextEditingController(text: AdminInfo.room.title);
   TextEditingController txtX = TextEditingController(text: AdminInfo.room.titleX.toString());
   TextEditingController txtY = TextEditingController(text: AdminInfo.room.titleY.toString());
@@ -115,13 +105,13 @@ class AddRoomScreenState extends State<AddRoomScreen> {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) =>
-                          AdminParoramaScreen(panoramaImagePath: vertex.panoramaImagePath ?? '', isRoom: true,
-                              widget: Text(AdminInfo.room.title,
+                          AdminParoramaScreen(panoramaImagePath: AdminInfo.selectedVertex!.panoramaImagePath ?? '', isRoom: true,
+                              currentWidget: Text(AdminInfo.room.title,
                                 style: const TextStyle(
                                     color: Colors.red,
                                     fontFamily: 'Poppins',
                                     fontSize: 40,
-                                    fontWeight: FontWeight.w700)), isCreate: isCreate, index: index,)
+                                    fontWeight: FontWeight.w700)), isCreate: widget.isCreate, index: 0,)
                           ));
                     },
                   )
@@ -135,18 +125,20 @@ class AddRoomScreenState extends State<AddRoomScreen> {
                       fontSize: 22,
                     )),
                     onPressed: () {
-                      if(isCreate == true){
-                        if(AdminInfo.vertex.rooms == null){
-                          AdminInfo.vertex.rooms = [];
-                        }
-                        AdminInfo.vertex.rooms?.add(AdminInfo.room);
+                      if(widget.isCreate == true){
+                        AdminInfo.selectedVertex!.rooms ??= [];
+                        AdminInfo.selectedVertex!.rooms?.add(AdminInfo.room);
                       }
                       else{
-                        AdminInfo.vertex.rooms![index] = AdminInfo.room;
+                        var room = AdminInfo.selectedVertex!.rooms!.firstWhere((x) => x.uid == AdminInfo.room.uid);
+                        room.title = AdminInfo.room.title;
+                        room.titleX = AdminInfo.room.titleX;
+                        room.titleY = AdminInfo.room.titleY;
+                        room.direction = AdminInfo.room.direction;
                       }
                       Navigator.pop(context);
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-                          ListRoomsScreen(vertex: AdminInfo.vertex)));
+                          ListRoomsScreen()));
                     },
                   )
               ),

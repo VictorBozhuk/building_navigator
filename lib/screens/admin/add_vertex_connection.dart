@@ -151,7 +151,7 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) =>
                               AdminParoramaScreen(panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '', isRoom: false,
-                                  widget: Image.asset('assets/icons/point.png'), isCreate: widget.isCreate, index: 0,)
+                                  currentWidget: Image.asset('assets/icons/point.png'), isCreate: widget.isCreate, index: 0,)
                           ));
                     },
                   )

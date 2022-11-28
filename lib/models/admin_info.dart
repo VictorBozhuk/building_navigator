@@ -11,7 +11,7 @@ class AdminInfo{
   static Vertex vertex = Vertex.createEmpty();
   static Area area = Area.createEmpty();
   static Building building = Building.createEmpty();
-  static Room room = Room(uid: '', title: '', vertexTitle: '');
+  static Room room = Room.createEmpty();
   static VertexConnection connection = VertexConnection.createEmpty();
   static double x = 0;
   static double y = 0;
@@ -44,7 +44,7 @@ class AdminInfo{
 
   static void clearRoom(){
     clear();
-    room = Room(uid: '', title: '', vertexTitle: '');
+    room = Room.createEmpty();
   }
 
   static void clearConnection(){
