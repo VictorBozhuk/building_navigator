@@ -11,9 +11,8 @@ import 'list_vertex_connections.dart';
 import 'list_vertexes.dart';
 
 class AddAreaScreen extends StatefulWidget{
-  AddAreaScreen({Key? key, required this.isCreate, this.index});
+  AddAreaScreen({Key? key, required this.isCreate});
   final bool isCreate;
-  final int? index;
   @override
   State<StatefulWidget> createState() => AddAreaScreenState();
 }
@@ -92,15 +91,23 @@ class AddAreaScreenState extends State<AddAreaScreen> {
                       onPressed: () {
                         if(widget.isCreate == true){
                           AdminInfo.building.areas.add(AdminInfo.area);
+                          Navigator.pop(context);
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) =>
+                                  ListAreasAdminScreen(AdminInfo.building)
+                              ));
                         }
                         else{
-                          AdminInfo.building.areas[widget.index!] = AdminInfo.area;
+                          var area = AdminInfo.building.areas.firstWhere((x) => x.uid == AdminInfo.area.uid);
+                          area.title = AdminInfo.area.title;
+                          area.imagePath = AdminInfo.area.imagePath;
+                          Navigator.pop(context);
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) =>
+                                  AddVertexesToAreaScreen()
+                              ));
                         }
-                        Navigator.pop(context);
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) =>
-                                ListAreasAdminScreen(AdminInfo.building)
-                            ));
+
                       },
                     )
                 ),

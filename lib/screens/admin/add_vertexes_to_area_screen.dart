@@ -11,6 +11,7 @@ import '../widgets/figures/circle.dart';
 import '../widgets/figures/line.dart';
 import '../widgets/matrix_gesture_detector.dart';
 
+import 'add_area_screen.dart';
 import 'add_vertex.dart';
 import 'add_vertex_connection.dart';
 
@@ -43,9 +44,7 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
         }
       }
 
-      for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
-        widget.points.add(getVertexAsButtonOn2DMap(AdminInfo.area.vertexes![i], setStateAnalog));
-      }
+      setPoints(widget, setStateAnalog);
       setState(() { });
     });
   }
@@ -59,9 +58,11 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
     final ValueNotifier<Matrix4> notifier = ValueNotifier(Matrix4.identity());
     return Scaffold(
         backgroundColor: Colors.grey,
-        appBar: AppBar(
-          title: Text(AdminInfo.area.title),
-        ),
+        appBar: getAdminAppBarEdit(AdminInfo.area.title, () => {
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AddAreaScreen(isCreate: false)))
+        }),
         body:Column(children: [ Expanded(child: MatrixGestureDetector(
           onMatrixUpdate: (m, tm, sm, rm) {
             notifier.value = m;
@@ -80,9 +81,7 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
             onTapUp: (TapUpDetails details) {
               AdminInfo.area.vertexes?.add(getCreatedVertexOnMap(details));
               setState(() {
-                for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
-                  widget.points.add(getVertexAsButtonOn2DMap(AdminInfo.area.vertexes![i], setStateAnalog));
-                }
+                setPoints(widget, setStateAnalog);
               });
             },
             child: AnimatedBuilder(
@@ -118,17 +117,17 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
                 setState(() { });
             }, child: Text("очистити")),
             ElevatedButton(onPressed: (){
-
-            }, child: Text("описати конект")),
+              DeleteSelected(widget, setStateAnalog);
+            }, child: Text("delete f")),
 
           ],),
           Row(children: [
             ElevatedButton(onPressed: (){
               if(AdminInfo.selectedVertex != null){
-                AdminInfo.vertex = AdminInfo.selectedVertex!;
+                //AdminInfo.vertex = AdminInfo.selectedVertex!;
                 Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => AddVertexScreen(isCreate: false)));
+                    MaterialPageRoute(builder: (context) => AddVertexScreen()));
               }
             }, child: Text("Вершина інфо")),
           ]),
@@ -180,3 +179,16 @@ void drowLine(Vertex first, Vertex second, List<Widget> points){
   ));
 }
 
+void DeleteSelected(AddVertexesToAreaScreen widget, Function func){
+  AdminInfo.area.vertexes?.removeWhere((x) => x.uid == AdminInfo.selectedVertex?.uid);
+  widget.points = [widget.mapImage];
+  setPoints(widget, func);
+  AdminInfo.clearSelectedVertexes();
+  func();
+}
+
+void setPoints(AddVertexesToAreaScreen widget, Function func){
+  for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
+    widget.points.add(getVertexAsButtonOn2DMap(AdminInfo.area.vertexes![i], func));
+  }
+}

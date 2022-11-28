@@ -26,7 +26,7 @@ class ListVertexesScreenState extends State<ListVertexesScreen> {
           AdminInfo.clearVertex(),
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AddVertexScreen(isCreate: true)))
+              MaterialPageRoute(builder: (context) => AddVertexScreen()))
         }),
         body: Container(
           decoration: BoxDecoration(
@@ -50,7 +50,7 @@ class ListVertexesScreenState extends State<ListVertexesScreen> {
                       AdminInfo.vertex = building.vertexes[index],
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => AddVertexScreen(isCreate: false)))
+                          MaterialPageRoute(builder: (context) => AddVertexScreen()))
                     },
                   );
                 },

@@ -22,7 +22,7 @@ class ListAreasAdminScreen extends StatelessWidget{
 
     return Scaffold(
         appBar: getAdminAppBar("Зони", () => {
-          AdminInfo.clear(),
+          AdminInfo.clearArea(),
           Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => AddAreaScreen(isCreate: true)))

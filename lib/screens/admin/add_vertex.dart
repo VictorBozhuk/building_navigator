@@ -11,20 +11,19 @@ import 'list_vertexes.dart';
 
 class AddVertexScreen extends StatefulWidget{
 
-  AddVertexScreen({Key? key, required this.isCreate});
-  final bool isCreate;
+  AddVertexScreen({Key? key});
   @override
   State<StatefulWidget> createState() => AddVertexScreenState();
 }
 
 class AddVertexScreenState extends State<AddVertexScreen> {
-  TextEditingController txtTitle = TextEditingController(text: AdminInfo.vertex.title);
-  TextEditingController txtImagePath = TextEditingController(text: AdminInfo.vertex.panoramaImagePath);
+  TextEditingController txtTitle = TextEditingController(text: AdminInfo.selectedVertex?.title);
+  TextEditingController txtImagePath = TextEditingController(text: AdminInfo.selectedVertex?.panoramaImagePath);
   _changeTitle(String text){
-    setState(() => AdminInfo.vertex.title = text);
+    setState(() => AdminInfo.selectedVertex?.title = text);
   }
   _changeImagePath(String text){
-    setState(() => AdminInfo.vertex.panoramaImagePath = text);
+    setState(() => AdminInfo.selectedVertex?.panoramaImagePath = text);
   }
   @override
   Widget build(BuildContext context) {
@@ -102,15 +101,10 @@ class AddVertexScreenState extends State<AddVertexScreen> {
                       fontSize: 22,
                     )),
                     onPressed: () {
-                      if(widget.isCreate == true){
-                        AdminInfo.building.vertexes.add(AdminInfo.vertex);
-                      }
-                      else{
-                        //AdminInfo.building.vertexes[widget.index] = AdminInfo.vertex;
-                        var edited_vertex = AdminInfo.area.vertexes?.firstWhere((element) => element.uid == AdminInfo.vertex.uid);
-                        edited_vertex?.title = AdminInfo.vertex.title;
-                        edited_vertex?.panoramaImagePath = AdminInfo.vertex.panoramaImagePath;
-                      }
+                      var edited_vertex = AdminInfo.area.vertexes?.firstWhere((x) => x.uid == AdminInfo.selectedVertex?.uid);
+                      edited_vertex?.title = AdminInfo.selectedVertex?.title;
+                      edited_vertex?.panoramaImagePath = AdminInfo.selectedVertex?.panoramaImagePath;
+
                       Navigator.pop(context);
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) =>

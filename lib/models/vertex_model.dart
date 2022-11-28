@@ -28,6 +28,14 @@ class Vertex {
     uid = const Uuid().v1();
   }
 
+  Vertex.createOnlyPoint(this.pointX, this.pointY, this.map2DWidth, this.map2DHeight,){
+    uid = const Uuid().v1();
+    title = null;
+    panoramaImagePath = null;
+    rooms = [];
+    vertexConnections = [];
+  }
+
   Vertex.createEmpty(){
     uid = const Uuid().v1();
     title = "";

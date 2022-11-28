@@ -8,7 +8,7 @@ Vertex getCreatedVertexOnMap(TapUpDetails details) {
   var x = roundDouble(details.localPosition.dx);
   var y = roundDouble(details.localPosition.dy);
   print("Point:   x = ${x}   y = ${y}");
-  return Vertex(pointX: x, pointY: y, map2DHeight: pictureHeight, map2DWidth: pictureWidth);
+  return Vertex.createOnlyPoint(x, y, pictureWidth, pictureHeight);
 }
 
 double roundDouble(double value){

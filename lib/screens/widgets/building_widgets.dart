@@ -89,6 +89,31 @@ AppBar getAdminAppBar(String title, Function func) {
   );
 }
 
+AppBar getAdminAppBarEdit(String title, Function func) {
+  return AppBar(
+    centerTitle: true,
+    title: Text(title, style: const TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 24,
+        fontWeight: FontWeight.w600)),
+    actions: <Widget>[
+      Padding(
+          padding: EdgeInsets.only(right: 20.0),
+          child: GestureDetector(
+            onTap: () {
+              func();
+            },
+            child: Icon(
+              Icons.edit,
+              size: 35.0,
+            ),
+          )
+      ),
+    ],
+
+  );
+}
+
 InputDecoration getTextFieldDecoration(String hintText){
   return InputDecoration(
         hoverColor: Colors.white,
