@@ -37,13 +37,6 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
     super.initState();
     Future.delayed(const Duration(milliseconds: 1500), () {
       setSize(widget.image_key);
-      for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
-        for(int j = 0; j < AdminInfo.area.vertexes![i].vertexConnections!.length; ++j){
-          drowLine(AdminInfo.area.vertexes![i],
-              AdminInfo.area.vertexes![i].vertexConnections![j].nextVertex, widget.points);
-        }
-      }
-
       setPoints(widget, setStateAnalog);
       setState(() { });
     });
@@ -188,6 +181,19 @@ void DeleteSelected(AddVertexesToAreaScreen widget, Function func){
 }
 
 void setPoints(AddVertexesToAreaScreen widget, Function func){
+  for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
+    for(int j = 0; j < AdminInfo.area.vertexes![i].vertexConnections!.length; ++j){
+      //
+      // if якщо на одній зоні
+      //
+      drowLine(AdminInfo.area.vertexes![i],
+          AdminInfo.area.vertexes![i].vertexConnections![j].nextVertex, widget.points);
+      //
+      // інакше пофарбувати в жовтий
+      //
+    }
+  }
+
   for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
     widget.points.add(getVertexAsButtonOn2DMap(AdminInfo.area.vertexes![i], func));
   }

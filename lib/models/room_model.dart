@@ -33,7 +33,7 @@ class Room extends Comparable<Room> {
   }
 
   Room.fromJson(Map<String, dynamic> data) {
-    uid = data[uid];
+    uid = data["uid"];
     title = data['title'];
     vertexTitle = data['vertexTitle'];
     titleX = data['titleX'];

@@ -66,23 +66,6 @@ class AddAreaScreenState extends State<AddAreaScreen> {
                 Container(
                     height: 50,
                     width: MediaQuery.of(context).size.width - 20,
-                    margin: EdgeInsets.only(top: 10),
-                    child: ElevatedButton(
-                      child: const Text('Вершини', style: TextStyle(
-                        fontSize: 22,
-                      )),
-                      onPressed: () {
-                        AdminInfo.clearArea();
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) =>
-                                AddVertexesToAreaScreen()
-                            ));
-                      },
-                    )
-                ),
-                Container(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width - 20,
                     margin: EdgeInsets.only(top: 30),
                     child: ElevatedButton(
                       child: const Text('Зберегти', style: TextStyle(
