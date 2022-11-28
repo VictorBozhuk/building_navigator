@@ -66,7 +66,7 @@ class AdminParoramaScreenState extends State<AdminParoramaScreen> {
             else{
               AdminInfo.setConnectionCoordinates();
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-                  AddVertexConnectionScreen(vertex: AdminInfo.vertex, isCreate: isCreate, index: index)));
+                  AddVertexConnectionScreen(isCreate: isCreate)));
             }
           });
         },

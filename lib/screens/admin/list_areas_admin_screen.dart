@@ -78,7 +78,7 @@ class ListAreasAdminScreen extends StatelessWidget{
                             AdminInfo.area = building.areas[index],
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => AddVertexesToAreaScreen(building.areas[index])))},
+                                MaterialPageRoute(builder: (context) => AddVertexesToAreaScreen()))},
                         );
                       },
                       itemCount:  building.areas.length,

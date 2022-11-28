@@ -4,26 +4,20 @@ import '../../Style/images.dart';
 import '../../models/admin_info.dart';
 import '../../models/building_model.dart';
 import '../widgets/building_widgets.dart';
+import 'add_vertexes_to_area_screen.dart';
 import 'list_rooms.dart';
 import 'list_vertex_connections.dart';
 import 'list_vertexes.dart';
 
 class AddVertexScreen extends StatefulWidget{
 
-  AddVertexScreen({Key? key, required this.isCreate, required this.index});
+  AddVertexScreen({Key? key, required this.isCreate});
   final bool isCreate;
-  final int index;
   @override
-  State<StatefulWidget> createState() => AddVertexScreenState(isCreate: isCreate, index: index);
+  State<StatefulWidget> createState() => AddVertexScreenState();
 }
 
 class AddVertexScreenState extends State<AddVertexScreen> {
-
-
-  AddVertexScreenState({Key? key, required this.isCreate, required this.index});
-  final bool isCreate;
-  final int index;
-
   TextEditingController txtTitle = TextEditingController(text: AdminInfo.vertex.title);
   TextEditingController txtImagePath = TextEditingController(text: AdminInfo.vertex.panoramaImagePath);
   _changeTitle(String text){
@@ -108,16 +102,19 @@ class AddVertexScreenState extends State<AddVertexScreen> {
                       fontSize: 22,
                     )),
                     onPressed: () {
-                      if(isCreate == true){
+                      if(widget.isCreate == true){
                         AdminInfo.building.vertexes.add(AdminInfo.vertex);
                       }
                       else{
-                        AdminInfo.building.vertexes[index] = AdminInfo.vertex;
+                        //AdminInfo.building.vertexes[widget.index] = AdminInfo.vertex;
+                        var edited_vertex = AdminInfo.area.vertexes?.firstWhere((element) => element.uid == AdminInfo.vertex.uid);
+                        edited_vertex?.title = AdminInfo.vertex.title;
+                        edited_vertex?.panoramaImagePath = AdminInfo.vertex.panoramaImagePath;
                       }
                       Navigator.pop(context);
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) =>
-                              ListVertexesScreen(building: AdminInfo.building)
+                              AddVertexesToAreaScreen()
                           ));
                     },
                   )

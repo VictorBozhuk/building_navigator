@@ -49,6 +49,15 @@ class Vertex {
     imageWidget = Image.network(panoramaImagePath ?? '');
   }
 
+  bool isFullInfo(){
+    if(title == null || (title?.isEmpty ?? true)
+    || panoramaImagePath == null || (panoramaImagePath?.isEmpty ?? true)){
+      return false;
+    }
+
+    return true;
+  }
+
   Vertex.fromJson(Map<String, dynamic> data) {
     uid = data["uid"];
     title = data['title'];

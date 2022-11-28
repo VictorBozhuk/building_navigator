@@ -17,6 +17,8 @@ class AdminInfo{
   static double y = 0;
   static double direction = 0;
   static double size = 0;
+  static Vertex? selectedVertex;
+  static Vertex? secondSelectedVertex;
 
   static void clear(){
     x = 0;
@@ -70,5 +72,10 @@ class AdminInfo{
 
   static setSize(String text){
     AdminInfo.size = text.length * 30;
+  }
+
+  static clearSelectedVertexes(){
+    selectedVertex = null;
+    secondSelectedVertex = null;
   }
 }

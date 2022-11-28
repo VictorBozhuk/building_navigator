@@ -22,5 +22,5 @@ void setSize(GlobalKey key){
 
   pictureHeight = box.size.height;
   pictureWidth = box.size.width;
-  pointRadius = box.size.width / 85;
+  pointRadius = box.size.width / 55;
 }

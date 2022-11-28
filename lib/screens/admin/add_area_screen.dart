@@ -73,9 +73,10 @@ class AddAreaScreenState extends State<AddAreaScreen> {
                         fontSize: 22,
                       )),
                       onPressed: () {
+                        AdminInfo.clearArea();
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) =>
-                                AddVertexesToAreaScreen(AdminInfo.area)
+                                AddVertexesToAreaScreen()
                             ));
                       },
                     )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'admin/list_buildings_admin.dart';
 import 'list_buildings.dart';
 
 class Splash extends StatefulWidget {
@@ -11,13 +12,13 @@ class _SplashState extends State<Splash> {
   void initState() {
     //FirebaseFirestore.instance.collection('buildings').add({'building': buildings[0]});
 
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => ListBuildingsPage()));
+              builder: (context) => ListBuildingsAdminScreen()));
+      //Navigator.push( context, MaterialPageRoute( builder: (context) => ListBuildingsPage()));
     });
-
     super.initState();
   }
 

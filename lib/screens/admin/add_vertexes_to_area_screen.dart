@@ -1,22 +1,30 @@
+
+
 import 'package:flutter/material.dart';
 import '../../data/globals.dart';
+import '../../models/admin_info.dart';
 import '../../models/area_model.dart';
+import '../../models/vertex_model.dart';
 import '../actions/actions.dart';
 import '../widgets/building_widgets.dart';
 import '../widgets/figures/circle.dart';
+import '../widgets/figures/line.dart';
 import '../widgets/matrix_gesture_detector.dart';
 
+import 'add_vertex.dart';
+import 'add_vertex_connection.dart';
+
 class AddVertexesToAreaScreen extends StatefulWidget {
-  late Area area;
-  AddVertexesToAreaScreen(this.area, {super.key}){
+  AddVertexesToAreaScreen({super.key}){
+
     mapImage = Container(
-      key: key_1,
-      child: getAreaImage(area.imagePath),
+      key: image_key,
+      child: getAreaImage(AdminInfo.area.imagePath),
     );
   }
-  late List<Widget> points = [];
+  late List<Widget> points = [mapImage];
   late Widget mapImage;
-
+  GlobalKey image_key = GlobalKey();
   @override
   State<StatefulWidget> createState() => _AddVertexesToAreaScreenState();
 }
@@ -26,45 +34,54 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
-      setSize(key_1);
+    Future.delayed(const Duration(milliseconds: 1500), () {
+      setSize(widget.image_key);
+      for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
+        for(int j = 0; j < AdminInfo.area.vertexes![i].vertexConnections!.length; ++j){
+          drowLine(AdminInfo.area.vertexes![i],
+              AdminInfo.area.vertexes![i].vertexConnections![j].nextVertex, widget.points);
+        }
+      }
+
+      for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
+        widget.points.add(getVertexAsButtonOn2DMap(AdminInfo.area.vertexes![i], setStateAnalog));
+      }
+      setState(() { });
     });
+  }
+
+  void setStateAnalog(){
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    if(widget.points.isEmpty){
-      widget.points.add(widget.mapImage);
-      for(int i = 0; i < widget.area.vertexes!.length; ++i){
-        widget.points.add(getVertexAsButtonOn2DMap(widget.area.vertexes![i]));
-      }
-    }
     final ValueNotifier<Matrix4> notifier = ValueNotifier(Matrix4.identity());
     return Scaffold(
         backgroundColor: Colors.grey,
         appBar: AppBar(
-          title: Text(widget.area.title),
+          title: Text(AdminInfo.area.title),
         ),
-        body: MatrixGestureDetector(
+        body:Column(children: [ Expanded(child: MatrixGestureDetector(
           onMatrixUpdate: (m, tm, sm, rm) {
             notifier.value = m;
           },
           onScaleStart: () {
             var x_ = notifier.value.entry(0, 3);
             var y_ = notifier.value.entry(1, 3);
-            var r_x = roundDouble(x_);
-            var r_y = roundDouble(y_);
-            print("picture angle:   x = ${r_x} y = ${r_y}");
+            var rX = roundDouble(x_);
+            var rY = roundDouble(y_);
+            print("picture angle:   x = ${rX} y = ${rY}");
           },
           onScaleEnd: () {
             //print(notifier.value);
           },
           child: GestureDetector(
             onTapUp: (TapUpDetails details) {
-              widget.area.vertexes?.add(getCreatedVertexOnMap(details));
+              AdminInfo.area.vertexes?.add(getCreatedVertexOnMap(details));
               setState(() {
-                for(int i = 0; i < widget.area.vertexes!.length; ++i){
-                  widget.points.add(getVertexAsButtonOn2DMap(widget.area.vertexes![i]));
+                for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
+                  widget.points.add(getVertexAsButtonOn2DMap(AdminInfo.area.vertexes![i], setStateAnalog));
                 }
               });
             },
@@ -80,7 +97,86 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
               },
             ),
           ),
-        )
+        ),),
+          Row(children: [
+            Text("first: ${AdminInfo.selectedVertex?.title}      second: ${AdminInfo.secondSelectedVertex?.title}"),]),
+          Row(children: [
+            ElevatedButton(onPressed: (){
+
+              bool isCreate = true;
+              AdminInfo.clearConnection();
+              if(AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex.uid == AdminInfo.secondSelectedVertex!.uid)){
+                AdminInfo.connection = AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x) => x.nextVertex.uid == AdminInfo.secondSelectedVertex!.uid);
+                isCreate = false;
+              }
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddVertexConnectionScreen(isCreate: isCreate)));
+            }, child: Text("З'єднати")),
+            ElevatedButton(onPressed: (){
+                AdminInfo.clearSelectedVertexes();
+                setState(() { });
+            }, child: Text("очистити")),
+            ElevatedButton(onPressed: (){
+
+            }, child: Text("описати конект")),
+
+          ],),
+          Row(children: [
+            ElevatedButton(onPressed: (){
+              if(AdminInfo.selectedVertex != null){
+                AdminInfo.vertex = AdminInfo.selectedVertex!;
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddVertexScreen(isCreate: false)));
+              }
+            }, child: Text("Вершина інфо")),
+          ]),
+
+    ],
+        ),
     );
   }
 }
+
+void drowLine(Vertex first, Vertex second, List<Widget> points){
+  double x1 = first.pointX!;
+  double y1 = first.pointY!;
+  double x2 = second.pointX!;
+  double y2 = second.pointY!;
+  double xDif = (first.pointX! - second.pointX!).abs() / 2;
+  double yDif = (first.pointY! - second.pointY!).abs() / 2;
+  double x2Res = 0;
+  double y2Res = 0;
+  if(x1 < x2){
+    if(y1 < y2){
+      x2Res = x1 + xDif;
+      y2Res = y1 + yDif;
+    }
+    else{
+      x2Res = x1 + xDif;
+      y2Res = y1 - yDif;
+    }
+  }
+  else{
+    if(y1 < y2){
+      x2Res = x1 - xDif;
+      y2Res = y1 + yDif;
+    }
+    else{
+      x2Res = x1 - xDif;
+      y2Res = y1 - yDif;
+    }
+  }
+
+  points.add(CustomPaint(
+    foregroundPainter: Line(x1,
+        y1,
+        x2Res,
+        y2Res),
+    child: Container(
+      color: Colors.transparent,
+    ),
+  ));
+}
+

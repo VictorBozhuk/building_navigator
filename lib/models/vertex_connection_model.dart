@@ -26,7 +26,8 @@ class VertexConnection {
   }
 
   VertexConnection.fromJson(Map<String, dynamic> data) {
-    nextVertex = data['nextVertex'];
+    uid = data['uid'];
+    nextVertex = Vertex.fromJson(data['nextVertex']);
     direction = data['direction'];
     iconX = data['iconX'];
     iconY = data['iconY'];
@@ -42,7 +43,7 @@ class VertexConnection {
   Map<String, dynamic> toMap(){
     return {
       "uid" : uid,
-      "nextVertex": nextVertex,
+      "nextVertex": nextVertex.toMap(),
       "direction": direction,
       "iconX": iconX,
       "iconY": iconY,

@@ -6,27 +6,23 @@ import '../../models/building_model.dart';
 import '../../models/vertex_model.dart';
 import '../admin_panorama_screen.dart';
 import '../widgets/building_widgets.dart';
+import 'add_vertexes_to_area_screen.dart';
 import 'list_rooms.dart';
 import 'list_vertex_connections.dart';
 import 'list_vertexes.dart';
 
 class AddVertexConnectionScreen extends StatefulWidget{
 
-  AddVertexConnectionScreen({Key? key, required this.vertex, required this.isCreate, required this.index}){
+  AddVertexConnectionScreen({Key? key, required this.isCreate}){
     AdminInfo.size = AdminInfo.connection.iconSize;
   }
 
-  final Vertex vertex;
   final bool isCreate;
-  final int index;
-  String? nextVertexTitle;
   @override
   State<StatefulWidget> createState() => AddVertexConnectionScreenState();
 }
 
 class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
-  TextEditingController txtTitle = TextEditingController(text: "");
-  TextEditingController txtImagePath = TextEditingController(text: "");
   TextEditingController txtX = TextEditingController(text: AdminInfo.connection.iconX.toString());
   TextEditingController txtY = TextEditingController(text: AdminInfo.connection.iconY.toString());
   TextEditingController txtDirection = TextEditingController(text: AdminInfo.connection.direction.toString());
@@ -35,28 +31,42 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
   TextEditingController txtLength = TextEditingController(text: AdminInfo.connection.length.toString());
 
 
-  _changeTitle(String text){
-    setState(() => widget.nextVertexTitle = text);
-  }
   _changeX(String text){
-    setState(() => AdminInfo.connection.iconX = double.parse(text));
+    setState(() => {
+      if(double.tryParse(text) != null){
+        AdminInfo.connection.iconX = double.parse(text)
+      }
+    });
   }
   _changeY(String text){
-    setState(() => AdminInfo.connection.iconY = double.parse(text));
+    setState(() => {
+      if(double.tryParse(text) != null){
+        AdminInfo.connection.iconY = double.parse(text)
+      }
+    });
   }
   _changeDirection(String text){
-    setState(() => AdminInfo.connection.direction = double.parse(text));
+    setState(() => {
+      if(double.tryParse(text) != null){
+        AdminInfo.connection.direction = double.parse(text)
+      }
+    });
   }
-  _changeImagePath(String text){
-    setState(() => { });
-  }
+
   _changeIconSize(String text){
     setState(() => {
-      AdminInfo.connection.iconSize = double.parse(text),
-      AdminInfo.size = double.parse(text)});
+      if(double.tryParse(text) != null){
+        AdminInfo.connection.iconSize = double.parse(text),
+        AdminInfo.size = double.parse(text),
+      }
+    });
   }
   _changeLength(String text){
-    setState(() => AdminInfo.connection.length = double.parse(text));
+    setState(() => {
+      if(double.tryParse(text) != null){
+        AdminInfo.connection.length = double.parse(text)
+      }
+    });
   }
 
   @override
@@ -77,22 +87,7 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
               Container(
                 height: 60,
                 margin: EdgeInsets.all(10),
-                child: TextFormField(
-                    controller: txtTitle,
-                    decoration: getTextFieldDecoration("Назва сусіда"),
-                    style: const TextStyle(fontSize: 22, color: Colors.white),
-
-                    onChanged: _changeTitle),
-              ),
-              Container(
-                height: 60,
-                margin: EdgeInsets.all(10),
-                child: TextFormField(
-                    controller: txtImagePath,
-                    decoration: getTextFieldDecoration("Фото"),
-                    style: const TextStyle(fontSize: 22, color: Colors.white),
-
-                    onChanged: _changeImagePath),
+                child: Text("${AdminInfo.selectedVertex?.title} -- ${AdminInfo.secondSelectedVertex?.title}")
               ),
               Container(
                 height: 60,
@@ -155,8 +150,8 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) =>
-                              AdminParoramaScreen(panoramaImagePath: widget.vertex.panoramaImagePath ?? '', isRoom: false,
-                                  widget: Image.asset('assets/icons/point.png'), isCreate: widget.isCreate, index: widget.index,)
+                              AdminParoramaScreen(panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '', isRoom: false,
+                                  widget: Image.asset('assets/icons/point.png'), isCreate: widget.isCreate, index: 0,)
                           ));
                     },
                   )
@@ -171,17 +166,25 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
                     )),
                     onPressed: () {
                       if(widget.isCreate == true){
-                        if(AdminInfo.vertex.vertexConnections == null){
-                          AdminInfo.vertex.vertexConnections = [];
-                        }
-                        AdminInfo.vertex.vertexConnections?.add(AdminInfo.connection);
+                        AdminInfo.connection.nextVertex = AdminInfo.secondSelectedVertex!;
+                        AdminInfo.selectedVertex?.vertexConnections ??= [];
+                        AdminInfo.selectedVertex?.vertexConnections?.add(AdminInfo.connection);
                       }
                       else{
-                        AdminInfo.vertex.vertexConnections![widget.index] = AdminInfo.connection;
+                        var edited_vertex = AdminInfo.area.vertexes?.firstWhere((element) => element.uid == AdminInfo.selectedVertex?.uid);
+                        var edited_connection = edited_vertex?.vertexConnections?.firstWhere((element) => element.uid == AdminInfo.connection.uid);
+                        edited_connection?.length = AdminInfo.connection.length;
+                        edited_connection?.nextVertex = AdminInfo.secondSelectedVertex!;
+                        edited_connection?.direction = AdminInfo.connection.direction;
+                        edited_connection?.iconSize = AdminInfo.connection.iconSize;
+                        edited_connection?.iconX = AdminInfo.connection.iconX;
+                        edited_connection?.iconY = AdminInfo.connection.iconY;
+
                       }
+                      AdminInfo.clearConnection();
                       Navigator.pop(context);
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-                          ListVertexConnectionsScreen(vertex: AdminInfo.vertex)));
+                          AddVertexesToAreaScreen()));
                     },
                   )
               ),
