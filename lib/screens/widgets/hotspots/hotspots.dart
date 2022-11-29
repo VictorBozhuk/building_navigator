@@ -76,6 +76,41 @@ Hotspot getHotspotPoint(double x, double y, double size,
   );
 }
 
+Hotspot getHotspotNextPoint(double x, double y, double size,
+    BuildContext context, Vertex curent, String iconImagePath)
+{
+  return Hotspot(
+      height: size,
+      width: size,
+      longitude: x,
+      latitude: y,
+      orgin: Offset.fromDirection(0),
+      widget:ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          elevation: 0.0,
+          shadowColor: Colors.transparent,
+          primary: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+        ),
+        onPressed: () => {
+          PathInfo.move(),
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) =>
+                PanoramaScreen(curentVertex: curent, nextVertex: PathInfo.nextVertex)),
+          )},
+        child: RotationTransition(
+          turns: const AlwaysStoppedAnimation(0 / 360),
+          child: Image( opacity: const AlwaysStoppedAnimation<double>(1),
+            image: AssetImage(iconImagePath),
+          ),
+        )
+        ,)
+  );
+}
+
 Hotspot getHotspotOpenDoor(double x, double y, double angle, double size,
     BuildContext context, Vertex curent, Vertex next, Vertex currentVertex)
 {

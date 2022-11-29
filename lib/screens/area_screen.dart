@@ -99,7 +99,7 @@ void setPointsOfPath(AreaScreen widget, BuildContext context, Function func){
   for(int i = 0; i < UserInfo.area.vertexes!.length; ++i){
     for(int j = 0; j < PathInfo.listVertexes!.length; ++j){
       if(UserInfo.area.vertexes![i].uid == PathInfo.listVertexes![j].uid){
-        widget.points.add(getVertexAsButtonOn2DMapForUser(UserInfo.area.vertexes![i], context, func));
+        widget.points.add(getVertexAsButtonOn2DMapForUserWithPath(UserInfo.area.vertexes![i], context, func));
         break;
       }
     }

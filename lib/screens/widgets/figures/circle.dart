@@ -108,3 +108,49 @@ Positioned getVertexAsButtonOn2DMapForUser(Vertex vertex, BuildContext context, 
       )
   );
 }
+
+Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext context, Function func) {
+  var x = pictureWidth / (vertex.map2DWidth! / vertex.pointX!);
+  var y = pictureHeight / (vertex.map2DHeight! / vertex.pointY!);
+  MaterialColor color = Colors.red;
+  if(vertex.isFullInfo()){
+    color = Colors.blue;
+  }
+  if(vertex.uid == AdminInfo.selectedVertex?.uid){
+    color = Colors.green;
+  }
+
+  return Positioned(
+      top: y - pointRadius,
+      left: x - pointRadius,
+      child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+              splashColor: Colors.grey,
+              onTap: () {
+                AdminInfo.selectedVertex = vertex;
+                PathInfo.sourceVertex = vertex;
+                print("pressed (${vertex.title}) $x , $y");
+                func();
+              },
+              onLongPress: (){
+                AdminInfo.selectedVertex = vertex;
+                PathInfo.sourceVertex = vertex;
+                PathInfo.setNewVertexes(vertex);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PanoramaScreen(curentVertex: PathInfo.currentVertex!, nextVertex: PathInfo.nextVertex,)));
+              },
+              child: Container(
+                width: pointRadius * 2,
+                height: pointRadius * 2,
+                child: CustomPaint(
+                  foregroundPainter: Circle(color),
+                  child: Container(
+                    color: Colors.transparent,
+                  ),
+                ),)
+          )
+      )
+  );
+}

@@ -39,6 +39,12 @@ class PathInfo {
     }
   }
 
+  static setNewVertexes(Vertex vertex){
+    currentVertex = listVertexes?.firstWhere((x) => x.uid == vertex.uid);
+    _currentIndex = listVertexes!.indexOf(currentVertex!);
+    nextVertex = listVertexes![1 + _currentIndex];
+  }
+
   static void clear(){
     listVertexes?.clear();
     _currentIndex = 0;

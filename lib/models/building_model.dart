@@ -92,14 +92,15 @@ class Building {
 
     for(int i = 0; i < current.vertexConnections!.length; ++i) {
       if(current.vertexConnections![i].nextVertex.uid == next.uid){
-        var nextVertex = current.vertexConnections?[i];
-        hotspots.add(getHotspotPoint(
-          nextVertex?.iconX ?? 0,
-          nextVertex?.iconY ?? 0,
-          nextVertex?.iconSize ?? 0,
+        var nextVertex = PathInfo.building.getAllVertexes().firstWhere((x)
+        => x.uid == next.uid);
+        hotspots.add(getHotspotNextPoint(
+          current.vertexConnections?[i].iconX ?? 0,
+          current.vertexConnections?[i].iconY ?? 0,
+          current.vertexConnections?[i].iconSize ?? 0,
           context,
-          current,
-          nextVertex?.iconPath ?? '',
+          nextVertex,
+          current.vertexConnections?[i].iconPath ?? '',
         ));
       }
     }
