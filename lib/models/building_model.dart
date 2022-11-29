@@ -1,3 +1,4 @@
+import 'package:lnu_navigator/models/path_model.dart';
 import 'package:lnu_navigator/models/vertex_model.dart';
 import 'package:panorama/panorama.dart';
 import '../screens/widgets/hotspots/hotspots.dart';
@@ -62,14 +63,15 @@ class Building {
     }
 
     for(int i = 0; i < current.vertexConnections!.length; ++i) {
-      var nextVertex = current.vertexConnections![i];
+      var nextVertex = PathInfo.building.getAllVertexes().firstWhere((x)
+        => x.uid == current.vertexConnections![i].nextVertex.uid);
       hotspots.add(getHotspotPoint(
-        nextVertex.iconX,
-        nextVertex.iconY,
-        nextVertex.iconSize,
+        current.vertexConnections![i].iconX,
+        current.vertexConnections![i].iconY,
+        current.vertexConnections![i].iconSize,
         context,
-        current,
-        nextVertex.iconPath ?? '',
+        nextVertex,
+        current.vertexConnections![i].iconPath ?? '',
       ));
     }
 

@@ -85,6 +85,7 @@ class ListRoomsScreenState extends State<ListRoomsScreen> {
                             color: Colors.white,
                             fontWeight: FontWeight.w600)),
                     onTap: () => {
+                      PathInfo.isWalk = false,
                       PathInfo.setDestination(rooms[index]),
                       PathInfo.setPath(PathInfo.building),
                       Navigator.pop(context),

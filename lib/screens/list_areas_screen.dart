@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
 
 import '../../Style/images.dart';
+import '../models/path_model.dart';
 import '../models/user_info.dart';
 import 'area_screen.dart';
 
@@ -60,6 +61,7 @@ class ListAreasScreen extends StatelessWidget{
                   ),
                   onTap: () =>
                   {
+                    PathInfo.isWalk = true,
                     UserInfo.area = UserInfo.building.areas[index],
                     Navigator.push(
                         context,
