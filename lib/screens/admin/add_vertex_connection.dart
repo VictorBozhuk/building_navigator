@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/screens/admin/add_vertex.dart';
 
 import '../../Style/images.dart';
 import '../../models/admin_info.dart';
@@ -165,6 +166,10 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
                       fontSize: 22,
                     )),
                     onPressed: () {
+                      if(AdminInfo.isCreateAreaConnection == false){
+                        AdminInfo.connection.nextVertex.area = AdminInfo.areaConnection;
+                      }
+
                       if(widget.isCreate == true){
                         AdminInfo.connection.nextVertex = AdminInfo.secondSelectedVertex!;
                         AdminInfo.selectedVertex?.vertexConnections ??= [];
@@ -181,10 +186,21 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
                         edited_connection?.iconY = AdminInfo.connection.iconY;
 
                       }
-                      AdminInfo.clearConnection();
-                      Navigator.pop(context);
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-                          AddVertexesToAreaScreen()));
+
+                      if(AdminInfo.isCreateAreaConnection == false){
+                        AdminInfo.clearConnection();
+                        Navigator.pop(context);
+                        Navigator.pushReplacement(
+                            context, MaterialPageRoute(builder: (context) =>
+                            AddVertexesToAreaScreen()));
+                      }
+                      else {
+
+                        AdminInfo.clearConnection();
+                        Navigator.pop(context);
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
+                            AddVertexScreen()));
+                      }
                     },
                   )
               ),

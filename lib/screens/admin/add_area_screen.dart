@@ -77,7 +77,7 @@ class AddAreaScreenState extends State<AddAreaScreen> {
                           Navigator.pop(context);
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) =>
-                                  ListAreasAdminScreen(AdminInfo.building)
+                                  ListAreasAdminScreen()
                               ));
                         }
                         else{

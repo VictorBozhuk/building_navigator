@@ -186,8 +186,12 @@ void setPoints(AddVertexesToAreaScreen widget, Function func){
       //
       // if якщо на одній зоні
       //
-      drowLine(AdminInfo.area.vertexes![i],
-          AdminInfo.area.vertexes![i].vertexConnections![j].nextVertex, widget.points);
+      if((AdminInfo.area.vertexes![i].isAreaConnection
+      && AdminInfo.area.vertexes![i].vertexConnections![j].nextVertex.isAreaConnection) == false){
+        drowLine(AdminInfo.area.vertexes![i],
+            AdminInfo.area.vertexes![i].vertexConnections![j].nextVertex, widget.points);
+      }
+
       //
       // інакше пофарбувати в жовтий
       //

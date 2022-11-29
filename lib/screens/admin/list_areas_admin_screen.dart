@@ -11,10 +11,9 @@ import '../widgets/drawer/navigation_drawer.dart';
 import 'add_area_screen.dart';
 import 'add_building.dart';
 import 'add_vertexes_to_area_screen.dart';
+import 'list_vertexes.dart';
 
 class ListAreasAdminScreen extends StatelessWidget{
-  ListAreasAdminScreen(this.building);
-  final Building building;
   @override
   Widget build(BuildContext context) {
     double _screenHeight = MediaQuery.of(context).size.height;
@@ -52,14 +51,14 @@ class ListAreasAdminScreen extends StatelessWidget{
                                             borderRadius: const BorderRadius.only(
                                                 topLeft: Radius.circular(10),
                                                 topRight: Radius.circular(10)),
-                                            child: Image(fit: BoxFit.fitWidth, image: NetworkImage(building.areas[index].imagePath)),)
+                                            child: Image(fit: BoxFit.fitWidth, image: NetworkImage(AdminInfo.building.areas[index].imagePath)),)
                                       ),
                                       Container(
                                           decoration: const BoxDecoration(
                                               borderRadius: BorderRadius.all(Radius.circular(15))),
                                           margin: EdgeInsets.only(top: 10, bottom: 10),
                                           child:
-                                          Text(building.areas[index].title,
+                                          Text(AdminInfo.building.areas[index].title,
                                               style: const TextStyle(
                                                   color: Colors.white,
                                                   fontFamily: 'Poppins',
@@ -74,14 +73,24 @@ class ListAreasAdminScreen extends StatelessWidget{
                           ),
                           onTap: () =>
                           {
-                            AdminInfo.clearArea(),
-                            AdminInfo.area = building.areas[index],
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => AddVertexesToAreaScreen()))},
+                            if(AdminInfo.isCreateAreaConnection != true){
+                              AdminInfo.clearArea(),
+                              AdminInfo.area = AdminInfo.building.areas[index],
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => AddVertexesToAreaScreen()))
+                            }
+                            else {
+                              AdminInfo.areaConnection = AdminInfo.building.areas[index],
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => ListVertexesScreen()))
+                            }
+
+                          },
                         );
                       },
-                      itemCount:  building.areas.length,
+                      itemCount: AdminInfo.building.areas.length,
                       shrinkWrap: true,
                       padding: EdgeInsets.all(5),
                       scrollDirection: Axis.vertical,

@@ -3,6 +3,8 @@ import 'package:lnu_navigator/models/room_model.dart';
 import 'package:lnu_navigator/models/vertex_connection_model.dart';
 import 'package:uuid/uuid.dart';
 
+import 'area_model.dart';
+
 class Vertex {
   late final String uid;
   late String? title;
@@ -11,17 +13,17 @@ class Vertex {
   late List<VertexConnection>? vertexConnections = [];
   late double? pointX;
   late double? pointY;
-  late String? map2DPath;
   late double? map2DWidth;
   late double? map2DHeight;
   late Image imageWidget;
+  late bool isAreaConnection = false;
+  late Area? area;
 
   Vertex({ this.title,
         this.panoramaImagePath,
         this.rooms,
         this.pointX,
         this.pointY,
-        this.map2DPath,
         this.map2DWidth,
         this.map2DHeight,
         this.vertexConnections}){
@@ -32,9 +34,10 @@ class Vertex {
     uid = const Uuid().v1();
     title = null;
     panoramaImagePath = null;
-    map2DPath = null;
     rooms = [];
     vertexConnections = [];
+    isAreaConnection = false;
+    area = null;
   }
 
   Vertex.createEmpty(){
@@ -44,10 +47,11 @@ class Vertex {
     rooms = [];
     pointX = 0;
     pointY = 0;
-    map2DPath = "";
     map2DWidth = 0;
     map2DHeight = 0;
     vertexConnections = [];
+    isAreaConnection = false;
+    area = null;
   }
 
   String getImagePath() {
@@ -73,9 +77,10 @@ class Vertex {
     panoramaImagePath = data['panoramaImagePath'];
     pointX = data['pointX'];
     pointY = data['pointY'];
-    map2DPath = data['map2DPath'];
+    area = data['area'] == null ? null : Area.fromJson(data['area']);
     map2DWidth = data['map2DWidth'];
     map2DHeight = data['map2DHeight'];
+    isAreaConnection = data["isAreaConnection"] ?? false;
     if(data['rooms'] == null){
       rooms = [];
     }else{
@@ -95,9 +100,10 @@ class Vertex {
     panoramaImagePath = data['panoramaImagePath'];
     pointX = data['pointX'];
     pointY = data['pointY'];
-    map2DPath = data['map2DPath'];
     map2DWidth = data['map2DWidth'];
     map2DHeight = data['map2DHeight'];
+    isAreaConnection = data["isAreaConnection"] ?? false;
+    area = data['area'] == null ? null : Area.fromJson(data["area"]);
     rooms = [];
     vertexConnections = [];
   }
@@ -118,9 +124,10 @@ class Vertex {
       "rooms": rooms?.map((w) => w.toMap()).toList(),
       "pointX" : pointX,
       "pointY" : pointY,
-      "map2DPath" : map2DPath,
       "map2DWidth" : map2DWidth,
       "map2DHeight" : map2DHeight,
+      "isAreaConnection" : isAreaConnection,
+      "area" : area?.toMapForConnection(),
     };
   }
 
@@ -131,9 +138,10 @@ class Vertex {
       "panoramaImagePath": panoramaImagePath,
       "pointX" : pointX,
       "pointY" : pointY,
-      "map2DPath" : map2DPath,
       "map2DWidth" : map2DWidth,
       "map2DHeight" : map2DHeight,
+      "isAreaConnection" : isAreaConnection,
+      "area" : area?.toMapForConnection(),
     };
   }
 }

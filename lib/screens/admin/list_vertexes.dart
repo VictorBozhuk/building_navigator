@@ -7,22 +7,15 @@ import '../widgets/building_widgets.dart';
 import 'add_vertex.dart';
 
 class ListVertexesScreen extends StatefulWidget {
-  ListVertexesScreen({required this.building});
-  final Building building;
   @override
-  State<StatefulWidget> createState() => ListVertexesScreenState(building: building);
+  State<StatefulWidget> createState() => ListVertexesScreenState();
 }
 
 class ListVertexesScreenState extends State<ListVertexesScreen> {
-
-  ListVertexesScreenState({required this.building}){
-  }
-  final Building building;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAdminAppBar("Вершини", () => {
+        appBar: getAdminAppBar("Вершини ${AdminInfo.areaConnection.title}", () => {
           AdminInfo.clearVertex(),
           Navigator.push(
               context,
@@ -39,15 +32,16 @@ class ListVertexesScreenState extends State<ListVertexesScreen> {
                 itemBuilder: (BuildContext, index){
                   return ListTile(
                     leading: Icon(Icons.room, color: Colors.white,),
-                    title: Text(building.vertexes[index].title.toString(),
+                    title: Text(AdminInfo.areaConnection.vertexes![index].title.toString(),
                         style: const TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 30,
                             color: Colors.white,
                             fontWeight: FontWeight.w600)),
                     onTap: () => {
-                      AdminInfo.clearVertex(),
-                      AdminInfo.vertex = building.vertexes[index],
+                      AdminInfo.selectedVertexOnOtherArea = AdminInfo.areaConnection.vertexes![index],
+                      Navigator.pop(context),
+                      Navigator.pop(context),
                       Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => AddVertexScreen()))
@@ -58,7 +52,7 @@ class ListVertexesScreenState extends State<ListVertexesScreen> {
                 {
                   return Divider(height: 1);
                 },
-                itemCount: building.vertexes.length,
+                itemCount: AdminInfo.areaConnection.vertexes!.length,
                 shrinkWrap: true,
                 padding: EdgeInsets.all(5),
                 scrollDirection: Axis.vertical,

@@ -27,6 +27,14 @@ class Area {
     };
   }
 
+  Map<String, dynamic> toMapForConnection(){
+    return {
+      "uid" : uid,
+      "title": title,
+      "imagePath": imagePath,
+    };
+  }
+
   Area.fromJson(Map<String, dynamic> data) {
     uid = data['uid'];
     title = data['title'];
@@ -38,6 +46,12 @@ class Area {
     }
   }
 
+  Area.fromJsonForConnection(Map<String, dynamic> data) {
+    uid = data['uid'];
+    title = data['title'];
+    imagePath = data['imagePath'];
+    vertexes = [];
+  }
   Area copy(){
     var copiedVertexes = vertexes?.map((w) => w.copy()).toList();
     return Area.copy(uid, title, imagePath,vertexes: copiedVertexes);

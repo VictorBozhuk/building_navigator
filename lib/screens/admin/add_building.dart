@@ -113,7 +113,7 @@ class AddBuildingScreenState extends State<AddBuildingScreen> {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) =>
-                              ListAreasAdminScreen(AdminInfo.building)
+                              ListAreasAdminScreen()
                           ));
                     },
                   )

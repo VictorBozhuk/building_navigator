@@ -19,6 +19,9 @@ class AdminInfo{
   static double size = 0;
   static Vertex? selectedVertex;
   static Vertex? secondSelectedVertex;
+  static bool isCreateAreaConnection = false;
+  static Area areaConnection = Area.createEmpty();
+  static Vertex? selectedVertexOnOtherArea;
 
   static void clear(){
     x = 0;
@@ -35,6 +38,12 @@ class AdminInfo{
   static void clearArea(){
     clear();
     area = Area.createEmpty();
+  }
+
+  static void clearAreaConnection(){
+    isCreateAreaConnection = false;
+    areaConnection = Area.createEmpty();
+    selectedVertexOnOtherArea = null;
   }
 
   static void clearVertex(){
