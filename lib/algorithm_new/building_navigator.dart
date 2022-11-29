@@ -12,7 +12,7 @@ class BuildingNavigator
     graph = Graph(Vertices: []);
     for(int i = 0; i < vertexes.length; ++i)
     {
-      graph.AddVertex(vertexes[i].title.toString());
+      graph.AddVertex(vertexes[i].uid);
     }
 
     for(int i = 0; i < edges.length; ++i)
@@ -21,10 +21,9 @@ class BuildingNavigator
     }
   }
 
-
-  List<String>? GetPath(String source, String destination)
+  List<String>? GetPath(String sourceId, String destinationId)
   {
     var dijkstra = Dijkstra(graph: graph);
-    return dijkstra.FindShortestPathString(source, destination);
+    return dijkstra.FindShortestPathString(sourceId, destinationId);
   }
 }

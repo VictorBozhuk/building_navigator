@@ -1,7 +1,7 @@
 class Edge {
-  String vertexTitle1;
-  String vertexTitle2;
+  String vertexId1;
+  String vertexId2;
   double length;
 
-  Edge(this.vertexTitle1, this.vertexTitle2, this.length);
+  Edge(this.vertexId1, this.vertexId2, this.length);
 }

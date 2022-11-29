@@ -4,14 +4,14 @@ import 'package:lnu_navigator/screens/select_room.dart';
 import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
 
 import '../Style/images.dart';
-import '../algorithm/building_navigator.dart';
+import '../algorithm_new/building_navigator.dart';
 import '../models/building_model.dart';
 import '../models/path_model.dart';
 import '../models/vertex_model.dart';
 
 class FindPathPage extends StatefulWidget{
   final Building building;
-
+  String sourceRoomTitle = '';
   FindPathPage({Key? key, required this.building});
 
   @override
@@ -24,13 +24,13 @@ class FindPathPageState extends State<FindPathPage> {
 
   FindPathPageState({Key? key, required this.building});
 
-  TextEditingController txtSource = TextEditingController(text: PathInfo.sourceRoomTitle);
-  TextEditingController txtDestination = TextEditingController(text: PathInfo.destinationRoomTitle);
+  TextEditingController txtSource = TextEditingController(text: '');
+  TextEditingController txtDestination = TextEditingController(text: PathInfo.destinationRoom?.title);
   _changeSource(String text){
-    setState(() => PathInfo.sourceRoomTitle = text);
+    setState(() => widget.sourceRoomTitle = text);
   }
   _changeDestinaton(String text){
-    setState(() => PathInfo.destinationRoomTitle = text);
+    setState(() => PathInfo.destinationRoom?.title = text);
   }
   @override
   Widget build(BuildContext context) {
@@ -132,8 +132,8 @@ class FindPathPageState extends State<FindPathPage> {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) =>
                             PanoramaScreen(
-                                panoramaImagePath: PathInfo.currentVertex.getImagePath(),
-                                nextVertexImagePath: PathInfo.nextVertexImagePath)));
+                                curentVertex: PathInfo.currentVertex!,
+                                nextVertex: PathInfo.destinationRoom!.vertex)));
                   },
                 )
             ),
@@ -143,7 +143,8 @@ class FindPathPageState extends State<FindPathPage> {
 
     );
   }
-  String getPath(Building building)
+  /*
+  String getPathAsString(Building building)
   {
     BuildingNavigator client = BuildingNavigator(building.getEdges(), building.vertexes);
     var ListPath = client.GetPath(PathInfo.sourceVertexTitle, PathInfo.destinationVertexTitle);
@@ -156,19 +157,20 @@ class FindPathPageState extends State<FindPathPage> {
 
     return path;
   }
+*/
 
   void setPath(Building building){
     BuildingNavigator client = BuildingNavigator(building.getEdges(), building.vertexes);
-    var VertexesStr = client.GetPath(PathInfo.sourceVertexTitle, PathInfo.destinationVertexTitle);
+    var VertexIds = client.GetPath(PathInfo.sourceVertex!.uid, PathInfo.destinationRoom!.vertex.uid);
     List<Vertex> vertexes = [];
-    int vertexesStrLength = VertexesStr?.length ?? 0;
-    for(int i = 0; i < vertexesStrLength; ++i)
+    var allVertexes = building.getAllVertexes();
+    for(int i = 0; i < VertexIds!.length; ++i)
     {
-      for(int j = 0; j < building.vertexes.length; ++j)
+      for(int j = 0; j < allVertexes.length; ++j)
       {
-        if(VertexesStr?[i] == building.vertexes[j].title)
+        if(VertexIds[i] == allVertexes[j].uid)
         {
-          vertexes.add(building.vertexes[j]);
+          vertexes.add(allVertexes[j]);
           break;
         }
       }

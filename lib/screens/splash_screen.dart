@@ -13,11 +13,8 @@ class _SplashState extends State<Splash> {
     //FirebaseFirestore.instance.collection('buildings').add({'building': buildings[0]});
 
     Future.delayed(const Duration(milliseconds: 500), () {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ListBuildingsAdminScreen()));
-      //Navigator.push( context, MaterialPageRoute( builder: (context) => ListBuildingsPage()));
+      //Navigator.push(context,MaterialPageRoute(builder: (context) => ListBuildingsAdminScreen()));
+      Navigator.push( context, MaterialPageRoute( builder: (context) => ListBuildingsPage()));
     });
     super.initState();
   }

@@ -42,7 +42,7 @@ Hotspot getHotspotArrow(double x, double y, double angle, double size)
 }
 
 Hotspot getHotspotPoint(double x, double y, double size,
-    BuildContext context, String imagePath, String nextImagePath, String iconImagePath)
+    BuildContext context, Vertex curent, String iconImagePath)
 {
   return Hotspot(
       height: size,
@@ -60,15 +60,11 @@ Hotspot getHotspotPoint(double x, double y, double size,
           ),
         ),
         onPressed: () => {
-          if(nextImagePath.isEmpty == false){
-            PathInfo.move(nextImagePath),
-          },
+          PathInfo.move(),
           Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) =>
-              PanoramaScreen(
-                  panoramaImagePath: imagePath,
-                  nextVertexImagePath: PathInfo.nextVertexImagePath)),
+              PanoramaScreen(curentVertex: curent)),
         )},
         child: RotationTransition(
           turns: const AlwaysStoppedAnimation(0 / 360),
@@ -81,7 +77,7 @@ Hotspot getHotspotPoint(double x, double y, double size,
 }
 
 Hotspot getHotspotOpenDoor(double x, double y, double angle, double size,
-    BuildContext context, String imagePath, String nextVertexImagePath, Vertex currentVertex)
+    BuildContext context, Vertex curent, Vertex next, Vertex currentVertex)
 {
   return Hotspot(
       height: size,
@@ -102,8 +98,7 @@ Hotspot getHotspotOpenDoor(double x, double y, double angle, double size,
           context,
           MaterialPageRoute(builder: (context) =>
               PanoramaScreen(
-                  panoramaImagePath: imagePath,
-                  nextVertexImagePath: nextVertexImagePath)),
+                  curentVertex: curent, nextVertex: next)),
         )},
         child: RotationTransition(
           turns: AlwaysStoppedAnimation(angle / 360),

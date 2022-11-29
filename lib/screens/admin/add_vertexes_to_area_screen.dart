@@ -92,8 +92,8 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
         ),),
           Padding(padding: EdgeInsets.only(left: 20, right: 20), child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text("First: ${AdminInfo.selectedVertex?.title}", style: TextStyle(fontSize: 20),),
-              Text("Second: ${AdminInfo.secondSelectedVertex?.title}", style: TextStyle(fontSize: 20),),
+              Text("First: ${AdminInfo.selectedVertex?.title ?? "none"}", style: TextStyle(fontSize: 20),),
+              Text("Second: ${AdminInfo.secondSelectedVertex?.title ?? "none"}", style: TextStyle(fontSize: 20),),
             ]),),
           Padding(padding: EdgeInsets.only(left: 20, right: 20), child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [

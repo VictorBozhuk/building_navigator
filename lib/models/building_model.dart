@@ -29,62 +29,76 @@ class Building {
 
   Building.copy(this.uid, this.title, this.imagePath, this.areas);
 
-  double getNextVertexDirection(String currentVertexImagePath, String nextVertexImagePath)
-  {
-    for(int i = 0; i < vertexes.length; ++i){
-      if(vertexes[i].panoramaImagePath == currentVertexImagePath){
-        int vertexConnectionLength = vertexes[i].vertexConnections?.length ?? 0;
-        for(int j = 0; j < vertexConnectionLength; ++ j){
-          if(vertexes[i].vertexConnections?[j].nextVertex.panoramaImagePath == nextVertexImagePath){
-            return vertexes[i].vertexConnections?[j].direction ?? 0;
-          }
-        }
+  List<Vertex> getAllVertexes(){
+    List<Vertex> vertexes = [];
+    for(int i = 0; i < areas.length; ++i){
+      vertexes.addAll(areas[i].vertexes!);
+    }
 
-        int roomLength = vertexes[i].rooms?.length ?? 0;
-        for(int j = 0; j < roomLength; ++ j){
-          if(vertexes[i].rooms?[j].title == nextVertexImagePath){
-            return vertexes[i].rooms?[j].direction ?? 0;
-          }
-        }
+    return vertexes;
+  }
+
+  double getNextVertexDirection(Vertex current, Vertex next)
+  {
+    for(int i = 0; i < current.vertexConnections!.length; ++i) {
+      if(current.vertexConnections![i].nextVertex.uid == next.uid){
+        return current.vertexConnections![i].direction;
       }
     }
 
     return 0;
   }
 
-  List<Hotspot> getHotspots(BuildContext context, String currentVertexImagePath, String nextVertexImagePath)
+  List<Hotspot> getAllHotspots(BuildContext context, Vertex current)
   {
     List<Hotspot> hotspots = [];
 
+    for(int i = 0; i < current.rooms!.length; ++i){
+      var room = current.rooms?[i];
+      hotspots.add(getHotspotTitleRoom(
+        room!.title,
+        room.titleX,
+        room.titleY));
+    }
 
-    for(int i = 0; i < vertexes.length; ++i){
-      if(vertexes[i].panoramaImagePath == currentVertexImagePath){
-        int roomsLength = vertexes[i].rooms?.length ?? 0;
-        for(int j = 0; j < roomsLength; ++ j){
-          var room = vertexes[i].rooms?[j];
-          hotspots.add(getHotspotTitleRoom(
-            room?.title ?? '',
-            room?.titleX ?? 0,
-            room?.titleY ?? 0,));
-        }
-        /*
-        if(isTitleAPathOfVertex(nextVertexImagePath) == true){
-          return hotspots;
-        }
-*/
-        int vertexConnectionLength = vertexes[i].vertexConnections?.length ?? 0;
-        for(int j = 0; j < vertexConnectionLength; ++j){
-          var nextVertex = vertexes[i].vertexConnections?[j];
-          hotspots.add(getHotspotPoint(
-            nextVertex?.iconX ?? 0,
-            nextVertex?.iconY ?? 0,
-            nextVertex?.iconSize ?? 0,
-            context,
-            nextVertex?.nextVertex.panoramaImagePath ?? '',
-            nextVertexImagePath,
-            nextVertex?.iconPath ?? '',
-              ));
-        }
+    for(int i = 0; i < current.vertexConnections!.length; ++i) {
+      var nextVertex = current.vertexConnections![i];
+      hotspots.add(getHotspotPoint(
+        nextVertex.iconX,
+        nextVertex.iconY,
+        nextVertex.iconSize,
+        context,
+        current,
+        nextVertex.iconPath ?? '',
+      ));
+    }
+
+    return hotspots;
+  }
+
+  List<Hotspot> getNextHotspots(BuildContext context, Vertex current, Vertex next)
+  {
+    List<Hotspot> hotspots = [];
+
+    for(int i = 0; i < current.rooms!.length; ++i){
+      var room = current.rooms?[i];
+      hotspots.add(getHotspotTitleRoom(
+          room!.title,
+          room.titleX,
+          room.titleY));
+    }
+
+    for(int i = 0; i < current.vertexConnections!.length; ++i) {
+      if(current.vertexConnections![i].nextVertex.uid == next.uid){
+        var nextVertex = current.vertexConnections?[i];
+        hotspots.add(getHotspotPoint(
+          nextVertex?.iconX ?? 0,
+          nextVertex?.iconY ?? 0,
+          nextVertex?.iconSize ?? 0,
+          context,
+          current,
+          nextVertex?.iconPath ?? '',
+        ));
       }
     }
 
@@ -93,11 +107,12 @@ class Building {
 
   List<Edge> getEdges(){
     List<Edge> edges = [];
-    for(int i = 0; i < vertexes.length; ++i){
-      int length = vertexes[i].vertexConnections?.length ?? 0;
+    var allVertexes = getAllVertexes();
+    for(int i = 0; i < allVertexes.length; ++i){
+      int length = allVertexes[i].vertexConnections?.length ?? 0;
       for(int j = 0; j < length; ++j){
-        if(isSameEdge(edges, vertexes[i].vertexConnections?[j].nextVertex.panoramaImagePath ?? '') == false){
-          edges.add(Edge(vertexes[i].title.toString(), vertexes[i].vertexConnections?[j].nextVertex.panoramaImagePath ?? '', vertexes[i].vertexConnections?[j].length ?? 0));
+        if(isSameEdge(edges, allVertexes[i].vertexConnections![j].nextVertex.uid) == false){
+          edges.add(Edge(allVertexes[i].uid, allVertexes[i].vertexConnections![j].nextVertex.uid, allVertexes[i].vertexConnections?[j].length ?? 0));
         }
       }
     }
@@ -105,9 +120,9 @@ class Building {
     return edges;
   }
 
-  bool isSameEdge(List<Edge> edges, String vertexTitle){
+  bool isSameEdge(List<Edge> edges, String vertexId){
     for(int i = 0; i < edges.length; ++i){
-      if(edges[i].vertexTitle1 == vertexTitle){
+      if(edges[i].vertexId1 == vertexId){
         return true;
       }
     }

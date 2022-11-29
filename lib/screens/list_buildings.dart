@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/drawer/navigation_drawer.dart';
 import '../Style/images.dart';
+import '../data/globals.dart';
 import '../models/building_model.dart';
 import '../models/path_model.dart';
+import '../models/user_info.dart';
 import '../services/database.dart';
 import 'building.dart';
 
@@ -13,6 +15,9 @@ class ListBuildingsPage extends StatelessWidget{
   Widget build(BuildContext context) {
     double _screenHeight = MediaQuery.of(context).size.height;
     double _screenWidth = MediaQuery.of(context).size.width;
+    pointRadius = 392.72727272727275 / 55;
+    pictureWidth = 392.72727272727275;
+    pictureHeight = 523.6363636363636;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -78,10 +83,11 @@ class ListBuildingsPage extends StatelessWidget{
                         ),
                         onTap: () =>
                         {
+                          UserInfo.building = building,
                           PathInfo.building = building,
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => BuildingPage(building: building)))},
+                              MaterialPageRoute(builder: (context) => BuildingPage()))},
                       );
                     },
                     itemCount:  snapshot.data?.docs.length ?? 0,

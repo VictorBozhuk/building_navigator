@@ -1,74 +1,71 @@
 import 'package:lnu_navigator/models/room_model.dart';
 import 'package:lnu_navigator/models/vertex_model.dart';
 
+import '../algorithm_new/building_navigator.dart';
 import 'building_model.dart';
 
 class PathInfo {
-  static late String sourceRoomTitle = '';
-  static late String destinationRoomTitle = '';
-  static late String sourceVertexTitle = '';
-  static late String destinationVertexTitle = '';
-  static late List<Vertex>? listVertexes = [];
-  static late Vertex currentVertex;
-  static late String nextVertexImagePath = '';
   static late Building building;
-  static late int _currentIndex = 0;
+  static bool isReadyToGo = false;
+  static List<Vertex>? listVertexes = [];
+  static late Vertex? currentVertex;
+  static late Vertex? nextVertex;
+  static int _currentIndex = 0;
 
-  static late bool isWalk = false;
+  static late Vertex? sourceVertex;
+  static Room? destinationRoom = Room.createEmpty();
 
-  static setSource(Room? room)
-  {
-    sourceRoomTitle = room?.title ?? '';
-    sourceVertexTitle = room?.vertexTitle ?? '';
-  }
+  static bool isWalk = false;
 
-  static setDestination(Room? room)
-  {
-    destinationRoomTitle = room?.title ?? '';
-    destinationVertexTitle = room?.vertexTitle ?? '';
-  }
+  static setSource(Room? room) => sourceVertex = room?.vertex;
+
+  static setDestination(Room? room) => destinationRoom = room;
 
   static setVertexes(List<Vertex> _listVertexes){
     listVertexes = _listVertexes;
     currentVertex = _listVertexes[0];
-    try{
-      nextVertexImagePath = _listVertexes[1 + _currentIndex].panoramaImagePath ?? '';
-    }
-    catch (e){}
+    nextVertex = _listVertexes[1];
   }
 
-  static move(String nextImagePath){
-    if(isWalk == false && nextImagePath.isEmpty == false && nextVertexImagePath == nextImagePath){
+  static move(){
+    if(isWalk == false){
       if(_currentIndex + 2 != listVertexes?.length){
         currentVertex = listVertexes![++_currentIndex];
-        nextVertexImagePath = listVertexes![1 + _currentIndex].panoramaImagePath ?? '';
+        nextVertex = listVertexes![1 + _currentIndex];
       }
       else{
         currentVertex = listVertexes![++_currentIndex];
-        nextVertexImagePath = destinationRoomTitle;
       }
     }
   }
 
   static void clear(){
-    sourceRoomTitle = '';
-    destinationRoomTitle = '';
-    sourceVertexTitle = '';
-    destinationVertexTitle = '';
-    //nextVertexImagePath = '';
     listVertexes?.clear();
     _currentIndex = 0;
+    currentVertex = null;
+    sourceVertex = null;
+    nextVertex = null;
+    destinationRoom = Room.createEmpty();
+    isReadyToGo = false;
   }
 
-  static String getVertexImagePath(){
-    for (int i = 0; i < building.vertexes.length; ++i)
+  static void setPath(Building building){
+    BuildingNavigator client = BuildingNavigator(building.getEdges(), building.getAllVertexes());
+    var VertexIds = client.GetPath(PathInfo.sourceVertex!.uid, PathInfo.destinationRoom!.vertex.uid);
+    List<Vertex> vertexes = [];
+    var allVertexes = building.getAllVertexes();
+    for(int i = 0; i < VertexIds!.length; ++i)
+    {
+      for(int j = 0; j < allVertexes.length; ++j)
       {
-        if(sourceVertexTitle == building.vertexes[i].title)
-          {
-            return building.vertexes[i].panoramaImagePath ?? "";
-          }
+        if(VertexIds[i] == allVertexes[j].uid)
+        {
+          vertexes.add(allVertexes[j]);
+          break;
+        }
       }
-
-    return "";
+    }
+    PathInfo.isReadyToGo = true;
+    PathInfo.setVertexes(vertexes);
   }
 }

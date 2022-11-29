@@ -85,10 +85,14 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
           child: SingleChildScrollView(child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                height: 60,
-                margin: EdgeInsets.all(10),
-                child: Text("${AdminInfo.selectedVertex?.title} -- ${AdminInfo.secondSelectedVertex?.title}")
+              Padding(padding: EdgeInsets.all(20), child:
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                  Text("${AdminInfo.selectedVertex?.title}",
+                    style: TextStyle(color: Colors.white, fontSize: 20),),
+                  Text("<--->", style: TextStyle(color: Colors.white, fontSize: 20),),
+                  Text("${AdminInfo.secondSelectedVertex?.title}",
+                    style: TextStyle(color: Colors.white, fontSize: 20),)
+                ],),
               ),
               Container(
                 height: 60,

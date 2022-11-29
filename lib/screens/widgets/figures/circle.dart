@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lnu_navigator/models/admin_info.dart';
 
 import '../../../data/globals.dart';
+import '../../../models/path_model.dart';
 import '../../../models/vertex_model.dart';
+import '../../panorama_screen.dart';
 
 class Circle extends CustomPainter {
   late MaterialColor color;
@@ -41,24 +43,57 @@ Positioned getVertexAsButtonOn2DMap(Vertex vertex, Function func) {
               splashColor: Colors.grey,
               onTap: () {
                 AdminInfo.selectedVertex = vertex;
-                /*
-                if(AdminInfo.selectedVertex == null){
-                  AdminInfo.selectedVertex = vertex;
-                  // вивети якусь функцію напис що виділено
-                  var t = 0;
-                }
-                else {
-                  AdminInfo.secondSelectedVertex = vertex;
-                  // вивети якусь функцію напис що виділено
-                  var t = 0;
-                }
-                */
                 print("pressed (${vertex.title}) $x , $y");
                 func();
               },
               onLongPress: (){
                 AdminInfo.secondSelectedVertex = vertex;
                 func();
+              },
+              child: Container(
+                width: pointRadius * 2,
+                height: pointRadius * 2,
+                child: CustomPaint(
+                  foregroundPainter: Circle(color),
+                  child: Container(
+                    color: Colors.transparent,
+                  ),
+                ),)
+          )
+      )
+  );
+}
+
+Positioned getVertexAsButtonOn2DMapForUser(Vertex vertex, BuildContext context, Function func) {
+  var x = pictureWidth / (vertex.map2DWidth! / vertex.pointX!);
+  var y = pictureHeight / (vertex.map2DHeight! / vertex.pointY!);
+  MaterialColor color = Colors.red;
+  if(vertex.isFullInfo()){
+    color = Colors.blue;
+  }
+  if(vertex.uid == AdminInfo.selectedVertex?.uid){
+    color = Colors.green;
+  }
+
+  return Positioned(
+      top: y - pointRadius,
+      left: x - pointRadius,
+      child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+              splashColor: Colors.grey,
+              onTap: () {
+                AdminInfo.selectedVertex = vertex;
+                PathInfo.sourceVertex = vertex;
+                print("pressed (${vertex.title}) $x , $y");
+                func();
+              },
+              onLongPress: (){
+                AdminInfo.selectedVertex = vertex;
+                PathInfo.sourceVertex = vertex;
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PanoramaScreen(curentVertex: vertex, nextVertex: null,)));
               },
               child: Container(
                 width: pointRadius * 2,

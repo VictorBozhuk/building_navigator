@@ -2,24 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/widgets/drawer/navigation_drawer.dart';
 import 'package:panorama/panorama.dart';
 import '../models/path_model.dart';
+import '../models/vertex_model.dart';
 
 class PanoramaScreen extends StatelessWidget {
-  PanoramaScreen({Key? key, required this.panoramaImagePath, required this.nextVertexImagePath}) : super(key: key);
-  final String panoramaImagePath;
-  final String nextVertexImagePath;
-
+  PanoramaScreen({Key? key, required this.curentVertex, this.nextVertex}) : super(key: key);
+  late Vertex curentVertex;
+  late Vertex? nextVertex;
   @override
   Widget build(BuildContext context) {
-
+    List<Hotspot> hotspots = [];
+    double direction = 0;
+    if(PathInfo.isWalk == true){
+      hotspots = PathInfo.building.getAllHotspots(context, curentVertex);
+    } else {
+      hotspots = PathInfo.building.getNextHotspots(context, curentVertex, nextVertex!);
+      direction = PathInfo.building.getNextVertexDirection(curentVertex, nextVertex!);
+    }
 
     return Scaffold(
       drawer: const NavigationDrawer(),
       body:
       Panorama(
-        longitude:  PathInfo.building.getNextVertexDirection(panoramaImagePath, nextVertexImagePath),
+        longitude: direction,
         sensitivity: 2,
-        hotspots: PathInfo.building.getHotspots(context, panoramaImagePath, nextVertexImagePath),
-        child: Image.network(panoramaImagePath)
+        hotspots: hotspots,
+        child: Image.network(curentVertex.panoramaImagePath!)
 
       ),
     );
