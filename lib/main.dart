@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/splash_screen.dart';
 import 'package:lnu_navigator/services/database.dart';
+import 'package:lnu_navigator/test_panorama.dart';
+import 'package:lnu_navigator/test_panorama_admin.dart';
 
 import 'loader/loader.dart';
 
@@ -47,6 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
+        //home: TestPanoramaScreen()
+        //home: TestAdminParoramaScreen()
         home: Splash()
     );
   }

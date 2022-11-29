@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/widgets/drawer/navigation_drawer.dart';
 import 'package:panorama/panorama.dart';
 import '../models/path_model.dart';
+import '../models/user_info.dart';
 import '../models/vertex_model.dart';
 
 class PanoramaScreen extends StatelessWidget {
@@ -23,7 +24,7 @@ class PanoramaScreen extends StatelessWidget {
       drawer: const NavigationDrawer(),
       body:
       Panorama(
-        longitude: direction,
+        longitude: UserInfo.getDirection(direction),
         sensitivity: 2,
         hotspots: hotspots,
         child: Image.network(curentVertex.panoramaImagePath!)
