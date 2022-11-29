@@ -50,7 +50,7 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
   Widget build(BuildContext context) {
     final ValueNotifier<Matrix4> notifier = ValueNotifier(Matrix4.identity());
     return Scaffold(
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.white,
         appBar: getAdminAppBarEdit(AdminInfo.area.title, () => {
           Navigator.push(
           context,
@@ -90,42 +90,56 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
             ),
           ),
         ),),
-          Row(children: [
-            Text("first: ${AdminInfo.selectedVertex?.title}      second: ${AdminInfo.secondSelectedVertex?.title}"),]),
-          Row(children: [
-            ElevatedButton(onPressed: (){
-
-              bool isCreate = true;
-              AdminInfo.clearConnection();
-              if(AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex.uid == AdminInfo.secondSelectedVertex!.uid)){
-                AdminInfo.connection = AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x) => x.nextVertex.uid == AdminInfo.secondSelectedVertex!.uid);
-                isCreate = false;
-              }
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AddVertexConnectionScreen(isCreate: isCreate)));
-            }, child: Text("З'єднати")),
-            ElevatedButton(onPressed: (){
-                AdminInfo.clearSelectedVertexes();
-                setState(() { });
-            }, child: Text("очистити")),
-            ElevatedButton(onPressed: (){
-              DeleteSelected(widget, setStateAnalog);
-            }, child: Text("delete f")),
-
-          ],),
-          Row(children: [
-            ElevatedButton(onPressed: (){
-              if(AdminInfo.selectedVertex != null){
-                //AdminInfo.vertex = AdminInfo.selectedVertex!;
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => AddVertexScreen()));
-              }
-            }, child: Text("Вершина інфо")),
-          ]),
-
-    ],
+          Padding(padding: EdgeInsets.only(left: 20, right: 20), child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Text("First: ${AdminInfo.selectedVertex?.title}", style: TextStyle(fontSize: 20),),
+              Text("Second: ${AdminInfo.secondSelectedVertex?.title}", style: TextStyle(fontSize: 20),),
+            ]),),
+          Padding(padding: EdgeInsets.only(left: 20, right: 20), child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              SizedBox(
+              width: 100,
+              child: ElevatedButton(
+                child: Text("Join"),
+                onPressed: (){
+                  bool isCreate = true;
+                  AdminInfo.clearConnection();
+                  if(AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex.uid == AdminInfo.secondSelectedVertex!.uid)){
+                    AdminInfo.connection = AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x) => x.nextVertex.uid == AdminInfo.secondSelectedVertex!.uid);
+                    isCreate = false;
+                  }
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AddVertexConnectionScreen(isCreate: isCreate)));
+                },
+              ), ),
+              SizedBox(
+                width: 100,
+                child: ElevatedButton(
+                    child: Text("Delete"),
+                    onPressed: (){
+                      DeleteSelected(widget, setStateAnalog);
+                    },
+                  ),
+              ),
+              SizedBox(
+                width: 100,
+                child: ElevatedButton(
+                  child: Text("Edit"),
+                  style: ElevatedButton.styleFrom(),
+                  onPressed: (){
+                    if(AdminInfo.selectedVertex != null){
+                      //AdminInfo.vertex = AdminInfo.selectedVertex!;
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => AddVertexScreen()));
+                    }
+                  },
+                ),
+              )
+            ],),
+            ),
+          ],
         ),
     );
   }
