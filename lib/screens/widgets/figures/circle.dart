@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/models/admin_info.dart';
+import 'package:lnu_navigator/models/user_info.dart';
 
 import '../../../data/globals.dart';
 import '../../../models/path_model.dart';
 import '../../../models/vertex_model.dart';
+import '../../area_screen.dart';
 import '../../panorama_screen.dart';
 
 class Circle extends CustomPainter {
@@ -127,6 +129,15 @@ Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext c
           color: Colors.transparent,
           child: InkWell(
               splashColor: Colors.grey,
+              onDoubleTap: () {
+                if(vertex.isAreaConnection == true){
+                  UserInfo.area = UserInfo.building.areas.firstWhere((x) => x.uid == vertex.area!.uid);
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AreaScreen()));
+                }
+              },
               onTap: () {
                 AdminInfo.selectedVertex = vertex;
                 PathInfo.sourceVertex = vertex;

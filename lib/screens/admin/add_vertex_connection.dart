@@ -172,6 +172,7 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
                     onPressed: () {
                       if(AdminInfo.isCreateAreaConnection == false){
                         AdminInfo.connection.nextVertex.area = AdminInfo.areaConnection;
+                        //AdminInfo.connection.nextVertex.isAreaConnection = true;
                       }
 
                       if(widget.isCreate == true){

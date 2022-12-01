@@ -26,12 +26,11 @@ class AddVertexScreenState extends State<AddVertexScreen> {
     super.initState();
     if(AdminInfo.selectedVertex!.isAreaConnection == true
         && AdminInfo.selectedVertexOnOtherArea == null
-    && AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex.isAreaConnection)){
+        && AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex.isAreaConnection)){
       AdminInfo.selectedVertexOnOtherArea = AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x)
       => x.nextVertex.isAreaConnection).nextVertex;
       AdminInfo.areaConnection = AdminInfo.selectedVertexOnOtherArea!.area!;
     }
-
   }
 
   TextEditingController txtTitle = TextEditingController(text: AdminInfo.selectedVertex?.title);
@@ -204,6 +203,7 @@ class AddVertexScreenState extends State<AddVertexScreen> {
                       edited_vertex?.rooms = AdminInfo.selectedVertex?.rooms;
                       if(AdminInfo.selectedVertex!.isAreaConnection == true)
                       {
+
                         //var connection = VertexConnection(nextVertex, direction, iconX, iconY, iconSize, iconPath, length)
                         //edited_vertex?.vertexConnections?.add(AdminInfo.selectedVertexOnOtherArea)
                       }

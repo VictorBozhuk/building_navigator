@@ -10,12 +10,17 @@ class Area {
   Area(this.title, this.imagePath, {this.vertexes}){
     uid = const Uuid().v1();
   }
+  Area.createMainCopy(this.uid, this.title, this.imagePath);
   Area.copy(this.uid, this.title, this.imagePath, {this.vertexes});
 
   Area.createEmpty(){
     uid = const Uuid().v1();
     title = '';
     imagePath = '';
+  }
+
+  Area getObject(){
+    return Area.createMainCopy(uid, title, imagePath);
   }
 
   Map<String, dynamic> toMap(){

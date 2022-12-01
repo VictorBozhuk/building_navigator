@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/splash_screen.dart';
+import 'package:lnu_navigator/services/database.dart';
 
 import 'loader/loader.dart';
 
