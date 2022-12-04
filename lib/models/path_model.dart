@@ -56,7 +56,7 @@ class PathInfo {
   }
 
   static void setPath(Building building){
-    BuildingNavigator client = BuildingNavigator(building.getEdges(), building.getAllVertexes());
+    PathFinder client = PathFinder(building.getEdges(), building.getAllVertexes());
     var VertexIds = client.GetPath(PathInfo.sourceVertex!.uid, PathInfo.destinationRoom!.vertex.uid);
     List<Vertex> vertexes = [];
     var allVertexes = building.getAllVertexes();

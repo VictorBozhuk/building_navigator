@@ -5,6 +5,7 @@ import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
 
 import '../Style/images.dart';
 import '../algorithm_new/building_navigator.dart';
+import '../building_navigator.dart';
 import '../models/building_model.dart';
 import '../models/path_model.dart';
 import '../models/vertex_model.dart';
@@ -160,7 +161,7 @@ class FindPathPageState extends State<FindPathPage> {
 */
 
   void setPath(Building building){
-    BuildingNavigator client = BuildingNavigator(building.getEdges(), building.vertexes);
+    PathFinder client = PathFinder(building.getEdges(), building.vertexes);
     var VertexIds = client.GetPath(PathInfo.sourceVertex!.uid, PathInfo.destinationRoom!.vertex.uid);
     List<Vertex> vertexes = [];
     var allVertexes = building.getAllVertexes();
