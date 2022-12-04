@@ -8,6 +8,7 @@ import '../../models/building_model.dart';
 import '../../services/database.dart';
 import '../widgets/building_widgets.dart';
 import '../widgets/drawer/navigation_drawer.dart';
+import '../widgets/global/appBars.dart';
 import 'add_area_screen.dart';
 import 'add_building.dart';
 import 'add_vertexes_to_area_screen.dart';
@@ -20,7 +21,7 @@ class ListAreasAdminScreen extends StatelessWidget{
     double _screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-        appBar: getAdminAppBar("Зони", () => {
+        appBar: getAppBarWithIcon("Зони", () => {
           AdminInfo.clearArea(),
           Navigator.push(
               context,

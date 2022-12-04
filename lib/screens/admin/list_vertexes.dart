@@ -4,6 +4,7 @@ import '../../Style/images.dart';
 import '../../models/admin_info.dart';
 import '../../models/building_model.dart';
 import '../widgets/building_widgets.dart';
+import '../widgets/global/appBars.dart';
 import 'add_vertex.dart';
 
 class ListVertexesScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class ListVertexesScreenState extends State<ListVertexesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAdminAppBar("Вершини ${AdminInfo.areaConnection.title}", () => {
+        appBar: getAppBarWithIcon("Вершини ${AdminInfo.areaConnection.title}", () => {
           AdminInfo.clearVertex(),
           Navigator.push(
               context,

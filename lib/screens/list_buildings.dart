@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/drawer/navigation_drawer.dart';
+import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
 import 'package:lnu_navigator/screens/widgets/lists/widgets_of_lists.dart';
 import '../Style/images.dart';
 import '../models/building_model.dart';

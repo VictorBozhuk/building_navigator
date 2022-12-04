@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Style/text_styles/splash_screen_text_styles.dart';
+import '../Style/text_styles/text_styles.dart';
 import 'list_buildings.dart';
 
 class Splash extends StatefulWidget {

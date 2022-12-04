@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
+import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
 
 import '../Style/images.dart';
 import '../models/building_model.dart';

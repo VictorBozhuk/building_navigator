@@ -9,6 +9,7 @@ import '../../services/database.dart';
 import '../building.dart';
 import '../widgets/building_widgets.dart';
 import '../widgets/drawer/navigation_drawer.dart';
+import '../widgets/global/appBars.dart';
 import 'add_building.dart';
 
 class ListBuildingsAdminScreen extends StatelessWidget{
@@ -21,7 +22,7 @@ class ListBuildingsAdminScreen extends StatelessWidget{
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         drawer: const NavigationDrawer(),
-        appBar: getAdminAppBar("Будівлі", () => {
+        appBar: getAppBarWithIcon("Будівлі", () => {
           AdminInfo.clear(),
           Navigator.push(
               context,

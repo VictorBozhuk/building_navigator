@@ -2,65 +2,7 @@ import 'package:flutter/material.dart';
 
 
 
-AppBar getAppBar(String title) {
-  return AppBar(
-    centerTitle: true,
-    title: Text(title, style: const TextStyle(
-        fontFamily: 'Poppins',
-        fontSize: 24,
-        fontWeight: FontWeight.w600)),
-  );
-}
 
-AppBar getAdminAppBar(String title, Function func) {
-  return AppBar(
-    centerTitle: true,
-    title: Text(title, style: const TextStyle(
-        fontFamily: 'Poppins',
-        fontSize: 24,
-        fontWeight: FontWeight.w600)),
-    actions: <Widget>[
-      Padding(
-          padding: const EdgeInsets.only(right: 20.0),
-          child: GestureDetector(
-            onTap: () {
-              func();
-            },
-            child: const Icon(
-              Icons.add,
-              size: 35.0,
-            ),
-          )
-      ),
-    ],
-
-  );
-}
-
-AppBar getAdminAppBarEdit(String title, Function func) {
-  return AppBar(
-    centerTitle: true,
-    title: Text(title, style: const TextStyle(
-        fontFamily: 'Poppins',
-        fontSize: 24,
-        fontWeight: FontWeight.w600)),
-    actions: <Widget>[
-      Padding(
-          padding: EdgeInsets.only(right: 20.0),
-          child: GestureDetector(
-            onTap: () {
-              func();
-            },
-            child: const Icon(
-              Icons.edit,
-              size: 35.0,
-            ),
-          )
-      ),
-    ],
-
-  );
-}
 
 InputDecoration getTextFieldDecoration(String hintText){
   return InputDecoration(

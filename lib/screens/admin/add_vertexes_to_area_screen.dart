@@ -9,6 +9,7 @@ import '../actions/actions.dart';
 import '../widgets/building_widgets.dart';
 import '../widgets/figures/circle.dart';
 import '../widgets/figures/line.dart';
+import '../widgets/global/appBars.dart';
 import '../widgets/matrix_gesture_detector.dart';
 
 import 'add_area_screen.dart';
@@ -51,11 +52,10 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
     final ValueNotifier<Matrix4> notifier = ValueNotifier(Matrix4.identity());
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: getAdminAppBarEdit(AdminInfo.area.title, () => {
-          Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => AddAreaScreen(isCreate: false)))
-        }),
+        appBar: getAppBarWithIcon(AdminInfo.area.title, () => {
+          Navigator.push(context, MaterialPageRoute(builder:
+              (context) => AddAreaScreen(isCreate: false)))
+        }, icon: Icons.edit),
         body:Column(children: [ Expanded(child: MatrixGestureDetector(
           onMatrixUpdate: (m, tm, sm, rm) {
             notifier.value = m;

@@ -13,3 +13,8 @@ const TextStyle textStyleBuildingCardTitle = TextStyle(
     fontFamily: globalFontFamily,
     fontSize: 30,
     fontWeight: FontWeight.w600);
+
+const TextStyle textStyleAppBar = TextStyle(
+    fontFamily: globalFontFamily,
+    fontSize: 24,
+    fontWeight: FontWeight.w600);

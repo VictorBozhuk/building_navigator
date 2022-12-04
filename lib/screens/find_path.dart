@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/panorama_screen.dart';
 import 'package:lnu_navigator/screens/select_room.dart';
 import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
+import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
 
 import '../Style/images.dart';
 import '../algorithm_new/building_navigator.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
+import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
 
 import '../../Style/images.dart';
 import '../models/path_model.dart';
@@ -7,16 +8,15 @@ import '../models/user_info.dart';
 import 'area_screen.dart';
 
 class ListAreasScreen extends StatelessWidget{
+  const ListAreasScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    double _screenHeight = MediaQuery.of(context).size.height;
-    double _screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: getAppBar("Карти"),
       body: Container(
-          height: _screenHeight,
-          width: _screenWidth,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             image: AppImages.backgroundImage,
           ),

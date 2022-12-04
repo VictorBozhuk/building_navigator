@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lnu_navigator/models/user_info.dart';
 import 'package:lnu_navigator/screens/widgets/building/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
+import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
 import '../Style/images.dart';
 import '../models/path_model.dart';
 import 'find_path.dart';

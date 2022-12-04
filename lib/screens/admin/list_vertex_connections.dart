@@ -5,6 +5,7 @@ import '../../models/admin_info.dart';
 import '../../models/building_model.dart';
 import '../../models/vertex_model.dart';
 import '../widgets/building_widgets.dart';
+import '../widgets/global/appBars.dart';
 import 'add_room.dart';
 import 'add_vertex.dart';
 import 'add_vertex_connection.dart';
@@ -25,7 +26,7 @@ class ListVertexConnectionsScreenState extends State<ListVertexConnectionsScreen
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAdminAppBar("Сусідні вершини", () => {
+        appBar: getAppBarWithIcon("Сусідні вершини", () => {
           AdminInfo.clearConnection(),
           Navigator.push(
               context,

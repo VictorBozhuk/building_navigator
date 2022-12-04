@@ -5,6 +5,7 @@ import 'package:lnu_navigator/screens/select_room.dart';
 import 'package:lnu_navigator/screens/widgets/building/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/figures/circle.dart';
+import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
 import 'package:lnu_navigator/screens/widgets/matrix_gesture_detector.dart';
 import '../models/path_model.dart';
 import '../models/user_info.dart';
