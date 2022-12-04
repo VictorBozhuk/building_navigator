@@ -11,7 +11,7 @@ class BuildingNavigator extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Splash()
+      home: const Splash()
     );
   }
 }

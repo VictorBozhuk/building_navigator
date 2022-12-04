@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'admin/list_buildings_admin.dart';
+import '../Style/text_styles/splash_screen_text_styles.dart';
 import 'list_buildings.dart';
 
 class Splash extends StatefulWidget {
+  const Splash({super.key});
+
   @override
-  _SplashState createState() => _SplashState();
+  State<StatefulWidget> createState() => _SplashState();
 }
 
 class _SplashState extends State<Splash> {
   @override
   void initState() {
-    //FirebaseFirestore.instance.collection('buildings').add({'building': buildings[0]});
-
     Future.delayed(const Duration(milliseconds: 500), () {
       //Navigator.push(context,MaterialPageRoute(builder: (context) => ListBuildingsAdminScreen()));
-      Navigator.push( context, MaterialPageRoute( builder: (context) => ListBuildingsPage()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const ListBuildingsPage()));
     });
     super.initState();
   }
@@ -32,8 +33,7 @@ class _SplashState extends State<Splash> {
               fit: BoxFit.cover,
             ),
           ),
-          child:
-          Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               Image(
@@ -43,19 +43,11 @@ class _SplashState extends State<Splash> {
                 image: AssetImage("assets/NB.png"),
                 fit: BoxFit.cover,
               ),
-              Text("Welcome to", style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Poppins',
-                  fontSize: 40,
-                  fontWeight: FontWeight.w800)),
-              Text('Building Navigator', style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Poppins',
-                  fontSize: 40,
-                  fontWeight: FontWeight.w800)),
+              Text("Welcome to", style: textStyleOnSplashScreen),
+              Text('Building Navigator', style: textStyleOnSplashScreen),
             ],
           ),
-        )
+        ),
       ),
     );
   }
