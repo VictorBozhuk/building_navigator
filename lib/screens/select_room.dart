@@ -60,13 +60,13 @@ class SelectRoomScreenState extends State<SelectRoomScreen> {
                       focusColor: Colors.white,
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.blue,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.blue,
                           width: 2.0,
                         ),

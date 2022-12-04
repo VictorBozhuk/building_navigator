@@ -8,7 +8,7 @@ const TextStyle textStyleOnSplashScreen = TextStyle(
     fontSize: 40,
     fontWeight: FontWeight.w800);
 
-const TextStyle textStyleBuildingCardTitle = TextStyle(
+const TextStyle textStyleCardTitle = TextStyle(
     color: Colors.white,
     fontFamily: globalFontFamily,
     fontSize: 30,
