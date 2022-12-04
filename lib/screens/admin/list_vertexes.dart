@@ -42,7 +42,7 @@ class ListVertexesScreenState extends State<ListVertexesScreen> {
                       AdminInfo.selectedVertexOnOtherArea = AdminInfo.areaConnection.vertexes![index],
                       Navigator.pop(context),
                       Navigator.pop(context),
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(builder: (context) => AddVertexScreen()))
                     },
