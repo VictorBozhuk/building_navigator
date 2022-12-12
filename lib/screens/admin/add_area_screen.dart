@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../Style/images.dart';
 import '../../models/admin_info.dart';
-import '../../models/area_model.dart';
-import '../widgets/building_widgets.dart';
+import '../widgets/buttons/main_button.dart';
 import '../widgets/global/appBars.dart';
+import '../widgets/text_inputs/main_text_input.dart';
 import 'add_vertexes_to_area_screen.dart';
 import 'list_areas_admin_screen.dart';
-import 'list_rooms.dart';
-import 'list_vertex_connections.dart';
-import 'list_vertexes.dart';
 
 class AddAreaScreen extends StatefulWidget{
-  AddAreaScreen({Key? key, required this.isCreate});
+  const AddAreaScreen({super.key, required this.isCreate});
   final bool isCreate;
   @override
   State<StatefulWidget> createState() => AddAreaScreenState();
@@ -31,76 +28,54 @@ class AddAreaScreenState extends State<AddAreaScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    double _screenHeight = MediaQuery.of(context).size.height;
-    double _screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-
-        appBar: getAppBar('Редагування зони'),
+        appBar: getAppBar('Editing area'),
         body: Container(
-            width: _screenWidth,
-            height: _screenHeight,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
               image: AppImages.backgroundImage,
             ),
             child: SingleChildScrollView(child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  height: 60,
-                  margin: EdgeInsets.all(10),
-                  child: TextFormField(
-                      controller: txtTitle,
-                      decoration: getTextFieldDecoration("Назва"),
-                      style: const TextStyle(fontSize: 22, color: Colors.white),
-                      onChanged: _changeTitle),
+                MainTextInput(
+                    inputController: txtTitle,
+                    hint: "Title",
+                    label: AdminInfo.area.title,
+                    onChanged: _changeTitle
                 ),
-                Container(
-                  height: 60,
-                  margin: EdgeInsets.all(10),
-                  child: TextFormField(
-                      controller: txtImagePath,
-                      decoration: getTextFieldDecoration("Фото"),
-                      style: const TextStyle(fontSize: 22, color: Colors.white),
-
-                      onChanged: _changeImagePath),
+                MainTextInput(
+                    inputController: txtImagePath,
+                    hint: "Photo",
+                    label: AdminInfo.area.imagePath,
+                    onChanged: _changeImagePath
                 ),
-                Container(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width - 20,
-                    margin: EdgeInsets.only(top: 30),
-                    child: ElevatedButton(
-                      child: const Text('Зберегти', style: TextStyle(
-                        fontSize: 22,
-                      )),
-                      onPressed: () {
-                        if(widget.isCreate == true){
-                          AdminInfo.building.areas.add(AdminInfo.area);
-                          Navigator.pop(context);
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) =>
-                                  ListAreasAdminScreen()
-                              ));
-                        }
-                        else{
-                          var area = AdminInfo.building.areas.firstWhere((x) => x.uid == AdminInfo.area.uid);
-                          area.title = AdminInfo.area.title;
-                          area.imagePath = AdminInfo.area.imagePath;
-                          Navigator.pop(context);
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) =>
-                                  AddVertexesToAreaScreen()
-                              ));
-                        }
-
-                      },
-                    )
+                MainButton(
+                  title: 'Save',
+                  onPressed: () {
+                    if(widget.isCreate == true){
+                      AdminInfo.building.areas.add(AdminInfo.area);
+                      Navigator.pop(context);
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) =>
+                              ListAreasAdminScreen()
+                          ));
+                    }
+                    else {
+                      var area = AdminInfo.building.areas.firstWhere((x) => x.uid == AdminInfo.area.uid);
+                      area.title = AdminInfo.area.title;
+                      area.imagePath = AdminInfo.area.imagePath;
+                      Navigator.pop(context);
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) =>
+                              AddVertexesToAreaScreen()
+                          ));
+                    }
+                  }
                 ),
               ],),)
-
         )
-
-
     );
   }
 }
-

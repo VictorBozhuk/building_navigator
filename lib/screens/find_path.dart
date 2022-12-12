@@ -1,43 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/panorama_screen.dart';
-import 'package:lnu_navigator/screens/select_room.dart';
-import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
 
 import '../Style/images.dart';
 import '../algorithm_new/building_navigator.dart';
-import '../building_navigator.dart';
 import '../models/building_model.dart';
 import '../models/path_model.dart';
 import '../models/vertex_model.dart';
+import 'admin/list_rooms_admin_screen.dart';
+import 'list_rooms_screen.dart';
 
 class FindPathPage extends StatefulWidget{
   final Building building;
   String sourceRoomTitle = '';
-  FindPathPage({Key? key, required this.building});
+  FindPathPage({super.key, required this.building});
 
   @override
-  State<StatefulWidget> createState() => FindPathPageState(building: building);
+  State<StatefulWidget> createState() => FindPathPageState();
 }
 
 class FindPathPageState extends State<FindPathPage> {
+  FindPathPageState({Key? key});
 
-  final Building building;
-
-  FindPathPageState({Key? key, required this.building});
-
-  TextEditingController txtSource = TextEditingController(text: '');
-  TextEditingController txtDestination = TextEditingController(text: PathInfo.destinationRoom?.title);
+  TextEditingController txtSource = TextEditingController();
+  TextEditingController txtDestination = TextEditingController();
   _changeSource(String text){
     setState(() => widget.sourceRoomTitle = text);
   }
-  _changeDestinaton(String text){
+  _changeDestination(String text){
     setState(() => PathInfo.destinationRoom?.title = text);
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar('Пошук приміщення'),
+      appBar: getAppBar('Find room'),
       body: Container(
         decoration: BoxDecoration(
           image: AppImages.backgroundImage,
@@ -47,7 +43,7 @@ class FindPathPageState extends State<FindPathPage> {
           children: [
             Container(
               height: 60,
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: TextFormField(
                   controller: txtSource,
                   decoration: InputDecoration(
@@ -56,25 +52,23 @@ class FindPathPageState extends State<FindPathPage> {
                       focusColor: Colors.white,
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.blue,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.blue,
                           width: 2.0,
                         ),
                       ),
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                       hintStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
-                      hintText: "Поточне розташування",
+                      hintText: "Current room",
                       suffixIcon: IconButton(
                         onPressed: () => Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => SelectRoomScreen(building: building, isSource: true, func: () =>
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (context) => FindPathPage(building: building))),))),
+                            MaterialPageRoute(builder: (context) => ListRoomsScreen())),
                         icon: const Icon(Icons.add, color: Colors.white,),
                         iconSize: 40,
                       )
@@ -85,7 +79,7 @@ class FindPathPageState extends State<FindPathPage> {
             ),
             Container(
               height: 60,
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: TextFormField(
                   controller: txtDestination,
                   decoration: InputDecoration(
@@ -94,72 +88,55 @@ class FindPathPageState extends State<FindPathPage> {
                       focusColor: Colors.white,
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.blue,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.blue,
                           width: 2.0,
                         ),
                       ),
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                       hintStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
-                      hintText: "Призначення",
+                      hintText: "Destination",
                       suffixIcon: IconButton(
                         onPressed: () => Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => SelectRoomScreen(building: building, isSource: false, func: () =>
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (context) => FindPathPage(building: building)))))),
+                            MaterialPageRoute(builder: (context) => const ListRoomsScreen())),
                         icon: const Icon(Icons.add, color: Colors.white,),
                         iconSize: 40,
                       )
                   ),
                   style: const TextStyle(fontSize: 22, color: Colors.white),
 
-                  onChanged: _changeDestinaton),
+                  onChanged: _changeDestination),
             ),
             Container(
                 height: 50,
                 width: MediaQuery.of(context).size.width - 20,
-                margin: EdgeInsets.only(top: 10),
+                margin: const EdgeInsets.only(top: 10),
                 child: ElevatedButton(
-                  child: const Text('Почати шлях', style: TextStyle(
+                  child: const Text('Search', style: TextStyle(
                     fontSize: 22,
                   )),
                   onPressed: () {
-                    setPath(building);
+                    setPath(widget.building);
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) =>
                             PanoramaScreen(
-                                curentVertex: PathInfo.currentVertex!,
+                                currentVertex: PathInfo.currentVertex!,
                                 nextVertex: PathInfo.destinationRoom!.vertex)));
                   },
                 )
-            ),
+              ),
           ],),
       )
 
 
     );
   }
-  /*
-  String getPathAsString(Building building)
-  {
-    BuildingNavigator client = BuildingNavigator(building.getEdges(), building.vertexes);
-    var ListPath = client.GetPath(PathInfo.sourceVertexTitle, PathInfo.destinationVertexTitle);
-    String path = '';
-    int length = ListPath?.length ?? 0;
-    for(int i = 0; i < length; ++i)
-    {
-      path += ListPath![i];
-    }
-
-    return path;
-  }
-*/
 
   void setPath(Building building){
     PathFinder client = PathFinder(building.getEdges(), building.vertexes);
@@ -177,9 +154,7 @@ class FindPathPageState extends State<FindPathPage> {
         }
       }
     }
-
     PathInfo.setVertexes(vertexes);
   }
-
 }
 

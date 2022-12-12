@@ -64,7 +64,7 @@ Hotspot getHotspotPoint(double x, double y, double size,
           Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) =>
-              PanoramaScreen(curentVertex: curent)),
+              PanoramaScreen(currentVertex: curent)),
         )},
         child: RotationTransition(
           turns: const AlwaysStoppedAnimation(0 / 360),
@@ -99,7 +99,7 @@ Hotspot getHotspotNextPoint(double x, double y, double size,
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) =>
-                PanoramaScreen(curentVertex: curent, nextVertex: PathInfo.nextVertex)),
+                PanoramaScreen(currentVertex: curent, nextVertex: PathInfo.nextVertex)),
           )},
         child: RotationTransition(
           turns: const AlwaysStoppedAnimation(0 / 360),
@@ -133,7 +133,7 @@ Hotspot getHotspotOpenDoor(double x, double y, double angle, double size,
           context,
           MaterialPageRoute(builder: (context) =>
               PanoramaScreen(
-                  curentVertex: curent, nextVertex: next)),
+                  currentVertex: curent, nextVertex: next)),
         )},
         child: RotationTransition(
           turns: AlwaysStoppedAnimation(angle / 360),

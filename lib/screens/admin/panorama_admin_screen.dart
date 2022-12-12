@@ -2,32 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/widgets/drawer/navigation_drawer.dart';
 import 'package:panorama/panorama.dart';
 import '../../models/admin_info.dart';
-import '../../models/path_model.dart';
-import 'add_room.dart';
+import 'add_room_screen.dart';
 import 'add_vertex_connection.dart';
 
-class AdminParoramaScreen extends StatefulWidget{
-  AdminParoramaScreen({Key? key, required this.panoramaImagePath, required this.isRoom, required this.currentWidget, required this.isCreate, required this.index}) : super(key: key);
+class PanoramaAdminScreen extends StatefulWidget{
   final String panoramaImagePath;
   final Widget currentWidget;
   final bool isRoom;
   final bool isCreate;
   final int index;
+  const PanoramaAdminScreen({Key? key,
+    required this.panoramaImagePath,
+    required this.isRoom,
+    required this.currentWidget,
+    required this.isCreate,
+    required this.index}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => AdminParoramaScreenState();
+  State<StatefulWidget> createState() => _PanoramaAdminScreenState();
 }
 
-
-class AdminParoramaScreenState extends State<AdminParoramaScreen> {
+class _PanoramaAdminScreenState extends State<PanoramaAdminScreen> {
   late List<Hotspot> hotspots = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const NavigationDrawer(),
-      body:
-      Panorama(
+      body: Panorama(
         onTap: (longitude, latitude, tilt) {
           AdminInfo.x = longitude;
           AdminInfo.y = latitude;
@@ -35,17 +37,14 @@ class AdminParoramaScreenState extends State<AdminParoramaScreen> {
             hotspots = [getHotspot(widget.currentWidget, AdminInfo.x, AdminInfo.y)];
           });
         },
-        onViewChanged: ( longitude,  latitude,  tilt) {
+        onViewChanged: (longitude, latitude, tilt) {
           AdminInfo.direction = longitude;
         },
         sensitivity: 2,
         hotspots: hotspots,
         child: Image.network(widget.panoramaImagePath),
-
       ),
       floatingActionButton: FloatingActionButton(
-        // isExtended: true,
-        child: const Icon(Icons.add),
         backgroundColor: Colors.green,
         onPressed: () {
           setState(() {
@@ -62,6 +61,7 @@ class AdminParoramaScreenState extends State<AdminParoramaScreen> {
             }
           });
         },
+        child: const Icon(Icons.add),
       ),
     );
   }

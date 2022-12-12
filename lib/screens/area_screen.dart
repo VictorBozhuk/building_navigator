@@ -1,7 +1,4 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:lnu_navigator/screens/select_room.dart';
 import 'package:lnu_navigator/screens/widgets/building/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/figures/circle.dart';
@@ -9,30 +6,23 @@ import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
 import 'package:lnu_navigator/screens/widgets/matrix_gesture_detector.dart';
 import '../models/path_model.dart';
 import '../models/user_info.dart';
-import 'actions/actions.dart';
 import 'list_rooms_screen.dart';
 
 class AreaScreen extends StatefulWidget {
   AreaScreen({super.key}){
-    mapImage = Container(
-      key: image_key,
+    _mapImage = Container(
+      key: _imageKey,
       child: getAreaImage(UserInfo.area.imagePath),
     );
   }
-  late List<Widget> points = [mapImage];
-  late Widget mapImage;
-  GlobalKey image_key = GlobalKey();
+  late List<Widget> points = [_mapImage];
+  late Widget _mapImage;
+  final GlobalKey _imageKey = GlobalKey();
   @override
   State<StatefulWidget> createState() => _AreaScreenState();
 }
 
 class _AreaScreenState extends State<AreaScreen> {
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   void setStateAnalog(){
     setState(() {});
   }
@@ -41,9 +31,9 @@ class _AreaScreenState extends State<AreaScreen> {
   Widget build(BuildContext context) {
     final ValueNotifier<Matrix4> notifier = ValueNotifier(Matrix4.identity());
     if(PathInfo.isReadyToGo){
-      setPointsOfPath(widget, context, setStateAnalog);
+      _setPointsOfPath(widget, context, setStateAnalog);
     }else {
-      setPoints(widget, context, setStateAnalog);
+      _setPoints(widget, context, setStateAnalog);
     }
     return Scaffold(
       backgroundColor: Colors.white,
@@ -54,13 +44,10 @@ class _AreaScreenState extends State<AreaScreen> {
         },
         onScaleStart: () { },
         onScaleEnd: () { },
-        child:
-        Column(
+        child: Column(
             children: [
-              Expanded(
-                child:
-                GestureDetector(
-                  onTapUp: (TapUpDetails details) { },
+              Expanded(child:
+                GestureDetector(onTapUp: (TapUpDetails details) { },
                   child: AnimatedBuilder(
                     animation: notifier,
                     builder: (ctx, child) {
@@ -75,15 +62,15 @@ class _AreaScreenState extends State<AreaScreen> {
                 ),
               ),
               ProfileItemButton(
-                  title: 'Пошук приміщення',
-                  icon: const Icon(Icons.arrow_forward, color: Colors.white, size: 30),
+                  title: 'Search for a room',
+                  icon: const IconOfItemOnBuildingPage(),
                   func: () {
                     PathInfo.isWalk = false;
                     //PathInfo.nextVertexImagePath = '';
                     Navigator.push(
                         context,
                         MaterialPageRoute(builder:
-                            (context) => ListRoomsScreen()));}),
+                            (context) => const ListRoomsScreen()));}),
           ]
         ),
       )
@@ -91,13 +78,13 @@ class _AreaScreenState extends State<AreaScreen> {
   }
 }
 
-void setPoints(AreaScreen widget, BuildContext context, Function func){
+void _setPoints(AreaScreen widget, BuildContext context, Function func){
   for(int i = 0; i < UserInfo.area.vertexes!.length; ++i){
     widget.points.add(getVertexAsButtonOn2DMapForUser(UserInfo.area.vertexes![i], context, func));
   }
 }
 
-void setPointsOfPath(AreaScreen widget, BuildContext context, Function func){
+void _setPointsOfPath(AreaScreen widget, BuildContext context, Function func){
   for(int i = 0; i < UserInfo.area.vertexes!.length; ++i){
     for(int j = 0; j < PathInfo.listVertexes!.length; ++j){
       if(UserInfo.area.vertexes![i].uid == PathInfo.listVertexes![j].uid){

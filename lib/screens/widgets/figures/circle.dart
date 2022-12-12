@@ -52,7 +52,7 @@ Positioned getVertexAsButtonOn2DMap(Vertex vertex, Function func) {
                 AdminInfo.secondSelectedVertex = vertex;
                 func();
               },
-              child: Container(
+              child: SizedBox(
                 width: pointRadius * 2,
                 height: pointRadius * 2,
                 child: CustomPaint(
@@ -95,9 +95,9 @@ Positioned getVertexAsButtonOn2DMapForUser(Vertex vertex, BuildContext context, 
                 PathInfo.sourceVertex = vertex;
                 Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => PanoramaScreen(curentVertex: vertex, nextVertex: null,)));
+                    MaterialPageRoute(builder: (context) => PanoramaScreen(currentVertex: vertex)));
               },
-              child: Container(
+              child: SizedBox(
                 width: pointRadius * 2,
                 height: pointRadius * 2,
                 child: CustomPaint(
@@ -150,9 +150,9 @@ Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext c
                 PathInfo.setNewVertexes(vertex);
                 Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => PanoramaScreen(curentVertex: PathInfo.currentVertex!, nextVertex: PathInfo.nextVertex,)));
+                    MaterialPageRoute(builder: (context) => PanoramaScreen(currentVertex: PathInfo.currentVertex!, nextVertex: PathInfo.nextVertex,)));
               },
-              child: Container(
+              child: SizedBox(
                 width: pointRadius * 2,
                 height: pointRadius * 2,
                 child: CustomPaint(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../Style/text_styles/text_styles.dart';
 import '../../../models/area_model.dart';
 import '../../../models/building_model.dart';
+import '../../../models/room_model.dart';
 
 
 class BuildingCard extends StatelessWidget {
@@ -64,6 +65,21 @@ class AreaCard extends StatelessWidget {
               ]
           ) ,
         )
+    );
+  }
+}
+
+class RoomCard extends StatelessWidget {
+  final Room room;
+  final Function onTap;
+  const RoomCard(this.room, this.onTap, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: const Icon(Icons.room, color: Colors.white,),
+      title: Text(room.title, style: textStyleListOfTitles),
+      onTap: onTap()
     );
   }
 }

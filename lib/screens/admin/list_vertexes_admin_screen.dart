@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 
 import '../../Style/images.dart';
 import '../../models/admin_info.dart';
-import '../../models/building_model.dart';
-import '../widgets/building_widgets.dart';
 import '../widgets/global/appBars.dart';
-import 'add_vertex.dart';
+import 'add_vertex_screen.dart';
 
-class ListVertexesScreen extends StatefulWidget {
+class ListVertexesAdminScreen extends StatefulWidget {
+  const ListVertexesAdminScreen({super.key});
+
   @override
-  State<StatefulWidget> createState() => ListVertexesScreenState();
+  State<StatefulWidget> createState() => _ListVertexesAdminScreenState();
 }
 
-class ListVertexesScreenState extends State<ListVertexesScreen> {
+class _ListVertexesAdminScreenState extends State<ListVertexesAdminScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBarWithIcon("Вершини ${AdminInfo.areaConnection.title}", () => {
+        appBar: getAppBarWithIcon("Vertexes of ${AdminInfo.areaConnection.title}", () => {
           AdminInfo.clearVertex(),
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AddVertexScreen()))
+              MaterialPageRoute(builder: (context) => const AddVertexScreen()))
         }),
         body: Container(
           decoration: BoxDecoration(
@@ -30,9 +30,9 @@ class ListVertexesScreenState extends State<ListVertexesScreen> {
             children: [
               Expanded(child:
               ListView.separated(
-                itemBuilder: (BuildContext, index){
+                itemBuilder: (buildContext, index){
                   return ListTile(
-                    leading: Icon(Icons.room, color: Colors.white,),
+                    leading: const Icon(Icons.room, color: Colors.white,),
                     title: Text(AdminInfo.areaConnection.vertexes![index].title.toString(),
                         style: const TextStyle(
                             fontFamily: 'Poppins',
@@ -45,17 +45,17 @@ class ListVertexesScreenState extends State<ListVertexesScreen> {
                       Navigator.pop(context),
                       Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => AddVertexScreen()))
+                          MaterialPageRoute(builder: (context) => const AddVertexScreen()))
                     },
                   );
                 },
-                separatorBuilder: (BuildContext,index)
+                separatorBuilder: (buildContext,index)
                 {
-                  return Divider(height: 1);
+                  return const Divider(height: 1);
                 },
                 itemCount: AdminInfo.areaConnection.vertexes!.length,
                 shrinkWrap: true,
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 scrollDirection: Axis.vertical,
               ),
               )

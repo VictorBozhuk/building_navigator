@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -7,7 +8,9 @@ import '../../models/vertex_model.dart';
 Vertex getCreatedVertexOnMap(TapUpDetails details) {
   var x = roundDouble(details.localPosition.dx);
   var y = roundDouble(details.localPosition.dy);
-  print("Point:   x = ${x}   y = ${y}");
+  if (kDebugMode) {
+    print("Point:   x = ${x}   y = ${y}");
+  }
   return Vertex.createOnlyPoint(x, y, pictureWidth, pictureHeight);
 }
 
@@ -18,7 +21,9 @@ double roundDouble(double value){
 
 void setSize(GlobalKey key){
   final box = key.currentContext?.findRenderObject() as RenderBox;
-  print("height ${box.size.height}      width ${box.size.width}");
+  if (kDebugMode) {
+    print("height ${box.size.height}      width ${box.size.width}");
+  }
 
   pictureHeight = box.size.height;
   pictureWidth = box.size.width;

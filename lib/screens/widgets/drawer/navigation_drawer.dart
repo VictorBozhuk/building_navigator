@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/path_model.dart';
-import '../../admin/list_buildings_admin.dart';
-import '../../list_buildings.dart';
-
+import '../../../Style/text_styles/text_styles.dart';
+import '../../admin/list_buildings_admin_screen.dart';
+import '../../list_buildings_screen.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
@@ -19,12 +18,11 @@ class NavigationDrawer extends StatelessWidget {
           ],
         )
     ),
-
   );
 
   Widget buildHeader(BuildContext context) => Container(
     height: 200,
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
       image: DecorationImage(
         image: AssetImage("assets/DrawerLogo.jpg"),
         fit: BoxFit.cover,
@@ -33,16 +31,16 @@ class NavigationDrawer extends StatelessWidget {
     padding: EdgeInsets.only(
       top: MediaQuery.of(context).padding.top,
     ),
-    child:        Column(
+    child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
         Image(
           height: 130,
           width: 130,
           color: Colors.white.withOpacity(0.8),
-          image: AssetImage("assets/NB.png"),
-          fit: BoxFit.cover,
-        ),]),
+          image: const AssetImage("assets/NB.png"),
+          fit: BoxFit.cover,),
+        ]),
   );
 
   Widget buildMenuItems(BuildContext context) => Container(
@@ -51,27 +49,24 @@ class NavigationDrawer extends StatelessWidget {
         children: [
           ListTile(
             leading:  const Icon(Icons.home_outlined),
-            title: Text('Buildings', style: styleText,),
+            title: const Text('Buildings', style: textStyleMainNormalDrawerText,),
             onTap: () =>{
-              //PathInfo.clear(),
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ListBuildingsPage()))}
+              Navigator.push(context, MaterialPageRoute(builder: (context)
+              => const ListBuildingsPage()))}
           ),
           ListTile(
             leading:  const Icon(Icons.image_search),
-            title: Text('Room search', style: styleText,),
-            onTap: (){},
+            title: const Text('Room search', style: textStyleMainNormalDrawerText,),
+            onTap: () {},
           ),
           ListTile(
-            leading:  const Icon(Icons.admin_panel_settings),
-            title: Text('Admin', style: styleText),
-            onTap: (){Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ListBuildingsAdminScreen()));},
+            leading: const Icon(Icons.admin_panel_settings),
+            title: const Text('Admin', style: textStyleMainNormalDrawerText),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)
+                => ListBuildingsAdminScreen()));
+              },
           ),
         ],
       ));
 }
-
-var styleText = TextStyle(fontSize: 18);

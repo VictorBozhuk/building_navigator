@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
-
-
 InputDecoration getTextFieldDecoration(String hintText){
   return InputDecoration(
         hoverColor: Colors.white,
