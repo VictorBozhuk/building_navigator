@@ -32,9 +32,9 @@ class _AreaScreenState extends State<AreaScreen> {
   Future _calculateDimension() async {
     await outputPoints(widget.expanderKey, UserInfo.area.imagePath);
     if(PathInfo.isReadyToGo){
-      _setPointsOfPath(widget, context, setStateAnalog);
+      _setWidgetsOfPath(widget, context, setStateAnalog);
     }else {
-      _setPoints(widget, context, setStateAnalog);
+      _setWidgets(widget, context, setStateAnalog);
     }
     setState(() { });
   }
@@ -87,19 +87,29 @@ class _AreaScreenState extends State<AreaScreen> {
   }
 }
 
-void _setPoints(AreaScreen widget, BuildContext context, Function func){
+void _setWidgets(AreaScreen widget, BuildContext context, Function func){
+  _setMap(widget);
+  _setPoints(widget, context, func);
+}
+
+void _setWidgetsOfPath(AreaScreen widget, BuildContext context, Function func){
+  _setMap(widget);
+  _setPointsOfPath(widget, context, func);
+}
+
+void _setMap(AreaScreen widget){
   widget.points.add(Container(
     child: getAreaImage(UserInfo.area.imagePath),
   ));
+}
+
+void _setPoints(AreaScreen widget, BuildContext context, Function func){
   for(int i = 0; i < UserInfo.area.vertexes!.length; ++i){
     widget.points.add(getVertexAsButtonOn2DMapForUser(UserInfo.area.vertexes![i], context, func));
   }
 }
 
 void _setPointsOfPath(AreaScreen widget, BuildContext context, Function func){
-  widget.points.add(Container(
-    child: getAreaImage(UserInfo.area.imagePath),
-  ));
   for(int i = 0; i < UserInfo.area.vertexes!.length; ++i){
     for(int j = 0; j < PathInfo.listVertexes!.length; ++j){
       if(UserInfo.area.vertexes![i].uid == PathInfo.listVertexes![j].uid){

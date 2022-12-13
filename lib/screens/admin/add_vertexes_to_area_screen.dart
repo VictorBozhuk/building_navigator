@@ -41,7 +41,7 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
 
   Future _calculateDimension() async {
     await outputPoints(widget.expanderKey, AdminInfo.area.imagePath);
-    _setPoints(widget, setStateAnalog);
+    _setWidgets(widget, setStateAnalog);
     setState(() { });
   }
 
@@ -75,7 +75,7 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
                 onTapUp: (TapUpDetails details) {
                   AdminInfo.area.vertexes?.add(getCreatedVertexOnMap(details));
                   setState(() {
-                    _setPoints(widget, setStateAnalog);
+                    _setWidgets(widget, setStateAnalog);
                   });
                 },
                 child: AnimatedBuilder(
@@ -213,15 +213,23 @@ void _deleteAreaAndConnectionOfNextVertex(){
   }
 }
 
-void _setPoints(AddVertexesToAreaScreen widget, Function func){
+void _setWidgets(AddVertexesToAreaScreen widget, Function func){
+  _setMap(widget);
+  _setLines(widget);
+  _setPoints(widget, func);
+}
+
+void _setMap(AddVertexesToAreaScreen widget){
   widget.points.add(Container(
     child: getAreaImage(AdminInfo.area.imagePath),
   ));
+}
 
+void _setLines(AddVertexesToAreaScreen widget){
   for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
     for(int j = 0; j < AdminInfo.area.vertexes![i].vertexConnections!.length; ++j){
       if((AdminInfo.area.vertexes![i].areaConnection != null
-      && AdminInfo.area.vertexes![i].vertexConnections![j]
+          && AdminInfo.area.vertexes![i].vertexConnections![j]
               .nextVertex.areaConnection != null) == false){
         _drawLine(AdminInfo.area.vertexes![i],
             AdminInfo.area.vertexes![i].vertexConnections![j].nextVertex,
@@ -229,7 +237,9 @@ void _setPoints(AddVertexesToAreaScreen widget, Function func){
       }
     }
   }
+}
 
+void _setPoints(AddVertexesToAreaScreen widget, Function func){
   for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
     widget.points.add(getVertexAsButtonOn2DMap(AdminInfo.area.vertexes![i], func));
   }
