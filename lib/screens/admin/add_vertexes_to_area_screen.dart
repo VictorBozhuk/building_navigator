@@ -31,10 +31,10 @@ class AddVertexesToAreaScreen extends StatefulWidget {
 }
 
 class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
-
   @override
   void initState() {
     super.initState();
+    AdminInfo.clearSelectedVertexes();
     Future.delayed(const Duration(milliseconds: 1500), () {
       setSize(widget.imageKey);
       _setPoints(widget, setStateAnalog);
@@ -96,9 +96,9 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
             child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                 Text("First: ${AdminInfo.selectedVertex?.title ?? "none"}",
-                    style: textStyleMainNormalText),
+                    style: textStyleMainNormalTextBlack),
                 Text("Second: ${AdminInfo.secondSelectedVertex?.title ?? "none"}",
-                    style: textStyleMainNormalText),
+                    style: textStyleMainNormalTextBlack),
               ]),
           ),
           Padding(padding: const EdgeInsets.only(left: 20, right: 20), child:
@@ -130,7 +130,7 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
                       //AdminInfo.vertex = AdminInfo.selectedVertex!;
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const AddVertexScreen()));
+                          MaterialPageRoute(builder: (context) => AddVertexScreen()));
                     }
                   }
               ),
@@ -180,6 +180,7 @@ void _drawLine(Vertex first, Vertex second, List<Widget> points){
 }
 
 void _deleteSelected(AddVertexesToAreaScreen widget, Function func){
+  _deleteConnectionVertexOfNextVertexes();
   AdminInfo.area.vertexes?.removeWhere((x) => x.uid == AdminInfo.selectedVertex?.uid);
   widget.points = [widget.mapImage];
   _setPoints(widget, func);
@@ -187,20 +188,41 @@ void _deleteSelected(AddVertexesToAreaScreen widget, Function func){
   func();
 }
 
+void _deleteConnectionVertexOfNextVertexes(){
+  _deleteAreaAndConnectionOfNextVertex();
+  for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
+    for(int j = 0; j < (AdminInfo.area.vertexes?[i].vertexConnections?.length ?? 0); ++j){
+      if(AdminInfo.area.vertexes?[i].vertexConnections?[j].nextVertex.uid == AdminInfo.selectedVertex?.uid){
+        AdminInfo.area.vertexes?[i].vertexConnections?.remove(AdminInfo.area.vertexes?[i].vertexConnections?[j]);
+      }
+    }
+  }
+}
+
+void _deleteAreaAndConnectionOfNextVertex(){
+  if(AdminInfo.selectedVertex?.areaConnection != null){
+    var nextArea = AdminInfo.building.areas.firstWhere((x) => x.uid == AdminInfo.selectedVertex?.areaConnection!.uid);
+    for(int i = 0; i < nextArea.vertexes!.length; ++i){
+      for(int j = 0; j < (nextArea.vertexes?[i].vertexConnections?.length ?? 0); ++j){
+        if(nextArea.vertexes?[i].vertexConnections?[j].nextVertex.uid == AdminInfo.selectedVertex?.uid){
+          nextArea.vertexes?[i].areaConnection = null;
+          nextArea.vertexes?[i].vertexConnections?.remove(nextArea.vertexes?[i].vertexConnections?[j]);
+        }
+      }
+    }
+  }
+}
+
 void _setPoints(AddVertexesToAreaScreen widget, Function func){
   for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
     for(int j = 0; j < AdminInfo.area.vertexes![i].vertexConnections!.length; ++j){
-      if((AdminInfo.area.vertexes![i].isAreaConnection
+      if((AdminInfo.area.vertexes![i].areaConnection != null
       && AdminInfo.area.vertexes![i].vertexConnections![j]
-              .nextVertex.isAreaConnection) == false){
+              .nextVertex.areaConnection != null) == false){
         _drawLine(AdminInfo.area.vertexes![i],
             AdminInfo.area.vertexes![i].vertexConnections![j].nextVertex,
             widget.points);
       }
-
-      //
-      // інакше пофарбувати в жовтий
-      //
     }
   }
 

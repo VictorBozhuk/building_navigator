@@ -30,6 +30,11 @@ const TextStyle textStyleMainNormalText = TextStyle(
     fontSize: 22,
     color: Colors.white);
 
+const TextStyle textStyleMainNormalTextBlack = TextStyle(
+    fontFamily: globalFontFamily,
+    fontSize: 22,
+    color: Colors.black);
+
 const TextStyle textStyleMainNormalDrawerText = TextStyle(
     fontFamily: globalFontFamily,
     fontSize: 22);

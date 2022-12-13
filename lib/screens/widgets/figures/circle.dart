@@ -35,6 +35,9 @@ Positioned getVertexAsButtonOn2DMap(Vertex vertex, Function func) {
   if(vertex.isFullInfo()){
     color = Colors.blue;
   }
+  if(vertex.areaConnection != null){
+    color = Colors.yellow;
+  }
 
   return Positioned(
       top: y - pointRadius,
@@ -130,8 +133,8 @@ Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext c
           child: InkWell(
               splashColor: Colors.grey,
               onDoubleTap: () {
-                if(vertex.isAreaConnection == true){
-                  UserInfo.area = UserInfo.building.areas.firstWhere((x) => x.uid == vertex.area!.uid);
+                if(vertex.areaConnection != null){
+                  UserInfo.area = UserInfo.building.areas.firstWhere((x) => x.uid == vertex.areaConnection!.uid);
                   Navigator.pop(context);
                   Navigator.push(
                       context,

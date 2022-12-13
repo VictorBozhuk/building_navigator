@@ -106,13 +106,13 @@ Hotspot getHotspotNextPoint(double x, double y, double size,
           child: Image( opacity: const AlwaysStoppedAnimation<double>(1),
             image: AssetImage(iconImagePath),
           ),
-        )
-        ,)
+        ),
+      ),
   );
 }
 
 Hotspot getHotspotOpenDoor(double x, double y, double angle, double size,
-    BuildContext context, Vertex curent, Vertex next, Vertex currentVertex)
+    BuildContext context, Vertex current, Vertex next, Vertex currentVertex)
 {
   return Hotspot(
       height: size,
@@ -133,7 +133,7 @@ Hotspot getHotspotOpenDoor(double x, double y, double angle, double size,
           context,
           MaterialPageRoute(builder: (context) =>
               PanoramaScreen(
-                  currentVertex: curent, nextVertex: next)),
+                  currentVertex: current, nextVertex: next)),
         )},
         child: RotationTransition(
           turns: AlwaysStoppedAnimation(angle / 360),

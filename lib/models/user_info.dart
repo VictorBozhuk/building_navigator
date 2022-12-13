@@ -109,7 +109,7 @@ class UserInfo{
     return direct;
   }
 
-  static List<MyMap> _maps = [
+  static final List<MyMap> _maps = [
     MyMap(-20,-136.12700023487815),
     MyMap(-19,-93.320650223),
     MyMap(-18,-50.514300211),
@@ -157,8 +157,8 @@ class UserInfo{
 }
 
 class MyMap{
-  double key;
-  double value;
+  final double key;
+  final double value;
 
   MyMap(this.key, this.value);
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/widgets/drawer/navigation_drawer.dart';
+import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
 import 'package:panorama/panorama.dart';
 import '../models/path_model.dart';
 import '../models/user_info.dart';
@@ -21,7 +22,7 @@ class PanoramaScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      drawer: const NavigationDrawer(),
+      appBar: getAppBar(currentVertex.title!),
       body: Panorama(
         longitude: UserInfo.getDirection(direction),
         sensitivity: 2,

@@ -9,7 +9,7 @@ Vertex getCreatedVertexOnMap(TapUpDetails details) {
   var x = roundDouble(details.localPosition.dx);
   var y = roundDouble(details.localPosition.dy);
   if (kDebugMode) {
-    print("Point:   x = ${x}   y = ${y}");
+    print("Point:   x = $x   y = $y");
   }
   return Vertex.createOnlyPoint(x, y, pictureWidth, pictureHeight);
 }

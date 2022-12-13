@@ -7,12 +7,13 @@ import '../../Style/images.dart';
 import '../../models/admin_info.dart';
 import '../widgets/global/appBars.dart';
 import 'panorama_admin_screen.dart';
-import '../widgets/building_widgets.dart';
 import 'add_vertexes_to_area_screen.dart';
 
 class AddVertexConnectionScreen extends StatefulWidget{
   final bool isCreate;
   AddVertexConnectionScreen({super.key, required this.isCreate}){
+    AdminInfo.connection.iconSize = AdminInfo.connection.iconSize == 0 ? 90 : AdminInfo.connection.iconSize;
+    AdminInfo.connection.length = AdminInfo.connection.length == 0 ? 10 : AdminInfo.connection.length;
     AdminInfo.size = AdminInfo.connection.iconSize;
   }
 
@@ -24,8 +25,8 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
   TextEditingController txtX = TextEditingController(text: AdminInfo.connection.iconX.toString());
   TextEditingController txtY = TextEditingController(text: AdminInfo.connection.iconY.toString());
   TextEditingController txtDirection = TextEditingController(text: AdminInfo.connection.direction.toString());
-  TextEditingController txtIconSize = TextEditingController(text: AdminInfo.connection.iconSize.toString());
   TextEditingController txtIconPath = TextEditingController(text: AdminInfo.connection.iconPath.toString());
+  TextEditingController txtIconSize = TextEditingController(text: AdminInfo.connection.iconSize.toString());
   TextEditingController txtLength = TextEditingController(text: AdminInfo.connection.length.toString());
 
   _changeX(String text){
@@ -79,7 +80,7 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
           child: SingleChildScrollView(child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(padding: EdgeInsets.all(20), child:
+              Padding(padding: const EdgeInsets.all(20), child:
                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                   Text("${AdminInfo.selectedVertex?.title}",
                     style: const TextStyle(color: Colors.white, fontSize: 20),),
@@ -129,8 +130,9 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
               MainButton(
                   title: "Save",
                   onPressed: () {
+
                     if(AdminInfo.isCreateAreaConnection == false){
-                      AdminInfo.connection.nextVertex.area = AdminInfo.areaConnection;
+                      AdminInfo.connection.nextVertex.areaConnection = AdminInfo.areaConnection;
                       //AdminInfo.connection.nextVertex.isAreaConnection = true;
                     }
 
@@ -160,7 +162,7 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
                       AdminInfo.clearConnection();
                       Navigator.pop(context);
                       Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => const AddVertexScreen()));
+                          MaterialPageRoute(builder: (context) => AddVertexScreen()));
                     }
                   },
               ),
@@ -170,5 +172,3 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
     );
   }
 }
-
-

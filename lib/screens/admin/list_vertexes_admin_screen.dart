@@ -20,7 +20,7 @@ class _ListVertexesAdminScreenState extends State<ListVertexesAdminScreen> {
           AdminInfo.clearVertex(),
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const AddVertexScreen()))
+              MaterialPageRoute(builder: (context) => AddVertexScreen()))
         }),
         body: Container(
           decoration: BoxDecoration(
@@ -45,7 +45,7 @@ class _ListVertexesAdminScreenState extends State<ListVertexesAdminScreen> {
                       Navigator.pop(context),
                       Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => const AddVertexScreen()))
+                          MaterialPageRoute(builder: (context) => AddVertexScreen()))
                     },
                   );
                 },
@@ -62,12 +62,7 @@ class _ListVertexesAdminScreenState extends State<ListVertexesAdminScreen> {
             ],
           ),
         )
-
-
     );
   }
-
-
-
 }
 

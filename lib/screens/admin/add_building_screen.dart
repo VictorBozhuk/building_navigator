@@ -38,13 +38,13 @@ class _AddBuildingScreenState extends State<AddBuildingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               MainTextInput(
-                  inputController: txtImagePath,
+                  inputController:txtTitle,
                   hint: "Title",
                   label: AdminInfo.building.title,
                   onChanged: _changeTitle
               ),
               MainTextInput(
-                  inputController: txtTitle,
+                  inputController: txtImagePath,
                   hint: "Photo",
                   label: AdminInfo.building.imagePath,
                   onChanged: _changeImagePath
@@ -66,7 +66,7 @@ class _AddBuildingScreenState extends State<AddBuildingScreen> {
                   Navigator.pop(context);
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) =>
-                          ListBuildingsAdminScreen()
+                          const ListBuildingsAdminScreen()
                       ));
                 },
               ),

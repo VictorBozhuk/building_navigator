@@ -44,7 +44,7 @@ class ListAreasAdminScreen extends StatelessWidget{
                             }
                             else {
                               AdminInfo.areaConnection = AdminInfo.building.areas[index],
-                              AdminInfo.selectedVertex?.area = AdminInfo.building.areas[index].getObject(),
+                              AdminInfo.selectedVertex?.areaConnection = AdminInfo.building.areas[index].getObject(),
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) => const ListVertexesAdminScreen()))

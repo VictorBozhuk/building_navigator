@@ -21,7 +21,7 @@ List<Building> buildings =
 
 List<Building> buildings =
 [
-  Building.full("LNU Dormitory 3", 'https://firebasestorage.googleapis.com/v0/b/buildingnavigator-b16ab.appspot.com/o/dormitory_3%2Fdormitory_3.jpg?alt=media&token=83fb1ae9-3906-4f5a-ae96-01ed94919583',
+  Building.full("LNU Dormitory 1_", 'https://firebasestorage.googleapis.com/v0/b/buildingnavigator-b16ab.appspot.com/o/dormitory_3%2Fdormitory_3.jpg?alt=media&token=83fb1ae9-3906-4f5a-ae96-01ed94919583',
       areasDormitory_3
   ),
   Building.full("LNU Dormitory 2", 'https://firebasestorage.googleapis.com/v0/b/buildingnavigator-b16ab.appspot.com/o/dormitory_2%2Fdormitory_2.jpg?alt=media&token=05826e91-256e-4fa7-bd55-4c4ee21e1789',

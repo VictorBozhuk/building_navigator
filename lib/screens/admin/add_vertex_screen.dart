@@ -16,7 +16,8 @@ import 'list_areas_admin_screen.dart';
 import 'list_rooms_admin_screen.dart';
 
 class AddVertexScreen extends StatefulWidget{
-  const AddVertexScreen({super.key});
+  late bool isAreaConnection = AdminInfo.selectedVertex!.areaConnection != null;
+  AddVertexScreen({super.key});
   @override
   State<StatefulWidget> createState() => _AddVertexScreenState();
 }
@@ -26,14 +27,14 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
   @override
   void initState(){
     super.initState();
-    if(AdminInfo.selectedVertex!.isAreaConnection == true
+    if(AdminInfo.selectedVertex!.areaConnection != null
         && AdminInfo.selectedVertexOnOtherArea == null
         && AdminInfo.selectedVertex!.vertexConnections!.any((x)
-          => x.nextVertex.isAreaConnection)){
+          => x.nextVertex.areaConnection != null)){
       AdminInfo.selectedVertexOnOtherArea =
           AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x)
-            => x.nextVertex.isAreaConnection).nextVertex;
-      AdminInfo.areaConnection = AdminInfo.selectedVertexOnOtherArea!.area!;
+            => x.nextVertex.areaConnection != null).nextVertex;
+      AdminInfo.areaConnection = AdminInfo.selectedVertexOnOtherArea!.areaConnection!;
     }
   }
 
@@ -74,15 +75,15 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
               ),
               MainSwitch(
                 title: "Join area",
-                value: AdminInfo.selectedVertex!.isAreaConnection,
+                value: widget.isAreaConnection,
                 onChanged: (value) => setState(()
-                => AdminInfo.selectedVertex!.isAreaConnection = value),
+                => widget.isAreaConnection = value),
               ),
-              if(AdminInfo.selectedVertex!.isAreaConnection == true)
+              if(widget.isAreaConnection == true)
                 MainText(text: "Area: ${AdminInfo.areaConnection.title}"),
-              if(AdminInfo.selectedVertex!.isAreaConnection == true)
+              if(widget.isAreaConnection == true)
                 MainText(text: "Vertex: ${AdminInfo.selectedVertexOnOtherArea?.title}"),
-              if(AdminInfo.selectedVertex!.isAreaConnection == true)
+              if(widget.isAreaConnection == true)
                 MainButton(
                     title: "Join area",
                     onPressed: () {
@@ -92,7 +93,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
                           const ListAreasAdminScreen()
                       ));
                 }),
-              if(AdminInfo.selectedVertex!.isAreaConnection == true)
+              if(widget.isAreaConnection == true)
                 MainButton(
                     title: "Set coordinates",
                     onPressed: () {
@@ -107,7 +108,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
                       else{
                         AdminInfo.clearConnection();
                         AdminInfo.secondSelectedVertex = AdminInfo.selectedVertexOnOtherArea;
-                        AdminInfo.secondSelectedVertex?.isAreaConnection = true;
+                        //AdminInfo.secondSelectedVertex?.isAreaConnection = true;
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) =>
                                 AddVertexConnectionScreen(isCreate: true)
@@ -130,7 +131,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
                     editedVertex?.title = AdminInfo.selectedVertex?.title;
                     editedVertex?.panoramaImagePath = AdminInfo.selectedVertex?.panoramaImagePath;
                     editedVertex?.rooms = AdminInfo.selectedVertex?.rooms;
-                    if(AdminInfo.selectedVertex!.isAreaConnection == true)
+                    if(AdminInfo.selectedVertex!.areaConnection != null)
                     {
                       //var connection = VertexConnection(nextVertex, direction, iconX, iconY, iconSize, iconPath, length)
                       //edited_vertex?.vertexConnections?.add(AdminInfo.selectedVertexOnOtherArea)

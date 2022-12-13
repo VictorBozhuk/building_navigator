@@ -10,15 +10,8 @@ import 'list_areas_screen.dart';
 class BuildingPage extends StatelessWidget {
   const BuildingPage({super.key});
 
-  void loadAllImages() async {
-    for(int i = 0 ; i < UserInfo.building.vertexes.length; ++i){
-      UserInfo.building.vertexes[i].loadImage();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    loadAllImages();
     return Scaffold(
       appBar: getAppBar(UserInfo.building.title),
       body: Container(
