@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/screens/admin/select_vertex_on_area_screen.dart';
 
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
@@ -47,7 +48,8 @@ class ListAreasAdminScreen extends StatelessWidget{
                               AdminInfo.selectedVertex?.areaConnection = AdminInfo.building.areas[index].getObject(),
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const ListVertexesAdminScreen()))
+                                  MaterialPageRoute(builder: (context) => SelectVertexeOnAreaScreen(area: AdminInfo.areaConnection,))),
+                              //Navigator.push(context, MaterialPageRoute(builder: (context) => const ListVertexesAdminScreen()))
                             }
                           },
                         );

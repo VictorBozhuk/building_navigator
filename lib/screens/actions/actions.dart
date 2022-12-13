@@ -20,17 +20,6 @@ double roundDouble(double value){
   return ((value * mod).round().toDouble() / mod);
 }
 
-void setSize(GlobalKey key){
-  final box = key.currentContext?.findRenderObject() as RenderBox;
-  if (kDebugMode) {
-    print("height ${box.size.height}      width ${box.size.width}");
-  }
-
-  pictureHeight = box.size.height;
-  pictureWidth = box.size.width;
-  pointRadius = box.size.width / 55;
-}
-
 Future outputPoints(GlobalKey expanderKey, String imagePath) async {
   var box = expanderKey.currentContext?.findRenderObject() as RenderBox;
   var availableHeight = box.size.height;
