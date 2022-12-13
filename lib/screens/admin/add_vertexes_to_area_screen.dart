@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import '../../data/globals.dart';
 import '../../styles/text_styles/text_styles.dart';
 import '../../models/admin_info.dart';
 import '../../models/vertex_model.dart';
@@ -14,17 +15,12 @@ import '../widgets/matrix_gesture_detector.dart';
 import 'add_area_screen.dart';
 import 'add_vertex_screen.dart';
 import 'add_vertex_connection.dart';
+import 'dart:async';
 
 class AddVertexesToAreaScreen extends StatefulWidget {
-  late List<Widget> points = [mapImage];
-  late Widget mapImage;
-  final GlobalKey imageKey = GlobalKey();
-  AddVertexesToAreaScreen({super.key}){
-    mapImage = Container(
-      key: imageKey,
-      child: getAreaImage(AdminInfo.area.imagePath),
-    );
-  }
+  late List<Widget> points = [];
+  final GlobalKey expanderKey = GlobalKey();
+  AddVertexesToAreaScreen({super.key});
 
   @override
   State<StatefulWidget> createState() => _AddVertexesToAreaScreenState();
@@ -35,15 +31,18 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
   void initState() {
     super.initState();
     AdminInfo.clearSelectedVertexes();
-    Future.delayed(const Duration(milliseconds: 1500), () {
-      setSize(widget.imageKey);
-      _setPoints(widget, setStateAnalog);
-      setState(() { });
-    });
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) async => await _calculateDimension());
   }
 
   void setStateAnalog(){
     setState(() {});
+  }
+
+  Future _calculateDimension() async {
+    await outputPoints(widget.expanderKey, AdminInfo.area.imagePath);
+    _setPoints(widget, setStateAnalog);
+    setState(() { });
   }
 
   @override
@@ -57,6 +56,7 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
         }, icon: Icons.edit),
         body: Column(children: [
           Expanded(
+            key: widget.expanderKey,
             child: MatrixGestureDetector(
               onMatrixUpdate: (m, tm, sm, rm) {
                 notifier.value = m;
@@ -182,7 +182,7 @@ void _drawLine(Vertex first, Vertex second, List<Widget> points){
 void _deleteSelected(AddVertexesToAreaScreen widget, Function func){
   _deleteConnectionVertexOfNextVertexes();
   AdminInfo.area.vertexes?.removeWhere((x) => x.uid == AdminInfo.selectedVertex?.uid);
-  widget.points = [widget.mapImage];
+  widget.points = [];
   _setPoints(widget, func);
   AdminInfo.clearSelectedVertexes();
   func();
@@ -214,6 +214,10 @@ void _deleteAreaAndConnectionOfNextVertex(){
 }
 
 void _setPoints(AddVertexesToAreaScreen widget, Function func){
+  widget.points.add(Container(
+    child: getAreaImage(AdminInfo.area.imagePath),
+  ));
+
   for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
     for(int j = 0; j < AdminInfo.area.vertexes![i].vertexConnections!.length; ++j){
       if((AdminInfo.area.vertexes![i].areaConnection != null
