@@ -3,8 +3,8 @@ import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
 import 'package:lnu_navigator/screens/widgets/text_inputs/main_text_input.dart';
 import 'package:lnu_navigator/screens/widgets/text_inputs/text_input.dart';
 
-import '../Style/images.dart';
-import '../Style/text_styles/text_styles.dart';
+import '../styles/images.dart';
+import '../styles/text_styles/text_styles.dart';
 import '../models/path_model.dart';
 import '../models/room_model.dart';
 import '../models/user_info.dart';

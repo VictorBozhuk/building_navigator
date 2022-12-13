@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../Style/images.dart';
+import '../../styles/images.dart';
 import '../../models/admin_info.dart';
 import '../../services/database.dart';
 import '../widgets/buttons/main_button.dart';

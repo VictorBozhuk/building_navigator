@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../../Style/images.dart';
+import '../../styles/images.dart';
 import '../../models/admin_info.dart';
 import '../../models/building_model.dart';
 import '../../services/database.dart';

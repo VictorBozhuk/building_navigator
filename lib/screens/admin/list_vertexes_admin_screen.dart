@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../Style/images.dart';
+import '../../styles/images.dart';
 import '../../models/admin_info.dart';
 import '../widgets/global/appBars.dart';
 import 'add_vertex_screen.dart';

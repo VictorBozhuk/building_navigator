@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../Style/text_styles/text_styles.dart';
+import '../../../styles/text_styles/text_styles.dart';
 
 class NewText extends StatelessWidget {
   final String text;

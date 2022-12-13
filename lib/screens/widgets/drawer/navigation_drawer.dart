@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../Style/text_styles/text_styles.dart';
+import '../../../styles/text_styles/text_styles.dart';
 import '../../admin/list_buildings_admin_screen.dart';
 import '../../list_buildings_screen.dart';
 

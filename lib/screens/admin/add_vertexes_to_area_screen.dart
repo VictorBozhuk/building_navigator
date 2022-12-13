@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../../Style/text_styles/text_styles.dart';
+import '../../styles/text_styles/text_styles.dart';
 import '../../models/admin_info.dart';
 import '../../models/vertex_model.dart';
 import '../actions/actions.dart';

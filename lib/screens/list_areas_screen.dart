@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
 import 'package:lnu_navigator/screens/widgets/lists/widgets_of_lists.dart';
 
-import '../../Style/images.dart';
+import '../../styles/images.dart';
 import '../models/path_model.dart';
 import '../models/user_info.dart';
 import 'area_screen.dart';

@@ -3,7 +3,7 @@ import 'package:lnu_navigator/screens/admin/add_vertex_screen.dart';
 import 'package:lnu_navigator/screens/widgets/buttons/main_button.dart';
 import 'package:lnu_navigator/screens/widgets/text_inputs/main_text_input.dart';
 
-import '../../Style/images.dart';
+import '../../styles/images.dart';
 import '../../models/admin_info.dart';
 import '../widgets/global/appBars.dart';
 import 'panorama_admin_screen.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/widgets/buttons/main_button.dart';
 
-import '../../Style/images.dart';
-import '../../Style/text_styles/text_styles.dart';
+import '../../styles/images.dart';
+import '../../styles/text_styles/text_styles.dart';
 import '../../models/admin_info.dart';
 import '../widgets/building_widgets.dart';
 import '../widgets/global/appBars.dart';
