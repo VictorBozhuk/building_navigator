@@ -38,3 +38,20 @@ class MainComponentButton extends StatelessWidget {
     );
   }
 }
+
+class PositionChangerButton extends StatelessWidget {
+  final Function() onPressed;
+  final String title;
+  const PositionChangerButton({super.key, required this.title, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        width: 50,
+        child: ComponentButton(
+          title: title,
+          onPressed: onPressed,
+        )
+    );
+  }
+}

@@ -92,11 +92,59 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
               ),
             ),
           ),
+          Container(
+            alignment: Alignment.center,
+            child: PositionChangerButton(title: "+",
+              onPressed: () {
+                setState(() {
+                  AdminInfo.selectedVertex?.pointY
+                  = AdminInfo.selectedVertex!.pointY! - 1;
+                  _setWidgets(widget, setStateAnalog);
+                });
+              },),
+          ),
+          Padding(padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  PositionChangerButton(
+                    title: "-",
+                    onPressed: () {
+                      setState(() {
+                        AdminInfo.selectedVertex?.pointX
+                        = AdminInfo.selectedVertex!.pointX! - 1;
+                        _setWidgets(widget, setStateAnalog);
+                      });
+                    },
+                  ),
+                  const Padding(padding: EdgeInsets.only(left: 5, right: 5),),
+                  PositionChangerButton(
+                    title: "+",
+                    onPressed: () {
+                      setState(() {
+                        AdminInfo.selectedVertex?.pointX
+                        = AdminInfo.selectedVertex!.pointX! + 1;
+                        _setWidgets(widget, setStateAnalog);
+                      });
+                    },
+                  ),
+                ],
+            ),
+          ),
           Padding(padding: const EdgeInsets.only(left: 20, right: 20),
             child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                 Text("First: ${AdminInfo.selectedVertex?.title ?? "none"}",
                     style: textStyleMainNormalTextBlack),
+                  PositionChangerButton(
+                  title: "-",
+                  onPressed: () {
+                    setState(() {
+                      AdminInfo.selectedVertex?.pointY
+                      = AdminInfo.selectedVertex!.pointY! + 1;
+                      _setWidgets(widget, setStateAnalog);
+                    });
+                  },
+                ),
                 Text("Second: ${AdminInfo.secondSelectedVertex?.title ?? "none"}",
                     style: textStyleMainNormalTextBlack),
               ]),
@@ -182,7 +230,6 @@ void _drawLine(Vertex first, Vertex second, List<Widget> points){
 void _deleteSelected(AddVertexesToAreaScreen widget, Function func){
   _deleteConnectionVertexOfNextVertexes();
   AdminInfo.area.vertexes?.removeWhere((x) => x.uid == AdminInfo.selectedVertex?.uid);
-  widget.points = [];
   _setWidgets(widget, func);
   AdminInfo.clearSelectedVertexes();
   func();
@@ -214,6 +261,7 @@ void _deleteAreaAndConnectionOfNextVertex(){
 }
 
 void _setWidgets(AddVertexesToAreaScreen widget, Function func){
+  widget.points = [];
   _setMap(widget);
   _setLines(widget);
   _setPoints(widget, func);
