@@ -69,17 +69,10 @@ class AreaCard extends StatelessWidget {
   }
 }
 
-class RoomCard extends StatelessWidget {
-  final Room room;
-  final Function onTap;
-  const RoomCard(this.room, this.onTap, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: const Icon(Icons.room, color: Colors.white,),
-      title: Text(room.title, style: textStyleListOfTitles),
-      onTap: onTap()
-    );
-  }
+ListTile buildRoomCard(Room room, Function onTap) {
+  return ListTile(
+    leading: const Icon(Icons.room, color: Colors.white,),
+    title: Text(room.title, style: textStyleListOfTitles),
+    onTap: () {onTap();},
+  );
 }

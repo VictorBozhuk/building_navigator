@@ -33,7 +33,7 @@ class _ListRoomsAdminScreenState extends State<ListRoomsAdminScreen> {
               Expanded(child:
               ListView.separated(
                 itemBuilder: (buildContext, index){
-                  return RoomCard(AdminInfo.selectedVertex!.rooms![index], () => {
+                  return buildRoomCard(AdminInfo.selectedVertex!.rooms![index],  () => {
                     AdminInfo.clearRoom(),
                     AdminInfo.room = AdminInfo.selectedVertex!.rooms![index],
                     AdminInfo.room.vertexTitle = AdminInfo.selectedVertex!.title.toString(),

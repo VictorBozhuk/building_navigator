@@ -183,7 +183,7 @@ void _deleteSelected(AddVertexesToAreaScreen widget, Function func){
   _deleteConnectionVertexOfNextVertexes();
   AdminInfo.area.vertexes?.removeWhere((x) => x.uid == AdminInfo.selectedVertex?.uid);
   widget.points = [];
-  _setPoints(widget, func);
+  _setWidgets(widget, func);
   AdminInfo.clearSelectedVertexes();
   func();
 }

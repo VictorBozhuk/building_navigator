@@ -43,7 +43,7 @@ class AddRoomScreenState extends State<AddRoomScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBar('Rooms'),
+        appBar: getAppBar('Editing room'),
         body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
