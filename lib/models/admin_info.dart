@@ -61,12 +61,6 @@ class AdminInfo{
     connection = VertexConnection.createEmpty();
   }
 
-  static void setRoomCoordinates(){
-    room.titleX = x;
-    room.titleY = y;
-    room.direction = direction;
-  }
-
   static void setConnectionCoordinates(){
     connection.iconX = x;
     connection.iconY = y;

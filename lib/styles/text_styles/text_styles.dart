@@ -39,8 +39,10 @@ const TextStyle textStyleMainNormalDrawerText = TextStyle(
     fontFamily: globalFontFamily,
     fontSize: 22);
 
-const TextStyle textStyleRoomTitleOnPanorama = TextStyle(
-    color: Colors.red,
-    fontFamily: globalFontFamily,
-    fontSize: 40,
-    fontWeight: FontWeight.w700);
+TextStyle textStyleRoomTitleOnPanorama(double fontSize){
+  return TextStyle(
+      color: Colors.red,
+      fontFamily: globalFontFamily,
+      fontSize: fontSize,
+      fontWeight: FontWeight.w700);
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/screens/admin/panorama_room_admin_screen.dart';
 
 import '../../styles/images.dart';
 import '../../styles/text_styles/text_styles.dart';
@@ -6,7 +7,7 @@ import '../../models/admin_info.dart';
 import '../widgets/buttons/main_button.dart';
 import '../widgets/global/appBars.dart';
 import '../widgets/text_inputs/main_text_input.dart';
-import 'panorama_admin_screen.dart';
+import 'panorama_vertex_admin_screen.dart';
 import '../widgets/building_widgets.dart';
 import 'list_rooms_admin_screen.dart';
 
@@ -82,12 +83,9 @@ class AddRoomScreenState extends State<AddRoomScreen> {
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) =>
-                          PanoramaAdminScreen(panoramaImagePath:
+                          PanoramaRoomAdminScreen(panoramaImagePath:
                             AdminInfo.selectedVertex!.panoramaImagePath!,
-                            isRoom: true,
-                            currentWidget:
-                              Text(AdminInfo.room.title,
-                                style: textStyleRoomTitleOnPanorama),
+                            room: AdminInfo.room,
                             isCreate: widget.isCreate,
                             index: 0),
                       ));

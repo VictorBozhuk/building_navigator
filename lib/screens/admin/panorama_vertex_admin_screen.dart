@@ -5,24 +5,22 @@ import '../../models/admin_info.dart';
 import 'add_room_screen.dart';
 import 'add_vertex_connection.dart';
 
-class PanoramaAdminScreen extends StatefulWidget{
+class PanoramaVertexAdminScreen extends StatefulWidget{
   final String panoramaImagePath;
   final Widget currentWidget;
-  final bool isRoom;
   final bool isCreate;
   final int index;
-  const PanoramaAdminScreen({Key? key,
+  const PanoramaVertexAdminScreen({Key? key,
     required this.panoramaImagePath,
-    required this.isRoom,
     required this.currentWidget,
     required this.isCreate,
     required this.index}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _PanoramaAdminScreenState();
+  State<StatefulWidget> createState() => _PanoramaVertexAdminScreenState();
 }
 
-class _PanoramaAdminScreenState extends State<PanoramaAdminScreen> {
+class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
   late List<Hotspot> hotspots = [];
 
   @override
@@ -49,17 +47,11 @@ class _PanoramaAdminScreenState extends State<PanoramaAdminScreen> {
         onPressed: () {
           setState(() {
             Navigator.pop(context);
-            if(widget.isRoom == true){
-              AdminInfo.setRoomCoordinates();
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-                  AddRoomScreen(isCreate: widget.isCreate)));
+            AdminInfo.setConnectionCoordinates();
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
+                AddVertexConnectionScreen(isCreate: widget.isCreate)));
             }
-            else{
-              AdminInfo.setConnectionCoordinates();
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-                  AddVertexConnectionScreen(isCreate: widget.isCreate)));
-            }
-          });
+          );
         },
         child: const Icon(Icons.add),
       ),

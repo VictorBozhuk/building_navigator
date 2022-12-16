@@ -6,7 +6,7 @@ import 'package:lnu_navigator/screens/widgets/text_inputs/main_text_input.dart';
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
 import '../widgets/global/appBars.dart';
-import 'panorama_admin_screen.dart';
+import 'panorama_vertex_admin_screen.dart';
 import 'add_vertexes_to_area_screen.dart';
 
 class AddVertexConnectionScreen extends StatefulWidget{
@@ -123,7 +123,8 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
                   title: "Set coordinate",
                   onPressed: () {
                     Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => PanoramaAdminScreen(panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '', isRoom: false,
+                      MaterialPageRoute(builder: (context) => PanoramaVertexAdminScreen(
+                        panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
                         currentWidget: Image.asset('assets/icons/point.png'), isCreate: widget.isCreate, index: 0,)
                     ));
               }),

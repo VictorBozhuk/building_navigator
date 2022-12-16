@@ -9,6 +9,9 @@ class Room extends Comparable<Room> {
   late double titleX = 0;
   late double titleY = 0;
   late double direction = 0;
+  late double fontSize = 18;
+  late double titleBoxWidth = 100;
+  late double titleBoxHeight = 100;
   Room({required this.uid, required this.title, required this.vertexTitle});
 
   Room.setAll(this.uid, this.title, this.vertexTitle, this.titleX, this.titleY, this.direction);
