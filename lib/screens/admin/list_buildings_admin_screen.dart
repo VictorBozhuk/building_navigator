@@ -20,7 +20,6 @@ class ListBuildingsAdminScreen extends StatelessWidget{
       home: Scaffold(
         drawer: const NavigationDrawer(),
         appBar: getAppBarWithIcon("Buildings", () => {
-          AdminInfo.clear(),
           Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const AddBuildingScreen()))

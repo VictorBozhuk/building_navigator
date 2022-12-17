@@ -4,6 +4,7 @@ import 'package:panorama/panorama.dart';
 import '../../models/admin_info.dart';
 import '../../models/room_model.dart';
 import '../../styles/text_styles/text_styles.dart';
+import '../actions/actions.dart';
 import '../widgets/buttons/main_button.dart';
 import '../widgets/global/appBars.dart';
 import 'add_room_screen.dart';
@@ -39,12 +40,12 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
         children: [
           Panorama(
             onTap: (longitude, latitude, tilt) {
-              widget.room.titleX = longitude;
-              widget.room.titleY = latitude;
+              widget.room.titleX = roundDouble(longitude);
+              widget.room.titleY = roundDouble(latitude);
               setStateAnalog();
             },
             onViewChanged: (longitude, latitude, tilt) {
-              widget.room.direction = longitude;
+              widget.room.direction = roundDouble(longitude);
             },
             sensitivity: 2,
             hotspots: hotspots,
@@ -59,7 +60,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
                       setStateAnalog();
                     },
                   ),
-                  Text(widget.room.fontSize.toString(),
+                  Text(widget.room.fontSize.toInt().toString(),
                     style: const TextStyle(color: Colors.red, fontSize: 22),),
                   PositionChangerButton(title: "+", onPressed: () {
                       widget.room.fontSize += 1;
@@ -69,7 +70,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
                 ],
               ),
               Row(children: [
-                Text("Box width: ${widget.room.titleBoxWidth}",
+                Text("Box width: ${widget.room.titleBoxWidth.toInt()}",
                   style: const TextStyle(color: Colors.red, fontSize: 22),),
                 PositionChangerButton(title: "-", onPressed: () {
                   widget.room.titleBoxWidth -= 10;
@@ -84,7 +85,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
               ],
               ),
               Row(children: [
-                Text("Box height: ${widget.room.titleBoxHeight}",
+                Text("Box height: ${widget.room.titleBoxHeight.toInt()}",
                   style: const TextStyle(color: Colors.red, fontSize: 22),),
                 PositionChangerButton(title: "-", onPressed: () {
                   widget.room.titleBoxHeight -= 10;

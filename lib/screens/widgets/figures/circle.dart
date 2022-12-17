@@ -145,7 +145,8 @@ Positioned getVertexAsButton(Vertex vertex, Function onTap, Function onLongPress
                   child: Container(
                     color: Colors.transparent,
                   ),
-                ),)
+                ),
+              ),
           )
       )
   );

@@ -6,7 +6,7 @@ class VertexConnection {
   late double direction;
   late double iconX;
   late double iconY;
-  late double iconSize;
+  late double iconSize = 100;
   late String iconPath;
   late double length;
   late Vertex nextVertex;

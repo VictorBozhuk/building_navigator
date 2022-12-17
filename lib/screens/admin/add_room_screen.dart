@@ -12,9 +12,7 @@ import '../widgets/building_widgets.dart';
 import 'list_rooms_admin_screen.dart';
 
 class AddRoomScreen extends StatefulWidget{
-  AddRoomScreen({super.key, required this.isCreate}){
-    AdminInfo.setSize(AdminInfo.room.title);
-  }
+  AddRoomScreen({super.key, required this.isCreate});
   final bool isCreate;
   @override
   State<StatefulWidget> createState() => AddRoomScreenState();
@@ -22,23 +20,10 @@ class AddRoomScreen extends StatefulWidget{
 
 class AddRoomScreenState extends State<AddRoomScreen> {
   TextEditingController txtTitle = TextEditingController(text: AdminInfo.room.title);
-  TextEditingController txtX = TextEditingController(text: AdminInfo.room.titleX.toString());
-  TextEditingController txtY = TextEditingController(text: AdminInfo.room.titleY.toString());
-  TextEditingController txtDirection = TextEditingController(text: AdminInfo.room.direction.toString());
 
   _changeTitle(String text){
     setState(() => {
-      AdminInfo.setSize(text),
       AdminInfo.room.title = text});
-  }
-  _changeX(String text){
-    setState(() => AdminInfo.room.titleX = double.parse(text));
-  }
-  _changeY(String text){
-    setState(() => AdminInfo.room.titleY = double.parse(text));
-  }
-  _changeDirection(String text){
-    setState(() => AdminInfo.room.direction = double.parse(text));
   }
 
   @override
@@ -59,24 +44,6 @@ class AddRoomScreenState extends State<AddRoomScreen> {
                 hint: "Title",
                 label: AdminInfo.room.title,
                 onChanged: _changeTitle,
-              ),
-              MainTextInput(
-                inputController: txtX,
-                hint: "X",
-                label: AdminInfo.room.titleX.toString(),
-                onChanged: _changeX,
-              ),
-              MainTextInput(
-                inputController: txtY,
-                hint: "Y",
-                label: AdminInfo.room.titleY.toString(),
-                onChanged: _changeY,
-              ),
-              MainTextInput(
-                inputController: txtDirection,
-                hint: "Direction",
-                label: AdminInfo.room.direction.toString(),
-                onChanged: _changeDirection,
               ),
               MainButton(
                 title: "Set coordinates",

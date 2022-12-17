@@ -14,7 +14,6 @@ class AddVertexConnectionScreen extends StatefulWidget{
   AddVertexConnectionScreen({super.key, required this.isCreate}){
     AdminInfo.connection.iconSize = AdminInfo.connection.iconSize == 0 ? 90 : AdminInfo.connection.iconSize;
     AdminInfo.connection.length = AdminInfo.connection.length == 0 ? 10 : AdminInfo.connection.length;
-    AdminInfo.size = AdminInfo.connection.iconSize;
   }
 
   @override
@@ -22,43 +21,8 @@ class AddVertexConnectionScreen extends StatefulWidget{
 }
 
 class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
-  TextEditingController txtX = TextEditingController(text: AdminInfo.connection.iconX.toString());
-  TextEditingController txtY = TextEditingController(text: AdminInfo.connection.iconY.toString());
-  TextEditingController txtDirection = TextEditingController(text: AdminInfo.connection.direction.toString());
-  TextEditingController txtIconPath = TextEditingController(text: AdminInfo.connection.iconPath.toString());
-  TextEditingController txtIconSize = TextEditingController(text: AdminInfo.connection.iconSize.toString());
   TextEditingController txtLength = TextEditingController(text: AdminInfo.connection.length.toString());
 
-  _changeX(String text){
-    setState(() => {
-      if(double.tryParse(text) != null){
-        AdminInfo.connection.iconX = double.parse(text)
-      }
-    });
-  }
-  _changeY(String text){
-    setState(() => {
-      if(double.tryParse(text) != null){
-        AdminInfo.connection.iconY = double.parse(text)
-      }
-    });
-  }
-  _changeDirection(String text){
-    setState(() => {
-      if(double.tryParse(text) != null){
-        AdminInfo.connection.direction = double.parse(text)
-      }
-    });
-  }
-
-  _changeIconSize(String text){
-    setState(() => {
-      if(double.tryParse(text) != null){
-        AdminInfo.connection.iconSize = double.parse(text),
-        AdminInfo.size = double.parse(text),
-      }
-    });
-  }
   _changeLength(String text){
     setState(() => {
       if(double.tryParse(text) != null){
@@ -95,37 +59,14 @@ class AddVertexConnectionScreenState extends State<AddVertexConnectionScreen> {
                   label: AdminInfo.connection.length.toString(),
                   onChanged: _changeLength
               ),
-              MainTextInput(
-                  inputController: txtX,
-                  hint: "x",
-                  label: AdminInfo.connection.iconX.toString(),
-                  onChanged: _changeX
-              ),
-              MainTextInput(
-                  inputController: txtY,
-                  hint: "y",
-                  label: AdminInfo.connection.iconY.toString(),
-                  onChanged: _changeY
-              ),
-              MainTextInput(
-                  inputController: txtDirection,
-                  hint: "Direction",
-                  label: AdminInfo.connection.direction.toString(),
-                  onChanged: _changeDirection
-              ),
-              MainTextInput(
-                  inputController: txtIconSize,
-                  hint: "Icon size",
-                  label: AdminInfo.connection.iconSize.toString(),
-                  onChanged: _changeIconSize
-              ),
               MainButton(
                   title: "Set coordinate",
                   onPressed: () {
                     Navigator.push(context,
                       MaterialPageRoute(builder: (context) => PanoramaVertexAdminScreen(
                         panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
-                        currentWidget: Image.asset('assets/icons/point.png'), isCreate: widget.isCreate, index: 0,)
+                        connection: AdminInfo.connection,
+                        isCreate: widget.isCreate)
                     ));
               }),
               MainButton(

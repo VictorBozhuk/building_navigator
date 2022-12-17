@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:lnu_navigator/screens/widgets/drawer/navigation_drawer.dart';
 import 'package:panorama/panorama.dart';
 import '../../models/admin_info.dart';
-import 'add_room_screen.dart';
+import '../../models/vertex_connection_model.dart';
+import '../actions/actions.dart';
+import '../widgets/buttons/main_button.dart';
+import '../widgets/global/appBars.dart';
 import 'add_vertex_connection.dart';
 
 class PanoramaVertexAdminScreen extends StatefulWidget{
   final String panoramaImagePath;
-  final Widget currentWidget;
+  late VertexConnection connection;
   final bool isCreate;
-  final int index;
-  const PanoramaVertexAdminScreen({Key? key,
+  PanoramaVertexAdminScreen({Key? key,
     required this.panoramaImagePath,
-    required this.currentWidget,
-    required this.isCreate,
-    required this.index}) : super(key: key);
+    required this.connection,
+    required this.isCreate}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _PanoramaVertexAdminScreenState();
@@ -23,33 +23,55 @@ class PanoramaVertexAdminScreen extends StatefulWidget{
 class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
   late List<Hotspot> hotspots = [];
 
+  void _setStateAnalog(){
+    setState(() {
+      hotspots = [getHotspot(widget.connection)];
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const NavigationDrawer(),
-      body: Panorama(
-        onTap: (longitude, latitude, tilt) {
-          AdminInfo.x = longitude;
-          AdminInfo.y = latitude;
-          setState(() {
-            hotspots = [getHotspot(widget.currentWidget, AdminInfo.x, AdminInfo.y)];
-          });
-        },
-        onViewChanged: (longitude, latitude, tilt) {
-          AdminInfo.direction = longitude;
-        },
-        sensitivity: 2,
-        hotspots: hotspots,
-        child: Image.network(widget.panoramaImagePath),
+      appBar: getAppBar(widget.connection.nextVertex.title ?? ""),
+      body: Stack(
+          children: [
+            Panorama(
+              onTap: (longitude, latitude, tilt) {
+                widget.connection.iconX = roundDouble(longitude);
+                widget.connection.iconY = roundDouble(latitude);
+                _setStateAnalog();
+              },
+              onViewChanged: (longitude, latitude, tilt) {
+                widget.connection.direction = roundDouble(longitude);
+              },
+              sensitivity: 2,
+              hotspots: hotspots,
+              child: Image.network(widget.panoramaImagePath),
+            ),
+            Row(children: [
+              Text("Icon size: ${widget.connection.iconSize.toInt()}",
+                style: const TextStyle(color: Colors.red, fontSize: 22),),
+              PositionChangerButton(title: "-", onPressed: () {
+                widget.connection.iconSize -= 10;
+                _setStateAnalog();
+              },
+              ),
+              PositionChangerButton(title: "+", onPressed: () {
+                widget.connection.iconSize += 10;
+                _setStateAnalog();
+              },
+              ),
+            ],
+            ),
+          ],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         onPressed: () {
           setState(() {
             Navigator.pop(context);
-            AdminInfo.setConnectionCoordinates();
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-                AddVertexConnectionScreen(isCreate: widget.isCreate)));
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) =>
+                  AddVertexConnectionScreen(isCreate: widget.isCreate)));
             }
           );
         },
@@ -59,14 +81,14 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
   }
 }
 
-Hotspot getHotspot(Widget widget, double x, double y)
+Hotspot getHotspot(VertexConnection connection)
 {
   return Hotspot(
-      height: AdminInfo.size,
-      width: AdminInfo.size,
-      longitude: x,
-      latitude: y,
+      height: connection.iconSize,
+      width: connection.iconSize,
+      longitude: connection.iconX,
+      latitude: connection.iconY,
       orgin: Offset.fromDirection(0),
-      widget: widget,
+      widget: Image.asset('assets/icons/point.png'),
   );
 }

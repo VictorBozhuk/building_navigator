@@ -61,7 +61,6 @@ class _AddBuildingScreenState extends State<AddBuildingScreen> {
               MainButton(
                 title: "Save",
                 onPressed: () {
-                  AdminInfo.checkBuildingId();
                   DatabaseService.addOrUpdateBuilding(AdminInfo.building);
                   Navigator.pop(context);
                   Navigator.pushReplacement(context,

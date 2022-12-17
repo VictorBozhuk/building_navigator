@@ -13,30 +13,17 @@ class AdminInfo{
   static Building building = Building.createEmpty();
   static Room room = Room.createEmpty();
   static VertexConnection connection = VertexConnection.createEmpty();
-  static double x = 0;
-  static double y = 0;
-  static double direction = 0;
-  static double size = 0;
   static Vertex? selectedVertex;
   static Vertex? secondSelectedVertex;
   static bool isCreateAreaConnection = false;
   static Area areaConnection = Area.createEmpty();
   static Vertex? selectedVertexOnOtherArea;
 
-  static void clear(){
-    x = 0;
-    y = 0;
-    direction = 0;
-    size = 0;
-  }
-
   static void clearBuilding(){
-    clear();
     building = Building.createEmpty();
   }
 
   static void clearArea(){
-    clear();
     area = Area.createEmpty();
   }
 
@@ -47,34 +34,15 @@ class AdminInfo{
   }
 
   static void clearVertex(){
-    clear();
     vertex = Vertex.createEmpty();
   }
 
   static void clearRoom(){
-    clear();
     room = Room.createEmpty();
   }
 
   static void clearConnection(){
-    clear();
     connection = VertexConnection.createEmpty();
-  }
-
-  static void setConnectionCoordinates(){
-    connection.iconX = x;
-    connection.iconY = y;
-    connection.direction = direction;
-  }
-
-  static void checkBuildingId(){
-    if (building.uid.isEmpty == true){
-      building.uid = const Uuid().v1();
-    }
-  }
-
-  static setSize(String text){
-    AdminInfo.size = text.length * 30;
   }
 
   static clearSelectedVertexes(){
