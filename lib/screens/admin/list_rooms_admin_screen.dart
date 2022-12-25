@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/screens/admin/panorama_room_admin_screen.dart';
 
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
@@ -22,7 +23,11 @@ class _ListRoomsAdminScreenState extends State<ListRoomsAdminScreen> {
           AdminInfo.room.vertex = AdminInfo.selectedVertex!,
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AddRoomScreen(isCreate: true)))
+              MaterialPageRoute(builder: (context) =>
+                  PanoramaRoomAdminScreen(
+                    panoramaImagePath: AdminInfo.selectedVertex!.panoramaImagePath!,
+                    isCreate: true,
+                    room: AdminInfo.room,)))
         }),
         body: Container(
           decoration: BoxDecoration(
@@ -39,7 +44,11 @@ class _ListRoomsAdminScreenState extends State<ListRoomsAdminScreen> {
                     AdminInfo.room.vertexTitle = AdminInfo.selectedVertex!.title.toString(),
                     Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AddRoomScreen(isCreate: false))),
+                        MaterialPageRoute(builder: (context) =>
+                            PanoramaRoomAdminScreen(
+                                panoramaImagePath: AdminInfo.selectedVertex!.panoramaImagePath!,
+                                room: AdminInfo.room,
+                                isCreate: false))),
                   });
                 },
                 separatorBuilder: (buildContext,index)

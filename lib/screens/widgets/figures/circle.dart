@@ -114,8 +114,8 @@ Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext c
 
 
 Positioned getVertexAsButton(Vertex vertex, Function onTap, Function onLongPress, Function onDoubleTap) {
-  var x = pictureWidth / (vertex.map2DWidth! / vertex.pointX!);
-  var y = pictureHeight / (vertex.map2DHeight! / vertex.pointY!);
+  var x = (pictureWidth / (vertex.map2DWidth! / vertex.pointX!)) - pointRadius;
+  var y = (pictureHeight / (vertex.map2DHeight! / vertex.pointY!)) - pointRadius;
   MaterialColor color = Colors.red;
   if(vertex.isFullInfo()){
     color = Colors.blue;
@@ -128,8 +128,8 @@ Positioned getVertexAsButton(Vertex vertex, Function onTap, Function onLongPress
   }
 
   return Positioned(
-      top: y - pointRadius,
-      left: x - pointRadius,
+      top: y,
+      left: x,
       child: Material(
           color: Colors.transparent,
           child: InkWell(

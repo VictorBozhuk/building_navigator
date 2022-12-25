@@ -192,12 +192,12 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
 }
 
 void _drawLine(Vertex first, Vertex second, List<Widget> points){
-  double x1 = first.pointX!;
-  double y1 = first.pointY!;
-  double x2 = second.pointX!;
-  double y2 = second.pointY!;
-  double xDif = (first.pointX! - second.pointX!).abs() / 2;
-  double yDif = (first.pointY! - second.pointY!).abs() / 2;
+  double x1 = pictureWidth / (first.map2DWidth! / first.pointX!);
+  double y1 = pictureWidth / (first.map2DWidth! / first.pointY!);
+  double x2 = pictureWidth / (second.map2DWidth! / second.pointX!);
+  double y2 = pictureWidth / (second.map2DWidth! / second.pointY!);
+  double xDif = (x1 - x2).abs() / 2;
+  double yDif = (y1 - y2).abs() / 2;
   double x2Res = 0;
   double y2Res = 0;
   if(x1 < x2){

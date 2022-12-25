@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lnu_navigator/screens/widgets/drawer/navigation_drawer.dart';
 import 'package:panorama/panorama.dart';
 import '../../models/admin_info.dart';
 import '../../models/room_model.dart';
@@ -7,18 +6,17 @@ import '../../styles/text_styles/text_styles.dart';
 import '../actions/actions.dart';
 import '../widgets/buttons/main_button.dart';
 import '../widgets/global/appBars.dart';
-import 'add_room_screen.dart';
+import '../widgets/text_inputs/main_text_input.dart';
+import 'list_rooms_admin_screen.dart';
 
 class PanoramaRoomAdminScreen extends StatefulWidget{
   final String panoramaImagePath;
   final Room room;
   final bool isCreate;
-  final int index;
   const PanoramaRoomAdminScreen({Key? key,
     required this.panoramaImagePath,
     required this.room,
-    required this.isCreate,
-    required this.index}) : super(key: key);
+    required this.isCreate,}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _PanoramaRoomAdminScreenState();
@@ -26,7 +24,11 @@ class PanoramaRoomAdminScreen extends StatefulWidget{
 
 class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
   late List<Hotspot> hotspots = [];
+  late TextEditingController txtTitle;
 
+  _changeTitle(String text){
+      widget.room.title = text;
+  }
   void setStateAnalog(){
     setState(() {
       hotspots = [getHotspot(widget.room)];
@@ -34,6 +36,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    txtTitle = TextEditingController(text: widget.room.title);
     return Scaffold(
       appBar: getAppBar(widget.room.title),
       body: Stack(
@@ -53,20 +56,27 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
           ),
           Column(
             children: [
-              const Text("FontSize", style: TextStyle(color: Colors.red, fontSize: 22),),
+              MainTextInput(
+                inputController: txtTitle,
+                hint: "Title",
+                label: AdminInfo.room.title,
+                onChanged: _changeTitle,
+              ),
               Row(children: [
+                  Text("FontSize: ${widget.room.fontSize.toInt().toString()}",
+                    style: const TextStyle(color: Colors.red, fontSize: 22),),
                   PositionChangerButton(title: "-", onPressed: () {
                       widget.room.fontSize -= 1;
                       setStateAnalog();
                     },
                   ),
-                  Text(widget.room.fontSize.toInt().toString(),
-                    style: const TextStyle(color: Colors.red, fontSize: 22),),
                   PositionChangerButton(title: "+", onPressed: () {
                       widget.room.fontSize += 1;
                       setStateAnalog();
                     },
                   ),
+                MainComponentButton(title: 'Apply',
+                  onPressed: () { setStateAnalog(); },)
                 ],
               ),
               Row(children: [
@@ -106,11 +116,21 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         onPressed: () {
-          setState(() {
+            if (widget.isCreate == true) {
+              AdminInfo.selectedVertex!.rooms ??= [];
+              AdminInfo.selectedVertex!.rooms?.add(AdminInfo.room);
+            }
+            else {
+              var room = AdminInfo.selectedVertex!.rooms!.firstWhere((x) =>
+              x.uid == AdminInfo.room.uid);
+              room.title = AdminInfo.room.title;
+              room.titleX = AdminInfo.room.titleX;
+              room.titleY = AdminInfo.room.titleY;
+              room.direction = AdminInfo.room.direction;
+            }
             Navigator.pop(context);
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-                  AddRoomScreen(isCreate: widget.isCreate)));
-          });
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
+            const ListRoomsAdminScreen()));
         },
         child: const Icon(Icons.add),
       ),

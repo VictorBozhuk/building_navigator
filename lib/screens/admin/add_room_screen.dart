@@ -53,8 +53,7 @@ class AddRoomScreenState extends State<AddRoomScreen> {
                           PanoramaRoomAdminScreen(panoramaImagePath:
                             AdminInfo.selectedVertex!.panoramaImagePath!,
                             room: AdminInfo.room,
-                            isCreate: widget.isCreate,
-                            index: 0),
+                            isCreate: widget.isCreate,),
                       ));
                 },
               ),
