@@ -55,3 +55,15 @@ Future<Size> _calculateImageDimension(String imagePath) {
   );
   return completer.future;
 }
+
+double getLengthByPixels(Vertex? first, Vertex? second) {
+  if(first == null || second == null){
+    return 0;
+  }
+  double x1 = pictureWidth / (first.map2DWidth! / first.pointX!);
+  double y1 = pictureWidth / (first.map2DWidth! / first.pointY!);
+  double x2 = pictureWidth / (second.map2DWidth! / second.pointX!);
+  double y2 = pictureWidth / (second.map2DWidth! / second.pointY!);
+
+  return roundDouble(sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
+}

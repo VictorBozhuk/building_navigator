@@ -5,22 +5,24 @@ class Area {
   late String uid;
   late String title;
   late String imagePath;
+  late int countOfPixelsInMeter = 0;
   late List<Vertex>? vertexes = [];
 
-  Area(this.title, this.imagePath, {this.vertexes}){
+  Area(this.title, this.imagePath, this.countOfPixelsInMeter, {this.vertexes}){
     uid = const Uuid().v1();
   }
-  Area.createMainCopy(this.uid, this.title, this.imagePath);
-  Area.copy(this.uid, this.title, this.imagePath, {this.vertexes});
+  Area.createMainCopy(this.uid, this.title, this.imagePath, this.countOfPixelsInMeter);
+  Area.copy(this.uid, this.title, this.imagePath, this.countOfPixelsInMeter, {this.vertexes});
 
   Area.createEmpty(){
     uid = const Uuid().v1();
     title = '';
     imagePath = '';
+    countOfPixelsInMeter = 0;
   }
 
   Area getObject(){
-    return Area.createMainCopy(uid, title, imagePath);
+    return Area.createMainCopy(uid, title, imagePath, countOfPixelsInMeter);
   }
 
   Map<String, dynamic> toMap(){
@@ -28,6 +30,7 @@ class Area {
       "uid" : uid,
       "title": title,
       "imagePath": imagePath,
+      "countOfPixelsInMeter" : countOfPixelsInMeter,
       "vertexes": vertexes?.map((w) => w.toMap()).toList(),
     };
   }
@@ -37,6 +40,7 @@ class Area {
       "uid" : uid,
       "title": title,
       "imagePath": imagePath,
+      "countOfPixelsInMeter": countOfPixelsInMeter,
     };
   }
 
@@ -44,6 +48,7 @@ class Area {
     uid = data['uid'];
     title = data['title'];
     imagePath = data['imagePath'];
+    countOfPixelsInMeter = data['countOfPixelsInMeter'] ?? 0;
     if(data['vertexes'] == null){
       vertexes = [];
     } else{
@@ -55,10 +60,12 @@ class Area {
     uid = data['uid'];
     title = data['title'];
     imagePath = data['imagePath'];
+    countOfPixelsInMeter = data["countOfPixelsInMeter"] ?? 0;
     vertexes = [];
   }
+
   Area copy(){
     var copiedVertexes = vertexes?.map((w) => w.copy()).toList();
-    return Area.copy(uid, title, imagePath,vertexes: copiedVertexes);
+    return Area.copy(uid, title, imagePath, countOfPixelsInMeter, vertexes: copiedVertexes);
   }
 }

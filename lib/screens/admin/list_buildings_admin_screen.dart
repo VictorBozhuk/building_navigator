@@ -18,7 +18,7 @@ class ListBuildingsAdminScreen extends StatelessWidget{
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        drawer: const NavigationDrawer(),
+        drawer: const NewNavigationDrawer(),
         appBar: getAppBarWithIcon("Buildings", () => {
           Navigator.push(
               context,

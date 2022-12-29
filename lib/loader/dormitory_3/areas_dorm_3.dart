@@ -2,9 +2,15 @@ import '../../models/area_model.dart';
 import '../../models/vertex_model.dart';
 
 List<Area> areasDormitory_3 = [
-  Area("700_t", "https://firebasestorage.googleapis.com/v0/b/buildingnavigator-b16ab.appspot.com/o/dormitory_3%2FAreas%2F700.png?alt=media&token=e1326fa3-88a8-46c2-833e-fa50d35c5de0",
+  Area(
+      "700_t",
+      "https://firebasestorage.googleapis.com/v0/b/buildingnavigator-b16ab.appspot.com/o/dormitory_3%2FAreas%2F700.png?alt=media&token=e1326fa3-88a8-46c2-833e-fa50d35c5de0",
+      0,
       vertexes: [v7_6, v7, v701A, v714A]),
-  Area("600_t", "https://firebasestorage.googleapis.com/v0/b/buildingnavigator-b16ab.appspot.com/o/dormitory_3%2FAreas%2F600.png?alt=media&token=35357e2e-725f-4249-aa75-30c29fc9ff2e",
+  Area(
+      "600_t",
+      "https://firebasestorage.googleapis.com/v0/b/buildingnavigator-b16ab.appspot.com/o/dormitory_3%2FAreas%2F600.png?alt=media&token=35357e2e-725f-4249-aa75-30c29fc9ff2e",
+      0,
       vertexes: [v6_7, v6, v601A, v614A])
 ];
 

@@ -2,23 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:panorama/panorama.dart';
 
 import '../../../models/path_model.dart';
+import '../../../models/room_model.dart';
 import '../../../models/vertex_model.dart';
+import '../../../styles/text_styles/text_styles.dart';
 import '../../panorama_screen.dart';
 
-Hotspot getHotspotTitleRoom(String title, double x, double y)
+Hotspot getRoomHotspot(Room room)
 {
   return Hotspot(
-      height: 40,
-      width: title.length * 30,
-      latitude: y,
-      longitude: x,
-      orgin: Offset.fromDirection(0),
-      widget: Text(title,
-          style: const TextStyle(
-              color: Colors.red,
-              fontFamily: 'Poppins',
-              fontSize: 40,
-              fontWeight: FontWeight.w700))
+    width: room.titleBoxWidth,
+    height: room.titleBoxHeight,
+    longitude: room.titleX,
+    latitude: room.titleY,
+    orgin: Offset.fromDirection(0),
+    widget: Text(room.title,
+        textAlign: TextAlign.center,
+        style: textStyleRoomTitleOnPanorama(room)),
   );
 }
 

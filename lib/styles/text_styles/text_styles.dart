@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../models/room_model.dart';
 import '../global/global.dart';
 
 const TextStyle textStyleOnSplashScreen = TextStyle(
@@ -35,14 +36,19 @@ const TextStyle textStyleMainNormalTextBlack = TextStyle(
     fontSize: 22,
     color: Colors.black);
 
+const TextStyle textStyleMainSmallTextBlack = TextStyle(
+    fontFamily: globalFontFamily,
+    fontSize: 16,
+    color: Colors.black);
+
 const TextStyle textStyleMainNormalDrawerText = TextStyle(
     fontFamily: globalFontFamily,
     fontSize: 22);
 
-TextStyle textStyleRoomTitleOnPanorama(double fontSize){
+TextStyle textStyleRoomTitleOnPanorama(Room room){
   return TextStyle(
-      color: Colors.red,
+      color: room.color,
       fontFamily: globalFontFamily,
-      fontSize: fontSize,
+      fontSize: room.fontSize,
       fontWeight: FontWeight.w700);
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/screens/admin/panorama_vertex_admin_screen.dart';
 import 'package:lnu_navigator/screens/widgets/buttons/main_button.dart';
 
 import '../../styles/images.dart';
@@ -99,7 +100,11 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
                         => x.nextVertex.uid == AdminInfo.selectedVertexOnOtherArea!.uid);
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) =>
-                                AddVertexConnectionScreen(isCreate: false)
+                                PanoramaVertexAdminScreen(
+                                  isCreate: false,
+                                  panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
+                                  connection: AdminInfo.connection,
+                                )
                             ));
                       }
                       else{
@@ -108,7 +113,11 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
                         //AdminInfo.secondSelectedVertex?.isAreaConnection = true;
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) =>
-                                AddVertexConnectionScreen(isCreate: true)
+                                PanoramaVertexAdminScreen(
+                                  isCreate: true,
+                                  panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
+                                  connection: AdminInfo.connection,
+                                )
                             ));
                       }
 

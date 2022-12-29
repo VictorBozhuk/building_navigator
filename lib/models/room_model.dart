@@ -1,10 +1,12 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:lnu_navigator/models/vertex_model.dart';
 import 'package:uuid/uuid.dart';
 
 class Room extends Comparable<Room> {
   late String uid;
   late String title;
-  late String vertexTitle;
   late Vertex vertex;
   late double titleX = 0;
   late double titleY = 0;
@@ -12,13 +14,13 @@ class Room extends Comparable<Room> {
   late double fontSize = 18;
   late double titleBoxWidth = 100;
   late double titleBoxHeight = 100;
-  Room({required this.uid, required this.title, required this.vertexTitle});
+  late Color color = Colors.red;
+  Room({required this.uid, required this.title});
 
-  Room.setAll(this.uid, this.title, this.vertexTitle, this.titleX, this.titleY, this.direction);
+  Room.setAll(this.uid, this.title, this.titleX, this.titleY, this.direction);
   Room.createEmpty(){
     uid = const Uuid().v1();
     title = "";
-    vertexTitle = "";
     vertex = Vertex.createEmpty();
     titleX = 0;
     titleY = 0;
@@ -38,7 +40,6 @@ class Room extends Comparable<Room> {
   Room.fromJson(Map<String, dynamic> data) {
     uid = data["uid"];
     title = data['title'];
-    vertexTitle = data['vertexTitle'];
     titleX = data['titleX'];
     titleY = data['titleY'];
     direction = data['direction'];
@@ -46,14 +47,13 @@ class Room extends Comparable<Room> {
   }
 
   Room copy(){
-    return Room.setAll(uid, title, vertexTitle, titleX, titleY, direction);
+    return Room.setAll(uid, title, titleX, titleY, direction);
   }
 
   Map<String, dynamic> toMap(){
     return {
       "uid" : uid,
       "title": title,
-      "vertexTitle": vertexTitle,
       "titleX": titleX,
       "titleY": titleY,
       "direction": direction,

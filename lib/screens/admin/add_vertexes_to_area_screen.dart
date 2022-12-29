@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/screens/admin/panorama_vertex_admin_screen.dart';
 import '../../data/globals.dart';
 import '../../styles/text_styles/text_styles.dart';
 import '../../models/admin_info.dart';
@@ -104,7 +107,10 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
               },),
           ),
           Padding(padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Row(mainAxisAlignment: MainAxisAlignment.center,
+            child: Stack(children: [
+              Text("Length: ${getLengthByPixels(AdminInfo.selectedVertex, AdminInfo.secondSelectedVertex)}",
+                  style: textStyleMainSmallTextBlack),
+              Row(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   PositionChangerButton(
                     title: "-",
@@ -128,6 +134,8 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
                     },
                   ),
                 ],
+              ),
+              ],
             ),
           ),
           Padding(padding: const EdgeInsets.only(left: 20, right: 20),
@@ -162,7 +170,11 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
                   }
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AddVertexConnectionScreen(isCreate: isCreate)));
+                      MaterialPageRoute(builder: (context) => PanoramaVertexAdminScreen(
+                        isCreate: isCreate,
+                        panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
+                        connection: AdminInfo.connection,
+                      )));
                 },
               ),
               MainComponentButton(

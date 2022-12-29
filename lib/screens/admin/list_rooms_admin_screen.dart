@@ -41,7 +41,6 @@ class _ListRoomsAdminScreenState extends State<ListRoomsAdminScreen> {
                   return buildRoomCard(AdminInfo.selectedVertex!.rooms![index],  () => {
                     AdminInfo.clearRoom(),
                     AdminInfo.room = AdminInfo.selectedVertex!.rooms![index],
-                    AdminInfo.room.vertexTitle = AdminInfo.selectedVertex!.title.toString(),
                     Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) =>

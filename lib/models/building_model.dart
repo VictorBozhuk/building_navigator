@@ -55,11 +55,7 @@ class Building {
     List<Hotspot> hotspots = [];
 
     for(int i = 0; i < current.rooms!.length; ++i){
-      var room = current.rooms?[i];
-      hotspots.add(getHotspotTitleRoom(
-        room!.title,
-        room.titleX,
-        room.titleY));
+      hotspots.add(getRoomHotspot(current.rooms![i]));
     }
 
     for(int i = 0; i < current.vertexConnections!.length; ++i) {
@@ -83,11 +79,7 @@ class Building {
     List<Hotspot> hotspots = [];
 
     for(int i = 0; i < current.rooms!.length; ++i){
-      var room = current.rooms?[i];
-      hotspots.add(getHotspotTitleRoom(
-          room!.title,
-          room.titleX,
-          room.titleY));
+      hotspots.add(getRoomHotspot(current.rooms![i]));
     }
 
     for(int i = 0; i < current.vertexConnections!.length; ++i) {

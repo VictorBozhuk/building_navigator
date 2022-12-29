@@ -19,9 +19,13 @@ class AddAreaScreenState extends State<AddAreaScreen> {
   AddAreaScreenState({Key? key});
 
   TextEditingController txtTitle = TextEditingController(text: AdminInfo.area.title);
+  TextEditingController txtScale = TextEditingController(text: AdminInfo.area.countOfPixelsInMeter.toString());
   TextEditingController txtImagePath = TextEditingController(text: AdminInfo.area.imagePath);
   _changeTitle(String text){
     setState(() => AdminInfo.area.title = text);
+  }
+  _changeScale(String text){
+    setState(() => AdminInfo.area.countOfPixelsInMeter = int.parse(text));
   }
   _changeImagePath(String text){
     setState(() => AdminInfo.area.imagePath = text);
@@ -46,6 +50,12 @@ class AddAreaScreenState extends State<AddAreaScreen> {
                     onChanged: _changeTitle
                 ),
                 MainTextInput(
+                    inputController: txtScale,
+                    hint: "Count pixels in one meter",
+                    label: AdminInfo.area.countOfPixelsInMeter.toString(),
+                    onChanged: _changeScale
+                ),
+                MainTextInput(
                     inputController: txtImagePath,
                     hint: "Photo",
                     label: AdminInfo.area.imagePath,
@@ -59,7 +69,7 @@ class AddAreaScreenState extends State<AddAreaScreen> {
                       Navigator.pop(context);
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) =>
-                              ListAreasAdminScreen()
+                              const ListAreasAdminScreen()
                           ));
                     }
                     else {

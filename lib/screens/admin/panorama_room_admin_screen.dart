@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:panorama/panorama.dart';
 import '../../models/admin_info.dart';
 import '../../models/room_model.dart';
@@ -25,7 +26,7 @@ class PanoramaRoomAdminScreen extends StatefulWidget{
 class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
   late List<Hotspot> hotspots = [];
   late TextEditingController txtTitle;
-
+  bool isColorPanelVisible = false;
   _changeTitle(String text){
       widget.room.title = text;
   }
@@ -34,6 +35,12 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
       hotspots = [getHotspot(widget.room)];
     });
   }
+
+  void changeColor(Color color) {
+    setState(() => widget.room.color = color);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     txtTitle = TextEditingController(text: widget.room.title);
@@ -107,10 +114,40 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
                   setStateAnalog();
                 },
                 ),
+                MainComponentButton(title: 'Change color',
+                  onPressed: () {
+                    isColorPanelVisible = !isColorPanelVisible;
+                    setStateAnalog();
+                  },)
               ],
               ),
+
+
             ],
-          )
+          ),
+          if(isColorPanelVisible)
+            SizedBox.expand(child:
+                Container(
+                  margin: const EdgeInsets.all(60),
+                  padding: const EdgeInsets.all(10),
+                  transformAlignment: Alignment.center,
+                    constraints: const BoxConstraints(
+                      minHeight: 300,
+                    ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),),
+                  child: Column(children: [
+                    ColorPicker(
+                      pickerColor: widget.room.color,
+                      onColorChanged: changeColor,),
+                    MainComponentButton(title: 'Ok',
+                      onPressed: () {
+                        isColorPanelVisible = !isColorPanelVisible;
+                        setStateAnalog();
+                      },)
+                  ])
+              ),)
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -148,12 +185,12 @@ Hotspot getHotspot(Room room)
     orgin: Offset.fromDirection(0),
     widget: Container(
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.red)
+          border: Border.all(color: room.color)
       ),
 
       child: Text(AdminInfo.room.title,
           textAlign: TextAlign.center,
-          style: textStyleRoomTitleOnPanorama(room.fontSize)),
+          style: textStyleRoomTitleOnPanorama(room)),
     ),
   );
 }

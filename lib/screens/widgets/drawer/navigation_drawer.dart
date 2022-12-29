@@ -4,8 +4,8 @@ import '../../../styles/text_styles/text_styles.dart';
 import '../../admin/list_buildings_admin_screen.dart';
 import '../../list_buildings_screen.dart';
 
-class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({Key? key}) : super(key: key);
+class NewNavigationDrawer extends StatelessWidget {
+  const NewNavigationDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Drawer(
