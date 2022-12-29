@@ -1,4 +1,5 @@
 
+import 'package:lnu_navigator/models/picture_size_model.dart';
 import 'package:lnu_navigator/models/room_model.dart';
 import 'package:lnu_navigator/models/vertex_connection_model.dart';
 import 'package:lnu_navigator/models/vertex_model.dart';
@@ -18,6 +19,7 @@ class AdminInfo{
   static bool isCreateAreaConnection = false;
   static Area areaConnection = Area.createEmpty();
   static Vertex? selectedVertexOnOtherArea;
+  static PictureSize pictureSize = PictureSize.empty();
 
   static void clearBuilding(){
     building = Building.createEmpty();

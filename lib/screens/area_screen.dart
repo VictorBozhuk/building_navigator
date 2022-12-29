@@ -5,6 +5,7 @@ import 'package:lnu_navigator/screens/widgets/figures/circle.dart';
 import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
 import 'package:lnu_navigator/screens/widgets/matrix_gesture_detector.dart';
 import '../models/path_model.dart';
+import '../models/picture_size_model.dart';
 import '../models/user_info.dart';
 import 'actions/actions.dart';
 import 'list_rooms_screen.dart';
@@ -30,11 +31,11 @@ class _AreaScreenState extends State<AreaScreen> {
   }
 
   Future _calculateDimension() async {
-    await outputPoints(widget.expanderKey, UserInfo.area.imagePath);
+    var pictureSize = await getPictureSizes(widget.expanderKey, UserInfo.area.imagePath);
     if(PathInfo.isReadyToGo){
-      _setWidgetsOfPath(widget, context, setStateAnalog);
+      _setWidgetsOfPath(widget, context, setStateAnalog, pictureSize);
     }else {
-      _setWidgets(widget, context, setStateAnalog);
+      _setWidgets(widget, context, setStateAnalog, pictureSize);
     }
     setState(() { });
   }
@@ -87,14 +88,14 @@ class _AreaScreenState extends State<AreaScreen> {
   }
 }
 
-void _setWidgets(AreaScreen widget, BuildContext context, Function func){
+void _setWidgets(AreaScreen widget, BuildContext context, Function func, PictureSize pictureSize) {
   _setMap(widget);
-  _setPoints(widget, context, func);
+  _setPoints(widget, context, func, pictureSize);
 }
 
-void _setWidgetsOfPath(AreaScreen widget, BuildContext context, Function func){
+void _setWidgetsOfPath(AreaScreen widget, BuildContext context, Function func, PictureSize pictureSize){
   _setMap(widget);
-  _setPointsOfPath(widget, context, func);
+  _setPointsOfPath(widget, context, func, pictureSize);
 }
 
 void _setMap(AreaScreen widget){
@@ -103,17 +104,17 @@ void _setMap(AreaScreen widget){
   ));
 }
 
-void _setPoints(AreaScreen widget, BuildContext context, Function func){
+void _setPoints(AreaScreen widget, BuildContext context, Function func, PictureSize pictureSize){
   for(int i = 0; i < UserInfo.area.vertexes!.length; ++i){
-    widget.points.add(getVertexAsButtonOn2DMapForUser(UserInfo.area.vertexes![i], context, func));
+    widget.points.add(getVertexAsButtonOn2DMapForUser(UserInfo.area.vertexes![i], context, func, pictureSize));
   }
 }
 
-void _setPointsOfPath(AreaScreen widget, BuildContext context, Function func){
+void _setPointsOfPath(AreaScreen widget, BuildContext context, Function func, PictureSize pictureSize){
   for(int i = 0; i < UserInfo.area.vertexes!.length; ++i){
     for(int j = 0; j < PathInfo.listVertexes!.length; ++j){
       if(UserInfo.area.vertexes![i].uid == PathInfo.listVertexes![j].uid){
-        widget.points.add(getVertexAsButtonOn2DMapForUserWithPath(UserInfo.area.vertexes![i], context, func));
+        widget.points.add(getVertexAsButtonOn2DMapForUserWithPath(UserInfo.area.vertexes![i], context, func, pictureSize));
         break;
       }
     }

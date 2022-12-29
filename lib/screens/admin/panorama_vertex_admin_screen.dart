@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:panorama/panorama.dart';
 import '../../models/admin_info.dart';
 import '../../models/area_model.dart';
+import '../../models/picture_size_model.dart';
 import '../../models/vertex_connection_model.dart';
 import '../../models/vertex_model.dart';
 import '../actions/actions.dart';
@@ -145,5 +146,5 @@ Hotspot getHotspot(VertexConnection connection)
 }
 
 double _getLength(Vertex first, Vertex second, Area area){
-  return roundDouble(getLengthByPixels(first, second) / area.countOfPixelsInMeter);
+  return roundDouble(getLengthByPixels(first, second, AdminInfo.pictureSize) / area.countOfPixelsInMeter);
 }

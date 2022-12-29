@@ -2,17 +2,21 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'dart:async';
+import 'package:tuple/tuple.dart';
 
 import '../../data/globals.dart';
+import '../../models/area_model.dart';
+import '../../models/picture_size_model.dart';
 import '../../models/vertex_model.dart';
 
-Vertex getCreatedVertexOnMap(TapUpDetails details) {
+Future<Vertex> getCreatedVertexOnMap(TapUpDetails details, Area area, GlobalKey expanderKey) async {
+  var pictureSize = await getPictureSizes(expanderKey, area.imagePath);
   var x = roundDouble(details.localPosition.dx);
   var y = roundDouble(details.localPosition.dy);
   if (kDebugMode) {
     print("Point:   x = $x   y = $y");
   }
-  return Vertex.createOnlyPoint(x, y, pictureWidth, pictureHeight);
+  return Vertex.createOnlyPoint(x, y, pictureSize.width, pictureSize.height);
 }
 
 double roundDouble(double value){
@@ -20,7 +24,7 @@ double roundDouble(double value){
   return ((value * mod).round().toDouble() / mod);
 }
 
-Future outputPoints(GlobalKey expanderKey, String imagePath) async {
+Future<PictureSize> getPictureSizes(GlobalKey expanderKey, String imagePath) async {
   var box = expanderKey.currentContext?.findRenderObject() as RenderBox;
   var availableHeight = box.size.height;
   var availableWidth = box.size.width;
@@ -36,9 +40,11 @@ Future outputPoints(GlobalKey expanderKey, String imagePath) async {
     resultWidth = picture.width / coef;
   }
 
-  pictureHeight = resultHeight;
-  pictureWidth = resultWidth;
-  pointRadius = resultWidth / 55; // see it in different devices
+  //pictureHeight = resultHeight;
+  //pictureWidth = resultWidth;
+  //pointRadius = resultWidth / 55;
+
+  return PictureSize(resultHeight, resultWidth);
 }
 
 Future<Size> _calculateImageDimension(String imagePath) {
@@ -56,14 +62,14 @@ Future<Size> _calculateImageDimension(String imagePath) {
   return completer.future;
 }
 
-double getLengthByPixels(Vertex? first, Vertex? second) {
+double getLengthByPixels(Vertex? first, Vertex? second, PictureSize pictureSize) {
   if(first == null || second == null){
     return 0;
   }
-  double x1 = pictureWidth / (first.map2DWidth! / first.pointX!);
-  double y1 = pictureWidth / (first.map2DWidth! / first.pointY!);
-  double x2 = pictureWidth / (second.map2DWidth! / second.pointX!);
-  double y2 = pictureWidth / (second.map2DWidth! / second.pointY!);
+  double x1 = pictureSize.width / (first.map2DWidth! / first.pointX!);
+  double y1 = pictureSize.width / (first.map2DWidth! / first.pointY!);
+  double x2 = pictureSize.width / (second.map2DWidth! / second.pointX!);
+  double y2 = pictureSize.width / (second.map2DWidth! / second.pointY!);
 
   return roundDouble(sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
 }

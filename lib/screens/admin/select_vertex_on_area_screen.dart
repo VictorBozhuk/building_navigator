@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../models/area_model.dart';
 import '../../models/admin_info.dart';
+import '../../models/picture_size_model.dart';
 import '../actions/actions.dart';
 import '../widgets/building_widgets.dart';
 import '../widgets/figures/circle.dart';
@@ -29,7 +30,7 @@ class _SelectVertexeOnAreaScreenState extends State<SelectVertexeOnAreaScreen> {
   }
 
   Future _calculateDimension() async {
-    await outputPoints(widget.expanderKey, widget.area.imagePath);
+    //await outputPoints(widget.expanderKey, widget.area.imagePath);
     _setWidgets(widget, context);
     setState(() { });
   }
@@ -58,10 +59,10 @@ class _SelectVertexeOnAreaScreenState extends State<SelectVertexeOnAreaScreen> {
             },
             onScaleEnd: () { },
             child: GestureDetector(
-              onTapUp: (TapUpDetails details) {
-                AdminInfo.area.vertexes?.add(getCreatedVertexOnMap(details));
-                setState(() {
-                  _setWidgets(widget, context);
+              onTapUp: (TapUpDetails details) async {
+                AdminInfo.area.vertexes?.add(await getCreatedVertexOnMap(details, widget.area, widget.expanderKey));
+                setState(() async {
+                  await _setWidgets(widget, context);
                 });
               },
               child: AnimatedBuilder(
@@ -85,9 +86,10 @@ class _SelectVertexeOnAreaScreenState extends State<SelectVertexeOnAreaScreen> {
 }
 
 
-void _setWidgets(SelectVertexeOnAreaScreen widget, BuildContext context){
+Future<void> _setWidgets(SelectVertexeOnAreaScreen widget, BuildContext context) async {
+  var pictureSize = await getPictureSizes(widget.expanderKey, AdminInfo.area.imagePath);
   _setMap(widget);
-  _setPoints(widget, context);
+  _setPoints(widget, context, pictureSize);
 }
 
 void _setMap(SelectVertexeOnAreaScreen widget){
@@ -96,8 +98,8 @@ void _setMap(SelectVertexeOnAreaScreen widget){
   ));
 }
 
-void _setPoints(SelectVertexeOnAreaScreen widget, BuildContext context){
+void _setPoints(SelectVertexeOnAreaScreen widget, BuildContext context, PictureSize pictureSize){
   for(int i = 0; i < widget.area.vertexes!.length; ++i){
-    widget.points.add(getSecondVertexAsButtonOnSecondArea(widget.area.vertexes![i], context));
+    widget.points.add(getSecondVertexAsButtonOnSecondArea(widget.area.vertexes![i], context, pictureSize));
   }
 }

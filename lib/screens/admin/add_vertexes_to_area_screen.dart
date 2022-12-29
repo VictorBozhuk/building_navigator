@@ -1,9 +1,11 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/admin/panorama_vertex_admin_screen.dart';
 import '../../data/globals.dart';
+import '../../models/picture_size_model.dart';
 import '../../styles/text_styles/text_styles.dart';
 import '../../models/admin_info.dart';
 import '../../models/vertex_model.dart';
@@ -43,8 +45,8 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
   }
 
   Future _calculateDimension() async {
-    await outputPoints(widget.expanderKey, AdminInfo.area.imagePath);
-    _setWidgets(widget, setStateAnalog);
+    //await outputPoints(widget.expanderKey, AdminInfo.area.imagePath);
+    await _setWidgets(widget, setStateAnalog);
     setState(() { });
   }
 
@@ -75,10 +77,10 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
               },
               onScaleEnd: () { },
               child: GestureDetector(
-                onTapUp: (TapUpDetails details) {
-                  AdminInfo.area.vertexes?.add(getCreatedVertexOnMap(details));
-                  setState(() {
-                    _setWidgets(widget, setStateAnalog);
+                onTapUp: (TapUpDetails details) async {
+                  AdminInfo.area.vertexes?.add(await getCreatedVertexOnMap(details, AdminInfo.area, widget.expanderKey));
+                  setState(() async {
+                    await _setWidgets(widget, setStateAnalog);
                   });
                 },
                 child: AnimatedBuilder(
@@ -99,26 +101,26 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
             alignment: Alignment.center,
             child: PositionChangerButton(title: "+",
               onPressed: () {
-                setState(() {
+                setState(() async {
                   AdminInfo.selectedVertex?.pointY
                   = AdminInfo.selectedVertex!.pointY! - 1;
-                  _setWidgets(widget, setStateAnalog);
+                  await _setWidgets(widget, setStateAnalog);
                 });
               },),
           ),
           Padding(padding: const EdgeInsets.only(left: 20, right: 20),
             child: Stack(children: [
-              Text("Length: ${getLengthByPixels(AdminInfo.selectedVertex, AdminInfo.secondSelectedVertex)}",
+              Text("Length: ${getLengthByPixels(AdminInfo.selectedVertex, AdminInfo.secondSelectedVertex, AdminInfo.pictureSize)}",
                   style: textStyleMainSmallTextBlack),
               Row(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   PositionChangerButton(
                     title: "-",
                     onPressed: () {
-                      setState(() {
+                      setState(() async {
                         AdminInfo.selectedVertex?.pointX
                         = AdminInfo.selectedVertex!.pointX! - 1;
-                        _setWidgets(widget, setStateAnalog);
+                        await _setWidgets(widget, setStateAnalog);
                       });
                     },
                   ),
@@ -126,10 +128,10 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
                   PositionChangerButton(
                     title: "+",
                     onPressed: () {
-                      setState(() {
+                      setState(() async {
                         AdminInfo.selectedVertex?.pointX
                         = AdminInfo.selectedVertex!.pointX! + 1;
-                        _setWidgets(widget, setStateAnalog);
+                        await _setWidgets(widget, setStateAnalog);
                       });
                     },
                   ),
@@ -146,10 +148,10 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
                   PositionChangerButton(
                   title: "-",
                   onPressed: () {
-                    setState(() {
+                    setState(() async {
                       AdminInfo.selectedVertex?.pointY
                       = AdminInfo.selectedVertex!.pointY! + 1;
-                      _setWidgets(widget, setStateAnalog);
+                      await _setWidgets(widget, setStateAnalog);
                     });
                   },
                 ),
@@ -179,8 +181,8 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
               ),
               MainComponentButton(
                 title: "Delete",
-                onPressed: () {
-                  _deleteSelected(widget, setStateAnalog);
+                onPressed: () async {
+                  await _deleteSelected(widget, setStateAnalog);
                 }
               ),
               MainComponentButton(
@@ -203,11 +205,11 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
   }
 }
 
-void _drawLine(Vertex first, Vertex second, List<Widget> points){
-  double x1 = pictureWidth / (first.map2DWidth! / first.pointX!);
-  double y1 = pictureWidth / (first.map2DWidth! / first.pointY!);
-  double x2 = pictureWidth / (second.map2DWidth! / second.pointX!);
-  double y2 = pictureWidth / (second.map2DWidth! / second.pointY!);
+void _drawLine(Vertex first, Vertex second, List<Widget> points, PictureSize pictureSize) {
+  double x1 = pictureSize.width / (first.map2DWidth! / first.pointX!);
+  double y1 = pictureSize.width / (first.map2DWidth! / first.pointY!);
+  double x2 = pictureSize.width / (second.map2DWidth! / second.pointX!);
+  double y2 = pictureSize.width / (second.map2DWidth! / second.pointY!);
   double xDif = (x1 - x2).abs() / 2;
   double yDif = (y1 - y2).abs() / 2;
   double x2Res = 0;
@@ -239,10 +241,10 @@ void _drawLine(Vertex first, Vertex second, List<Widget> points){
   ));
 }
 
-void _deleteSelected(AddVertexesToAreaScreen widget, Function func){
+Future<void> _deleteSelected(AddVertexesToAreaScreen widget, Function func) async {
   _deleteConnectionVertexOfNextVertexes();
   AdminInfo.area.vertexes?.removeWhere((x) => x.uid == AdminInfo.selectedVertex?.uid);
-  _setWidgets(widget, func);
+  await _setWidgets(widget, func);
   AdminInfo.clearSelectedVertexes();
   func();
 }
@@ -272,11 +274,13 @@ void _deleteAreaAndConnectionOfNextVertex(){
   }
 }
 
-void _setWidgets(AddVertexesToAreaScreen widget, Function func){
+Future<void> _setWidgets(AddVertexesToAreaScreen widget, Function func) async {
+  var pictureSize = await getPictureSizes(widget.expanderKey, AdminInfo.area.imagePath);
+  AdminInfo.pictureSize = pictureSize;
   widget.points = [];
   _setMap(widget);
-  _setLines(widget);
-  _setPoints(widget, func);
+  _setLines(widget, pictureSize);
+  _setPoints(widget, func, pictureSize);
 }
 
 void _setMap(AddVertexesToAreaScreen widget){
@@ -285,7 +289,7 @@ void _setMap(AddVertexesToAreaScreen widget){
   ));
 }
 
-void _setLines(AddVertexesToAreaScreen widget){
+Future _setLines(AddVertexesToAreaScreen widget, PictureSize pictureSize) async {
   for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
     for(int j = 0; j < AdminInfo.area.vertexes![i].vertexConnections!.length; ++j){
       if((AdminInfo.area.vertexes![i].areaConnection != null
@@ -293,14 +297,15 @@ void _setLines(AddVertexesToAreaScreen widget){
               .nextVertex.areaConnection != null) == false){
         _drawLine(AdminInfo.area.vertexes![i],
             AdminInfo.area.vertexes![i].vertexConnections![j].nextVertex,
-            widget.points);
+            widget.points,
+            pictureSize);
       }
     }
   }
 }
 
-void _setPoints(AddVertexesToAreaScreen widget, Function func){
+void _setPoints(AddVertexesToAreaScreen widget, Function func, PictureSize pictureSize){
   for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
-    widget.points.add(getVertexAsButtonOn2DMap(AdminInfo.area.vertexes![i], func));
+    widget.points.add(getVertexAsButtonOn2DMap(AdminInfo.area.vertexes![i], func, pictureSize));
   }
 }

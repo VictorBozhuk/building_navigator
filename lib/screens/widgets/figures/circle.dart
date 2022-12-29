@@ -4,6 +4,7 @@ import 'package:lnu_navigator/models/user_info.dart';
 
 import '../../../data/globals.dart';
 import '../../../models/path_model.dart';
+import '../../../models/picture_size_model.dart';
 import '../../../models/vertex_model.dart';
 import '../../admin/add_vertex_screen.dart';
 import '../../area_screen.dart';
@@ -13,7 +14,8 @@ void _defaultFunc1() {}
 
 class Circle extends CustomPainter {
   late MaterialColor color;
-  Circle(this.color);
+  late double radius;
+  Circle(this.color, this.radius);
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint()
@@ -22,7 +24,7 @@ class Circle extends CustomPainter {
 
     Offset center = Offset(size.width / 2, size.height / 2);
 
-    canvas.drawCircle(center, pointRadius, paint);
+    canvas.drawCircle(center, radius, paint);
   }
 
   @override
@@ -31,7 +33,7 @@ class Circle extends CustomPainter {
   }
 }
 
-Positioned getVertexAsButtonOn2DMap(Vertex vertex, Function func) {
+Positioned getVertexAsButtonOn2DMap(Vertex vertex, Function func, PictureSize pictureSize) {
   return getVertexAsButton(
     vertex,
     () => {
@@ -44,10 +46,11 @@ Positioned getVertexAsButtonOn2DMap(Vertex vertex, Function func) {
       func();
     },
     _defaultFunc1,
+    pictureSize
   );
 }
 
-Positioned getSecondVertexAsButtonOnSecondArea(Vertex vertex, BuildContext context) {
+Positioned getSecondVertexAsButtonOnSecondArea(Vertex vertex, BuildContext context, PictureSize pictureSize) {
   return getVertexAsButton(
     vertex,
     () {
@@ -60,10 +63,11 @@ Positioned getSecondVertexAsButtonOnSecondArea(Vertex vertex, BuildContext conte
     },
     _defaultFunc1,
     _defaultFunc1,
+    pictureSize
   );
 }
 
-Positioned getVertexAsButtonOn2DMapForUser(Vertex vertex, BuildContext context, Function func) {
+Positioned getVertexAsButtonOn2DMapForUser(Vertex vertex, BuildContext context, Function func, PictureSize pictureSize) {
   return getVertexAsButton(
     vertex,
     () {
@@ -80,10 +84,11 @@ Positioned getVertexAsButtonOn2DMapForUser(Vertex vertex, BuildContext context, 
           MaterialPageRoute(builder: (context) => PanoramaScreen(currentVertex: vertex)));
     },
     _defaultFunc1,
+    pictureSize
   );
 }
 
-Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext context, Function func) {
+Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext context, Function func, PictureSize pictureSize) {
   return getVertexAsButton(
     vertex,
     () {
@@ -109,13 +114,15 @@ Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext c
           context,
           MaterialPageRoute(builder: (context) => PanoramaScreen(currentVertex: PathInfo.currentVertex!, nextVertex: PathInfo.nextVertex,)));
     },
+    pictureSize
   );
 }
 
 
-Positioned getVertexAsButton(Vertex vertex, Function onTap, Function onLongPress, Function onDoubleTap) {
-  var x = (pictureWidth / (vertex.map2DWidth! / vertex.pointX!)) - pointRadius;
-  var y = (pictureHeight / (vertex.map2DHeight! / vertex.pointY!)) - pointRadius;
+Positioned getVertexAsButton(Vertex vertex, Function onTap, Function onLongPress, Function onDoubleTap, PictureSize pictureSize) {
+
+  var x = (pictureSize.width / (vertex.map2DWidth! / vertex.pointX!)) - pictureSize.getRadius();
+  var y = (pictureSize.height / (vertex.map2DHeight! / vertex.pointY!)) - pictureSize.getRadius();
   MaterialColor color = Colors.red;
   if(vertex.isFullInfo()){
     color = Colors.blue;
@@ -138,10 +145,10 @@ Positioned getVertexAsButton(Vertex vertex, Function onTap, Function onLongPress
               onTap: () { onTap(); },
               onLongPress: () { onLongPress(); },
               child: SizedBox(
-                width: pointRadius * 2,
-                height: pointRadius * 2,
+                width: pictureSize.getRadius() * 2,
+                height: pictureSize.getRadius() * 2,
                 child: CustomPaint(
-                  foregroundPainter: Circle(color),
+                  foregroundPainter: Circle(color, pictureSize.getRadius()),
                   child: Container(
                     color: Colors.transparent,
                   ),
