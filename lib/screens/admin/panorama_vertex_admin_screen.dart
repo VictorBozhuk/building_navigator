@@ -80,6 +80,25 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
                 ),
                 ],
               ),
+              Row(children: [
+                Text("Icon angle: ${widget.connection.iconAngle.toInt()}",
+                  style: const TextStyle(color: Colors.red, fontSize: 22),),
+                PositionChangerButton(title: "-", onPressed: () {
+                  if(widget.connection.iconAngle > -10) {
+                    widget.connection.iconAngle -= 1;
+                    _setStateAnalog();
+                  }
+                },
+                ),
+                PositionChangerButton(title: "+", onPressed: () {
+                  if(widget.connection.iconAngle < 10){
+                    widget.connection.iconAngle += 1;
+                    _setStateAnalog();
+                  }
+                },
+                ),
+              ],
+              ),
               ],
             ),
           ],
@@ -110,6 +129,7 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
               editedConnection?.iconSize = AdminInfo.connection.iconSize;
               editedConnection?.iconX = AdminInfo.connection.iconX;
               editedConnection?.iconY = AdminInfo.connection.iconY;
+              editedConnection?.iconAngle = AdminInfo.connection.iconAngle;
             }
 
             if(AdminInfo.isCreateAreaConnection == false){
@@ -141,7 +161,7 @@ Hotspot getHotspot(VertexConnection connection)
       longitude: connection.iconX,
       latitude: connection.iconY,
       orgin: Offset.fromDirection(0),
-      widget: Image.asset('assets/icons/point.png'),
+      widget: Image.asset('assets/icons/point_${connection.iconAngle}.png'),
   );
 }
 

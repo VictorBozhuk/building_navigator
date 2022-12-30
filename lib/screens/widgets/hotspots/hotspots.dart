@@ -41,7 +41,7 @@ Hotspot getHotspotArrow(double x, double y, double angle, double size)
 }
 
 Hotspot getHotspotPoint(double x, double y, double size,
-    BuildContext context, Vertex curent, String iconImagePath)
+    BuildContext context, Vertex curent, int iconAngle)
 {
   return Hotspot(
       height: size,
@@ -68,7 +68,7 @@ Hotspot getHotspotPoint(double x, double y, double size,
         child: RotationTransition(
           turns: const AlwaysStoppedAnimation(0 / 360),
           child: Image( opacity: const AlwaysStoppedAnimation<double>(1),
-            image: AssetImage(iconImagePath),
+            image: AssetImage('assets/icons/point_$iconAngle.png'),
           ),
         )
         ,)
@@ -76,7 +76,7 @@ Hotspot getHotspotPoint(double x, double y, double size,
 }
 
 Hotspot getHotspotNextPoint(double x, double y, double size,
-    BuildContext context, Vertex curent, String iconImagePath)
+    BuildContext context, Vertex current, int iconAngle)
 {
   return Hotspot(
       height: size,
@@ -98,12 +98,12 @@ Hotspot getHotspotNextPoint(double x, double y, double size,
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) =>
-                PanoramaScreen(currentVertex: curent, nextVertex: PathInfo.nextVertex)),
+                PanoramaScreen(currentVertex: current, nextVertex: PathInfo.nextVertex)),
           )},
         child: RotationTransition(
           turns: const AlwaysStoppedAnimation(0 / 360),
           child: Image( opacity: const AlwaysStoppedAnimation<double>(1),
-            image: AssetImage(iconImagePath),
+            image: AssetImage('assets/icons/point_$iconAngle.png'),
           ),
         ),
       ),

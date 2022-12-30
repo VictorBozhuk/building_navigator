@@ -7,11 +7,11 @@ class VertexConnection {
   late double iconX;
   late double iconY;
   late double iconSize = 100;
-  late String iconPath;
+  late int iconAngle = 0;
   late double length;
   late Vertex nextVertex;
 
-  VertexConnection(this.nextVertex, this.direction, this.iconX, this.iconY, this.iconSize, this.iconPath, this.length){
+  VertexConnection(this.nextVertex, this.direction, this.iconX, this.iconY, this.iconSize, this.length, this.iconAngle){
     uid = const Uuid().v1();
   }
   VertexConnection.createEmpty(){
@@ -21,7 +21,7 @@ class VertexConnection {
     iconX = 0;
     iconY = 0;
     iconSize = 0;
-    iconPath = 'assets/icons/point.png';
+    iconAngle = 0;
     length = 0;
   }
 
@@ -32,12 +32,12 @@ class VertexConnection {
     iconX = data['iconX'];
     iconY = data['iconY'];
     iconSize = data['iconSize'];
-    iconPath = data['iconPath'];
     length = data['length'];
+    iconAngle = data['iconAngle'] ?? 0;
   }
 
   VertexConnection copy(){
-    return VertexConnection(nextVertex, direction, iconX, iconY, iconSize, iconPath, length);
+    return VertexConnection(nextVertex, direction, iconX, iconY, iconSize, length, iconAngle);
   }
 
   Map<String, dynamic> toMap(){
@@ -48,8 +48,8 @@ class VertexConnection {
       "iconX": iconX,
       "iconY": iconY,
       "iconSize": iconSize,
-      "iconPath": iconPath,
       "length": length,
+      'iconAngle': iconAngle,
     };
   }
 }

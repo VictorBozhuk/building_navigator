@@ -67,7 +67,7 @@ class Building {
         current.vertexConnections![i].iconSize,
         context,
         nextVertex,
-        current.vertexConnections![i].iconPath ?? '',
+        current.vertexConnections![i].iconAngle,
       ));
     }
 
@@ -92,7 +92,7 @@ class Building {
           current.vertexConnections?[i].iconSize ?? 0,
           context,
           nextVertex,
-          current.vertexConnections?[i].iconPath ?? '',
+          current.vertexConnections?[i].iconAngle ?? 0
         ));
       }
     }

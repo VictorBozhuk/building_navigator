@@ -53,89 +53,89 @@ List<Vertex> vertexesDormitory_3 = [
 Vertex v704_706 = Vertex(title: t704_706,panoramaImagePath: p704_706,
     rooms: [ r704, r705, r706],
     vertexConnections: [
-      VertexConnection(v707, 11, 115, -13, 100, "assets/icons/point.png", 3),
-      VertexConnection(v701_707b, 5, -100, 0, 100, "assets/icons/open_door.png", 5),
+      VertexConnection(v707, 11, 115, -13, 100, 3, 0),
+      VertexConnection(v701_707b, 5, -100, 0, 100, 5, 0),
     ]);
 
 Vertex v707 = Vertex(title: t707, panoramaImagePath: p707,
     rooms: [r707],
     vertexConnections: [
-      VertexConnection(v704_706, -2, -105, 0, 100, "assets/icons/point.png", 3),
-      VertexConnection(v701_707, 11, 120, -15, 100, "assets/icons/point.png", 3)
+      VertexConnection(v704_706, -2, -105, 0, 100, 3, 0),
+      VertexConnection(v701_707, 11, 120, -15, 100, 3, 0)
     ]);
 
 Vertex v701_707 = Vertex(title: t701_707, panoramaImagePath: p701_707,
     vertexConnections: [
-  VertexConnection(v707, -1, 337, -16, 100, "assets/icons/point.png", 3),
-  VertexConnection(v701_703, -2, 267, -5, 100, "assets/icons/point.png", 5),
-  VertexConnection(v701A, 19, 105, -10, 150, "assets/icons/point.png", 5),
+  VertexConnection(v707, -1, 337, -16, 100, 3, 0),
+  VertexConnection(v701_703, -2, 267, -5, 100, 5, 0),
+  VertexConnection(v701A, 19, 105, -10, 150, 5, 0),
 ]);
 
 Vertex v701_703 = Vertex(title: t701_703, panoramaImagePath: p701_703,
     rooms: [ r701, r702, r703],
     vertexConnections: [
-      VertexConnection(v701_707, -11, -95, -10, 100, "assets/icons/point.png", 5),
-      VertexConnection(v701_707b, 11, 105, 0, 100, "assets/icons/open_door.png", 5)
+      VertexConnection(v701_707, -11, -95, -10, 100, 5, 0),
+      VertexConnection(v701_707b, 11, 105, 0, 100, 5, 0)
     ]);
 
 Vertex v701A = Vertex(title: t701A, panoramaImagePath: p701A,
     rooms: [ r701A ],
     vertexConnections: [
-      VertexConnection(v701_707, -2, -86, -10, 100, "assets/icons/point.png", 5),
-      VertexConnection(v714A, 2, 92, -10, 100, "assets/icons/point.png", 5),
-      VertexConnection(v7, 0, 10, -20, 160, "assets/icons/point.png", 5),
+      VertexConnection(v701_707, -2, -86, -10, 100, 5, 0),
+      VertexConnection(v714A, 2, 92, -10, 100, 5, 0),
+      VertexConnection(v7, 0, 10, -20, 160, 5, 0),
 
     ]);
 
 Vertex v714A = Vertex(title: t714A, panoramaImagePath: p714A,
     rooms: [ r714A ],
     vertexConnections: [
-      VertexConnection(v714, 12, 163, -18, 100, "assets/icons/point.png", 3),
-      VertexConnection(v701A, -2, -80, -13, 100, "assets/icons/point.png", 5),
-      VertexConnection(v708_710, 2, 85, -8, 100, "assets/icons/point.png", 5)
+      VertexConnection(v714, 12, 163, -18, 100, 3, 0),
+      VertexConnection(v701A, -2, -80, -13, 100, 5, 0),
+      VertexConnection(v708_710, 2, 85, -8, 100, 5, 0)
     ]);
 
 Vertex v714 = Vertex(title: t714, panoramaImagePath: p714,
     rooms: [ r714 ],
     vertexConnections: [
-      VertexConnection(v714A, 11, 123, -20, 120, "assets/icons/point.png", 3),
-      VertexConnection(v711_713, -11, 253, -10, 100, "assets/icons/point.png", 3)
+      VertexConnection(v714A, 11, 123, -20, 120, 3, 0),
+      VertexConnection(v711_713, -11, 253, -10, 100, 3, 0)
     ]);
 
 Vertex v711_713 = Vertex(title: t711_713, panoramaImagePath: p711_713,
     rooms: [ r711, r712, r713 ],
     vertexConnections: [
-      VertexConnection(v714, 11, 120, -17, 100, "assets/icons/point.png", 3)
+      VertexConnection(v714, 11, 120, -17, 100, 3, 0)
     ]);
 
 Vertex v708_710 = Vertex(title: t708_710, panoramaImagePath: p708_710,
     rooms: [ r708, r709, r710 ],
     vertexConnections: [
-      VertexConnection(v714A, -11, -103, -10, 100, "assets/icons/point.png", 5)
+      VertexConnection(v714A, -11, -103, -10, 100, 5, 0)
     ]);
 
 Vertex v701_707b = Vertex(title: t701_707b, panoramaImagePath: p701_707b,
     vertexConnections: [
-  VertexConnection(v704_706, 0, 155, 10, 140, "assets/icons/open_door.png", 5),
-  VertexConnection(v701_703, 0, -115, 10, 140, "assets/icons/open_door.png", 5),
+  VertexConnection(v704_706, 0, 155, 10, 140, 5, 0),
+  VertexConnection(v701_703, 0, -115, 10, 140, 5, 0),
 ]);
 
 Vertex v7 = Vertex(title: t7, panoramaImagePath: p7,
     vertexConnections: [
-      VertexConnection(v701A, 4, 190, -20, 140, "assets/icons/point.png", 5),
-      VertexConnection(v6_7, 0, -5, -25, 120, "assets/icons/point.png", 5),
-      VertexConnection(v6_7, 0, 15, 6, 120, "assets/icons/point.png", 5),
+      VertexConnection(v701A, 4, 190, -20, 140, 5, 0),
+      VertexConnection(v6_7, 0, -5, -25, 120, 5, 0),
+      VertexConnection(v6_7, 0, 15, 6, 120, 5, 0),
     ]);
 
 Vertex v6_7 = Vertex(title: t6_7, panoramaImagePath: p6_7,
     vertexConnections: [
-      VertexConnection(v7, 0, 20, 8, 120, "assets/icons/point.png", 5),
-      VertexConnection(v7, 0, -5, -28, 120, "assets/icons/point.png", 5),
+      VertexConnection(v7, 0, 20, 8, 120, 5, 0),
+      VertexConnection(v7, 0, -5, -28, 120, 5, 0),
     ]);
 
 Vertex v7_8 = Vertex(title: t7_8, panoramaImagePath: p7_8,
     vertexConnections: [
-      VertexConnection(v7, 0, 40, 60, 70, "assets/icons/point.png", 5),
+      VertexConnection(v7, 0, 40, 60, 70, 5, 0),
     ]);
 
 
