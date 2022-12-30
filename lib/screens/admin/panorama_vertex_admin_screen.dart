@@ -43,8 +43,8 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
           children: [
             Panorama(
               onTap: (longitude, latitude, tilt) {
-                widget.connection.iconX = roundDouble(longitude);
-                widget.connection.iconY = roundDouble(latitude);
+                widget.connection.iconX = roundDouble(longitude) + (widget.connection.iconSize / 15);
+                widget.connection.iconY = roundDouble(latitude) + (widget.connection.iconSize / 15);
                 _setStateAnalog();
               },
               onViewChanged: (longitude, latitude, tilt) {

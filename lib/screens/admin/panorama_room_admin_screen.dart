@@ -50,8 +50,8 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
         children: [
           Panorama(
             onTap: (longitude, latitude, tilt) {
-              widget.room.titleX = roundDouble(longitude);
-              widget.room.titleY = roundDouble(latitude);
+              widget.room.titleX = roundDouble(longitude) + (widget.room.titleBoxWidth / 15);
+              widget.room.titleY = roundDouble(latitude) + (widget.room.titleBoxHeight / 15);
               setStateAnalog();
             },
             onViewChanged: (longitude, latitude, tilt) {
