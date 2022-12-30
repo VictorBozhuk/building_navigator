@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:panorama/panorama.dart';
 import '../../models/admin_info.dart';
 import '../../models/area_model.dart';
-import '../../models/picture_size_model.dart';
 import '../../models/vertex_connection_model.dart';
 import '../../models/vertex_model.dart';
 import '../actions/actions.dart';
@@ -38,7 +37,7 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar(widget.connection.nextVertex.title ?? ""),
+      appBar: getAppBar("Tap on ${AdminInfo.secondSelectedVertex?.title}"),
       body: Stack(
           children: [
             Panorama(

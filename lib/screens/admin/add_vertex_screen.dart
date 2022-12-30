@@ -8,7 +8,6 @@ import '../widgets/global/appBars.dart';
 import '../widgets/swithes/main_switch.dart';
 import '../widgets/text_inputs/main_text_input.dart';
 import '../widgets/texts/main_text.dart';
-import 'add_vertex_connection.dart';
 import 'add_vertexes_to_area_screen.dart';
 import 'list_areas_admin_screen.dart';
 import 'list_rooms_admin_screen.dart';

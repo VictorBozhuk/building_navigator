@@ -1,10 +1,6 @@
-import 'dart:math';
-import 'dart:ui';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/admin/panorama_vertex_admin_screen.dart';
-import '../../data/globals.dart';
 import '../../models/picture_size_model.dart';
 import '../../styles/text_styles/text_styles.dart';
 import '../../models/admin_info.dart';
@@ -19,7 +15,6 @@ import '../widgets/matrix_gesture_detector.dart';
 
 import 'add_area_screen.dart';
 import 'add_vertex_screen.dart';
-import 'add_vertex_connection.dart';
 import 'dart:async';
 
 class AddVertexesToAreaScreen extends StatefulWidget {
