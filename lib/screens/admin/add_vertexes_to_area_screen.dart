@@ -11,8 +11,8 @@ import '../widgets/building_widgets.dart';
 import '../widgets/buttons/main_button.dart';
 import '../widgets/figures/circle.dart';
 import '../widgets/figures/line.dart';
-import '../widgets/matrix_gesture_detector.dart';
 
+import '../widgets/transformation/matrix_gesture_detector.dart';
 import 'add_area_screen.dart';
 import 'add_vertex_screen.dart';
 import 'dart:async';
