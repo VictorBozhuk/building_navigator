@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
+import '../widgets/app_bars/app_bars.dart';
 import '../widgets/buttons/main_button.dart';
-import '../widgets/global/appBars.dart';
 import '../widgets/text_inputs/main_text_input.dart';
 import 'add_vertexes_to_area_screen.dart';
 import 'list_areas_admin_screen.dart';
@@ -33,7 +33,7 @@ class AddAreaScreenState extends State<AddAreaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBar('Editing area'),
+        appBar: getAppBar('Editing area', context),
         body: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,

@@ -5,8 +5,8 @@ import '../../models/area_model.dart';
 import '../../models/vertex_connection_model.dart';
 import '../../models/vertex_model.dart';
 import '../actions/actions.dart';
+import '../widgets/app_bars/app_bars.dart';
 import '../widgets/buttons/main_button.dart';
-import '../widgets/global/appBars.dart';
 import 'add_vertex_screen.dart';
 import 'add_vertexes_to_area_screen.dart';
 
@@ -37,7 +37,7 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar("Tap on ${AdminInfo.secondSelectedVertex?.title}"),
+      appBar: getAppBar("Tap on ${AdminInfo.secondSelectedVertex?.title}", context),
       body: Stack(
           children: [
             Panorama(

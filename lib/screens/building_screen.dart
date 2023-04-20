@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/models/user_info.dart';
+import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/building/building_widgets.dart';
-import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
 import '../styles/images.dart';
 import '../models/path_model.dart';
 import 'find_path.dart';
@@ -13,7 +13,7 @@ class BuildingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar(UserInfo.building.title),
+      appBar: getAppBar(UserInfo.building.title, context),
       body: Container(
         decoration: BoxDecoration(
           image: AppImages.backgroundImage,

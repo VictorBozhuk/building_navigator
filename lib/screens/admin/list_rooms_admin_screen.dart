@@ -3,7 +3,7 @@ import 'package:lnu_navigator/screens/admin/panorama_room_admin_screen.dart';
 
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
-import '../widgets/global/appBars.dart';
+import '../widgets/app_bars/app_bars.dart';
 import '../widgets/lists/widgets_of_lists.dart';
 import 'add_room_screen.dart';
 
@@ -18,7 +18,7 @@ class _ListRoomsAdminScreenState extends State<ListRoomsAdminScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBarWithIcon("Rooms", () => {
+        appBar: getAppBarWithIcon("Rooms", context, onTap: () => {
           AdminInfo.clearRoom(),
           AdminInfo.room.vertex = AdminInfo.selectedVertex!,
           Navigator.push(

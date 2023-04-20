@@ -4,9 +4,9 @@ import '../../models/area_model.dart';
 import '../../models/admin_info.dart';
 import '../../models/picture_size_model.dart';
 import '../actions/actions.dart';
+import '../widgets/app_bars/app_bars.dart';
 import '../widgets/building_widgets.dart';
 import '../widgets/figures/circle.dart';
-import '../widgets/global/appBars.dart';
 import '../widgets/matrix_gesture_detector.dart';
 
 import 'dart:async';
@@ -40,7 +40,7 @@ class _SelectVertexeOnAreaScreenState extends State<SelectVertexeOnAreaScreen> {
     final ValueNotifier<Matrix4> notifier = ValueNotifier(Matrix4.identity());
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBar(AdminInfo.area.title),
+      appBar: getAppBar(AdminInfo.area.title, context),
       body: Column(children: [
         Expanded(
           key: widget.expanderKey,

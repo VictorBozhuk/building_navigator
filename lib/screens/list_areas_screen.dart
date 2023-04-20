@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
+import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/lists/widgets_of_lists.dart';
 
 import '../../styles/images.dart';
@@ -13,7 +13,7 @@ class ListAreasScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar("Areas"),
+      appBar: getAppBar("Areas", context),
       body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,

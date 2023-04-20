@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/panorama_screen.dart';
-import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
+import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 
 import '../styles/images.dart';
 import '../algorithm_new/building_navigator.dart';
@@ -33,7 +33,7 @@ class FindPathPageState extends State<FindPathPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar('Find room'),
+      appBar: getAppBar('Find room', context),
       body: Container(
         decoration: BoxDecoration(
           image: AppImages.backgroundImage,

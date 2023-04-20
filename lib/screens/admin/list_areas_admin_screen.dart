@@ -3,7 +3,7 @@ import 'package:lnu_navigator/screens/admin/select_vertex_on_area_screen.dart';
 
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
-import '../widgets/global/appBars.dart';
+import '../widgets/app_bars/app_bars.dart';
 import '../widgets/lists/widgets_of_lists.dart';
 import 'add_area_screen.dart';
 import 'add_vertexes_to_area_screen.dart';
@@ -15,7 +15,7 @@ class ListAreasAdminScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBarWithIcon("Areas", () => {
+        appBar: getAppBarWithIcon("Areas", context, onTap:  () => {
           AdminInfo.clearArea(),
           Navigator.push(
               context,

@@ -4,8 +4,8 @@ import 'package:lnu_navigator/screens/admin/panorama_room_admin_screen.dart';
 import '../../styles/images.dart';
 import '../../styles/text_styles/text_styles.dart';
 import '../../models/admin_info.dart';
+import '../widgets/app_bars/app_bars.dart';
 import '../widgets/buttons/main_button.dart';
-import '../widgets/global/appBars.dart';
 import '../widgets/text_inputs/main_text_input.dart';
 import 'panorama_vertex_admin_screen.dart';
 import '../widgets/building_widgets.dart';
@@ -29,7 +29,7 @@ class AddRoomScreenState extends State<AddRoomScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBar('Editing room'),
+        appBar: getAppBar('Editing room', context),
         body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,

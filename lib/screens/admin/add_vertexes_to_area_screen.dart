@@ -6,11 +6,11 @@ import '../../styles/text_styles/text_styles.dart';
 import '../../models/admin_info.dart';
 import '../../models/vertex_model.dart';
 import '../actions/actions.dart';
+import '../widgets/app_bars/app_bars.dart';
 import '../widgets/building_widgets.dart';
 import '../widgets/buttons/main_button.dart';
 import '../widgets/figures/circle.dart';
 import '../widgets/figures/line.dart';
-import '../widgets/global/appBars.dart';
 import '../widgets/matrix_gesture_detector.dart';
 
 import 'add_area_screen.dart';
@@ -50,7 +50,10 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
     final ValueNotifier<Matrix4> notifier = ValueNotifier(Matrix4.identity());
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: getAppBarWithIcon(AdminInfo.area.title, () => {
+        appBar: getAppBarWithIcon(
+            AdminInfo.area.title,
+            context,
+            onTap: () => {
           Navigator.push(context, MaterialPageRoute(builder:
               (context) => const AddAreaScreen(isCreate: false)))
         }, icon: Icons.edit),

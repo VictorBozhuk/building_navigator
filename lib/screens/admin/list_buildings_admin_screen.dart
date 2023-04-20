@@ -5,8 +5,8 @@ import '../../styles/images.dart';
 import '../../models/admin_info.dart';
 import '../../models/building_model.dart';
 import '../../services/database.dart';
+import '../widgets/app_bars/app_bars.dart';
 import '../widgets/drawer/navigation_drawer.dart';
-import '../widgets/global/appBars.dart';
 import '../widgets/lists/widgets_of_lists.dart';
 import 'add_building_screen.dart';
 
@@ -19,7 +19,7 @@ class ListBuildingsAdminScreen extends StatelessWidget{
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         drawer: const NewNavigationDrawer(),
-        appBar: getAppBarWithIcon("Buildings", () => {
+        appBar: getAppBarWithIcon("Buildings", context, onTap: () => {
           Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const AddBuildingScreen()))

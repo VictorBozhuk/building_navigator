@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
-import '../widgets/global/appBars.dart';
+import '../widgets/app_bars/app_bars.dart';
 import 'add_vertex_screen.dart';
 
 class ListVertexesAdminScreen extends StatefulWidget {
@@ -16,7 +16,7 @@ class _ListVertexesAdminScreenState extends State<ListVertexesAdminScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBarWithIcon("Vertexes of ${AdminInfo.areaConnection.title}", () => {
+        appBar: getAppBarWithIcon("Vertexes of ${AdminInfo.areaConnection.title}", context, onTap: () => {
           AdminInfo.clearVertex(),
           Navigator.push(
               context,

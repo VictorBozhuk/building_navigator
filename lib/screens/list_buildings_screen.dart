@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/drawer/navigation_drawer.dart';
-import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
 import 'package:lnu_navigator/screens/widgets/lists/widgets_of_lists.dart';
 import '../styles/images.dart';
 import '../models/building_model.dart';
@@ -18,7 +18,7 @@ class ListBuildingsPage extends StatelessWidget{
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: getAppBar("Buildings"),
+        appBar: getAppBar("Buildings", context),
         drawer: const NewNavigationDrawer(),
         body: Container(
           height: MediaQuery.of(context).size.height,

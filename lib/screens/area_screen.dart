@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/building/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/figures/circle.dart';
-import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
 import 'package:lnu_navigator/screens/widgets/matrix_gesture_detector.dart';
 import '../models/path_model.dart';
 import '../models/picture_size_model.dart';
@@ -44,7 +44,7 @@ class _AreaScreenState extends State<AreaScreen> {
     final ValueNotifier<Matrix4> notifier = ValueNotifier(Matrix4.identity());
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: getAppBar(UserInfo.area.title),
+      appBar: getAppBar(UserInfo.area.title, context),
       body: MatrixGestureDetector(
         onMatrixUpdate: (m, tm, sm, rm) {
           notifier.value = m;

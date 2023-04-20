@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lnu_navigator/screens/widgets/global/appBars.dart';
+import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/text_inputs/main_text_input.dart';
 import 'package:lnu_navigator/screens/widgets/text_inputs/text_input.dart';
 
@@ -33,7 +33,7 @@ class _ListRoomsScreenState extends State<ListRoomsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBar("Rooms"),
+        appBar: getAppBar("Rooms", context),
         body: Container(
           decoration: BoxDecoration(
             image: AppImages.backgroundImage,

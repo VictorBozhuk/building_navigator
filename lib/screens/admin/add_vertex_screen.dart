@@ -4,7 +4,7 @@ import 'package:lnu_navigator/screens/widgets/buttons/main_button.dart';
 
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
-import '../widgets/global/appBars.dart';
+import '../widgets/app_bars/app_bars.dart';
 import '../widgets/swithes/main_switch.dart';
 import '../widgets/text_inputs/main_text_input.dart';
 import '../widgets/texts/main_text.dart';
@@ -48,7 +48,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBar('Vertex editing'),
+        appBar: getAppBar('Vertex editing', context),
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
