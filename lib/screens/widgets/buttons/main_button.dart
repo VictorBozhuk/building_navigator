@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/widgets/buttons/component_button.dart';
 
+import '../../../styles/appTheme.dart';
 import 'new_elevated_button.dart';
 
 class MainButton extends StatelessWidget{
@@ -10,14 +11,17 @@ class MainButton extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 50,
-        width: MediaQuery.of(context).size.width - 20,
-        margin: const EdgeInsets.only(top: 30),
-        child: NewElevatedButton(
-          title: title,
-          onPressed: onPressed,
-        )
+    return SizedBox(
+      height: 50,
+      width: double.infinity,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: AppTheme.buttonColor
+        ),
+        onPressed: onPressed,
+        child: Text(title,
+            style: Theme.of(context).textTheme.bodyLarge),
+      ),
     );
   }
 }
