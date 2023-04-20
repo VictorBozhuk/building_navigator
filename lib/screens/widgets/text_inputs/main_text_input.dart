@@ -22,9 +22,7 @@ class MainTextInput extends StatelessWidget {
         margin: const EdgeInsets.all(10),
         child: TextInput(
             inputController: inputController,
-            hint: hint,
-            label: label,
-            onChanged: onChanged)
+            hint: hint,)
     );
   }
 }
