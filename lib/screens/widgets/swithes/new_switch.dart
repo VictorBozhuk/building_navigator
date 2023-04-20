@@ -12,7 +12,7 @@ class NewSwitch extends StatelessWidget{
   Widget build(BuildContext context) {
    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
      children: [
-       Text(title, style: textStyleMainNormalText),
+       Text(title, style: Theme.of(context).textTheme.bodyMedium),
        Switch(
          trackColor: MaterialStateProperty.all(Colors.black38),
          activeColor: Colors.green.withOpacity(0.4),
