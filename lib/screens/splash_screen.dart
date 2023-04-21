@@ -15,7 +15,7 @@ class _SplashState extends State<Splash> {
     Future.delayed(const Duration(milliseconds: 500), () {
       //Navigator.push(context,MaterialPageRoute(builder: (context) => ListBuildingsAdminScreen()));
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const ListBuildingsPage()));
+          MaterialPageRoute(builder: (context) => ListBuildingsPage()));
     });
     super.initState();
   }

@@ -52,7 +52,7 @@ class NewNavigationDrawer extends StatelessWidget {
             title: const Text('Buildings', style: textStyleMainNormalDrawerText,),
             onTap: () =>{
               Navigator.push(context, MaterialPageRoute(builder: (context)
-              => const ListBuildingsPage()))}
+              => ListBuildingsPage()))}
           ),
           ListTile(
             leading:  const Icon(Icons.image_search),

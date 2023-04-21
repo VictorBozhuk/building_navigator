@@ -2,6 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/building_model.dart';
 
 class DatabaseService {
+
+  static CollectionReference<Map<String, dynamic>> getCollection(){
+    return FirebaseFirestore.instance.collection('buildings');
+  }
   static CollectionReference buildingConnection = FirebaseFirestore.instance.collection('buildings');
 
   static Future addOrUpdateBuilding(Building building) async {
@@ -16,5 +20,10 @@ class DatabaseService {
   {
     return buildingConnection.snapshots().map((data) => data.docs.map((doc) =>
         Building.fromJson(doc.data() as Map<String, dynamic>)).toList());
+  }
+
+  static Future<List<Building>> getAll() {
+    return getCollection().snapshots().map((data) => data.docs.map((doc) =>
+        Building.fromJson(doc.data())).toList()).first;
   }
 }
