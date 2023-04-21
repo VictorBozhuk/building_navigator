@@ -11,7 +11,6 @@ import '../models/building_model.dart';
 import '../models/path_model.dart';
 import '../models/user_info.dart';
 import '../services/database.dart';
-import 'building_screen.dart';
 import 'list_areas_screen.dart';
 
 class ListBuildingsPage extends StatefulWidget{

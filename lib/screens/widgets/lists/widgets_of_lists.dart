@@ -6,7 +6,6 @@ import '../../../styles/text_styles/text_styles.dart';
 import '../../../models/area_model.dart';
 import '../../../models/building_model.dart';
 import '../../../models/room_model.dart';
-import '../../building_screen.dart';
 
 
 class BuildingCard extends StatelessWidget {
