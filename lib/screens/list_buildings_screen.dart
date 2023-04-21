@@ -12,6 +12,7 @@ import '../models/path_model.dart';
 import '../models/user_info.dart';
 import '../services/database.dart';
 import 'building_screen.dart';
+import 'list_areas_screen.dart';
 
 class ListBuildingsPage extends StatefulWidget{
 
@@ -60,8 +61,14 @@ class _ListBuildingsPageState extends State<ListBuildingsPage> {
       {
         UserInfo.building = buildings[index],
         PathInfo.building = buildings[index],
-        Navigator.push(context, MaterialPageRoute(builder:
-            (context) => const BuildingPage()))}
-      );
+        PathInfo.isWalk = true,
+        PathInfo.clear(),
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder:
+                (context) => const ListAreasScreen()))
+
+      }
+    );
   }
 }

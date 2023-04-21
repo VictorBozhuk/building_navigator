@@ -6,6 +6,7 @@ import '../../styles/images.dart';
 import '../models/path_model.dart';
 import '../models/user_info.dart';
 import 'area_screen.dart';
+import 'find_path.dart';
 
 class ListAreasScreen extends StatelessWidget{
   const ListAreasScreen({super.key});
@@ -13,7 +14,16 @@ class ListAreasScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar("Areas", context),
+      appBar: getAppBarWithIcon("Areas", context, onTap: () {
+        PathInfo.clear();
+        PathInfo.isWalk = false;
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder:
+                (context) => FindPathPage(building: UserInfo.building)));
+      },
+      icon: Icons.search
+      ),
       body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
