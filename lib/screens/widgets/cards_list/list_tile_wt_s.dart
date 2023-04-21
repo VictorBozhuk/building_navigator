@@ -19,8 +19,7 @@ class ListTileWTS extends StatelessWidget {
     return Container(
       decoration: MainDecoration.getListTileDecoration(context),
       child: ListTile(
-        leading: Padding(padding: const EdgeInsets.only(top: 10),
-          child: leadingIcon,),
+        leading: leadingIcon,
         title: Text(title, style: Theme.of(context).textTheme.bodyLarge),
         onTap: () => onTap(),
         onLongPress: () => onLongPress(),

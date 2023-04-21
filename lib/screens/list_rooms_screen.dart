@@ -72,7 +72,7 @@ class _ListRoomsScreenState extends State<ListRoomsScreen> {
 
   Widget getItemBuilder(int index){
     return ListTileWTS(
-      leadingIcon: const Icon(Icons.room),
+      leadingIcon: Icon(Icons.room, color: Theme.of(context).iconTheme.color),
       title: rooms[index].title,
       onTap: () => onTap(index),
     );
