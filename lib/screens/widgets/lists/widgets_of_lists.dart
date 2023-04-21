@@ -46,33 +46,37 @@ class BuildingCard extends StatelessWidget {
 }
 
 class AreaCard extends StatelessWidget {
-  final Area _area;
-  const AreaCard( this._area, {super.key});
+  final Area area;
+  late Function onTap;
+  AreaCard({super.key, required this.area, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        color: Colors.transparent,
-        child: Container(
-          color: Colors.indigo.withOpacity(0.7),
-          child: Column(
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10)),
-                  child: Image(fit: BoxFit.fitWidth, image: NetworkImage(_area.imagePath)),),
-                Container(
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15))),
-                    margin: const EdgeInsets.only(top: 10, bottom: 10),
-                    child:
-                    Text(_area.title,
-                        style: textStyleCardTitle)
-                )
-              ]
-          ) ,
-        )
+    return GestureDetector(
+        child: Card(
+          color: Colors.transparent,
+          child: Container(
+            color: Colors.indigo.withOpacity(0.7),
+            child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10)),
+                    child: Image(fit: BoxFit.fitWidth, image: NetworkImage(area.imagePath)),),
+                  Container(
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      margin: const EdgeInsets.only(top: 10, bottom: 10),
+                      child:
+                      Text(area.title,
+                          style: textStyleCardTitle)
+                  )
+                ]
+            ) ,
+          ),
+        ),
+      onTap: () => onTap(),
     );
   }
 }

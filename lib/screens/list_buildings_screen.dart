@@ -65,7 +65,7 @@ class _ListBuildingsPageState extends State<ListBuildingsPage> {
         Navigator.push(
             context,
             MaterialPageRoute(builder:
-                (context) => const ListAreasScreen()))
+                (context) => ListAreasScreen()))
 
       }
     );

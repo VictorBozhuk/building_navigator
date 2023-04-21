@@ -87,7 +87,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
                   AdminInfo.isCreateAreaConnection = true;
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) =>
-                          const ListAreasAdminScreen()
+                          ListAreasAdminScreen()
                       ));
                 }),
               if(widget.isAreaConnection == true)

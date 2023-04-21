@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/splash_screen.dart';
+import 'package:lnu_navigator/styles/appTheme.dart';
 
 class BuildingNavigator extends StatelessWidget {
   const BuildingNavigator({Key? key}) : super(key: key);
@@ -8,9 +9,7 @@ class BuildingNavigator extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: AppTheme.theme,
       home: const Splash()
     );
   }
