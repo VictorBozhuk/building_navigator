@@ -6,68 +6,68 @@ import '../../models/admin_info.dart';
 import '../../models/building_model.dart';
 import '../../services/database.dart';
 import '../widgets/app_bars/app_bars.dart';
+import '../widgets/containers/main_container.dart';
 import '../widgets/drawer/navigation_drawer.dart';
+import '../widgets/indicators/background_indicator.dart';
+import '../widgets/lists/list_separated.dart';
 import '../widgets/lists/widgets_of_lists.dart';
 import 'add_building_screen.dart';
 
-class ListBuildingsAdminScreen extends StatelessWidget{
-  const ListBuildingsAdminScreen({super.key});
+class ListBuildingsAdminScreen extends StatefulWidget{
+
+  ListBuildingsAdminScreen({super.key});
+
+  @override
+  State<ListBuildingsAdminScreen> createState() => _ListBuildingsAdminScreenState();
+}
+
+class _ListBuildingsAdminScreenState extends State<ListBuildingsAdminScreen> {
+  late List<Building> buildings;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        drawer: const NewNavigationDrawer(),
+    return Scaffold(
         appBar: getAppBarWithIcon("Buildings", context, onTap: () => {
           Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const AddBuildingScreen()))
         }),
-        body: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              image: AppImages.backgroundImage,
-            ),
-            child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: DatabaseService.getBuildingSnapshots(),
-                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasError) {
-                      return const Text('Something went wrong');
-                    }
+        drawer: const NewNavigationDrawer(),
+        body: FutureBuilder<List<Building>>(
+            future: getBuildings(),
+            builder: (context, AsyncSnapshot<List<Building>> snapshot) {
+              if (snapshot.hasData) {
+                return MainContainer(
+                    child: Padding(padding: const EdgeInsets.only(top: 5), child:
+                    ListSeparated(
+                      itemBuilder: getItemBuilder,
+                      length: buildings.length,
+                    ),
+                    )
+                );
+              } else {
+                return const BackgroundIndicator();
+              }
+            }
+        )
+    );
+  }
 
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Text("Loading");
-                    }
+  Future<List<Building>> getBuildings() async {
+    return buildings = await DatabaseService.getAll();
+  }
 
-                    return ListView.separated(
-                      separatorBuilder: (BuildContext context, int index) => const Divider(),
-                      itemBuilder: (buildContext, index){
-                        Building building = Building.fromJson(snapshot.data!.docs[index].data() as Map<String, dynamic>);
-                        return GestureDetector(
-                          child: BuildingCard(building),
-                          onTap: () =>
-                          {
-                            AdminInfo.clearBuilding(),
-                            AdminInfo.building = building,
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const AddBuildingScreen()))},
-                        );
-                      },
-                      itemCount:  snapshot.data?.docs.length ?? 0,
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.all(5),
-                      scrollDirection: Axis.vertical,
-                    );
-                  },
-                )
-            )
-        ),
-      ),
+  Widget getItemBuilder(int index){
+    return BuildingCard(
+        building: buildings[index],
+        onTap: () =>
+        {
+          AdminInfo.clearBuilding(),
+          AdminInfo.building = buildings[index],
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AddBuildingScreen()))
+        }
     );
   }
 }

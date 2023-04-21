@@ -65,7 +65,7 @@ class _AddBuildingScreenState extends State<AddBuildingScreen> {
                   Navigator.pop(context);
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) =>
-                          const ListBuildingsAdminScreen()
+                          ListBuildingsAdminScreen()
                       ));
                 },
               ),
