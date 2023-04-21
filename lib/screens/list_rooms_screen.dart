@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
+import 'package:lnu_navigator/screens/widgets/cards_list/list_tile_wt_s.dart';
+import 'package:lnu_navigator/screens/widgets/containers/main_container.dart';
+import 'package:lnu_navigator/screens/widgets/indicators/background_indicator.dart';
+import 'package:lnu_navigator/screens/widgets/lists/list_separated.dart';
 import 'package:lnu_navigator/screens/widgets/text_inputs/main_text_input.dart';
+import 'package:lnu_navigator/screens/widgets/text_inputs/search_text_field.dart';
 import 'package:lnu_navigator/screens/widgets/text_inputs/text_input.dart';
 
 import '../styles/images.dart';
@@ -20,58 +25,64 @@ class ListRoomsScreen extends StatefulWidget {
 
 class _ListRoomsScreenState extends State<ListRoomsScreen> {
   late List<Room> rooms;
-  _ListRoomsScreenState(){
+  TextEditingController txtRoom = TextEditingController();
+  @override
+  void initState() {
     rooms = getRoomsOfBuildingByTitle(UserInfo.building, '');
-  }
-
-  TextEditingController txtSelectedRoom = TextEditingController();
-  _changeSelectedRoom(String text){
-    setState(() => {
-      rooms = getRoomsOfBuildingByTitle(UserInfo.building, text),
+    txtRoom.addListener(() {
+      setState(() => {
+        rooms = getRoomsOfBuildingByTitle(UserInfo.building, txtRoom.text),
+      });
     });
+    super.initState();
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: getAppBar("Rooms", context),
-        body: Container(
-          decoration: BoxDecoration(
-            image: AppImages.backgroundImage,
-          ),
+        body: MainContainer(
           child: Column(
             children: [
-              MainTextInput(
-                  inputController: txtSelectedRoom,
-                  hint: "Room",
-                  label: "",
-                  onChanged: _changeSelectedRoom
-              ),
-              Expanded(child:
-                ListView.separated(
-                  itemBuilder: (buildContext, index){
-                    return ListTile(
-                      leading: const Icon(Icons.room, color: Colors.white,),
-                      title: Text(rooms[index].title,
-                          style: textStyleListOfTitles),
-                      onTap: () => {
-                        PathInfo.isWalk = false,
-                        PathInfo.setDestination(rooms[index]),
-                        PathInfo.setPath(PathInfo.building),
-                        Navigator.pop(context),
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AreaScreen())),
-                      },
-                    );
-                  },
-                  separatorBuilder: (buildContext,index) => const Divider(height: 1),
-                  itemCount: rooms.length,
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(5),
-                  scrollDirection: Axis.vertical,
-                ),
+              SearchInput(inputController: txtRoom, hint: "Search",),
+              Expanded(child: FutureBuilder<List<Room>>(
+                  future: getRooms(),
+                  builder: (context, AsyncSnapshot<List<Room>> snapshot) {
+                    if (snapshot.hasData) {
+                      return Padding(padding: const EdgeInsets.only(top: 5), child:
+                        ListSeparated(
+                          itemBuilder: getItemBuilder,
+                          length: rooms.length,
+                        ),
+                      );
+                    } else {
+                      return const BackgroundIndicator();
+                    }
+                  }
+                )
               )
             ],
           ),
         )
     );
+  }
+
+  Future<List<Room>> getRooms() async {
+    return rooms;
+  }
+
+  Widget getItemBuilder(int index){
+    return ListTileWTS(
+      leadingIcon: const Icon(Icons.room),
+      title: rooms[index].title,
+      onTap: () => onTap(index),
+    );
+  }
+
+  void onTap(int index){
+    PathInfo.isWalk = false;
+    PathInfo.setDestination(rooms[index]);
+    PathInfo.setPath(PathInfo.building);
+    Navigator.pop(context);
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AreaScreen()));
   }
 }
