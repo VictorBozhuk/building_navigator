@@ -6,14 +6,10 @@ class MainTextInput extends StatelessWidget {
     Key? key,
     required this.inputController,
     required this.hint,
-    required this.label,
-    required this.onChanged,
   }) : super(key: key);
 
   final TextEditingController inputController;
   final String hint;
-  final String label;
-  final Function(String) onChanged;
 
   @override
   Widget build(BuildContext context) {

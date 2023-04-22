@@ -66,8 +66,6 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
               MainTextInput(
                 inputController: txtTitle,
                 hint: "Title",
-                label: AdminInfo.room.title,
-                onChanged: _changeTitle,
               ),
               Row(children: [
                   Text("FontSize: ${widget.room.fontSize.toInt().toString()}",

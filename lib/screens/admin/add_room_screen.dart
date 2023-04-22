@@ -42,8 +42,6 @@ class AddRoomScreenState extends State<AddRoomScreen> {
               MainTextInput(
                 inputController: txtTitle,
                 hint: "Title",
-                label: AdminInfo.room.title,
-                onChanged: _changeTitle,
               ),
               MainButton(
                 title: "Set coordinates",

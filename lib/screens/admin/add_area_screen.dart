@@ -46,20 +46,14 @@ class AddAreaScreenState extends State<AddAreaScreen> {
                 MainTextInput(
                     inputController: txtTitle,
                     hint: "Title",
-                    label: AdminInfo.area.title,
-                    onChanged: _changeTitle
                 ),
                 MainTextInput(
                     inputController: txtScale,
                     hint: "Count pixels in one meter",
-                    label: AdminInfo.area.countOfPixelsInMeter.toString(),
-                    onChanged: _changeScale
                 ),
                 MainTextInput(
                     inputController: txtImagePath,
                     hint: "Photo",
-                    label: AdminInfo.area.imagePath,
-                    onChanged: _changeImagePath
                 ),
                 MainButton(
                   title: 'Save',

@@ -61,14 +61,10 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
               MainTextInput(
                 inputController: txtTitle,
                 hint: "Title",
-                label: AdminInfo.selectedVertex?.title ?? '',
-                onChanged: _changeTitle,
               ),
               MainTextInput(
                 inputController: txtImagePath,
                 hint: "Photo",
-                label: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
-                onChanged: _changeImagePath,
               ),
               MainSwitch(
                 title: "Join area",
