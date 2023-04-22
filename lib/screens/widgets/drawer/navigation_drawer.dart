@@ -9,6 +9,7 @@ class NewNavigationDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Drawer(
+    backgroundColor: Theme.of(context).colorScheme.primary,
     child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -48,19 +49,19 @@ class NewNavigationDrawer extends StatelessWidget {
       child: Wrap(
         children: [
           ListTile(
-            leading:  const Icon(Icons.home_outlined),
+            leading: Icon(Icons.home_outlined, color: Theme.of(context).iconTheme.color),
             title: const Text('Buildings', style: textStyleMainNormalDrawerText,),
             onTap: () =>{
               Navigator.push(context, MaterialPageRoute(builder: (context)
               => ListBuildingsPage()))}
           ),
           ListTile(
-            leading:  const Icon(Icons.image_search),
+            leading: Icon(Icons.image_search, color: Theme.of(context).iconTheme.color),
             title: const Text('Room search', style: textStyleMainNormalDrawerText,),
             onTap: () {},
           ),
           ListTile(
-            leading: const Icon(Icons.admin_panel_settings),
+            leading: Icon(Icons.admin_panel_settings, color: Theme.of(context).iconTheme.color),
             title: const Text('Admin', style: textStyleMainNormalDrawerText),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context)

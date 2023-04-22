@@ -6,11 +6,11 @@ import '../../models/admin_info.dart';
 import '../../models/building_model.dart';
 import '../../services/database.dart';
 import '../widgets/app_bars/app_bars.dart';
+import '../widgets/cards_list/building_card.dart';
 import '../widgets/containers/main_container.dart';
 import '../widgets/drawer/navigation_drawer.dart';
 import '../widgets/indicators/background_indicator.dart';
 import '../widgets/lists/list_separated.dart';
-import '../widgets/lists/widgets_of_lists.dart';
 import 'add_building_screen.dart';
 
 class ListBuildingsAdminScreen extends StatefulWidget{

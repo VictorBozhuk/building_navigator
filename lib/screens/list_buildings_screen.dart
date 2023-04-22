@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
+import 'package:lnu_navigator/screens/widgets/cards_list/building_card.dart';
 import 'package:lnu_navigator/screens/widgets/containers/main_container.dart';
 import 'package:lnu_navigator/screens/widgets/drawer/navigation_drawer.dart';
 import 'package:lnu_navigator/screens/widgets/indicators/background_indicator.dart';
 import 'package:lnu_navigator/screens/widgets/lists/list_separated.dart';
-import 'package:lnu_navigator/screens/widgets/lists/widgets_of_lists.dart';
 import '../styles/images.dart';
 import '../models/building_model.dart';
 import '../models/path_model.dart';

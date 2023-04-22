@@ -4,7 +4,7 @@ import 'package:lnu_navigator/screens/admin/panorama_room_admin_screen.dart';
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
 import '../widgets/app_bars/app_bars.dart';
-import '../widgets/lists/widgets_of_lists.dart';
+import '../widgets/cards_list/list_tile_wt_s.dart';
 import 'add_room_screen.dart';
 
 class ListRoomsAdminScreen extends StatefulWidget {
@@ -38,17 +38,21 @@ class _ListRoomsAdminScreenState extends State<ListRoomsAdminScreen> {
               Expanded(child:
               ListView.separated(
                 itemBuilder: (buildContext, index){
-                  return buildRoomCard(AdminInfo.selectedVertex!.rooms![index],  () => {
-                    AdminInfo.clearRoom(),
-                    AdminInfo.room = AdminInfo.selectedVertex!.rooms![index],
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) =>
-                            PanoramaRoomAdminScreen(
-                                panoramaImagePath: AdminInfo.selectedVertex!.panoramaImagePath!,
-                                room: AdminInfo.room,
-                                isCreate: false))),
-                  });
+                  return ListTileWTS(
+                    title: AdminInfo.selectedVertex!.rooms![index].title,
+                    leadingIcon: Icon(Icons.room, color: Theme.of(context).iconTheme.color),
+                    onTap: () => {
+                      AdminInfo.clearRoom(),
+                      AdminInfo.room = AdminInfo.selectedVertex!.rooms![index],
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>
+                              PanoramaRoomAdminScreen(
+                                  panoramaImagePath: AdminInfo.selectedVertex!.panoramaImagePath!,
+                                  room: AdminInfo.room,
+                                  isCreate: false))),
+                    },
+                  );
                 },
                 separatorBuilder: (buildContext,index)
                 {
