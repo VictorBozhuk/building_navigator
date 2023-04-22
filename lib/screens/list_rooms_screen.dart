@@ -36,6 +36,12 @@ class _ListRoomsScreenState extends State<ListRoomsScreen> {
     });
     super.initState();
   }
+
+  @override
+  void dispose() {
+    txtRoom.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

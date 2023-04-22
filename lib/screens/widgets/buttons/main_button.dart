@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/widgets/buttons/component_button.dart';
 
 import '../../../styles/appTheme.dart';
-import 'new_elevated_button.dart';
 
 class MainButton extends StatelessWidget{
   final Function() onPressed;

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/panorama_screen.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
+import 'package:lnu_navigator/screens/widgets/buttons/main_button.dart';
+import 'package:lnu_navigator/screens/widgets/containers/main_container.dart';
+import 'package:lnu_navigator/screens/widgets/text_inputs/add_text_input.dart';
 
 import '../styles/images.dart';
 import '../algorithm_new/building_navigator.dart';
@@ -12,7 +15,6 @@ import 'list_rooms_screen.dart';
 
 class FindPathPage extends StatefulWidget{
   final Building building;
-  String sourceRoomTitle = '';
   FindPathPage({super.key, required this.building});
 
   @override
@@ -20,121 +22,51 @@ class FindPathPage extends StatefulWidget{
 }
 
 class FindPathPageState extends State<FindPathPage> {
-  FindPathPageState({Key? key});
+  String sourceRoomTitle = '';
 
   TextEditingController txtSource = TextEditingController();
   TextEditingController txtDestination = TextEditingController();
-  _changeSource(String text){
-    setState(() => widget.sourceRoomTitle = text);
+
+  @override
+  void initState() {
+    txtSource.addListener(() {
+      sourceRoomTitle = txtSource.text;
+    });
+    txtDestination.addListener(() {
+      PathInfo.destinationRoom?.title = txtDestination.text;
+    });
+    super.initState();
   }
-  _changeDestination(String text){
-    setState(() => PathInfo.destinationRoom?.title = text);
+
+  @override
+  void dispose() {
+    txtSource.dispose();
+    txtDestination.dispose();
+    super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getAppBar('Find room', context),
-      body: Container(
-        decoration: BoxDecoration(
-          image: AppImages.backgroundImage,
-        ),
-        child:       Column(
+      body: MainContainer(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              height: 60,
-              margin: const EdgeInsets.all(10),
-              child: TextFormField(
-                  controller: txtSource,
-                  decoration: InputDecoration(
-                    hoverColor: Colors.white,
-                      fillColor: Colors.white,
-                      focusColor: Colors.white,
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          color: Colors.blue,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          color: Colors.blue,
-                          width: 2.0,
-                        ),
-                      ),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                      hintStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
-                      hintText: "Current room",
-                      suffixIcon: IconButton(
-                        onPressed: () => Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => ListRoomsScreen())),
-                        icon: const Icon(Icons.add, color: Colors.white,),
-                        iconSize: 40,
-                      )
-                  ),
-                  style: const TextStyle(fontSize: 22, color: Colors.white),
-
-                  onChanged: _changeSource),
-            ),
-            Container(
-              height: 60,
-              margin: const EdgeInsets.all(10),
-              child: TextFormField(
-                  controller: txtDestination,
-                  decoration: InputDecoration(
-                      hoverColor: Colors.white,
-                      fillColor: Colors.white,
-                      focusColor: Colors.white,
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          color: Colors.blue,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          color: Colors.blue,
-                          width: 2.0,
-                        ),
-                      ),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                      hintStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
-                      hintText: "Destination",
-                      suffixIcon: IconButton(
-                        onPressed: () => Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => const ListRoomsScreen())),
-                        icon: const Icon(Icons.add, color: Colors.white,),
-                        iconSize: 40,
-                      )
-                  ),
-                  style: const TextStyle(fontSize: 22, color: Colors.white),
-
-                  onChanged: _changeDestination),
-            ),
-            Container(
-                height: 50,
-                width: MediaQuery.of(context).size.width - 20,
-                margin: const EdgeInsets.only(top: 10),
-                child: ElevatedButton(
-                  child: const Text('Search', style: TextStyle(
-                    fontSize: 22,
-                  )),
-                  onPressed: () {
-                    setPath(widget.building);
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) =>
-                            PanoramaScreen(
-                                currentVertex: PathInfo.currentVertex!,
-                                nextVertex: PathInfo.destinationRoom!.vertex)));
-                  },
-                )
-              ),
+            AddInput(inputController: txtSource, hint: "Current room", onSuffixTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ListRoomsScreen()))),
+            AddInput(inputController: txtDestination, hint: "Destination", onSuffixTap: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ListRoomsScreen()))),
+            MainButton(title: "Search", onPressed: () {
+              setPath(widget.building);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) =>
+                      PanoramaScreen(
+                          currentVertex: PathInfo.currentVertex!,
+                          nextVertex: PathInfo.destinationRoom!.vertex)));
+            },),
           ],),
       )
-
-
     );
   }
 
