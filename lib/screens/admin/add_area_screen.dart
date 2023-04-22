@@ -4,6 +4,8 @@ import '../../styles/images.dart';
 import '../../models/admin_info.dart';
 import '../widgets/app_bars/app_bars.dart';
 import '../widgets/buttons/main_button.dart';
+import '../widgets/containers/main_container.dart';
+import '../widgets/paddings/main_padding.dart';
 import '../widgets/text_inputs/main_text_input.dart';
 import 'add_vertexes_to_area_screen.dart';
 import 'list_areas_admin_screen.dart';
@@ -16,31 +18,40 @@ class AddAreaScreen extends StatefulWidget{
 }
 
 class AddAreaScreenState extends State<AddAreaScreen> {
-  AddAreaScreenState({Key? key});
+  TextEditingController txtTitle = TextEditingController();
+  TextEditingController txtScale = TextEditingController();
+  TextEditingController txtImagePath = TextEditingController();
 
-  TextEditingController txtTitle = TextEditingController(text: AdminInfo.area.title);
-  TextEditingController txtScale = TextEditingController(text: AdminInfo.area.countOfPixelsInMeter.toString());
-  TextEditingController txtImagePath = TextEditingController(text: AdminInfo.area.imagePath);
-  _changeTitle(String text){
-    setState(() => AdminInfo.area.title = text);
+  @override
+  void initState() {
+    txtTitle.text = AdminInfo.building.title;
+    txtTitle.addListener(() {
+      AdminInfo.building.title = txtTitle.text;
+    });
+    txtScale.text = AdminInfo.area.countOfPixelsInMeter.toString();
+    txtScale.addListener(() {
+      AdminInfo.area.countOfPixelsInMeter = int.parse(txtScale.text);
+    });
+    txtImagePath.text = AdminInfo.building.imagePath;
+    txtImagePath.addListener(() {
+      AdminInfo.building.imagePath = txtImagePath.text;
+    });
+    super.initState();
   }
-  _changeScale(String text){
-    setState(() => AdminInfo.area.countOfPixelsInMeter = int.parse(text));
-  }
-  _changeImagePath(String text){
-    setState(() => AdminInfo.area.imagePath = text);
+
+  @override
+  void dispose() {
+    txtTitle.dispose();
+    txtScale.dispose();
+    txtImagePath.dispose();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: getAppBar('Editing area', context),
-        body: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-              image: AppImages.backgroundImage,
-            ),
-            child: SingleChildScrollView(child: Column(
+        body: MainContainer(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 MainTextInput(
@@ -55,31 +66,35 @@ class AddAreaScreenState extends State<AddAreaScreen> {
                     inputController: txtImagePath,
                     hint: "Photo",
                 ),
-                MainButton(
-                  title: 'Save',
-                  onPressed: () {
-                    if(widget.isCreate == true){
-                      AdminInfo.building.areas.add(AdminInfo.area);
-                      Navigator.pop(context);
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) =>
-                              ListAreasAdminScreen()
-                          ));
-                    }
-                    else {
-                      var area = AdminInfo.building.areas.firstWhere((x) => x.uid == AdminInfo.area.uid);
-                      area.title = AdminInfo.area.title;
-                      area.imagePath = AdminInfo.area.imagePath;
-                      Navigator.pop(context);
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) =>
-                              AddVertexesToAreaScreen()
-                          ));
-                    }
-                  }
+                MainPadding(
+                  child: MainButton(
+                    title: 'Save',
+                    onPressed: onSave
+                  ),
                 ),
-              ],),)
+              ],),
         )
     );
+  }
+
+  void onSave(){
+    if(widget.isCreate == true){
+      AdminInfo.building.areas.add(AdminInfo.area);
+      Navigator.pop(context);
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) =>
+              ListAreasAdminScreen()
+          ));
+    }
+    else {
+      var area = AdminInfo.building.areas.firstWhere((x) => x.uid == AdminInfo.area.uid);
+      area.title = AdminInfo.area.title;
+      area.imagePath = AdminInfo.area.imagePath;
+      Navigator.pop(context);
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) =>
+              AddVertexesToAreaScreen()
+          ));
+    }
   }
 }

@@ -20,8 +20,8 @@ class AddBuildingScreen extends StatefulWidget{
 }
 
 class _AddBuildingScreenState extends State<AddBuildingScreen> {
-  TextEditingController txtTitle = TextEditingController(text: AdminInfo.building.title);
-  TextEditingController txtImagePath = TextEditingController(text: AdminInfo.building.imagePath);
+  TextEditingController txtTitle = TextEditingController();
+  TextEditingController txtImagePath = TextEditingController();
 
   @override
   void initState() {
