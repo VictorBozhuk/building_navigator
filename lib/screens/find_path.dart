@@ -3,6 +3,7 @@ import 'package:lnu_navigator/screens/panorama_screen.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/buttons/main_button.dart';
 import 'package:lnu_navigator/screens/widgets/containers/main_container.dart';
+import 'package:lnu_navigator/screens/widgets/paddings/main_padding.dart';
 import 'package:lnu_navigator/screens/widgets/text_inputs/add_text_input.dart';
 
 import '../styles/images.dart';
@@ -57,14 +58,16 @@ class FindPathPageState extends State<FindPathPage> {
                   MaterialPageRoute(builder: (context) => ListRoomsScreen()))),
             AddInput(inputController: txtDestination, hint: "Destination", onSuffixTap: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ListRoomsScreen()))),
-            MainButton(title: "Search", onPressed: () {
-              setPath(widget.building);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) =>
-                      PanoramaScreen(
-                          currentVertex: PathInfo.currentVertex!,
-                          nextVertex: PathInfo.destinationRoom!.vertex)));
-            },),
+            MainPadding(child:
+              MainButton(title: "Search", onPressed: () {
+                setPath(widget.building);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>
+                        PanoramaScreen(
+                            currentVertex: PathInfo.currentVertex!,
+                            nextVertex: PathInfo.destinationRoom!.vertex)));
+              },),
+            ),
           ],),
       )
     );

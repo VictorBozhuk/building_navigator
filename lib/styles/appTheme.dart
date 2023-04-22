@@ -4,6 +4,7 @@ import 'helper/custom_material_color.dart';
 
 class AppTheme {
   static const Color iconColorDark = Colors.grey;
+  static const Color imageBackground = Colors.white;
   static const Color buttonColor = Color.fromRGBO(60, 60, 60, 1);
   static const Color foreground = Colors.white;
 
