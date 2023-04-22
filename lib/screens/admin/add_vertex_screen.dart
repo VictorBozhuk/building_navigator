@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/admin/panorama_vertex_admin_screen.dart';
 import 'package:lnu_navigator/screens/widgets/buttons/main_button.dart';
+import 'package:lnu_navigator/screens/widgets/paddings/main_padding.dart';
 
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
 import '../widgets/app_bars/app_bars.dart';
+import '../widgets/containers/main_container.dart';
 import '../widgets/swithes/main_switch.dart';
 import '../widgets/text_inputs/main_text_input.dart';
 import '../widgets/texts/main_text.dart';
@@ -20,7 +22,8 @@ class AddVertexScreen extends StatefulWidget{
 }
 
 class _AddVertexScreenState extends State<AddVertexScreen> {
-
+  TextEditingController txtTitle = TextEditingController();
+  TextEditingController txtImagePath = TextEditingController();
   @override
   void initState(){
     super.initState();
@@ -33,28 +36,30 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
             => x.nextVertex.areaConnection != null).nextVertex;
       AdminInfo.areaConnection = AdminInfo.selectedVertexOnOtherArea!.areaConnection!;
     }
+
+    txtTitle.text = AdminInfo.building.title;
+    txtTitle.addListener(() {
+      AdminInfo.building.title = txtTitle.text;
+    });
+
+    txtImagePath.text = AdminInfo.building.imagePath;
+    txtImagePath.addListener(() {
+      AdminInfo.building.imagePath = txtImagePath.text;
+    });
   }
 
-  TextEditingController txtTitle = TextEditingController(
-      text: AdminInfo.selectedVertex?.title);
-  TextEditingController txtImagePath = TextEditingController(
-      text: AdminInfo.selectedVertex?.panoramaImagePath);
-  _changeTitle(String text){
-    setState(() => AdminInfo.selectedVertex?.title = text);
+  @override
+  void dispose() {
+    txtTitle.dispose();
+    txtImagePath.dispose();
+    super.dispose();
   }
-  _changeImagePath(String text){
-    setState(() => AdminInfo.selectedVertex?.panoramaImagePath = text);
-  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: getAppBar('Vertex editing', context),
-        body: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            image: AppImages.backgroundImage,
-          ),
+        body: MainContainer(
           child: SingleChildScrollView(child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -77,76 +82,97 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
               if(widget.isAreaConnection == true)
                 MainText(text: "Vertex: ${AdminInfo.selectedVertexOnOtherArea?.title}"),
               if(widget.isAreaConnection == true)
-                MainButton(
-                    title: "Join area",
-                    onPressed: () {
-                  AdminInfo.isCreateAreaConnection = true;
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) =>
-                          ListAreasAdminScreen()
-                      ));
-                }),
+                MainPadding(
+                  child: MainButton(
+                      title: "Join area",
+                      onPressed: onJoinArea
+                  ),
+                ),
               if(widget.isAreaConnection == true)
-                MainButton(
-                    title: "Set coordinates",
-                    onPressed: () {
-                      if(AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex.uid == AdminInfo.selectedVertexOnOtherArea!.uid)){
-                        AdminInfo.connection = AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x)
-                        => x.nextVertex.uid == AdminInfo.selectedVertexOnOtherArea!.uid);
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) =>
-                                PanoramaVertexAdminScreen(
-                                  isCreate: false,
-                                  panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
-                                  connection: AdminInfo.connection,
-                                )
-                            ));
-                      }
-                      else{
-                        AdminInfo.clearConnection();
-                        AdminInfo.secondSelectedVertex = AdminInfo.selectedVertexOnOtherArea;
-                        //AdminInfo.secondSelectedVertex?.isAreaConnection = true;
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) =>
-                                PanoramaVertexAdminScreen(
-                                  isCreate: true,
-                                  panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
-                                  connection: AdminInfo.connection,
-                                )
-                            ));
-                      }
-
-                    }),
-              MainButton(
+                MainPadding(
+                  child: MainButton(
+                      title: "Set coordinates",
+                      onPressed: onSetCoordinates
+                  ),
+                ),
+              MainPadding(
+                child: MainButton(
                   title: "Rooms",
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) =>
-                            const ListRoomsAdminScreen()
-                        ));
-                  }),
-              MainButton(
+                  onPressed: onRooms
+                ),
+              ),
+              MainPadding(
+                child: MainButton(
                   title: "Save",
-                  onPressed: () {
-                    var editedVertex = AdminInfo.area.vertexes?.firstWhere((x) => x.uid == AdminInfo.selectedVertex?.uid);
-                    editedVertex?.title = AdminInfo.selectedVertex?.title;
-                    editedVertex?.panoramaImagePath = AdminInfo.selectedVertex?.panoramaImagePath;
-                    editedVertex?.rooms = AdminInfo.selectedVertex?.rooms;
-                    if(AdminInfo.selectedVertex!.areaConnection != null)
-                    {
-                      //var connection = VertexConnection(nextVertex, direction, iconX, iconY, iconSize, iconPath, length)
-                      //edited_vertex?.vertexConnections?.add(AdminInfo.selectedVertexOnOtherArea)
-                    }
-                    AdminInfo.clearAreaConnection();
-                    Navigator.pop(context);
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) =>
-                            AddVertexesToAreaScreen()
-                        ));
-                  }),
-            ],),)
-        )
+                  onPressed: onSave
+                ),
+              ),
+            ],),
+          ),
+        ),
     );
+  }
+  
+  void onJoinArea(){
+    AdminInfo.isCreateAreaConnection = true;
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) =>
+            ListAreasAdminScreen()
+        ));
+  }
+  
+  void onSetCoordinates(){
+    if(AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex.uid == AdminInfo.selectedVertexOnOtherArea!.uid)){
+      AdminInfo.connection = AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x)
+      => x.nextVertex.uid == AdminInfo.selectedVertexOnOtherArea!.uid);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) =>
+              PanoramaVertexAdminScreen(
+                isCreate: false,
+                panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
+                connection: AdminInfo.connection,
+              )
+          ));
+    }
+    else{
+      AdminInfo.clearConnection();
+      AdminInfo.secondSelectedVertex = AdminInfo.selectedVertexOnOtherArea;
+      //AdminInfo.secondSelectedVertex?.isAreaConnection = true;
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) =>
+              PanoramaVertexAdminScreen(
+                isCreate: true,
+                panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
+                connection: AdminInfo.connection,
+              )
+          ));
+    }
+
+  }
+  
+  void onRooms(){
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) =>
+        const ListRoomsAdminScreen()
+        ));
+  }
+  
+  void onSave(){
+    var editedVertex = AdminInfo.area.vertexes?.firstWhere((x) => x.uid == AdminInfo.selectedVertex?.uid);
+    editedVertex?.title = AdminInfo.selectedVertex?.title;
+    editedVertex?.panoramaImagePath = AdminInfo.selectedVertex?.panoramaImagePath;
+    editedVertex?.rooms = AdminInfo.selectedVertex?.rooms;
+    if(AdminInfo.selectedVertex!.areaConnection != null)
+    {
+      //var connection = VertexConnection(nextVertex, direction, iconX, iconY, iconSize, iconPath, length)
+      //edited_vertex?.vertexConnections?.add(AdminInfo.selectedVertexOnOtherArea)
+    }
+    AdminInfo.clearAreaConnection();
+    Navigator.pop(context);
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) =>
+            AddVertexesToAreaScreen()
+        ));
   }
 }
 
