@@ -2,16 +2,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/admin/panorama_vertex_admin_screen.dart';
 import '../../models/picture_size_model.dart';
+import '../../styles/appTheme.dart';
 import '../../styles/text_styles/text_styles.dart';
 import '../../models/admin_info.dart';
 import '../../models/vertex_model.dart';
 import '../actions/actions.dart';
 import '../widgets/app_bars/app_bars.dart';
 import '../widgets/building_widgets.dart';
+import '../widgets/buttons/arrow_button.dart';
 import '../widgets/buttons/main_button.dart';
+import '../widgets/buttons/small_button.dart';
 import '../widgets/figures/circle.dart';
 import '../widgets/figures/line.dart';
 
+import '../widgets/paddings/main_padding.dart';
 import '../widgets/transformation/matrix_gesture_detector.dart';
 import 'add_area_screen.dart';
 import 'add_vertex_screen.dart';
@@ -49,13 +53,13 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
   Widget build(BuildContext context) {
     final ValueNotifier<Matrix4> notifier = ValueNotifier(Matrix4.identity());
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppTheme.imageBackground,
         appBar: getAppBarWithIcon(
             AdminInfo.area.title,
             context,
             onTap: () => {
-          Navigator.push(context, MaterialPageRoute(builder:
-              (context) => const AddAreaScreen(isCreate: false)))
+              Navigator.push(context, MaterialPageRoute(builder:
+                  (context) => const AddAreaScreen(isCreate: false)))
         }, icon: Icons.edit),
         body: Column(children: [
           Expanded(
@@ -95,111 +99,145 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
               ),
             ),
           ),
-          Container(
-            alignment: Alignment.center,
-            child: PositionChangerButton(title: "+",
-              onPressed: () {
-                setState(() async {
-                  AdminInfo.selectedVertex?.pointY
-                  = AdminInfo.selectedVertex!.pointY! - 1;
-                  await _setWidgets(widget, setStateAnalog);
-                });
-              },),
-          ),
-          Padding(padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Stack(children: [
-              Text("Length: ${getLengthByPixels(AdminInfo.selectedVertex, AdminInfo.secondSelectedVertex, AdminInfo.pictureSize)}",
-                  style: textStyleMainSmallTextBlack),
-              Row(mainAxisAlignment: MainAxisAlignment.center,
+          Row(
+
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+            MainPadding(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  PositionChangerButton(
-                    title: "-",
-                    onPressed: () {
-                      setState(() async {
-                        AdminInfo.selectedVertex?.pointX
-                        = AdminInfo.selectedVertex!.pointX! - 1;
-                        await _setWidgets(widget, setStateAnalog);
-                      });
-                    },
-                  ),
-                  const Padding(padding: EdgeInsets.only(left: 5, right: 5),),
-                  PositionChangerButton(
-                    title: "+",
-                    onPressed: () {
-                      setState(() async {
-                        AdminInfo.selectedVertex?.pointX
-                        = AdminInfo.selectedVertex!.pointX! + 1;
-                        await _setWidgets(widget, setStateAnalog);
-                      });
-                    },
-                  ),
-                ],
-              ),
-              ],
+                  Text("First: ${AdminInfo.selectedVertex?.title ?? "none"}",
+                      style: textStyleMainNormalTextBlack),
+                  Text("Second: ${AdminInfo.secondSelectedVertex?.title ?? "none"}",
+                      style: textStyleMainNormalTextBlack),
+                  Text("Length: ${getLengthByPixels(AdminInfo.selectedVertex, AdminInfo.secondSelectedVertex, AdminInfo.pictureSize)}",
+                      style: textStyleMainNormalTextBlack),
+                ]),
             ),
-          ),
-          Padding(padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            MainPadding(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                Text("First: ${AdminInfo.selectedVertex?.title ?? "none"}",
-                    style: textStyleMainNormalTextBlack),
-                  PositionChangerButton(
-                  title: "-",
-                  onPressed: () {
-                    setState(() async {
-                      AdminInfo.selectedVertex?.pointY
-                      = AdminInfo.selectedVertex!.pointY! + 1;
-                      await _setWidgets(widget, setStateAnalog);
-                    });
-                  },
+                  ArrowButton(
+                      icon: const RotatedBox(
+                        quarterTurns: 1,
+                        child: Icon(Icons.arrow_back_ios_new),
+                      ),
+                      onPressed: onTopArrow
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ArrowButton(
+                          icon: const RotatedBox(
+                            quarterTurns: 0,
+                            child: Icon(Icons.arrow_back_ios_new),
+                          ),
+                          onPressed: onLeftArrow
+                      ),
+                      const Padding(padding: EdgeInsets.only(left: 15, right: 15),),
+                      ArrowButton(
+                          icon: const RotatedBox(
+                            quarterTurns: 2,
+                            child: Icon(Icons.arrow_back_ios_new),
+                          ),
+                          onPressed: onRightArrow
+                      )
+                    ],
+                  ),
+                  ArrowButton(
+                      icon: const RotatedBox(
+                        quarterTurns: 3,
+                        child: Icon(Icons.arrow_back_ios_new),
+                      ),
+                      onPressed: onBottomArrow
+                  ),
+                ],),
+            ),
+          ]),
+          MainPadding(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                MainComponentButton(
+                  title: "Join",
+                  onPressed: onJoinVertex
                 ),
-                Text("Second: ${AdminInfo.secondSelectedVertex?.title ?? "none"}",
-                    style: textStyleMainNormalTextBlack),
-              ]),
-          ),
-          Padding(padding: const EdgeInsets.only(left: 20, right: 20), child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              MainComponentButton(
-                title: "Join",
-                onPressed: () {
-                  bool isCreate = true;
-                  AdminInfo.clearConnection();
-                  if(AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex.uid == AdminInfo.secondSelectedVertex!.uid)){
-                    AdminInfo.connection = AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x) => x.nextVertex.uid == AdminInfo.secondSelectedVertex!.uid);
-                    isCreate = false;
-                  }
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => PanoramaVertexAdminScreen(
-                        isCreate: isCreate,
-                        panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
-                        connection: AdminInfo.connection,
-                      )));
-                },
-              ),
-              MainComponentButton(
-                title: "Delete",
-                onPressed: () async {
-                  await _deleteSelected(widget, setStateAnalog);
-                }
-              ),
-              MainComponentButton(
-                  title: "Edit",
-                  onPressed: () {
-                    if(AdminInfo.selectedVertex != null){
-                      //AdminInfo.vertex = AdminInfo.selectedVertex!;
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => AddVertexScreen()));
-                    }
-                  }
-              ),
-            ],
-            ),
+                MainComponentButton(
+                  title: "Delete",
+                  onPressed: onDeleteVertex
+                ),
+                MainComponentButton(
+                    title: "Edit",
+                    onPressed: onEditVertex
+                ),
+              ],),
             ),
           ],
         ),
     );
+  }
+
+  Future<void> onRightArrow() async {
+    setState(() async {
+      AdminInfo.selectedVertex?.pointX
+      = AdminInfo.selectedVertex!.pointX! + 1;
+      await _setWidgets(widget, setStateAnalog);
+    });
+  }
+
+  Future<void> onLeftArrow() async {
+    setState(() async {
+      AdminInfo.selectedVertex?.pointX
+      = AdminInfo.selectedVertex!.pointX! - 1;
+      await _setWidgets(widget, setStateAnalog);
+    });
+  }
+
+  Future<void> onTopArrow() async {
+    setState(() async {
+      AdminInfo.selectedVertex?.pointY
+      = AdminInfo.selectedVertex!.pointY! - 1;
+      await _setWidgets(widget, setStateAnalog);
+    });
+  }
+
+  Future<void> onBottomArrow() async {
+    setState(() async {
+      AdminInfo.selectedVertex?.pointY
+      = AdminInfo.selectedVertex!.pointY! + 1;
+      await _setWidgets(widget, setStateAnalog);
+    });
+  }
+
+  void onEditVertex(){
+    if(AdminInfo.selectedVertex != null){
+      //AdminInfo.vertex = AdminInfo.selectedVertex!;
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AddVertexScreen()));
+    }
+  }
+
+  Future<void> onDeleteVertex() async {
+    await _deleteSelected(widget, setStateAnalog);
+  }
+
+  void onJoinVertex(){
+    bool isCreate = true;
+    AdminInfo.clearConnection();
+    if(AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex.uid == AdminInfo.secondSelectedVertex!.uid)){
+      AdminInfo.connection = AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x) => x.nextVertex.uid == AdminInfo.secondSelectedVertex!.uid);
+      isCreate = false;
+    }
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => PanoramaVertexAdminScreen(
+          isCreate: isCreate,
+          panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
+          connection: AdminInfo.connection,
+        )));
   }
 }
 
