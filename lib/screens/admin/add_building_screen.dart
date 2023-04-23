@@ -74,7 +74,9 @@ class _AddBuildingScreenState extends State<AddBuildingScreen> {
                 child: MainButton(
                     title: "Save",
                     onPressed: () {
-                      DatabaseService.addOrUpdateBuilding(AdminInfo.building);
+                      //
+                      //DatabaseService.addOrUpdateBuilding(AdminInfo.building);
+                      //
                       Navigator.pop(context);
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) =>
