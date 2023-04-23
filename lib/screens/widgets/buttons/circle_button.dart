@@ -12,7 +12,7 @@ class CircleButton extends StatelessWidget{
       child: Container(
         width: 35,
         height: 35,
-        margin: const EdgeInsets.all(10.0),
+        margin: EdgeInsets.only(left: 5, right: 5),
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background.withOpacity(0.4),
             shape: BoxShape.circle

@@ -6,7 +6,10 @@ import '../../models/room_model.dart';
 import '../../styles/text_styles/text_styles.dart';
 import '../actions/actions.dart';
 import '../widgets/app_bars/app_bars.dart';
+import '../widgets/buttons/circle_button.dart';
 import '../widgets/buttons/main_button.dart';
+import '../widgets/paddings/main_padding.dart';
+import '../widgets/text_inputs/add_text_input.dart';
 import '../widgets/text_inputs/main_text_input.dart';
 import 'list_rooms_admin_screen.dart';
 
@@ -25,11 +28,9 @@ class PanoramaRoomAdminScreen extends StatefulWidget{
 
 class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
   late List<Hotspot> hotspots = [];
-  late TextEditingController txtTitle;
+  late TextEditingController txtTitle = TextEditingController();
   bool isColorPanelVisible = false;
-  _changeTitle(String text){
-      widget.room.title = text;
-  }
+
   void setStateAnalog(){
     setState(() {
       hotspots = [getHotspot(widget.room)];
@@ -40,10 +41,24 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
     setState(() => widget.room.color = color);
   }
 
+  @override
+  void initState() {
+    txtTitle.text = AdminInfo.building.title;
+    txtTitle.addListener(() {
+      widget.room.title = txtTitle.text;
+      setStateAnalog();
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    txtTitle.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    txtTitle = TextEditingController(text: widget.room.title);
     return Scaffold(
       appBar: getAppBar(widget.room.title, context),
       body: Stack(
@@ -63,56 +78,78 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
           ),
           Column(
             children: [
-              MainTextInput(
+              AddInput(
                 inputController: txtTitle,
                 hint: "Title",
+                onSuffixTap: () {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  setStateAnalog();
+                  },
               ),
-              Row(children: [
+              MainPadding(
+                top: 0,
+                bottom: 5,
+                child: Row(children: [
                   Text("FontSize: ${widget.room.fontSize.toInt().toString()}",
                     style: const TextStyle(color: Colors.red, fontSize: 22),),
-                  PositionChangerButton(title: "-", onPressed: () {
-                      widget.room.fontSize -= 1;
-                      setStateAnalog();
-                    },
+                  CircleButton(text: "-", onPressed: () {
+                        widget.room.fontSize -= 1;
+                        setStateAnalog();
+                      },
+                    ),
+                  CircleButton(text: "+", onPressed: () {
+                        widget.room.fontSize += 1;
+                        setStateAnalog();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              MainPadding(
+                top: 0,
+                bottom: 5,
+                child: Row(children: [
+                  Text("Box width: ${widget.room.titleBoxWidth.toInt()}",
+                    style: const TextStyle(color: Colors.red, fontSize: 22),),
+                  CircleButton(text: "-", onPressed: () {
+                    widget.room.titleBoxWidth -= 10;
+                    setStateAnalog();
+                  },
                   ),
-                  PositionChangerButton(title: "+", onPressed: () {
-                      widget.room.fontSize += 1;
-                      setStateAnalog();
-                    },
+                  CircleButton(text: "+", onPressed: () {
+                    widget.room.titleBoxWidth += 10;
+                    setStateAnalog();
+                  },
                   ),
-                MainComponentButton(title: 'Apply',
-                  onPressed: () { setStateAnalog(); },)
                 ],
+                ),
               ),
-              Row(children: [
-                Text("Box width: ${widget.room.titleBoxWidth.toInt()}",
-                  style: const TextStyle(color: Colors.red, fontSize: 22),),
-                PositionChangerButton(title: "-", onPressed: () {
-                  widget.room.titleBoxWidth -= 10;
-                  setStateAnalog();
-                },
+              MainPadding(
+                top: 0,
+                child: Row(children: [
+                  Text("Box height: ${widget.room.titleBoxHeight.toInt()}",
+                    style: const TextStyle(color: Colors.red, fontSize: 22),),
+                  CircleButton(text: "-", onPressed: () {
+                    widget.room.titleBoxHeight -= 10;
+                    setStateAnalog();
+                  },
+                  ),
+                  CircleButton(text: "+", onPressed: () {
+                    widget.room.titleBoxHeight += 10;
+                    setStateAnalog();
+                  },
+                  ),
+
+                ],
                 ),
-                PositionChangerButton(title: "+", onPressed: () {
-                  widget.room.titleBoxWidth += 10;
-                  setStateAnalog();
-                },
-                ),
-              ],
               ),
-              Row(children: [
-                Text("Box height: ${widget.room.titleBoxHeight.toInt()}",
-                  style: const TextStyle(color: Colors.red, fontSize: 22),),
-                PositionChangerButton(title: "-", onPressed: () {
-                  widget.room.titleBoxHeight -= 10;
-                  setStateAnalog();
-                },
-                ),
-                PositionChangerButton(title: "+", onPressed: () {
-                  widget.room.titleBoxHeight += 10;
-                  setStateAnalog();
-                },
-                ),
-                ElevatedButton.icon(
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              MainPadding(
+                child: ElevatedButton.icon(
                   onPressed: () {
                     isColorPanelVisible = !isColorPanelVisible;
                     setStateAnalog();
@@ -124,10 +161,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
                   ),
                   label: const Text('Color'),
                 ),
-              ],
               ),
-
-
             ],
           ),
           if(isColorPanelVisible)

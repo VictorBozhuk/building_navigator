@@ -42,10 +42,9 @@ class AddInput extends StatelessWidget {
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               hintStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
               hintText: hint,
-              prefixIcon: const Icon(Icons.add, size: 25, color: AppTheme.iconColorDark),
               suffixIcon: IconButton(
                 onPressed: () => onSuffixTap(),
-                icon: Icon(Icons.clear, color: Theme.of(context).iconTheme.color),
+                icon: Icon(Icons.add, color: Theme.of(context).iconTheme.color),
                 iconSize: 25,
               )
           ),
