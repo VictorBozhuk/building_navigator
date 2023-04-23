@@ -112,11 +112,18 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
                   setStateAnalog();
                 },
                 ),
-                MainComponentButton(title: 'Change color',
+                ElevatedButton.icon(
                   onPressed: () {
                     isColorPanelVisible = !isColorPanelVisible;
                     setStateAnalog();
-                  },)
+                  },
+                  icon: Icon(
+                    Icons.circle,
+                    size: 24.0,
+                    color: widget.room.color,
+                  ),
+                  label: const Text('Color'), // <-- Text
+                ),
               ],
               ),
 
@@ -167,7 +174,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
             const ListRoomsAdminScreen()));
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.check),
       ),
     );
   }
