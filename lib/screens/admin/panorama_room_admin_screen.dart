@@ -122,7 +122,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
                     size: 24.0,
                     color: widget.room.color,
                   ),
-                  label: const Text('Color'), // <-- Text
+                  label: const Text('Color'),
                 ),
               ],
               ),

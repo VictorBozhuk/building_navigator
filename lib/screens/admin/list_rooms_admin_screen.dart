@@ -5,7 +5,8 @@ import '../../styles/images.dart';
 import '../../models/admin_info.dart';
 import '../widgets/app_bars/app_bars.dart';
 import '../widgets/cards_list/list_tile_wt_s.dart';
-import 'add_room_screen.dart';
+import '../widgets/containers/main_container.dart';
+import '../widgets/lists/list_separated.dart';
 
 class ListRoomsAdminScreen extends StatefulWidget {
   const ListRoomsAdminScreen({super.key});
@@ -18,56 +19,51 @@ class _ListRoomsAdminScreenState extends State<ListRoomsAdminScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBarWithIcon("Rooms", context, onTap: () => {
-          AdminInfo.clearRoom(),
-          AdminInfo.room.vertex = AdminInfo.selectedVertex!,
-          Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) =>
-                  PanoramaRoomAdminScreen(
-                    panoramaImagePath: AdminInfo.selectedVertex!.panoramaImagePath!,
-                    isCreate: true,
-                    room: AdminInfo.room,)))
-        }),
-        body: Container(
-          decoration: BoxDecoration(
-            image: AppImages.backgroundImage,
-          ),
+        appBar: getAppBarWithIcon("Rooms", context, onTap: onAppBarAdd),
+        body: MainContainer(
           child: Column(
             children: [
-              Expanded(child:
-              ListView.separated(
-                itemBuilder: (buildContext, index){
-                  return ListTileWTS(
-                    title: AdminInfo.selectedVertex!.rooms![index].title,
-                    leadingIcon: Icon(Icons.room, color: Theme.of(context).iconTheme.color),
-                    onTap: () => {
-                      AdminInfo.clearRoom(),
-                      AdminInfo.room = AdminInfo.selectedVertex!.rooms![index],
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) =>
-                              PanoramaRoomAdminScreen(
-                                  panoramaImagePath: AdminInfo.selectedVertex!.panoramaImagePath!,
-                                  room: AdminInfo.room,
-                                  isCreate: false))),
-                    },
-                  );
-                },
-                separatorBuilder: (buildContext,index)
-                {
-                  return const Divider(height: 1);
-                },
-                itemCount: AdminInfo.selectedVertex!.rooms!.length,
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(5),
-                scrollDirection: Axis.vertical,
+              ListSeparated(
+                itemBuilder: getItemBuilder,
+                length: AdminInfo.selectedVertex!.rooms!.length,
               ),
-              )
             ],
           ),
         )
     );
   }
+
+  Widget getItemBuilder(int index){
+    return ListTileWTS(
+      title: AdminInfo.selectedVertex!.rooms![index].title,
+      leadingIcon: Icon(Icons.room, color: Theme.of(context).iconTheme.color),
+      onTap: () => {
+        AdminInfo.clearRoom(),
+        AdminInfo.room = AdminInfo.selectedVertex!.rooms![index],
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>
+                PanoramaRoomAdminScreen(
+                    panoramaImagePath: AdminInfo.selectedVertex!.panoramaImagePath!,
+                    room: AdminInfo.room,
+                    isCreate: false))),
+      },
+    );
+  }
+
+  void onAppBarAdd(){
+    AdminInfo.clearRoom();
+    AdminInfo.room.vertex = AdminInfo.selectedVertex!;
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>
+        PanoramaRoomAdminScreen(
+          panoramaImagePath: AdminInfo.selectedVertex!.panoramaImagePath!,
+          isCreate: true,
+          room: AdminInfo.room,)
+      )
+    );
+  }
+
 }
 

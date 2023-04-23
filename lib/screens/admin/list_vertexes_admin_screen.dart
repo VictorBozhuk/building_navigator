@@ -5,6 +5,9 @@ import '../../models/admin_info.dart';
 import '../widgets/app_bars/app_bars.dart';
 import 'add_vertex_screen.dart';
 
+
+
+// Not used
 class ListVertexesAdminScreen extends StatefulWidget {
   const ListVertexesAdminScreen({super.key});
 
