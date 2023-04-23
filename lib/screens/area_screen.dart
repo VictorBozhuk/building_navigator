@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/building/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/figures/circle.dart';
+import 'package:lnu_navigator/screens/widgets/indicators/indicator.dart';
 import 'package:lnu_navigator/screens/widgets/transformation/matrix_gesture_detector.dart';
 import '../models/path_model.dart';
 import '../models/picture_size_model.dart';
@@ -20,11 +22,15 @@ class AreaScreen extends StatefulWidget {
 }
 
 class _AreaScreenState extends State<AreaScreen> {
+  bool isExpanderBuilded = false;
   @override
   void initState() {
+    //WidgetsBinding.instance.addPostFrameCallback((_) async => await _calculateDimension());
+    //SchedulerBinding.instance.addPostFrameCallback((_) async => await _calculateDimension());
+    WidgetsBinding.instance.endOfFrame.then((_) async {
+      setState(() { });
+    });
     super.initState();
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) async => await _calculateDimension());
   }
 
   void setStateAnalog(){
@@ -33,61 +39,77 @@ class _AreaScreenState extends State<AreaScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if(isExpanderBuilded == true){
+      _calculateDimension();
+    }
+
     final ValueNotifier<Matrix4> notifier = ValueNotifier(Matrix4.identity());
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: getAppBar(UserInfo.area.title, context),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          PathInfo.isWalk = false;
-          //PathInfo.nextVertexImagePath = '';
-          Navigator.push(
-              context,
-              MaterialPageRoute(builder:
-                  (context) => const ListRoomsScreen()));
-        },
-        label: const Text('Search'),
-        icon: Icon(Icons.search),
-        backgroundColor: Theme.of(context).buttonTheme.colorScheme?.primary,
-      ),
-      body: MatrixGestureDetector(
-        onMatrixUpdate: (m, tm, sm, rm) {
-          notifier.value = m;
-        },
-        onScaleStart: () { },
-        onScaleEnd: () { },
-        child: Column(
-            children: [
-              Expanded(
-                key: widget.expanderKey,
-                child: GestureDetector(onTapUp: (TapUpDetails details) { },
-                  child: AnimatedBuilder(
-                    animation: notifier,
-                    builder: (ctx, child) {
-                      return Transform(
-                        transform: notifier.value,
-                        child: Stack(
-                          children: widget.points,
-                        ),
-                      );
+            backgroundColor: Colors.white,
+            appBar: getAppBar(UserInfo.area.title, context),
+            floatingActionButton: FloatingActionButton.extended(
+              onPressed: () {
+                PathInfo.isWalk = false;
+                //PathInfo.nextVertexImagePath = '';
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder:
+                        (context) => const ListRoomsScreen()));
+              },
+              label: const Text('Search'),
+              icon: Icon(Icons.search),
+              backgroundColor: Theme.of(context).buttonTheme.colorScheme?.primary,
+            ),
+            body: MatrixGestureDetector(
+                    onMatrixUpdate: (m, tm, sm, rm) {
+                      notifier.value = m;
                     },
+                    onScaleStart: () { },
+                    onScaleEnd: () { },
+                    child: Column(
+                      children: [
+                        Expanded(
+                          key: widget.expanderKey,
+                          child: GestureDetector(onTapUp: (TapUpDetails details) { },
+                            child: AnimatedBuilder(
+                              animation: notifier,
+                              builder: (ctx, child) {
+                                return Transform(
+                                  transform: notifier.value,
+                                  child: Stack(
+                                    children: widget.points,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ),
-          ],
-        ),
-      )
     );
   }
 
+  Future<bool> setScreenData() async {
+    if(isExpanderBuilded == true){
+      await _calculateDimension();
+    }
+    isExpanderBuilded = true;
+    return true;
+  }
+
   Future _calculateDimension() async {
+    if(isExpanderBuilded == false){
+      isExpanderBuilded = true;
+      return;
+    }
     var pictureSize = await getPictureSizes(widget.expanderKey, UserInfo.area.imagePath);
     if(PathInfo.isReadyToGo){
       _setWidgetsOfPath(widget, context, setStateAnalog, pictureSize);
     }else {
       _setWidgets(widget, context, setStateAnalog, pictureSize);
     }
-    setState(() { });
+
   }
 
 
