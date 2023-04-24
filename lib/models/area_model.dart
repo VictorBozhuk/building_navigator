@@ -6,6 +6,7 @@ class Area {
   late String title;
   late String imagePath;
   late int countOfPixelsInMeter = 0;
+  late double vertexRadius = 4; //
   late List<Vertex>? vertexes = [];
 
   Area(this.title, this.imagePath, this.countOfPixelsInMeter, {this.vertexes}){

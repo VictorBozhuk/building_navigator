@@ -354,6 +354,6 @@ Future _setLines(AddVertexesToAreaScreen widget, PictureSize pictureSize) async 
 
 void _setPoints(AddVertexesToAreaScreen widget, Function func, PictureSize pictureSize){
   for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
-    widget.points.add(getVertexAsButtonOn2DMap(AdminInfo.area.vertexes![i], func, pictureSize));
+    widget.points.add(getVertexAsButtonOn2DMap(AdminInfo.area.vertexes![i], func, pictureSize, radius: AdminInfo.area.vertexRadius));
   }
 }

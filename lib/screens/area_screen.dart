@@ -135,7 +135,11 @@ class _AreaScreenState extends State<AreaScreen> {
 
   void _setPoints(AreaScreen widget, BuildContext context, Function func, PictureSize pictureSize){
     for(int i = 0; i < UserInfo.area.vertexes!.length; ++i){
-      widget.points.add(getVertexAsButtonOn2DMapForUser(UserInfo.area.vertexes![i], context, func, pictureSize));
+      if(UserInfo.area.title == "1 floor"){
+        widget.points.add(getVertexAsButtonOn2DMapForUser(UserInfo.area.vertexes![i], context, func, pictureSize, radius: UserInfo.area.vertexRadius));
+      }else{
+        widget.points.add(getVertexAsButtonOn2DMapForUser(UserInfo.area.vertexes![i], context, func, pictureSize));
+      }
     }
   }
 
@@ -143,7 +147,11 @@ class _AreaScreenState extends State<AreaScreen> {
     for(int i = 0; i < UserInfo.area.vertexes!.length; ++i){
       for(int j = 0; j < PathInfo.listVertexes!.length; ++j){
         if(UserInfo.area.vertexes![i].uid == PathInfo.listVertexes![j].uid){
-          widget.points.add(getVertexAsButtonOn2DMapForUserWithPath(UserInfo.area.vertexes![i], context, func, pictureSize));
+          if(UserInfo.area.title == "1 floor"){
+            widget.points.add(getVertexAsButtonOn2DMapForUserWithPath(UserInfo.area.vertexes![i], context, func, pictureSize, radius: UserInfo.area.vertexRadius));
+          } else{
+            widget.points.add(getVertexAsButtonOn2DMapForUserWithPath(UserInfo.area.vertexes![i], context, func, pictureSize));
+          }
           break;
         }
       }

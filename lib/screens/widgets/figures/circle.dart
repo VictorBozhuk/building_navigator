@@ -33,7 +33,7 @@ class Circle extends CustomPainter {
   }
 }
 
-Positioned getVertexAsButtonOn2DMap(Vertex vertex, Function func, PictureSize pictureSize) {
+Positioned getVertexAsButtonOn2DMap(Vertex vertex, Function func, PictureSize pictureSize, {double radius = 10}) {
   return getVertexAsButton(
     vertex,
     () => {
@@ -46,7 +46,8 @@ Positioned getVertexAsButtonOn2DMap(Vertex vertex, Function func, PictureSize pi
       func();
     },
     _defaultFunc1,
-    pictureSize
+    pictureSize,
+    radius: radius
   );
 }
 
@@ -67,7 +68,7 @@ Positioned getSecondVertexAsButtonOnSecondArea(Vertex vertex, BuildContext conte
   );
 }
 
-Positioned getVertexAsButtonOn2DMapForUser(Vertex vertex, BuildContext context, Function func, PictureSize pictureSize) {
+Positioned getVertexAsButtonOn2DMapForUser(Vertex vertex, BuildContext context, Function func, PictureSize pictureSize, {double radius = 10}) {
   return getVertexAsButton(
     vertex,
     () {
@@ -84,11 +85,12 @@ Positioned getVertexAsButtonOn2DMapForUser(Vertex vertex, BuildContext context, 
           MaterialPageRoute(builder: (context) => PanoramaScreen(currentVertex: vertex)));
     },
     _defaultFunc1,
-    pictureSize
+    pictureSize,
+    radius: radius
   );
 }
 
-Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext context, Function func, PictureSize pictureSize) {
+Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext context, Function func, PictureSize pictureSize, {double radius = 10}) {
   return getVertexAsButton(
     vertex,
     () {
@@ -114,12 +116,13 @@ Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext c
           context,
           MaterialPageRoute(builder: (context) => PanoramaScreen(currentVertex: PathInfo.currentVertex!, nextVertex: PathInfo.nextVertex,)));
     },
-    pictureSize
+    pictureSize,
+    radius: radius
   );
 }
 
 
-Positioned getVertexAsButton(Vertex vertex, Function onTap, Function onLongPress, Function onDoubleTap, PictureSize pictureSize) {
+Positioned getVertexAsButton(Vertex vertex, Function onTap, Function onLongPress, Function onDoubleTap, PictureSize pictureSize, {double radius = 10}) {
 
   var x = (pictureSize.width / (vertex.map2DWidth! / vertex.pointX!)) - pictureSize.getRadius();
   var y = (pictureSize.height / (vertex.map2DHeight! / vertex.pointY!)) - pictureSize.getRadius();
@@ -133,7 +136,13 @@ Positioned getVertexAsButton(Vertex vertex, Function onTap, Function onLongPress
   if(vertex.uid == AdminInfo.selectedVertex?.uid){
     color = Colors.green;
   }
-
+  double vertexDiameter = 0;
+  if(radius == 10){
+    vertexDiameter = pictureSize.getRadius() * 2;
+  }
+  else{
+    vertexDiameter = radius;
+  }
   return Positioned(
       top: y,
       left: x,
@@ -145,10 +154,10 @@ Positioned getVertexAsButton(Vertex vertex, Function onTap, Function onLongPress
               onTap: () { onTap(); },
               onLongPress: () { onLongPress(); },
               child: SizedBox(
-                width: pictureSize.getRadius() * 2,
-                height: pictureSize.getRadius() * 2,
+                height: vertexDiameter,
+                width: vertexDiameter,
                 child: CustomPaint(
-                  foregroundPainter: Circle(color, pictureSize.getRadius()),
+                  foregroundPainter: Circle(color, vertexDiameter / 2),
                   child: Container(
                     color: Colors.transparent,
                   ),
