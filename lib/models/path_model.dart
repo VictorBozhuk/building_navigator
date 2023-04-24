@@ -21,10 +21,10 @@ class PathInfo {
 
   static setDestination(Room? room) => destinationRoom = room;
 
-  static setVertexes(List<Vertex> listVertexes){
-    listVertexes = listVertexes;
-    currentVertex = listVertexes[0];
-    nextVertex = listVertexes[1];
+  static setVertexes(List<Vertex> vertexes){
+    listVertexes = vertexes;
+    currentVertex = vertexes[0];
+    nextVertex = vertexes[1];
   }
 
   static move(){
