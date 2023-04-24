@@ -180,35 +180,31 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
   }
 
   Future<void> onRightArrow() async {
-    setState(() async {
-      AdminInfo.selectedVertex?.pointX
-      = AdminInfo.selectedVertex!.pointX! + 1;
-      await _setWidgets(widget, setStateAnalog);
-    });
+    AdminInfo.selectedVertex?.pointX
+    = AdminInfo.selectedVertex!.pointX! + 1;
+    await _setWidgets(widget, setStateAnalog);
+    setState(() { });
   }
 
   Future<void> onLeftArrow() async {
-    setState(() async {
-      AdminInfo.selectedVertex?.pointX
-      = AdminInfo.selectedVertex!.pointX! - 1;
-      await _setWidgets(widget, setStateAnalog);
-    });
+    AdminInfo.selectedVertex?.pointX
+    = AdminInfo.selectedVertex!.pointX! - 1;
+    await _setWidgets(widget, setStateAnalog);
+    setState(() { });
   }
 
   Future<void> onTopArrow() async {
-    setState(() async {
-      AdminInfo.selectedVertex?.pointY
-      = AdminInfo.selectedVertex!.pointY! - 1;
-      await _setWidgets(widget, setStateAnalog);
-    });
+    AdminInfo.selectedVertex?.pointY
+    = AdminInfo.selectedVertex!.pointY! - 1;
+    await _setWidgets(widget, setStateAnalog);
+    setState(() { });
   }
 
   Future<void> onBottomArrow() async {
-    setState(() async {
-      AdminInfo.selectedVertex?.pointY
-      = AdminInfo.selectedVertex!.pointY! + 1;
-      await _setWidgets(widget, setStateAnalog);
-    });
+    AdminInfo.selectedVertex?.pointY
+    = AdminInfo.selectedVertex!.pointY! + 1;
+    await _setWidgets(widget, setStateAnalog);
+    setState(() { });
   }
 
   void onEditVertex(){

@@ -37,14 +37,14 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
       AdminInfo.areaConnection = AdminInfo.selectedVertexOnOtherArea!.areaConnection!;
     }
 
-    txtTitle.text = AdminInfo.building.title;
+    txtTitle.text = AdminInfo.selectedVertex!.title ?? "";
     txtTitle.addListener(() {
-      AdminInfo.building.title = txtTitle.text;
+      AdminInfo.selectedVertex!.title = txtTitle.text;
     });
 
-    txtImagePath.text = AdminInfo.building.imagePath;
+    txtImagePath.text = AdminInfo.selectedVertex!.panoramaImagePath ?? "";
     txtImagePath.addListener(() {
-      AdminInfo.building.imagePath = txtImagePath.text;
+      AdminInfo.selectedVertex!.panoramaImagePath = txtImagePath.text;
     });
   }
 

@@ -24,17 +24,17 @@ class AddAreaScreenState extends State<AddAreaScreen> {
 
   @override
   void initState() {
-    txtTitle.text = AdminInfo.building.title;
+    txtTitle.text = AdminInfo.area.title;
     txtTitle.addListener(() {
-      AdminInfo.building.title = txtTitle.text;
+      AdminInfo.area.title = txtTitle.text;
     });
     txtScale.text = AdminInfo.area.countOfPixelsInMeter.toString();
     txtScale.addListener(() {
       AdminInfo.area.countOfPixelsInMeter = int.parse(txtScale.text);
     });
-    txtImagePath.text = AdminInfo.building.imagePath;
+    txtImagePath.text = AdminInfo.area.imagePath;
     txtImagePath.addListener(() {
-      AdminInfo.building.imagePath = txtImagePath.text;
+      AdminInfo.area.imagePath = txtImagePath.text;
     });
     super.initState();
   }

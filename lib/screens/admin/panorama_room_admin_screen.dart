@@ -43,7 +43,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
 
   @override
   void initState() {
-    txtTitle.text = AdminInfo.building.title;
+    txtTitle.text = widget.room.title;
     txtTitle.addListener(() {
       widget.room.title = txtTitle.text;
       setStateAnalog();
