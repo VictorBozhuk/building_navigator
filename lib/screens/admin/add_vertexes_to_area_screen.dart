@@ -65,25 +65,42 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
           Expanded(
             key: widget.expanderKey,
             child: MatrixGestureDetector(
+              shouldRotate: false,
               onMatrixUpdate: (m, tm, sm, rm) {
                 notifier.value = m;
-              },
-              onScaleStart: () {
+
+                //notifier.value.setEntry(0, 3, 0);
+                //notifier.value.setEntry(1, 3, 0);
+                //notifier.value.setEntry(0, 0, 1);
+                //notifier.value.setEntry(1, 1, 1);
+
                 var x_ = notifier.value.entry(0, 3);
                 var y_ = notifier.value.entry(1, 3);
+                var s_ = notifier.value.entry(0, 0);
                 var rX = roundDouble(x_);
                 var rY = roundDouble(y_);
+                var rS = roundDouble(s_);
                 if (kDebugMode) {
-                  print("picture angle:   x = $rX y = $rY");
+                  print("coords:   x = $rX y = $rY s = $rS");
                 }
+              },
+              onScaleStart: () {
+                //var x_ = notifier.value.entry(0, 3);
+                //var y_ = notifier.value.entry(1, 3);
+                //var s_ = notifier.value.entry(0, 0);
+                //var rX = roundDouble(x_);
+                //var rY = roundDouble(y_);
+                //var rS = roundDouble(s_);
+                //if (kDebugMode) {
+                //  print("coords:   x = $rX y = $rY s = $rS");
+                //}
               },
               onScaleEnd: () { },
               child: GestureDetector(
                 onTapUp: (TapUpDetails details) async {
                   AdminInfo.area.vertexes?.add(await getCreatedVertexOnMap(details, AdminInfo.area, widget.expanderKey));
-                  setState(() async {
-                    await _setWidgets(widget, setStateAnalog);
-                  });
+                  await _setWidgets(widget, setStateAnalog);
+                  setState(() { });
                 },
                 child: AnimatedBuilder(
                   animation: notifier,
@@ -100,7 +117,6 @@ class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
             ),
           ),
           Row(
-
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
             MainPadding(
