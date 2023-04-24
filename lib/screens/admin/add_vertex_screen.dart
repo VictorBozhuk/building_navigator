@@ -125,6 +125,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
     if(AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex.uid == AdminInfo.selectedVertexOnOtherArea!.uid)){
       AdminInfo.connection = AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x)
       => x.nextVertex.uid == AdminInfo.selectedVertexOnOtherArea!.uid);
+      AdminInfo.secondSelectedVertex = AdminInfo.selectedVertexOnOtherArea;
       Navigator.push(context,
           MaterialPageRoute(builder: (context) =>
               PanoramaVertexAdminScreen(

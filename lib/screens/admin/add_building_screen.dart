@@ -75,7 +75,7 @@ class _AddBuildingScreenState extends State<AddBuildingScreen> {
                     title: "Save",
                     onPressed: () {
                       //
-                      //DatabaseService.addOrUpdateBuilding(AdminInfo.building);
+                      DatabaseService.addOrUpdateBuilding(AdminInfo.building);
                       //
                       Navigator.pop(context);
                       Navigator.pushReplacement(context,

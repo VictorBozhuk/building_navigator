@@ -163,5 +163,11 @@ Hotspot getHotspot(VertexConnection connection)
 }
 
 double _getLength(Vertex first, Vertex second, Area area){
-  return roundDouble(getLengthByPixels(first, second, AdminInfo.pictureSize) / area.countOfPixelsInMeter);
+  try{
+    return roundDouble(getLengthByPixels(first, second, AdminInfo.pictureSize) / area.countOfPixelsInMeter);
+  }
+  catch(ex){
+    print(ex.toString());
+    return 1;
+  }
 }
