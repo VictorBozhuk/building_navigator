@@ -25,11 +25,11 @@ class _AreaScreenState extends State<AreaScreen> {
   bool isExpanderBuilded = false;
   @override
   void initState() {
-    //WidgetsBinding.instance.addPostFrameCallback((_) async => await _calculateDimension());
+    WidgetsBinding.instance.addPostFrameCallback((_) async => await _calculateDimension());
     //SchedulerBinding.instance.addPostFrameCallback((_) async => await _calculateDimension());
-    WidgetsBinding.instance.endOfFrame.then((_) async {
-      setState(() { });
-    });
+    //WidgetsBinding.instance.endOfFrame.then((_) async {
+    //  setState(() { });
+    //});
     super.initState();
   }
 
@@ -39,10 +39,6 @@ class _AreaScreenState extends State<AreaScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if(isExpanderBuilded == true){
-      _calculateDimension();
-    }
-
     final ValueNotifier<Matrix4> notifier = ValueNotifier(Matrix4.identity());
     return Scaffold(
             backgroundColor: Colors.white,
@@ -70,18 +66,27 @@ class _AreaScreenState extends State<AreaScreen> {
                       children: [
                         Expanded(
                           key: widget.expanderKey,
-                          child: GestureDetector(onTapUp: (TapUpDetails details) { },
-                            child: AnimatedBuilder(
-                              animation: notifier,
-                              builder: (ctx, child) {
-                                return Transform(
-                                  transform: notifier.value,
-                                  child: Stack(
-                                    children: widget.points,
+                          child: FutureBuilder<bool>(
+                            future: setScreenData(),
+                            builder: (_, AsyncSnapshot<bool> snapshot) {
+                              if (snapshot.hasData) {
+                                return GestureDetector(onTapUp: (TapUpDetails details) { },
+                                  child: AnimatedBuilder(
+                                    animation: notifier,
+                                    builder: (ctx, child) {
+                                      return Transform(
+                                        transform: notifier.value,
+                                        child: Stack(
+                                          children: widget.points,
+                                        ),
+                                      );
+                                    },
                                   ),
                                 );
-                              },
-                            ),
+                              } else {
+                                return const Indicator();
+                              }
+                            }
                           ),
                         ),
                       ],
@@ -101,7 +106,6 @@ class _AreaScreenState extends State<AreaScreen> {
   Future _calculateDimension() async {
     if(isExpanderBuilded == false){
       isExpanderBuilded = true;
-      return;
     }
     var pictureSize = await getPictureSizes(widget.expanderKey, UserInfo.area.imagePath);
     if(PathInfo.isReadyToGo){
