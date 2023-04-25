@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:lnu_navigator/screens/widgets/paddings/main_padding.dart';
 
-import '../../styles/images.dart';
+import '../../navigation/navi.dart';
 import '../../models/admin_info.dart';
 import '../../services/database.dart';
 import '../widgets/app_bars/app_bars.dart';
 import '../widgets/buttons/main_button.dart';
 import '../widgets/containers/main_container.dart';
 import '../widgets/text_inputs/main_text_input.dart';
-import 'list_areas_admin_screen.dart';
-import 'list_buildings_admin_screen.dart';
 
 class AddBuildingScreen extends StatefulWidget{
 
@@ -63,10 +62,7 @@ class _AddBuildingScreenState extends State<AddBuildingScreen> {
                 child: MainButton(
                   title: "Areas",
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) =>
-                            ListAreasAdminScreen()
-                        ));
+                    Navi.push(context, AreasListAdminRoute());
                   },
                 ),
               ),
@@ -77,11 +73,7 @@ class _AddBuildingScreenState extends State<AddBuildingScreen> {
                       //
                       DatabaseService.addOrUpdateBuilding(AdminInfo.building);
                       //
-                      Navigator.pop(context);
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) =>
-                              ListBuildingsAdminScreen()
-                          ));
+                      Navi.popAndPushReplacement(context, BuildingsListAdminRoute());
                     },
                   ),
               ),

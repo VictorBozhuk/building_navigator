@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/cards_list/list_tile_wt_s.dart';
 import 'package:lnu_navigator/screens/widgets/containers/main_container.dart';
@@ -8,6 +9,7 @@ import 'package:lnu_navigator/screens/widgets/text_inputs/main_text_input.dart';
 import 'package:lnu_navigator/screens/widgets/text_inputs/search_text_field.dart';
 import 'package:lnu_navigator/screens/widgets/text_inputs/text_input.dart';
 
+import '../navigation/navi.dart';
 import '../styles/images.dart';
 import '../styles/text_styles/text_styles.dart';
 import '../models/path_model.dart';
@@ -16,14 +18,14 @@ import '../models/user_info.dart';
 import 'area_screen.dart';
 import 'functions/functions.dart';
 
-class ListRoomsScreen extends StatefulWidget {
-  const ListRoomsScreen({super.key});
+class RoomsListScreen extends StatefulWidget {
+  const RoomsListScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => _ListRoomsScreenState();
+  State<StatefulWidget> createState() => _RoomsListScreenState();
 }
 
-class _ListRoomsScreenState extends State<ListRoomsScreen> {
+class _RoomsListScreenState extends State<RoomsListScreen> {
   late List<Room> rooms;
   TextEditingController txtRoom = TextEditingController();
   @override
@@ -88,7 +90,6 @@ class _ListRoomsScreenState extends State<ListRoomsScreen> {
     PathInfo.isWalk = false;
     PathInfo.setDestination(rooms[index]);
     PathInfo.setPath(PathInfo.building);
-    Navigator.pop(context);
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AreaScreen()));
+    Navi.popAndPushReplacement(context, AreaRoute());
   }
 }

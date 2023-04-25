@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lnu_navigator/screens/admin/select_vertex_on_area_screen.dart';
+import 'package:lnu_navigator/screens/admin/select_vertex_screen.dart';
 
 import '../../models/area_model.dart';
+import '../../navigation/app_router.gr.dart';
+import '../../navigation/navi.dart';
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
 import '../widgets/app_bars/app_bars.dart';
@@ -10,28 +12,25 @@ import '../widgets/containers/main_container.dart';
 import '../widgets/indicators/background_indicator.dart';
 import '../widgets/lists/list_separated.dart';
 import 'add_area_screen.dart';
-import 'add_vertexes_to_area_screen.dart';
-import 'list_vertexes_admin_screen.dart';
+import 'area_admin_screen.dart';
 
-class ListAreasAdminScreen extends StatefulWidget{
+class AreasListAdminScreen extends StatefulWidget{
 
-  ListAreasAdminScreen({super.key});
+  AreasListAdminScreen({super.key});
 
   @override
-  State<ListAreasAdminScreen> createState() => _ListAreasAdminScreenState();
+  State<AreasListAdminScreen> createState() => _AreasListAdminScreenState();
 }
 
-class _ListAreasAdminScreenState extends State<ListAreasAdminScreen> {
+class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
   late List<Area> areas;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBarWithIcon("Areas", context, onTap:  () => {
-          AdminInfo.clearArea(),
-          Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const AddAreaScreen(isCreate: true)))
+        appBar: getAppBarWithIcon("Areas", context, onTap:  () {
+          AdminInfo.clearArea();
+          Navi.push(context, AddAreaRoute(isCreate: true));
         }),
         body: FutureBuilder<List<Area>>(
             future: getAreas(),
@@ -60,22 +59,17 @@ class _ListAreasAdminScreenState extends State<ListAreasAdminScreen> {
   Widget getItemBuilder(int index){
     return AreaCard(
         area: areas[index],
-        onTap: () =>
+        onTap: ()
         {
           if(AdminInfo.isCreateAreaConnection == false){
-            AdminInfo.clearArea(),
-            AdminInfo.area = AdminInfo.building.areas[index],
-            Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AddVertexesToAreaScreen()))
+            AdminInfo.clearArea();
+            AdminInfo.area = AdminInfo.building.areas[index];
+            Navi.push(context, AreaAdminRoute());
           }
           else {
-            AdminInfo.areaConnection = AdminInfo.building.areas[index],
-            AdminInfo.selectedVertex?.areaConnection = AdminInfo.building.areas[index].getObject(),
-            Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SelectVertexeOnAreaScreen(area: AdminInfo.areaConnection,))),
-            //Navigator.push(context, MaterialPageRoute(builder: (context) => const ListVertexesAdminScreen()))
+            AdminInfo.areaConnection = AdminInfo.building.areas[index];
+            AdminInfo.selectedVertex?.areaConnection = AdminInfo.building.areas[index].getObject();
+            Navi.push(context, SelectVertexRoute(area: AdminInfo.areaConnection,));
           }
         }
     );

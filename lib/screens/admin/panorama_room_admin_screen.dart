@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:panorama/panorama.dart';
 import '../../models/admin_info.dart';
 import '../../models/room_model.dart';
+import '../../navigation/navi.dart';
 import '../../styles/text_styles/text_styles.dart';
 import '../actions/actions.dart';
 import '../widgets/app_bars/app_bars.dart';
@@ -10,8 +12,6 @@ import '../widgets/buttons/circle_button.dart';
 import '../widgets/buttons/main_button.dart';
 import '../widgets/paddings/main_padding.dart';
 import '../widgets/text_inputs/add_text_input.dart';
-import '../widgets/text_inputs/main_text_input.dart';
-import 'list_rooms_admin_screen.dart';
 
 class PanoramaRoomAdminScreen extends StatefulWidget{
   final String panoramaImagePath;
@@ -204,9 +204,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
               room.titleY = AdminInfo.room.titleY;
               room.direction = AdminInfo.room.direction;
             }
-            Navigator.pop(context);
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-            const ListRoomsAdminScreen()));
+            Navi.popAndPushReplacement(context, const RoomsListAdminRoute());
         },
         child: const Icon(Icons.check),
       ),

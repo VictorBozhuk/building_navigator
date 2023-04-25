@@ -12,17 +12,17 @@ import 'dart:async';
 
 import '../widgets/transformation/matrix_gesture_detector.dart';
 
-class SelectVertexeOnAreaScreen extends StatefulWidget {
+class SelectVertexScreen extends StatefulWidget {
   late List<Widget> points = [];
   final GlobalKey expanderKey = GlobalKey();
   final Area area;
-  SelectVertexeOnAreaScreen({super.key, required this.area});
+  SelectVertexScreen({super.key, required this.area});
 
   @override
-  State<StatefulWidget> createState() => _SelectVertexeOnAreaScreenState();
+  State<StatefulWidget> createState() => _SelectVertexScreenState();
 }
 
-class _SelectVertexeOnAreaScreenState extends State<SelectVertexeOnAreaScreen> {
+class _SelectVertexScreenState extends State<SelectVertexScreen> {
   @override
   void initState() {
     super.initState();
@@ -87,19 +87,19 @@ class _SelectVertexeOnAreaScreenState extends State<SelectVertexeOnAreaScreen> {
 }
 
 
-Future<void> _setWidgets(SelectVertexeOnAreaScreen widget, BuildContext context) async {
+Future<void> _setWidgets(SelectVertexScreen widget, BuildContext context) async {
   var pictureSize = await getPictureSizes(widget.expanderKey, AdminInfo.area.imagePath);
   _setMap(widget);
   _setPoints(widget, context, pictureSize);
 }
 
-void _setMap(SelectVertexeOnAreaScreen widget){
+void _setMap(SelectVertexScreen widget){
   widget.points.add(Container(
     child: getAreaImage(widget.area.imagePath),
   ));
 }
 
-void _setPoints(SelectVertexeOnAreaScreen widget, BuildContext context, PictureSize pictureSize){
+void _setPoints(SelectVertexScreen widget, BuildContext context, PictureSize pictureSize){
   for(int i = 0; i < widget.area.vertexes!.length; ++i){
     widget.points.add(getSecondVertexAsButtonOnSecondArea(widget.area.vertexes![i], context, pictureSize));
   }

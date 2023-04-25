@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
-import 'package:lnu_navigator/screens/widgets/building/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/figures/circle.dart';
 import 'package:lnu_navigator/screens/widgets/indicators/indicator.dart';
@@ -9,9 +9,10 @@ import 'package:lnu_navigator/screens/widgets/transformation/matrix_gesture_dete
 import '../models/path_model.dart';
 import '../models/picture_size_model.dart';
 import '../models/user_info.dart';
+import '../navigation/navi.dart';
 import '../styles/appTheme.dart';
 import 'actions/actions.dart';
-import 'list_rooms_screen.dart';
+import 'rooms_list_screen.dart';
 
 class AreaScreen extends StatefulWidget {
   AreaScreen({super.key});
@@ -47,10 +48,7 @@ class _AreaScreenState extends State<AreaScreen> {
               onPressed: () {
                 PathInfo.isWalk = false;
                 //PathInfo.nextVertexImagePath = '';
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder:
-                        (context) => const ListRoomsScreen()));
+                Navi.push(context, const RoomsListRoute());
               },
               label: const Text('Search'),
               icon: Icon(Icons.search),

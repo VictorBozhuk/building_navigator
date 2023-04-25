@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:panorama/panorama.dart';
 import '../../models/admin_info.dart';
 import '../../models/area_model.dart';
 import '../../models/vertex_connection_model.dart';
 import '../../models/vertex_model.dart';
+import '../../navigation/navi.dart';
 import '../actions/actions.dart';
 import '../widgets/app_bars/app_bars.dart';
 import '../widgets/buttons/circle_button.dart';
 import '../widgets/buttons/main_button.dart';
 import '../widgets/paddings/main_padding.dart';
 import 'add_vertex_screen.dart';
-import 'add_vertexes_to_area_screen.dart';
+import 'area_admin_screen.dart';
 
 class PanoramaVertexAdminScreen extends StatefulWidget{
   final String panoramaImagePath;
@@ -134,15 +136,11 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
 
       if(AdminInfo.isCreateAreaConnection == false){
         AdminInfo.clearConnection();
-        Navigator.pop(context);
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => AddVertexesToAreaScreen()));
+        Navi.popAndPushReplacement(context, AreaAdminRoute());
       }
       else {
         AdminInfo.clearConnection();
-        Navigator.pop(context);
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => AddVertexScreen()));
+        Navi.popAndPushReplacement(context, AddVertexRoute());
       }
     }
     );
