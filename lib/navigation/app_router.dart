@@ -44,19 +44,15 @@ import '../screens/splash_screen.dart';
             page: AreaScreen
         ),
         AutoRoute(
-            path: 'buildings_list/areas_list/area',
-            page: AreaScreen
-        ),
-        AutoRoute(
             path: 'buildings_list/areas_list/select_rooms',
             page: SelectRoomsScreen
         ),
         AutoRoute(
-            path: 'buildings_list/areas_list/rooms_list',
+            path: 'buildings_list/areas_list/area/rooms_list',
             page: RoomsListScreen
         ),
         AutoRoute(
-            path: 'buildings_list/areas_list/panorama',
+            path: 'buildings_list/areas_list/area/panorama',
             page: PanoramaScreen
         ),
 

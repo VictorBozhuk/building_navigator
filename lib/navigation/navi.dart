@@ -9,8 +9,10 @@ class Navi {
   }
 
   static void popAndPushReplacement(BuildContext context, PageRouteInfo route){
-    context.router.pop();
-    context.router.replace(route);
+    int i = 0;
+    context.router.popUntil((_) => i++ >= 2);
+    //context.router.replace(route);
+    context.router.push(route);
   }
 
   static void push(BuildContext context, PageRouteInfo route){
