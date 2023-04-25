@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:panorama/panorama.dart';
 import '../../models/admin_info.dart';
 import '../../models/area_model.dart';
 import '../../models/vertex_connection_model.dart';
 import '../../models/vertex_model.dart';
+import '../../navigation/navi.dart';
 import '../actions/actions.dart';
 import '../widgets/app_bars/app_bars.dart';
 import '../widgets/buttons/circle_button.dart';
@@ -134,15 +136,11 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
 
       if(AdminInfo.isCreateAreaConnection == false){
         AdminInfo.clearConnection();
-        Navigator.pop(context);
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => AreaAdminScreen()));
+        Navi.popAndPushReplacement(context, AreaAdminRoute());
       }
       else {
         AdminInfo.clearConnection();
-        Navigator.pop(context);
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => AddVertexScreen()));
+        Navi.popAndPushReplacement(context, AddVertexRoute());
       }
     }
     );

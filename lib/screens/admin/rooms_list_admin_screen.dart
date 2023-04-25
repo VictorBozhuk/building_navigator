@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/admin/panorama_room_admin_screen.dart';
 
+import '../../navigation/app_router.gr.dart';
+import '../../navigation/navi.dart';
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
 import '../widgets/app_bars/app_bars.dart';
@@ -37,16 +39,13 @@ class _RoomsListAdminScreenState extends State<RoomsListAdminScreen> {
     return ListTileWTS(
       title: AdminInfo.selectedVertex!.rooms![index].title,
       leadingIcon: Icon(Icons.room, color: Theme.of(context).iconTheme.color),
-      onTap: () => {
-        AdminInfo.clearRoom(),
-        AdminInfo.room = AdminInfo.selectedVertex!.rooms![index],
-        Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>
-                PanoramaRoomAdminScreen(
-                    panoramaImagePath: AdminInfo.selectedVertex!.panoramaImagePath!,
-                    room: AdminInfo.room,
-                    isCreate: false))),
+      onTap: () {
+        AdminInfo.clearRoom();
+        AdminInfo.room = AdminInfo.selectedVertex!.rooms![index];
+        Navi.push(context, PanoramaRoomAdminRoute(
+            panoramaImagePath: AdminInfo.selectedVertex!.panoramaImagePath!,
+            room: AdminInfo.room,
+            isCreate: false));
       },
     );
   }
@@ -54,14 +53,10 @@ class _RoomsListAdminScreenState extends State<RoomsListAdminScreen> {
   void onAppBarAdd(){
     AdminInfo.clearRoom();
     AdminInfo.room.vertex = AdminInfo.selectedVertex!;
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) =>
-        PanoramaRoomAdminScreen(
-          panoramaImagePath: AdminInfo.selectedVertex!.panoramaImagePath!,
-          isCreate: true,
-          room: AdminInfo.room,)
-      )
+    Navi.push(context, PanoramaRoomAdminRoute(
+      panoramaImagePath: AdminInfo.selectedVertex!.panoramaImagePath!,
+      isCreate: true,
+      room: AdminInfo.room,)
     );
   }
 

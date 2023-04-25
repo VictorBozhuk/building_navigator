@@ -9,7 +9,7 @@ import 'loader/loader.dart';
 void main() async {
   await initFirebase();
   await setupServiceLocator();
-  runApp(const BuildingNavigator());
+  runApp(BuildingNavigator());
 }
 
 Future initFirebase() async {

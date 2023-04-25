@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
-import 'package:lnu_navigator/screens/widgets/drawer/navigation_drawer.dart';
 import 'package:panorama/panorama.dart';
 import '../models/path_model.dart';
 import '../models/user_info.dart';

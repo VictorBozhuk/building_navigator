@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/admin/panorama_vertex_admin_screen.dart';
 import '../../models/picture_size_model.dart';
+import '../../navigation/app_router.gr.dart';
+import '../../navigation/navi.dart';
 import '../../styles/appTheme.dart';
 import '../../styles/text_styles/text_styles.dart';
 import '../../models/admin_info.dart';
@@ -58,8 +60,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
             AdminInfo.area.title,
             context,
             onTap: () => {
-              Navigator.push(context, MaterialPageRoute(builder:
-                  (context) => const AddAreaScreen(isCreate: false)))
+              Navi.push(context, AddAreaRoute(isCreate: false))
         }, icon: Icons.edit),
         body: Column(children: [
           Expanded(
@@ -226,9 +227,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   void onEditVertex(){
     if(AdminInfo.selectedVertex != null){
       //AdminInfo.vertex = AdminInfo.selectedVertex!;
-      Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => AddVertexScreen()));
+      Navi.push(context, AddVertexRoute());
     }
   }
 
@@ -243,13 +242,11 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
       AdminInfo.connection = AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x) => x.nextVertex.uid == AdminInfo.secondSelectedVertex!.uid);
       isCreate = false;
     }
-    Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => PanoramaVertexAdminScreen(
-          isCreate: isCreate,
-          panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
-          connection: AdminInfo.connection,
-        )));
+    Navi.push(context, PanoramaVertexAdminRoute(
+      isCreate: isCreate,
+      panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
+      connection: AdminInfo.connection,
+    ));
   }
 }
 

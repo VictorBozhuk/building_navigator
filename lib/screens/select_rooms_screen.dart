@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:lnu_navigator/screens/panorama_screen.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/buttons/main_button.dart';
@@ -6,6 +7,7 @@ import 'package:lnu_navigator/screens/widgets/containers/main_container.dart';
 import 'package:lnu_navigator/screens/widgets/paddings/main_padding.dart';
 import 'package:lnu_navigator/screens/widgets/text_inputs/add_text_input.dart';
 
+import '../navigation/navi.dart';
 import '../styles/images.dart';
 import '../algorithm_new/building_navigator.dart';
 import '../models/building_model.dart';
@@ -61,11 +63,9 @@ class _SelectRoomsScreenState extends State<SelectRoomsScreen> {
             MainPadding(child:
               MainButton(title: "Search", onPressed: () {
                 setPath(widget.building);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) =>
-                        PanoramaScreen(
-                            currentVertex: PathInfo.currentVertex!,
-                            nextVertex: PathInfo.destinationRoom!.vertex)));
+                Navi.push(context, PanoramaRoute(
+                    currentVertex: PathInfo.currentVertex!,
+                    nextVertex: PathInfo.destinationRoom!.vertex));
               },),
             ),
           ],),

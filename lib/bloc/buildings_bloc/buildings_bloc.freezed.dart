@@ -1,6 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'buildings_bloc.dart';
 
@@ -11,26 +12,7 @@ part of 'buildings_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$BuildingsStateTearOff {
-  const _$BuildingsStateTearOff();
-
-  _BuildingsState call(
-      {BuildingsStatus status = BuildingsStatus.loading,
-      List<Building> buildings = const [],
-      String? errorMessage}) {
-    return _BuildingsState(
-      status: status,
-      buildings: buildings,
-      errorMessage: errorMessage,
-    );
-  }
-}
-
-/// @nodoc
-const $BuildingsState = _$BuildingsStateTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$BuildingsState {
@@ -47,81 +29,83 @@ mixin _$BuildingsState {
 abstract class $BuildingsStateCopyWith<$Res> {
   factory $BuildingsStateCopyWith(
           BuildingsState value, $Res Function(BuildingsState) then) =
-      _$BuildingsStateCopyWithImpl<$Res>;
+      _$BuildingsStateCopyWithImpl<$Res, BuildingsState>;
+  @useResult
   $Res call(
       {BuildingsStatus status, List<Building> buildings, String? errorMessage});
 }
 
 /// @nodoc
-class _$BuildingsStateCopyWithImpl<$Res>
+class _$BuildingsStateCopyWithImpl<$Res, $Val extends BuildingsState>
     implements $BuildingsStateCopyWith<$Res> {
   _$BuildingsStateCopyWithImpl(this._value, this._then);
 
-  final BuildingsState _value;
   // ignore: unused_field
-  final $Res Function(BuildingsState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
-    Object? buildings = freezed,
+    Object? status = null,
+    Object? buildings = null,
     Object? errorMessage = freezed,
   }) {
     return _then(_value.copyWith(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as BuildingsStatus,
-      buildings: buildings == freezed
+      buildings: null == buildings
           ? _value.buildings
           : buildings // ignore: cast_nullable_to_non_nullable
               as List<Building>,
-      errorMessage: errorMessage == freezed
+      errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$BuildingsStateCopyWith<$Res>
+abstract class _$$_BuildingsStateCopyWith<$Res>
     implements $BuildingsStateCopyWith<$Res> {
-  factory _$BuildingsStateCopyWith(
-          _BuildingsState value, $Res Function(_BuildingsState) then) =
-      __$BuildingsStateCopyWithImpl<$Res>;
+  factory _$$_BuildingsStateCopyWith(
+          _$_BuildingsState value, $Res Function(_$_BuildingsState) then) =
+      __$$_BuildingsStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {BuildingsStatus status, List<Building> buildings, String? errorMessage});
 }
 
 /// @nodoc
-class __$BuildingsStateCopyWithImpl<$Res>
-    extends _$BuildingsStateCopyWithImpl<$Res>
-    implements _$BuildingsStateCopyWith<$Res> {
-  __$BuildingsStateCopyWithImpl(
-      _BuildingsState _value, $Res Function(_BuildingsState) _then)
-      : super(_value, (v) => _then(v as _BuildingsState));
+class __$$_BuildingsStateCopyWithImpl<$Res>
+    extends _$BuildingsStateCopyWithImpl<$Res, _$_BuildingsState>
+    implements _$$_BuildingsStateCopyWith<$Res> {
+  __$$_BuildingsStateCopyWithImpl(
+      _$_BuildingsState _value, $Res Function(_$_BuildingsState) _then)
+      : super(_value, _then);
 
-  @override
-  _BuildingsState get _value => super._value as _BuildingsState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
-    Object? buildings = freezed,
+    Object? status = null,
+    Object? buildings = null,
     Object? errorMessage = freezed,
   }) {
-    return _then(_BuildingsState(
-      status: status == freezed
+    return _then(_$_BuildingsState(
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as BuildingsStatus,
-      buildings: buildings == freezed
-          ? _value.buildings
+      buildings: null == buildings
+          ? _value._buildings
           : buildings // ignore: cast_nullable_to_non_nullable
               as List<Building>,
-      errorMessage: errorMessage == freezed
+      errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -134,15 +118,22 @@ class __$BuildingsStateCopyWithImpl<$Res>
 class _$_BuildingsState implements _BuildingsState {
   const _$_BuildingsState(
       {this.status = BuildingsStatus.loading,
-      this.buildings = const [],
-      this.errorMessage});
+      final List<Building> buildings = const [],
+      this.errorMessage})
+      : _buildings = buildings;
 
-  @JsonKey(defaultValue: BuildingsStatus.loading)
   @override
+  @JsonKey()
   final BuildingsStatus status;
-  @JsonKey(defaultValue: const [])
+  final List<Building> _buildings;
   @override
-  final List<Building> buildings;
+  @JsonKey()
+  List<Building> get buildings {
+    if (_buildings is EqualUnmodifiableListView) return _buildings;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_buildings);
+  }
+
   @override
   final String? errorMessage;
 
@@ -155,28 +146,30 @@ class _$_BuildingsState implements _BuildingsState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _BuildingsState &&
+            other is _$_BuildingsState &&
             (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality().equals(other.buildings, buildings) &&
+            const DeepCollectionEquality()
+                .equals(other._buildings, _buildings) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, status,
-      const DeepCollectionEquality().hash(buildings), errorMessage);
+      const DeepCollectionEquality().hash(_buildings), errorMessage);
 
   @JsonKey(ignore: true)
   @override
-  _$BuildingsStateCopyWith<_BuildingsState> get copyWith =>
-      __$BuildingsStateCopyWithImpl<_BuildingsState>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$_BuildingsStateCopyWith<_$_BuildingsState> get copyWith =>
+      __$$_BuildingsStateCopyWithImpl<_$_BuildingsState>(this, _$identity);
 }
 
 abstract class _BuildingsState implements BuildingsState {
   const factory _BuildingsState(
-      {BuildingsStatus status,
-      List<Building> buildings,
-      String? errorMessage}) = _$_BuildingsState;
+      {final BuildingsStatus status,
+      final List<Building> buildings,
+      final String? errorMessage}) = _$_BuildingsState;
 
   @override
   BuildingsStatus get status;
@@ -186,21 +179,9 @@ abstract class _BuildingsState implements BuildingsState {
   String? get errorMessage;
   @override
   @JsonKey(ignore: true)
-  _$BuildingsStateCopyWith<_BuildingsState> get copyWith =>
+  _$$_BuildingsStateCopyWith<_$_BuildingsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$BuildingsEventTearOff {
-  const _$BuildingsEventTearOff();
-
-  LoadBuildings load() {
-    return const LoadBuildings();
-  }
-}
-
-/// @nodoc
-const $BuildingsEvent = _$BuildingsEventTearOff();
 
 /// @nodoc
 mixin _$BuildingsEvent {
@@ -211,7 +192,7 @@ mixin _$BuildingsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? load,
+    TResult? Function()? load,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -227,7 +208,7 @@ mixin _$BuildingsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(LoadBuildings value)? load,
+    TResult? Function(LoadBuildings value)? load,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -242,36 +223,34 @@ mixin _$BuildingsEvent {
 abstract class $BuildingsEventCopyWith<$Res> {
   factory $BuildingsEventCopyWith(
           BuildingsEvent value, $Res Function(BuildingsEvent) then) =
-      _$BuildingsEventCopyWithImpl<$Res>;
+      _$BuildingsEventCopyWithImpl<$Res, BuildingsEvent>;
 }
 
 /// @nodoc
-class _$BuildingsEventCopyWithImpl<$Res>
+class _$BuildingsEventCopyWithImpl<$Res, $Val extends BuildingsEvent>
     implements $BuildingsEventCopyWith<$Res> {
   _$BuildingsEventCopyWithImpl(this._value, this._then);
 
-  final BuildingsEvent _value;
   // ignore: unused_field
-  final $Res Function(BuildingsEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class $LoadBuildingsCopyWith<$Res> {
-  factory $LoadBuildingsCopyWith(
-          LoadBuildings value, $Res Function(LoadBuildings) then) =
-      _$LoadBuildingsCopyWithImpl<$Res>;
+abstract class _$$LoadBuildingsCopyWith<$Res> {
+  factory _$$LoadBuildingsCopyWith(
+          _$LoadBuildings value, $Res Function(_$LoadBuildings) then) =
+      __$$LoadBuildingsCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$LoadBuildingsCopyWithImpl<$Res>
-    extends _$BuildingsEventCopyWithImpl<$Res>
-    implements $LoadBuildingsCopyWith<$Res> {
-  _$LoadBuildingsCopyWithImpl(
-      LoadBuildings _value, $Res Function(LoadBuildings) _then)
-      : super(_value, (v) => _then(v as LoadBuildings));
-
-  @override
-  LoadBuildings get _value => super._value as LoadBuildings;
+class __$$LoadBuildingsCopyWithImpl<$Res>
+    extends _$BuildingsEventCopyWithImpl<$Res, _$LoadBuildings>
+    implements _$$LoadBuildingsCopyWith<$Res> {
+  __$$LoadBuildingsCopyWithImpl(
+      _$LoadBuildings _value, $Res Function(_$LoadBuildings) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -287,7 +266,7 @@ class _$LoadBuildings implements LoadBuildings {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is LoadBuildings);
+        (other.runtimeType == runtimeType && other is _$LoadBuildings);
   }
 
   @override
@@ -304,7 +283,7 @@ class _$LoadBuildings implements LoadBuildings {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? load,
+    TResult? Function()? load,
   }) {
     return load?.call();
   }
@@ -332,7 +311,7 @@ class _$LoadBuildings implements LoadBuildings {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(LoadBuildings value)? load,
+    TResult? Function(LoadBuildings value)? load,
   }) {
     return load?.call(this);
   }

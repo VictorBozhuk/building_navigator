@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../navigation/app_router.gr.dart';
+import '../../../navigation/navi.dart';
 import '../cards_list/card_of_drawer.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -21,15 +23,23 @@ class AppDrawer extends StatelessWidget {
 
   Widget buildHeader(BuildContext context) => Container(
     height: 150,
-    decoration: BoxDecoration(
-      color: Theme.of(context).colorScheme.background,
+    decoration: const BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage("assets/DrawerLogo.jpg"),
+        fit: BoxFit.cover,
+      ),
     ),
     padding: EdgeInsets.only(
       top: MediaQuery.of(context).padding.top,
     ),
-    child: const Center(child:
-      Image(image: AssetImage("assets/EnglishHub.png"),
-        fit: BoxFit.cover,),
+    child: Center(child:
+      Image(
+        height: 130,
+        width: 130,
+        color: Colors.white.withOpacity(0.8),
+        image: const AssetImage("assets/NB.png"),
+        fit: BoxFit.cover,
+      ),
     ),
   );
 
@@ -38,9 +48,17 @@ class AppDrawer extends StatelessWidget {
       child: Wrap(
         children: [
           CardOfDrawer(
-            title: "groups",
-            icon: Icons.grid_view_rounded,
-            onTap: () => {}),
+            title: "Buildings",
+            icon: Icons.home_work_outlined,
+            onTap: () => Navi.push(context, BuildingsListRoute())),
+          CardOfDrawer(
+              title: "Room search",
+              icon: Icons.room,
+              onTap: () => { }),
+          CardOfDrawer(
+              title: "Admin",
+              icon: Icons.admin_panel_settings,
+              onTap: () => Navi.push(context, BuildingsListAdminRoute())),
         ],
       ));
 }

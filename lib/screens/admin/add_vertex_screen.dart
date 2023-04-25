@@ -3,6 +3,8 @@ import 'package:lnu_navigator/screens/admin/panorama_vertex_admin_screen.dart';
 import 'package:lnu_navigator/screens/widgets/buttons/main_button.dart';
 import 'package:lnu_navigator/screens/widgets/paddings/main_padding.dart';
 
+import '../../navigation/app_router.gr.dart';
+import '../../navigation/navi.dart';
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
 import '../widgets/app_bars/app_bars.dart';
@@ -115,10 +117,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
   
   void onJoinArea(){
     AdminInfo.isCreateAreaConnection = true;
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) =>
-            AreasListAdminScreen()
-        ));
+    Navi.push(context, AreasListAdminRoute());
   }
   
   void onSetCoordinates(){
@@ -126,36 +125,27 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
       AdminInfo.connection = AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x)
       => x.nextVertex.uid == AdminInfo.selectedVertexOnOtherArea!.uid);
       AdminInfo.secondSelectedVertex = AdminInfo.selectedVertexOnOtherArea;
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) =>
-              PanoramaVertexAdminScreen(
-                isCreate: false,
-                panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
-                connection: AdminInfo.connection,
-              )
-          ));
+      Navi.push(context, PanoramaVertexAdminRoute(
+        isCreate: false,
+        panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
+        connection: AdminInfo.connection,
+      ));
     }
     else{
       AdminInfo.clearConnection();
       AdminInfo.secondSelectedVertex = AdminInfo.selectedVertexOnOtherArea;
       //AdminInfo.secondSelectedVertex?.isAreaConnection = true;
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) =>
-              PanoramaVertexAdminScreen(
-                isCreate: true,
-                panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
-                connection: AdminInfo.connection,
-              )
-          ));
+      Navi.push(context, PanoramaVertexAdminRoute(
+        isCreate: true,
+        panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
+        connection: AdminInfo.connection,
+      ));
     }
 
   }
   
   void onRooms(){
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) =>
-        const RoomsListAdminScreen()
-        ));
+    Navi.push(context, RoomsListAdminRoute());
   }
   
   void onSave(){
@@ -169,11 +159,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
       //edited_vertex?.vertexConnections?.add(AdminInfo.selectedVertexOnOtherArea)
     }
     AdminInfo.clearAreaConnection();
-    Navigator.pop(context);
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) =>
-            AreaAdminScreen()
-        ));
+    Navi.popAndPushReplacement(context, AreaAdminRoute());
   }
 }
 

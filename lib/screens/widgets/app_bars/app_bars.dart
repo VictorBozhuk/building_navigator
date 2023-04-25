@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../../navigation/navi.dart';
+
 
 AppBar getAppBar(String title, BuildContext context) {
   return AppBar(
     leading: IconButton(
       icon: const Icon(Icons.arrow_back, color: Colors.white),
-      //onPressed: () => Navi.pop(context),
-      onPressed: () => Navigator.pop(context),
+      onPressed: () => Navi.pop(context),
     ),
     centerTitle: true,
     title: Text(title, style: Theme.of(context).textTheme.headlineMedium),
@@ -32,8 +33,7 @@ AppBar getAppBarWithIcon(String title, BuildContext context, {required Function 
   return AppBar(
     leading: IconButton(
       icon: const Icon(Icons.arrow_back, color: Colors.white),
-      //onPressed: () => Navi.pop(context),
-      onPressed: () => Navigator.pop(context),
+      onPressed: () => Navi.pop(context),
     ),
     centerTitle: true,
     title: Text(title, style: Theme.of(context).textTheme.headlineMedium),
@@ -59,8 +59,7 @@ AppBar getAppBarWithTwoIcons(String title, BuildContext context,
   return AppBar(
     leading: IconButton(
       icon: const Icon(Icons.arrow_back, color: Colors.white),
-      //onPressed: () => Navi.pop(context),
-      onPressed: () => Navigator.pop(context),
+      onPressed: () => Navi.pop(context),
     ),
     centerTitle: true,
     title: Text(title, style: Theme.of(context).textTheme.headlineMedium),

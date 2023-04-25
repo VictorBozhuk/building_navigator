@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/navigation/app_router.gr.dart';
 
-import '../../styles/images.dart';
+import '../../navigation/navi.dart';
 import '../../models/admin_info.dart';
 import '../widgets/app_bars/app_bars.dart';
 import '../widgets/buttons/main_button.dart';
 import '../widgets/containers/main_container.dart';
 import '../widgets/paddings/main_padding.dart';
 import '../widgets/text_inputs/main_text_input.dart';
-import 'area_admin_screen.dart';
-import 'areas_list_admin_screen.dart';
 
 class AddAreaScreen extends StatefulWidget{
   const AddAreaScreen({super.key, required this.isCreate});
@@ -80,22 +79,13 @@ class AddAreaScreenState extends State<AddAreaScreen> {
   void onSave(){
     if(widget.isCreate == true){
       AdminInfo.building.areas.add(AdminInfo.area);
-      Navigator.pop(context);
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) =>
-              AreasListAdminScreen()
-          )
-      );
+      Navi.push(context, AreasListAdminRoute());
     }
     else {
       var area = AdminInfo.building.areas.firstWhere((x) => x.uid == AdminInfo.area.uid);
       area.title = AdminInfo.area.title;
       area.imagePath = AdminInfo.area.imagePath;
-      Navigator.pop(context);
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) =>
-              AreaAdminScreen()
-          ));
+      Navi.push(context, AreaAdminRoute());
     }
   }
 }

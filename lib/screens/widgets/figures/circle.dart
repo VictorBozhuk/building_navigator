@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/models/admin_info.dart';
 import 'package:lnu_navigator/models/user_info.dart';
+import 'package:lnu_navigator/navigation/app_router.gr.dart';
 
 import '../../../data/globals.dart';
 import '../../../models/path_model.dart';
 import '../../../models/picture_size_model.dart';
 import '../../../models/vertex_model.dart';
+import '../../../navigation/navi.dart';
 import '../../admin/add_vertex_screen.dart';
 import '../../area_screen.dart';
+import '../../functions/defaults.dart';
 import '../../panorama_screen.dart';
-
-void _defaultFunc1() {}
 
 class Circle extends CustomPainter {
   late MaterialColor color;
@@ -45,7 +46,7 @@ Positioned getVertexAsButtonOn2DMap(Vertex vertex, Function func, PictureSize pi
       AdminInfo.secondSelectedVertex = vertex;
       func();
     },
-    _defaultFunc1,
+    defaultFunc,
     pictureSize,
     radius: radius
   );
@@ -56,14 +57,11 @@ Positioned getSecondVertexAsButtonOnSecondArea(Vertex vertex, BuildContext conte
     vertex,
     () {
       AdminInfo.selectedVertexOnOtherArea = vertex;
-      Navigator.pop(context);
-      Navigator.pop(context);
-      Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => AddVertexScreen()));
+      Navi.pop(context);
+      Navi.popAndPushReplacement(context, AddVertexRoute());
     },
-    _defaultFunc1,
-    _defaultFunc1,
+    defaultFunc,
+    defaultFunc,
     pictureSize
   );
 }
@@ -80,11 +78,9 @@ Positioned getVertexAsButtonOn2DMapForUser(Vertex vertex, BuildContext context, 
     (){
       AdminInfo.selectedVertex = vertex;
       PathInfo.sourceVertex = vertex;
-      Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => PanoramaScreen(currentVertex: vertex)));
+      Navi.push(context, PanoramaRoute(currentVertex: vertex));
     },
-    _defaultFunc1,
+      defaultFunc,
     pictureSize,
     radius: radius
   );
@@ -102,19 +98,14 @@ Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext c
     () {
       if(vertex.areaConnection != null){
         UserInfo.area = UserInfo.building.areas.firstWhere((x) => x.uid == vertex.areaConnection!.uid);
-        Navigator.pop(context);
-        Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AreaScreen()));
+        Navi.popAndPush(context, AreaRoute());
       }
     },
     (){
       AdminInfo.selectedVertex = vertex;
       PathInfo.sourceVertex = vertex;
       PathInfo.setNewVertexes(vertex);
-      Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => PanoramaScreen(currentVertex: PathInfo.currentVertex!, nextVertex: PathInfo.nextVertex,)));
+      Navi.push(context, PanoramaRoute(currentVertex: PathInfo.currentVertex!, nextVertex: PathInfo.nextVertex,));
     },
     pictureSize,
     radius: radius
@@ -123,7 +114,6 @@ Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext c
 
 
 Positioned getVertexAsButton(Vertex vertex, Function onTap, Function onLongPress, Function onDoubleTap, PictureSize pictureSize, {double radius = 10}) {
-
   var x = (pictureSize.width / (vertex.map2DWidth! / vertex.pointX!)) - pictureSize.getRadius();
   var y = (pictureSize.height / (vertex.map2DHeight! / vertex.pointY!)) - pictureSize.getRadius();
   MaterialColor color = Colors.red;

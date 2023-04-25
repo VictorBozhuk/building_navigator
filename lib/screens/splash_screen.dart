@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/navigation/app_router.gr.dart';
+import '../navigation/navi.dart';
 import '../styles/text_styles/text_styles.dart';
 import 'buildings_list_screen.dart';
 
@@ -8,8 +10,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(milliseconds: 500), () {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => BuildingsListScreen()));
+      Navi.push(context, BuildingsListRoute());
     });
     return Scaffold(
       body: Container(
