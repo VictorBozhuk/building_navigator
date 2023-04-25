@@ -7,8 +7,8 @@ import '../widgets/buttons/main_button.dart';
 import '../widgets/containers/main_container.dart';
 import '../widgets/paddings/main_padding.dart';
 import '../widgets/text_inputs/main_text_input.dart';
-import 'add_vertexes_to_area_screen.dart';
-import 'list_areas_admin_screen.dart';
+import 'area_admin_screen.dart';
+import 'areas_list_admin_screen.dart';
 
 class AddAreaScreen extends StatefulWidget{
   const AddAreaScreen({super.key, required this.isCreate});
@@ -83,8 +83,9 @@ class AddAreaScreenState extends State<AddAreaScreen> {
       Navigator.pop(context);
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) =>
-              ListAreasAdminScreen()
-          ));
+              AreasListAdminScreen()
+          )
+      );
     }
     else {
       var area = AdminInfo.building.areas.firstWhere((x) => x.uid == AdminInfo.area.uid);
@@ -93,7 +94,7 @@ class AddAreaScreenState extends State<AddAreaScreen> {
       Navigator.pop(context);
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) =>
-              AddVertexesToAreaScreen()
+              AreaAdminScreen()
           ));
     }
   }

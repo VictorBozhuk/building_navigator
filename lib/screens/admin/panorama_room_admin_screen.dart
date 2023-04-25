@@ -11,7 +11,7 @@ import '../widgets/buttons/main_button.dart';
 import '../widgets/paddings/main_padding.dart';
 import '../widgets/text_inputs/add_text_input.dart';
 import '../widgets/text_inputs/main_text_input.dart';
-import 'list_rooms_admin_screen.dart';
+import 'rooms_list_admin_screen.dart';
 
 class PanoramaRoomAdminScreen extends StatefulWidget{
   final String panoramaImagePath;
@@ -206,7 +206,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
             }
             Navigator.pop(context);
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-            const ListRoomsAdminScreen()));
+            const RoomsListAdminScreen()));
         },
         child: const Icon(Icons.check),
       ),

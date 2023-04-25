@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lnu_navigator/screens/admin/select_vertex_on_area_screen.dart';
+import 'package:lnu_navigator/screens/admin/select_vertex_screen.dart';
 
 import '../../models/area_model.dart';
 import '../../styles/images.dart';
@@ -10,18 +10,18 @@ import '../widgets/containers/main_container.dart';
 import '../widgets/indicators/background_indicator.dart';
 import '../widgets/lists/list_separated.dart';
 import 'add_area_screen.dart';
-import 'add_vertexes_to_area_screen.dart';
-import 'list_vertexes_admin_screen.dart';
+import 'area_admin_screen.dart';
+import 'vertexes_list_admin_screen.dart';
 
-class ListAreasAdminScreen extends StatefulWidget{
+class AreasListAdminScreen extends StatefulWidget{
 
-  ListAreasAdminScreen({super.key});
+  AreasListAdminScreen({super.key});
 
   @override
-  State<ListAreasAdminScreen> createState() => _ListAreasAdminScreenState();
+  State<AreasListAdminScreen> createState() => _AreasListAdminScreenState();
 }
 
-class _ListAreasAdminScreenState extends State<ListAreasAdminScreen> {
+class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
   late List<Area> areas;
 
   @override
@@ -67,14 +67,14 @@ class _ListAreasAdminScreenState extends State<ListAreasAdminScreen> {
             AdminInfo.area = AdminInfo.building.areas[index],
             Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AddVertexesToAreaScreen()))
+                MaterialPageRoute(builder: (context) => AreaAdminScreen()))
           }
           else {
             AdminInfo.areaConnection = AdminInfo.building.areas[index],
             AdminInfo.selectedVertex?.areaConnection = AdminInfo.building.areas[index].getObject(),
             Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SelectVertexeOnAreaScreen(area: AdminInfo.areaConnection,))),
+                MaterialPageRoute(builder: (context) => SelectVertexScreen(area: AdminInfo.areaConnection,))),
             //Navigator.push(context, MaterialPageRoute(builder: (context) => const ListVertexesAdminScreen()))
           }
         }

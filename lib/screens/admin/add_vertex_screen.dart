@@ -10,9 +10,9 @@ import '../widgets/containers/main_container.dart';
 import '../widgets/swithes/main_switch.dart';
 import '../widgets/text_inputs/main_text_input.dart';
 import '../widgets/texts/main_text.dart';
-import 'add_vertexes_to_area_screen.dart';
-import 'list_areas_admin_screen.dart';
-import 'list_rooms_admin_screen.dart';
+import 'area_admin_screen.dart';
+import 'areas_list_admin_screen.dart';
+import 'rooms_list_admin_screen.dart';
 
 class AddVertexScreen extends StatefulWidget{
   late bool isAreaConnection = AdminInfo.selectedVertex!.areaConnection != null;
@@ -117,7 +117,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
     AdminInfo.isCreateAreaConnection = true;
     Navigator.push(context,
         MaterialPageRoute(builder: (context) =>
-            ListAreasAdminScreen()
+            AreasListAdminScreen()
         ));
   }
   
@@ -154,7 +154,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
   void onRooms(){
     Navigator.push(context,
         MaterialPageRoute(builder: (context) =>
-        const ListRoomsAdminScreen()
+        const RoomsListAdminScreen()
         ));
   }
   
@@ -172,7 +172,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
     Navigator.pop(context);
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (context) =>
-            AddVertexesToAreaScreen()
+            AreaAdminScreen()
         ));
   }
 }

@@ -8,14 +8,14 @@ import 'add_vertex_screen.dart';
 
 
 // Not used
-class ListVertexesAdminScreen extends StatefulWidget {
-  const ListVertexesAdminScreen({super.key});
+class VertexesListAdminScreen extends StatefulWidget {
+  const VertexesListAdminScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => _ListVertexesAdminScreenState();
+  State<StatefulWidget> createState() => _VertexesListAdminScreenState();
 }
 
-class _ListVertexesAdminScreenState extends State<ListVertexesAdminScreen> {
+class _VertexesListAdminScreenState extends State<VertexesListAdminScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

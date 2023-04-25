@@ -13,15 +13,15 @@ import '../widgets/indicators/background_indicator.dart';
 import '../widgets/lists/list_separated.dart';
 import 'add_building_screen.dart';
 
-class ListBuildingsAdminScreen extends StatefulWidget{
+class BuildingsListAdminScreen extends StatefulWidget{
 
-  ListBuildingsAdminScreen({super.key});
+  BuildingsListAdminScreen({super.key});
 
   @override
-  State<ListBuildingsAdminScreen> createState() => _ListBuildingsAdminScreenState();
+  State<BuildingsListAdminScreen> createState() => _BuildingsListAdminScreenState();
 }
 
-class _ListBuildingsAdminScreenState extends State<ListBuildingsAdminScreen> {
+class _BuildingsListAdminScreenState extends State<BuildingsListAdminScreen> {
   late List<Building> buildings;
 
   @override

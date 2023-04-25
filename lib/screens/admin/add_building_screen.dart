@@ -8,8 +8,8 @@ import '../widgets/app_bars/app_bars.dart';
 import '../widgets/buttons/main_button.dart';
 import '../widgets/containers/main_container.dart';
 import '../widgets/text_inputs/main_text_input.dart';
-import 'list_areas_admin_screen.dart';
-import 'list_buildings_admin_screen.dart';
+import 'areas_list_admin_screen.dart';
+import 'buildings_list_admin_screen.dart';
 
 class AddBuildingScreen extends StatefulWidget{
 
@@ -65,7 +65,7 @@ class _AddBuildingScreenState extends State<AddBuildingScreen> {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) =>
-                            ListAreasAdminScreen()
+                            AreasListAdminScreen()
                         ));
                   },
                 ),
@@ -80,7 +80,7 @@ class _AddBuildingScreenState extends State<AddBuildingScreen> {
                       Navigator.pop(context);
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) =>
-                              ListBuildingsAdminScreen()
+                              BuildingsListAdminScreen()
                           ));
                     },
                   ),

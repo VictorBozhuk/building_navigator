@@ -11,18 +11,18 @@ import '../algorithm_new/building_navigator.dart';
 import '../models/building_model.dart';
 import '../models/path_model.dart';
 import '../models/vertex_model.dart';
-import 'admin/list_rooms_admin_screen.dart';
-import 'list_rooms_screen.dart';
+import 'admin/rooms_list_admin_screen.dart';
+import 'rooms_list_screen.dart';
 
-class FindPathPage extends StatefulWidget{
+class SelectRoomsScreen extends StatefulWidget{
   final Building building;
-  FindPathPage({super.key, required this.building});
+  SelectRoomsScreen({super.key, required this.building});
 
   @override
-  State<StatefulWidget> createState() => FindPathPageState();
+  State<StatefulWidget> createState() => _SelectRoomsScreenState();
 }
 
-class FindPathPageState extends State<FindPathPage> {
+class _SelectRoomsScreenState extends State<SelectRoomsScreen> {
   String sourceRoomTitle = '';
 
   TextEditingController txtSource = TextEditingController();
@@ -55,9 +55,9 @@ class FindPathPageState extends State<FindPathPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AddInput(inputController: txtSource, hint: "Current room", onSuffixTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ListRoomsScreen()))),
+                  MaterialPageRoute(builder: (context) => RoomsListScreen()))),
             AddInput(inputController: txtDestination, hint: "Destination", onSuffixTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ListRoomsScreen()))),
+                MaterialPageRoute(builder: (context) => RoomsListScreen()))),
             MainPadding(child:
               MainButton(title: "Search", onPressed: () {
                 setPath(widget.building);

@@ -8,14 +8,14 @@ import '../widgets/cards_list/list_tile_wt_s.dart';
 import '../widgets/containers/main_container.dart';
 import '../widgets/lists/list_separated.dart';
 
-class ListRoomsAdminScreen extends StatefulWidget {
-  const ListRoomsAdminScreen({super.key});
+class RoomsListAdminScreen extends StatefulWidget {
+  const RoomsListAdminScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => _ListRoomsAdminScreenState();
+  State<StatefulWidget> createState() => _RoomsListAdminScreenState();
 }
 
-class _ListRoomsAdminScreenState extends State<ListRoomsAdminScreen> {
+class _RoomsListAdminScreenState extends State<RoomsListAdminScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

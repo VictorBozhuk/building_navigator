@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../styles/text_styles/text_styles.dart';
-import '../../admin/list_buildings_admin_screen.dart';
-import '../../list_buildings_screen.dart';
+import '../../admin/buildings_list_admin_screen.dart';
+import '../../buildings_list_screen.dart';
 
 class NewNavigationDrawer extends StatelessWidget {
   const NewNavigationDrawer({Key? key}) : super(key: key);
@@ -53,7 +53,7 @@ class NewNavigationDrawer extends StatelessWidget {
             title: const Text('Buildings', style: textStyleMainNormalDrawerText,),
             onTap: () =>{
               Navigator.push(context, MaterialPageRoute(builder: (context)
-              => ListBuildingsPage()))}
+              => BuildingsListScreen()))}
           ),
           ListTile(
             leading: Icon(Icons.image_search, color: Theme.of(context).iconTheme.color),
@@ -65,7 +65,7 @@ class NewNavigationDrawer extends StatelessWidget {
             title: const Text('Admin', style: textStyleMainNormalDrawerText),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context)
-                => ListBuildingsAdminScreen()));
+                => BuildingsListAdminScreen()));
               },
           ),
         ],

@@ -10,7 +10,7 @@ class BuildingNavigator extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
-      home: const Splash()
+      home: const SplashScreen()
     );
   }
 }

@@ -10,7 +10,7 @@ import '../widgets/buttons/circle_button.dart';
 import '../widgets/buttons/main_button.dart';
 import '../widgets/paddings/main_padding.dart';
 import 'add_vertex_screen.dart';
-import 'add_vertexes_to_area_screen.dart';
+import 'area_admin_screen.dart';
 
 class PanoramaVertexAdminScreen extends StatefulWidget{
   final String panoramaImagePath;
@@ -136,7 +136,7 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
         AdminInfo.clearConnection();
         Navigator.pop(context);
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => AddVertexesToAreaScreen()));
+            MaterialPageRoute(builder: (context) => AreaAdminScreen()));
       }
       else {
         AdminInfo.clearConnection();

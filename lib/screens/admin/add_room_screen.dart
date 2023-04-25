@@ -9,7 +9,7 @@ import '../widgets/buttons/main_button.dart';
 import '../widgets/text_inputs/main_text_input.dart';
 import 'panorama_vertex_admin_screen.dart';
 import '../widgets/building_widgets.dart';
-import 'list_rooms_admin_screen.dart';
+import 'rooms_list_admin_screen.dart';
 
 class AddRoomScreen extends StatefulWidget{
   AddRoomScreen({super.key, required this.isCreate});
@@ -71,7 +71,7 @@ class AddRoomScreenState extends State<AddRoomScreen> {
                   }
                   Navigator.pop(context);
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-                      const ListRoomsAdminScreen()));
+                      const RoomsListAdminScreen()));
                 }
               ),
             ],

@@ -11,17 +11,17 @@ import '../models/building_model.dart';
 import '../models/path_model.dart';
 import '../models/user_info.dart';
 import '../services/database.dart';
-import 'list_areas_screen.dart';
+import 'areas_list_screen.dart';
 
-class ListBuildingsPage extends StatefulWidget{
+class BuildingsListScreen extends StatefulWidget {
 
-  ListBuildingsPage({super.key});
+  BuildingsListScreen({super.key});
 
   @override
-  State<ListBuildingsPage> createState() => _ListBuildingsPageState();
+  State<BuildingsListScreen> createState() => _BuildingsListScreenState();
 }
 
-class _ListBuildingsPageState extends State<ListBuildingsPage> {
+class _BuildingsListScreenState extends State<BuildingsListScreen> {
   late List<Building> buildings;
 
   @override
@@ -35,10 +35,10 @@ class _ListBuildingsPageState extends State<ListBuildingsPage> {
               if (snapshot.hasData) {
                 return MainContainer(
                     child: Padding(padding: const EdgeInsets.only(top: 5), child:
-                    ListSeparated(
-                      itemBuilder: getItemBuilder,
-                      length: buildings.length,
-                    ),
+                      ListSeparated(
+                        itemBuilder: getItemBuilder,
+                        length: buildings.length,
+                      ),
                     )
                 );
               } else {
@@ -65,7 +65,7 @@ class _ListBuildingsPageState extends State<ListBuildingsPage> {
         Navigator.push(
             context,
             MaterialPageRoute(builder:
-                (context) => ListAreasScreen()))
+                (context) => AreasListScreen()))
 
       }
     );

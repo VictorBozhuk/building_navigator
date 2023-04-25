@@ -21,16 +21,16 @@ import 'add_area_screen.dart';
 import 'add_vertex_screen.dart';
 import 'dart:async';
 
-class AddVertexesToAreaScreen extends StatefulWidget {
+class AreaAdminScreen extends StatefulWidget {
   late List<Widget> points = [];
   final GlobalKey expanderKey = GlobalKey();
-  AddVertexesToAreaScreen({super.key});
+  AreaAdminScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => _AddVertexesToAreaScreenState();
+  State<StatefulWidget> createState() => _AreaAdminScreenState();
 }
 
-class _AddVertexesToAreaScreenState extends State<AddVertexesToAreaScreen> {
+class _AreaAdminScreenState extends State<AreaAdminScreen> {
   @override
   void initState() {
     super.initState();
@@ -289,7 +289,7 @@ void _drawLine(Vertex first, Vertex second, List<Widget> points, PictureSize pic
   ));
 }
 
-Future<void> _deleteSelected(AddVertexesToAreaScreen widget, Function func) async {
+Future<void> _deleteSelected(AreaAdminScreen widget, Function func) async {
   _deleteConnectionVertexOfNextVertexes();
   AdminInfo.area.vertexes?.removeWhere((x) => x.uid == AdminInfo.selectedVertex?.uid);
   await _setWidgets(widget, func);
@@ -322,7 +322,7 @@ void _deleteAreaAndConnectionOfNextVertex(){
   }
 }
 
-Future<void> _setWidgets(AddVertexesToAreaScreen widget, Function func) async {
+Future<void> _setWidgets(AreaAdminScreen widget, Function func) async {
   var pictureSize = await getPictureSizes(widget.expanderKey, AdminInfo.area.imagePath);
   AdminInfo.pictureSize = pictureSize;
   widget.points = [];
@@ -331,13 +331,13 @@ Future<void> _setWidgets(AddVertexesToAreaScreen widget, Function func) async {
   _setPoints(widget, func, pictureSize);
 }
 
-void _setMap(AddVertexesToAreaScreen widget){
+void _setMap(AreaAdminScreen widget){
   widget.points.add(Container(
     child: getAreaImage(AdminInfo.area.imagePath),
   ));
 }
 
-Future _setLines(AddVertexesToAreaScreen widget, PictureSize pictureSize) async {
+Future _setLines(AreaAdminScreen widget, PictureSize pictureSize) async {
   for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
     for(int j = 0; j < AdminInfo.area.vertexes![i].vertexConnections!.length; ++j){
       if((AdminInfo.area.vertexes![i].areaConnection != null
@@ -352,7 +352,7 @@ Future _setLines(AddVertexesToAreaScreen widget, PictureSize pictureSize) async 
   }
 }
 
-void _setPoints(AddVertexesToAreaScreen widget, Function func, PictureSize pictureSize){
+void _setPoints(AreaAdminScreen widget, Function func, PictureSize pictureSize){
   for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
     if(AdminInfo.area.title == "1 floor"){
       widget.points.add(getVertexAsButtonOn2DMap(AdminInfo.area.vertexes![i], func, pictureSize, radius: AdminInfo.area.vertexRadius));

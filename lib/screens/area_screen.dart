@@ -11,7 +11,7 @@ import '../models/picture_size_model.dart';
 import '../models/user_info.dart';
 import '../styles/appTheme.dart';
 import 'actions/actions.dart';
-import 'list_rooms_screen.dart';
+import 'rooms_list_screen.dart';
 
 class AreaScreen extends StatefulWidget {
   AreaScreen({super.key});
@@ -50,7 +50,7 @@ class _AreaScreenState extends State<AreaScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(builder:
-                        (context) => const ListRoomsScreen()));
+                        (context) => const RoomsListScreen()));
               },
               label: const Text('Search'),
               icon: Icon(Icons.search),

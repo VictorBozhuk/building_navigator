@@ -11,17 +11,17 @@ import '../../styles/images.dart';
 import '../models/path_model.dart';
 import '../models/user_info.dart';
 import 'area_screen.dart';
-import 'find_path.dart';
+import 'select_rooms_screen.dart';
 
-class ListAreasScreen extends StatefulWidget{
+class AreasListScreen extends StatefulWidget{
 
-  ListAreasScreen({super.key});
+  AreasListScreen({super.key});
 
   @override
-  State<ListAreasScreen> createState() => _ListAreasScreenState();
+  State<AreasListScreen> createState() => _AreasListScreenState();
 }
 
-class _ListAreasScreenState extends State<ListAreasScreen> {
+class _AreasListScreenState extends State<AreasListScreen> {
   late List<Area> areas;
 
   @override
@@ -34,7 +34,7 @@ class _ListAreasScreenState extends State<ListAreasScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(builder:
-                      (context) => FindPathPage(building: UserInfo.building)));
+                      (context) => SelectRoomsScreen(building: UserInfo.building)));
             },
             icon: Icons.search
         ),

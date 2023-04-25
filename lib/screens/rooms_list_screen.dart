@@ -16,14 +16,14 @@ import '../models/user_info.dart';
 import 'area_screen.dart';
 import 'functions/functions.dart';
 
-class ListRoomsScreen extends StatefulWidget {
-  const ListRoomsScreen({super.key});
+class RoomsListScreen extends StatefulWidget {
+  const RoomsListScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => _ListRoomsScreenState();
+  State<StatefulWidget> createState() => _RoomsListScreenState();
 }
 
-class _ListRoomsScreenState extends State<ListRoomsScreen> {
+class _RoomsListScreenState extends State<RoomsListScreen> {
   late List<Room> rooms;
   TextEditingController txtRoom = TextEditingController();
   @override
