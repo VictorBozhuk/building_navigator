@@ -198,7 +198,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
             }
             else {
               var room = AdminInfo.selectedVertex!.rooms!.firstWhere((x) =>
-              x.uid == AdminInfo.room.uid);
+              x.id == AdminInfo.room.id);
               room.title = AdminInfo.room.title;
               room.titleX = AdminInfo.room.titleX;
               room.titleY = AdminInfo.room.titleY;

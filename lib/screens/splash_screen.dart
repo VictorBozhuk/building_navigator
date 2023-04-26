@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import '../navigation/navi.dart';
+import '../services/database.dart';
 import '../styles/text_styles/text_styles.dart';
 import 'buildings_list_screen.dart';
 
@@ -9,7 +10,10 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 500), () async {
+      //
+      await deleteAllBuildings();
+      //
       Navi.push(context, BuildingsListRoute());
     });
     return Scaffold(
@@ -39,4 +43,13 @@ class SplashScreen extends StatelessWidget {
       ),
     );
   }
+
+
+  Future<void> deleteAllBuildings() async {
+    var buildings = await DatabaseService.getAll();
+    for(var b in buildings){
+      await DatabaseService.delete(b);
+    }
+  }
+
 }

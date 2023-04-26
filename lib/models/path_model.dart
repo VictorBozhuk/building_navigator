@@ -40,7 +40,7 @@ class PathInfo {
   }
 
   static setNewVertexes(Vertex vertex){
-    currentVertex = listVertexes?.firstWhere((x) => x.uid == vertex.uid);
+    currentVertex = listVertexes?.firstWhere((x) => x.id == vertex.id);
     _currentIndex = listVertexes!.indexOf(currentVertex!);
     nextVertex = listVertexes![1 + _currentIndex];
   }
@@ -57,14 +57,14 @@ class PathInfo {
 
   static void setPath(Building building){
     PathFinder client = PathFinder(building.getEdges(), building.getAllVertexes());
-    var VertexIds = client.GetPath(PathInfo.sourceVertex!.uid, PathInfo.destinationRoom!.vertex.uid);
+    var VertexIds = client.GetPath(PathInfo.sourceVertex!.id, PathInfo.destinationRoom!.vertex.id);
     List<Vertex> vertexes = [];
     var allVertexes = building.getAllVertexes();
     for(int i = 0; i < VertexIds!.length; ++i)
     {
       for(int j = 0; j < allVertexes.length; ++j)
       {
-        if(VertexIds[i] == allVertexes[j].uid)
+        if(VertexIds[i] == allVertexes[j].id)
         {
           vertexes.add(allVertexes[j]);
           break;

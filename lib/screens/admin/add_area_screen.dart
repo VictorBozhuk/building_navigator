@@ -82,7 +82,7 @@ class AddAreaScreenState extends State<AddAreaScreen> {
       Navi.push(context, AreasListAdminRoute());
     }
     else {
-      var area = AdminInfo.building.areas.firstWhere((x) => x.uid == AdminInfo.area.uid);
+      var area = AdminInfo.building.areas.firstWhere((x) => x.id == AdminInfo.area.id);
       area.title = AdminInfo.area.title;
       area.imagePath = AdminInfo.area.imagePath;
       Navi.push(context, AreaAdminRoute());

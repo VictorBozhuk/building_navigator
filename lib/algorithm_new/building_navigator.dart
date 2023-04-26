@@ -12,7 +12,7 @@ class PathFinder
     graph = Graph(Vertices: []);
     for(int i = 0; i < vertexes.length; ++i)
     {
-      graph.AddVertex(vertexes[i].uid);
+      graph.AddVertex(vertexes[i].id);
     }
 
     for(int i = 0; i < edges.length; ++i)

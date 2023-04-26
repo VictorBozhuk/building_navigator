@@ -75,14 +75,14 @@ class _SelectRoomsScreenState extends State<SelectRoomsScreen> {
 
   void setPath(Building building){
     PathFinder client = PathFinder(building.getEdges(), building.vertexes);
-    var VertexIds = client.GetPath(PathInfo.sourceVertex!.uid, PathInfo.destinationRoom!.vertex.uid);
+    var VertexIds = client.GetPath(PathInfo.sourceVertex!.id, PathInfo.destinationRoom!.vertex.id);
     List<Vertex> vertexes = [];
     var allVertexes = building.getAllVertexes();
     for(int i = 0; i < VertexIds!.length; ++i)
     {
       for(int j = 0; j < allVertexes.length; ++j)
       {
-        if(VertexIds[i] == allVertexes[j].uid)
+        if(VertexIds[i] == allVertexes[j].id)
         {
           vertexes.add(allVertexes[j]);
           break;

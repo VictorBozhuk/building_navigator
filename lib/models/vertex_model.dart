@@ -6,7 +6,7 @@ import 'package:uuid/uuid.dart';
 import 'area_model.dart';
 
 class Vertex {
-  late final String uid;
+  late final String id;
   late String? title;
   late List<Room>? rooms = [];
   late String? panoramaImagePath;
@@ -25,11 +25,11 @@ class Vertex {
         this.map2DWidth,
         this.map2DHeight,
         this.vertexConnections}){
-    uid = const Uuid().v1();
+    id = const Uuid().v1();
   }
 
   Vertex.createOnlyPoint(this.pointX, this.pointY, this.map2DWidth, this.map2DHeight,){
-    uid = const Uuid().v1();
+    id = const Uuid().v1();
     title = null;
     panoramaImagePath = null;
     rooms = [];
@@ -38,7 +38,7 @@ class Vertex {
   }
 
   Vertex.createEmpty(){
-    uid = const Uuid().v1();
+    id = const Uuid().v1();
     title = "";
     panoramaImagePath = "";
     rooms = [];
@@ -60,7 +60,7 @@ class Vertex {
   }
 
   Vertex.fromJson(Map<String, dynamic> data) {
-    uid = data["uid"];
+    id = data["id"];
     title = data['title'];
     panoramaImagePath = data['panoramaImagePath'];
     pointX = data['pointX'];
@@ -84,7 +84,7 @@ class Vertex {
   }
 
   Vertex.fromJsonForConnection(Map<String, dynamic> data) {
-    uid = data["uid"];
+    id = data["id"];
     title = data['title'];
     panoramaImagePath = data['panoramaImagePath'];
     pointX = data['pointX'];
@@ -106,7 +106,7 @@ class Vertex {
 
   Map<String, dynamic> toMap(){
     return {
-      "uid" : uid,
+      "id" : id,
       "title": title,
       "panoramaImagePath": panoramaImagePath,
       "vertexConnections": vertexConnections?.map((w) => w.toMap()).toList(),
@@ -121,7 +121,7 @@ class Vertex {
 
   Map<String, dynamic> toMapForConnection(){
     return {
-      "uid" : uid,
+      "id" : id,
       "title": title,
       "panoramaImagePath": panoramaImagePath,
       "pointX" : pointX,

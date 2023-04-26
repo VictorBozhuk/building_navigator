@@ -9,7 +9,11 @@ class DatabaseService {
   static CollectionReference buildingConnection = FirebaseFirestore.instance.collection('buildings');
 
   static Future addOrUpdateBuilding(Building building) async {
-    return await buildingConnection.doc(building.uid).set(building.toMap());
+    return await buildingConnection.doc(building.id).set(building.toMap());
+  }
+
+  static Future delete(Building building) async {
+    return await buildingConnection.doc(building.id).delete();
   }
 
   static Stream<QuerySnapshot> getBuildingSnapshots(){

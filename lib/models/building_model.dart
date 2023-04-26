@@ -8,27 +8,27 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class Building {
-  late String uid;
+  late String id;
   late String title;
   late List<Vertex> vertexes = [];
   late String imagePath;
   late List<Area> areas = [];
 
   Building(this.title, this.imagePath, this.vertexes){
-    uid = const Uuid().v1();
+    id = const Uuid().v1();
   }
 
   Building.full(this.title, this.imagePath, this.areas){
-    uid = const Uuid().v1();
+    id = const Uuid().v1();
   }
 
   Building.createEmpty(){
-    uid = const Uuid().v1();
+    id = const Uuid().v1();
     title = '';
     imagePath = '';
   }
 
-  Building.copy(this.uid, this.title, this.imagePath, this.areas);
+  Building.copy(this.id, this.title, this.imagePath, this.areas);
 
   List<Vertex> getAllVertexes(){
     List<Vertex> vertexes = [];
@@ -42,7 +42,7 @@ class Building {
   double getNextVertexDirection(Vertex current, Vertex next)
   {
     for(int i = 0; i < current.vertexConnections!.length; ++i) {
-      if(current.vertexConnections![i].nextVertex.uid == next.uid){
+      if(current.vertexConnections![i].nextVertex.id == next.id){
         return current.vertexConnections![i].direction;
       }
     }
@@ -60,7 +60,7 @@ class Building {
 
     for(int i = 0; i < current.vertexConnections!.length; ++i) {
       var nextVertex = PathInfo.building.getAllVertexes().firstWhere((x)
-        => x.uid == current.vertexConnections![i].nextVertex.uid);
+        => x.id == current.vertexConnections![i].nextVertex.id);
       hotspots.add(getHotspotPoint(
         current.vertexConnections![i].iconX,
         current.vertexConnections![i].iconY,
@@ -83,9 +83,9 @@ class Building {
     }
 
     for(int i = 0; i < current.vertexConnections!.length; ++i) {
-      if(current.vertexConnections![i].nextVertex.uid == next.uid){
+      if(current.vertexConnections![i].nextVertex.id == next.id){
         var nextVertex = PathInfo.building.getAllVertexes().firstWhere((x)
-        => x.uid == next.uid);
+        => x.id == next.id);
         hotspots.add(getHotspotNextPoint(
           current.vertexConnections?[i].iconX ?? 0,
           current.vertexConnections?[i].iconY ?? 0,
@@ -106,8 +106,8 @@ class Building {
     for(int i = 0; i < allVertexes.length; ++i){
       int length = allVertexes[i].vertexConnections?.length ?? 0;
       for(int j = 0; j < length; ++j){
-        if(isSameEdge(edges, allVertexes[i].vertexConnections![j].nextVertex.uid) == false){
-          edges.add(Edge(allVertexes[i].uid, allVertexes[i].vertexConnections![j].nextVertex.uid, allVertexes[i].vertexConnections?[j].length ?? 0));
+        if(isSameEdge(edges, allVertexes[i].vertexConnections![j].nextVertex.id) == false){
+          edges.add(Edge(allVertexes[i].id, allVertexes[i].vertexConnections![j].nextVertex.id, allVertexes[i].vertexConnections?[j].length ?? 0));
         }
       }
     }
@@ -137,7 +137,7 @@ class Building {
 
   Map<String, dynamic> toMap(){
     return {
-      "uid" : uid,
+      "id" : id,
       "title": title,
       "imagePath": imagePath,
       "vertexes": vertexes.map((w) => w.toMap()).toList(),
@@ -146,7 +146,7 @@ class Building {
   }
 
   Building.fromJson(Map<String, dynamic> data) {
-    uid = data['uid'];
+    id = data['id'];
     title = data['title'];
     imagePath = data['imagePath'];
     if(data['vertexes'] == null){
@@ -165,6 +165,6 @@ class Building {
   Building copy(){
     var copiedAreas = areas.map((w) => w.copy()).toList();
 
-    return Building.copy(uid, title, imagePath, copiedAreas);
+    return Building.copy(id, title, imagePath, copiedAreas);
   }
 }

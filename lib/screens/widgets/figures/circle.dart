@@ -97,7 +97,7 @@ Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext c
     },
     () {
       if(vertex.areaConnection != null){
-        UserInfo.area = UserInfo.building.areas.firstWhere((x) => x.uid == vertex.areaConnection!.uid);
+        UserInfo.area = UserInfo.building.areas.firstWhere((x) => x.id == vertex.areaConnection!.id);
         Navi.popAndPush(context, AreaRoute());
       }
     },
@@ -123,7 +123,7 @@ Positioned getVertexAsButton(Vertex vertex, Function onTap, Function onLongPress
   if(vertex.areaConnection != null){
     color = Colors.yellow;
   }
-  if(vertex.uid == AdminInfo.selectedVertex?.uid){
+  if(vertex.id == AdminInfo.selectedVertex?.id){
     color = Colors.green;
   }
   double vertexDiameter = 0;

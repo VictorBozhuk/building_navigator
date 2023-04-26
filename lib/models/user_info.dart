@@ -74,8 +74,8 @@ class UserInfo{
   }
 
   static void checkBuildingId(){
-    if (building.uid.isEmpty == true){
-      building.uid = const Uuid().v1();
+    if (building.id.isEmpty == true){
+      building.id = const Uuid().v1();
     }
   }
 

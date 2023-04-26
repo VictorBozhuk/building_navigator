@@ -2,7 +2,7 @@ import 'package:lnu_navigator/models/vertex_model.dart';
 import 'package:uuid/uuid.dart';
 
 class Area {
-  late String uid;
+  late String id;
   late String title;
   late String imagePath;
   late int countOfPixelsInMeter = 0;
@@ -10,25 +10,25 @@ class Area {
   late List<Vertex>? vertexes = [];
 
   Area(this.title, this.imagePath, this.countOfPixelsInMeter, {this.vertexes}){
-    uid = const Uuid().v1();
+    id = const Uuid().v1();
   }
-  Area.createMainCopy(this.uid, this.title, this.imagePath, this.countOfPixelsInMeter);
-  Area.copy(this.uid, this.title, this.imagePath, this.countOfPixelsInMeter, {this.vertexes});
+  Area.createMainCopy(this.id, this.title, this.imagePath, this.countOfPixelsInMeter);
+  Area.copy(this.id, this.title, this.imagePath, this.countOfPixelsInMeter, {this.vertexes});
 
   Area.createEmpty(){
-    uid = const Uuid().v1();
+    id = const Uuid().v1();
     title = '';
     imagePath = '';
     countOfPixelsInMeter = 0;
   }
 
   Area getObject(){
-    return Area.createMainCopy(uid, title, imagePath, countOfPixelsInMeter);
+    return Area.createMainCopy(id, title, imagePath, countOfPixelsInMeter);
   }
 
   Map<String, dynamic> toMap(){
     return {
-      "uid" : uid,
+      "id" : id,
       "title": title,
       "imagePath": imagePath,
       "countOfPixelsInMeter" : countOfPixelsInMeter,
@@ -38,7 +38,7 @@ class Area {
 
   Map<String, dynamic> toMapForConnection(){
     return {
-      "uid" : uid,
+      "id" : id,
       "title": title,
       "imagePath": imagePath,
       "countOfPixelsInMeter": countOfPixelsInMeter,
@@ -46,7 +46,7 @@ class Area {
   }
 
   Area.fromJson(Map<String, dynamic> data) {
-    uid = data['uid'];
+    id = data['id'];
     title = data['title'];
     imagePath = data['imagePath'];
     countOfPixelsInMeter = data['countOfPixelsInMeter'] ?? 0;
@@ -58,7 +58,7 @@ class Area {
   }
 
   Area.fromJsonForConnection(Map<String, dynamic> data) {
-    uid = data['uid'];
+    id = data['id'];
     title = data['title'];
     imagePath = data['imagePath'];
     countOfPixelsInMeter = data["countOfPixelsInMeter"] ?? 0;
@@ -67,6 +67,6 @@ class Area {
 
   Area copy(){
     var copiedVertexes = vertexes?.map((w) => w.copy()).toList();
-    return Area.copy(uid, title, imagePath, countOfPixelsInMeter, vertexes: copiedVertexes);
+    return Area.copy(id, title, imagePath, countOfPixelsInMeter, vertexes: copiedVertexes);
   }
 }

@@ -123,8 +123,8 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
         AdminInfo.selectedVertex?.vertexConnections?.add(AdminInfo.connection);
       }
       else{
-        var editedVertex = AdminInfo.area.vertexes?.firstWhere((element) => element.uid == AdminInfo.selectedVertex?.uid);
-        var editedConnection = editedVertex?.vertexConnections?.firstWhere((element) => element.uid == AdminInfo.connection.uid);
+        var editedVertex = AdminInfo.area.vertexes?.firstWhere((element) => element.id == AdminInfo.selectedVertex?.id);
+        var editedConnection = editedVertex?.vertexConnections?.firstWhere((element) => element.id == AdminInfo.connection.id);
         editedConnection?.length = _getLength(AdminInfo.selectedVertex!, editedConnection.nextVertex, AdminInfo.area);
         editedConnection?.nextVertex = AdminInfo.secondSelectedVertex!;
         editedConnection?.direction = AdminInfo.connection.direction;

@@ -121,9 +121,9 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
   }
   
   void onSetCoordinates(){
-    if(AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex.uid == AdminInfo.selectedVertexOnOtherArea!.uid)){
+    if(AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex.id == AdminInfo.selectedVertexOnOtherArea!.id)){
       AdminInfo.connection = AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x)
-      => x.nextVertex.uid == AdminInfo.selectedVertexOnOtherArea!.uid);
+      => x.nextVertex.id == AdminInfo.selectedVertexOnOtherArea!.id);
       AdminInfo.secondSelectedVertex = AdminInfo.selectedVertexOnOtherArea;
       Navi.push(context, PanoramaVertexAdminRoute(
         isCreate: false,
@@ -149,7 +149,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
   }
   
   void onSave(){
-    var editedVertex = AdminInfo.area.vertexes?.firstWhere((x) => x.uid == AdminInfo.selectedVertex?.uid);
+    var editedVertex = AdminInfo.area.vertexes?.firstWhere((x) => x.id == AdminInfo.selectedVertex?.id);
     editedVertex?.title = AdminInfo.selectedVertex?.title;
     editedVertex?.panoramaImagePath = AdminInfo.selectedVertex?.panoramaImagePath;
     editedVertex?.rooms = AdminInfo.selectedVertex?.rooms;

@@ -144,7 +144,7 @@ class _AreaScreenState extends State<AreaScreen> {
   void _setPointsOfPath(AreaScreen widget, BuildContext context, Function func, PictureSize pictureSize){
     for(int i = 0; i < UserInfo.area.vertexes!.length; ++i){
       for(int j = 0; j < PathInfo.listVertexes!.length; ++j){
-        if(UserInfo.area.vertexes![i].uid == PathInfo.listVertexes![j].uid){
+        if(UserInfo.area.vertexes![i].id == PathInfo.listVertexes![j].id){
           if(UserInfo.area.title == "1 floor"){
             widget.points.add(getVertexAsButtonOn2DMapForUserWithPath(UserInfo.area.vertexes![i], context, func, pictureSize, radius: UserInfo.area.vertexRadius));
           } else{

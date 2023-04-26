@@ -2,7 +2,7 @@ import 'package:lnu_navigator/models/vertex_model.dart';
 import 'package:uuid/uuid.dart';
 
 class VertexConnection {
-  late String uid;
+  late String id;
   late double direction;
   late double iconX;
   late double iconY;
@@ -12,10 +12,10 @@ class VertexConnection {
   late Vertex nextVertex;
 
   VertexConnection(this.nextVertex, this.direction, this.iconX, this.iconY, this.iconSize, this.length, this.iconAngle){
-    uid = const Uuid().v1();
+    id = const Uuid().v1();
   }
   VertexConnection.createEmpty(){
-    uid = const Uuid().v1();
+    id = const Uuid().v1();
     nextVertex = Vertex.createEmpty();
     direction = 0;
     iconX = 0;
@@ -26,7 +26,7 @@ class VertexConnection {
   }
 
   VertexConnection.fromJson(Map<String, dynamic> data) {
-    uid = data['uid'];
+    id = data['id'];
     nextVertex = Vertex.fromJsonForConnection(data['nextVertex']);
     direction = data['direction'];
     iconX = data['iconX'];
@@ -42,7 +42,7 @@ class VertexConnection {
 
   Map<String, dynamic> toMap(){
     return {
-      "uid" : uid,
+      "id" : id,
       "nextVertex": nextVertex.toMapForConnection(),
       "direction": direction,
       "iconX": iconX,
