@@ -11,7 +11,7 @@ class Area {
 
   late List<Vertex> vertexes;
 
-  Area(this.title, this.buildingId, this.imagePath, this.pixelsInMeter, this.vertexRadius, {required this.vertexes}){
+  Area(this.title, this.buildingId, this.imagePath, this.pixelsInMeter, this.vertexRadius){
     id = const Uuid().v1();
   }
   Area.copy(this.id, this.title, this.buildingId, this.imagePath, this.pixelsInMeter, this.vertexRadius);

@@ -27,9 +27,9 @@ class AddAreaScreenState extends State<AddAreaScreen> {
     txtTitle.addListener(() {
       AdminInfo.area.title = txtTitle.text;
     });
-    txtScale.text = AdminInfo.area.countOfPixelsInMeter.toString();
+    txtScale.text = AdminInfo.area.pixelsInMeter.toString();
     txtScale.addListener(() {
-      AdminInfo.area.countOfPixelsInMeter = int.parse(txtScale.text);
+      AdminInfo.area.pixelsInMeter = int.parse(txtScale.text);
     });
     txtImagePath.text = AdminInfo.area.imagePath;
     txtImagePath.addListener(() {

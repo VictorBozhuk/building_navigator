@@ -32,10 +32,10 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
     if(AdminInfo.selectedVertex!.areaConnection != null
         && AdminInfo.selectedVertexOnOtherArea == null
         && AdminInfo.selectedVertex!.vertexConnections!.any((x)
-          => x.nextVertex.areaConnection != null)){
+          => x.nextVertex!.areaConnection != null)){
       AdminInfo.selectedVertexOnOtherArea =
           AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x)
-            => x.nextVertex.areaConnection != null).nextVertex;
+            => x.nextVertex!.areaConnection != null).nextVertex;
       AdminInfo.areaConnection = AdminInfo.selectedVertexOnOtherArea!.areaConnection!;
     }
 
@@ -121,9 +121,9 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
   }
   
   void onSetCoordinates(){
-    if(AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex.id == AdminInfo.selectedVertexOnOtherArea!.id)){
+    if(AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex!.id == AdminInfo.selectedVertexOnOtherArea!.id)){
       AdminInfo.connection = AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x)
-      => x.nextVertex.id == AdminInfo.selectedVertexOnOtherArea!.id);
+      => x.nextVertex!.id == AdminInfo.selectedVertexOnOtherArea!.id);
       AdminInfo.secondSelectedVertex = AdminInfo.selectedVertexOnOtherArea;
       Navi.push(context, PanoramaVertexAdminRoute(
         isCreate: false,

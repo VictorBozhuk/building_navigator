@@ -8,15 +8,18 @@ import 'package:lnu_navigator/screens/widgets/indicators/background_indicator.da
 import 'package:lnu_navigator/screens/widgets/lists/list_separated.dart';
 
 import '../../styles/images.dart';
+import '../models/building_model.dart';
 import '../models/path_model.dart';
 import '../models/user_info.dart';
 import '../navigation/navi.dart';
+import '../services/area_service.dart';
+import '../services/locator.dart';
 import 'area_screen.dart';
 import 'select_rooms_screen.dart';
 
 class AreasListScreen extends StatefulWidget{
-
-  AreasListScreen({super.key});
+  final Building building;
+  const AreasListScreen({super.key, required this.building});
 
   @override
   State<AreasListScreen> createState() => _AreasListScreenState();
@@ -57,7 +60,8 @@ class _AreasListScreenState extends State<AreasListScreen> {
   }
 
   Future<List<Area>> getAreas() async {
-    return areas = UserInfo.building.areas;
+    return areas = await getIt<AreaService>().getAll(widget.building.id);
+    //return areas = UserInfo.building.areas;
   }
 
   Widget getItemBuilder(int index){

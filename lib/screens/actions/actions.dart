@@ -16,7 +16,7 @@ Future<Vertex> getCreatedVertexOnMap(TapUpDetails details, Area area, GlobalKey 
   if (kDebugMode) {
     print("Point:   x = $x   y = $y");
   }
-  return Vertex.createOnlyPoint(x, y, pictureSize.width, pictureSize.height);
+  return Vertex.point(area.id, x, y, pictureSize.width, pictureSize.height);
 }
 
 double roundDouble(double value){
@@ -66,10 +66,10 @@ double getLengthByPixels(Vertex? first, Vertex? second, PictureSize pictureSize)
   if(first == null || second == null){
     return 0;
   }
-  double x1 = pictureSize.width / (first.map2DWidth! / first.pointX!);
-  double y1 = pictureSize.width / (first.map2DWidth! / first.pointY!);
-  double x2 = pictureSize.width / (second.map2DWidth! / second.pointX!);
-  double y2 = pictureSize.width / (second.map2DWidth! / second.pointY!);
+  double x1 = pictureSize.width / (first.areaWidth! / first.pointX!);
+  double y1 = pictureSize.width / (first.areaWidth! / first.pointY!);
+  double x2 = pictureSize.width / (second.areaWidth! / second.pointX!);
+  double y2 = pictureSize.width / (second.areaWidth! / second.pointY!);
 
   return roundDouble(sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
 }

@@ -15,6 +15,7 @@ class Building {
 
   Building(this.title, this.imagePath){
     id = const Uuid().v1();
+    areas = [];
   }
 
   Building.empty(){
@@ -25,8 +26,6 @@ class Building {
   }
 
   Building.copy(this.id, this.title, this.imagePath);
-
-
 
   Map<String, dynamic> toMap(){
     return {

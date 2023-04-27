@@ -1,7 +1,7 @@
 import 'package:lnu_navigator/loader/dormitory_3/vertexes_dormitory_3.dart';
 import 'package:uuid/uuid.dart';
 import '../../models/room_model.dart';
-
+/*
 Room r701 = Room.setAll(const Uuid().v1(), "701", -35, 10, -1);
 Room r702 = Room.setAll(const Uuid().v1(), "702", 20, 10, 0);
 Room r703 = Room.setAll(const Uuid().v1(), "703", 51, 10, 1);
@@ -19,3 +19,4 @@ Room r714 = Room.setAll(const Uuid().v1(), "714", 5, 5, 0);
 Room r714A = Room.setAll(const Uuid().v1(), "714А", 8, 15, 0);
 Room r701A = Room.setAll(const Uuid().v1(), "701А",180, 20, 4);
 
+*/

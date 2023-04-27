@@ -14,6 +14,7 @@ import '../models/building_model.dart';
 import '../models/path_model.dart';
 import '../models/vertex_model.dart';
 import 'admin/rooms_list_admin_screen.dart';
+import 'functions/functions.dart';
 import 'rooms_list_screen.dart';
 
 class SelectRoomsScreen extends StatefulWidget{
@@ -61,8 +62,8 @@ class _SelectRoomsScreenState extends State<SelectRoomsScreen> {
             AddInput(inputController: txtDestination, hint: "Destination", onSuffixTap: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => RoomsListScreen()))),
             MainPadding(child:
-              MainButton(title: "Search", onPressed: () {
-                setPath(widget.building);
+              MainButton(title: "Search", onPressed: () async {
+                await setPath(widget.building);
                 Navi.push(context, PanoramaRoute(
                     currentVertex: PathInfo.currentVertex!,
                     nextVertex: PathInfo.destinationRoom!.vertex));
@@ -73,16 +74,16 @@ class _SelectRoomsScreenState extends State<SelectRoomsScreen> {
     );
   }
 
-  void setPath(Building building){
-    PathFinder client = PathFinder(building.getEdges(), building.vertexes);
-    var VertexIds = client.GetPath(PathInfo.sourceVertex!.id, PathInfo.destinationRoom!.vertex.id);
+  Future<void> setPath(Building building) async {
+    PathFinder client = PathFinder(await getEdges(building), await getAllVertexes(building));
+    var vertexIds = client.GetPath(PathInfo.sourceVertex!.id, PathInfo.destinationRoom!.vertex.id);
     List<Vertex> vertexes = [];
-    var allVertexes = building.getAllVertexes();
-    for(int i = 0; i < VertexIds!.length; ++i)
+    var allVertexes = await getAllVertexes(building);
+    for(int i = 0; i < vertexIds!.length; ++i)
     {
       for(int j = 0; j < allVertexes.length; ++j)
       {
-        if(VertexIds[i] == allVertexes[j].id)
+        if(vertexIds[i] == allVertexes[j].id)
         {
           vertexes.add(allVertexes[j]);
           break;

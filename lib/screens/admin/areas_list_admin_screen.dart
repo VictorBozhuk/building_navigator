@@ -68,7 +68,7 @@ class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
           }
           else {
             AdminInfo.areaConnection = AdminInfo.building.areas[index];
-            AdminInfo.selectedVertex?.areaConnection = AdminInfo.building.areas[index].getObject();
+            AdminInfo.selectedVertex?.areaConnection = AdminInfo.building.areas[index].copy();
             Navi.push(context, SelectVertexRoute(area: AdminInfo.areaConnection,));
           }
         }

@@ -32,7 +32,7 @@ const String t7 = "7";
 const String t6_7 = "6_7";
 const String t7_8 = "7_8";
 
-
+/*
 List<Vertex> vertexesDormitory_3 = [
   // 7
   v704_706,
@@ -138,7 +138,7 @@ Vertex v7_8 = Vertex(title: t7_8, panoramaImagePath: p7_8,
       VertexConnection(v7, 0, 40, 60, 70, 5, 0),
     ]);
 
-
+*/
 
 
 

@@ -18,7 +18,7 @@ List<Room> getRoomsOfBuildingByTitle(Building building, String title)
 {
   List<Room> rooms = [];
   for (var x in building.areas) {
-    x.vertexes?.forEach((c) {
+    x.vertexes.forEach((c) {
       rooms.addAll(c.rooms?.where((v) =>
           v.title.toLowerCase().contains(title.toLowerCase())) ?? []);
     });
@@ -43,7 +43,7 @@ Future<List<Vertex>> getAllVertexes(Building building) async {
 double getNextVertexDirection(Vertex current, Vertex next)
 {
   for(int i = 0; i < current.vertexConnections!.length; ++i) {
-    if(current.vertexConnections![i].nextVertex.id == next.id){
+    if(current.vertexConnections![i].nextVertex!.id == next.id){
       return current.vertexConnections![i].direction;
     }
   }
@@ -61,7 +61,7 @@ Future<List<Hotspot>> getAllHotspots(BuildContext context, Vertex current) async
 
   for(int i = 0; i < current.vertexConnections!.length; ++i) {
     var nextVertex = (await getAllVertexes(PathInfo.building)).firstWhere((x)
-    => x.id == current.vertexConnections![i].nextVertex.id);
+    => x.id == current.vertexConnections![i].nextVertex!.id);
     hotspots.add(getHotspotPoint(
       current.vertexConnections![i].iconX,
       current.vertexConnections![i].iconY,
@@ -84,7 +84,7 @@ Future<List<Hotspot>> getNextHotspots(BuildContext context, Vertex current, Vert
   }
 
   for(int i = 0; i < current.vertexConnections!.length; ++i) {
-    if(current.vertexConnections![i].nextVertex.id == next.id){
+    if(current.vertexConnections![i].nextVertex!.id == next.id){
       var nextVertex = (await getAllVertexes(PathInfo.building)).firstWhere((x)
       => x.id == next.id);
       hotspots.add(getHotspotNextPoint(
@@ -107,8 +107,8 @@ Future<List<Edge>> getEdges(Building building) async {
   for(var v in vertexes){
     int length = v.vertexConnections?.length ?? 0;
     for(int j = 0; j < length; ++j){
-      if(isSameEdge(edges, v.vertexConnections![j].nextVertex.id) == false){
-        edges.add(Edge(v.id, v.vertexConnections![j].nextVertex.id, v.vertexConnections?[j].length ?? 0));
+      if(isSameEdge(edges, v.vertexConnections![j].nextVertex!.id) == false){
+        edges.add(Edge(v.id, v.vertexConnections![j].nextVertex!.id, v.vertexConnections?[j].length ?? 0));
       }
     }
   }

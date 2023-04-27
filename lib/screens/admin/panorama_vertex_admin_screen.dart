@@ -113,7 +113,7 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
       //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AddVertexConnectionScreen(isCreate: widget.isCreate)));
 
       if(AdminInfo.isCreateAreaConnection == false){
-        AdminInfo.connection.nextVertex.areaConnection = AdminInfo.areaConnection;
+        AdminInfo.connection.nextVertex!.areaConnection = AdminInfo.areaConnection;
         //AdminInfo.connection.nextVertex.isAreaConnection = true;
       }
 
@@ -125,7 +125,7 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
       else{
         var editedVertex = AdminInfo.area.vertexes?.firstWhere((element) => element.id == AdminInfo.selectedVertex?.id);
         var editedConnection = editedVertex?.vertexConnections?.firstWhere((element) => element.id == AdminInfo.connection.id);
-        editedConnection?.length = _getLength(AdminInfo.selectedVertex!, editedConnection.nextVertex, AdminInfo.area);
+        editedConnection?.length = _getLength(AdminInfo.selectedVertex!, editedConnection.nextVertex!, AdminInfo.area);
         editedConnection?.nextVertex = AdminInfo.secondSelectedVertex!;
         editedConnection?.direction = AdminInfo.connection.direction;
         editedConnection?.iconSize = AdminInfo.connection.iconSize;
@@ -162,7 +162,7 @@ Hotspot getHotspot(VertexConnection connection)
 
 double _getLength(Vertex first, Vertex second, Area area){
   try{
-    return roundDouble(getLengthByPixels(first, second, AdminInfo.pictureSize) / area.countOfPixelsInMeter);
+    return roundDouble(getLengthByPixels(first, second, AdminInfo.pictureSize) / area.pixelsInMeter);
   }
   catch(ex){
     print(ex.toString());

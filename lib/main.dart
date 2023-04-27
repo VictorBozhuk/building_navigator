@@ -4,7 +4,7 @@ import 'package:lnu_navigator/services/database.dart';
 import 'package:lnu_navigator/services/locator.dart';
 
 import 'building_navigator.dart';
-import 'loader/loader.dart';
+import 'loader/building_loader.dart';
 
 void main() async {
   await initFirebase();

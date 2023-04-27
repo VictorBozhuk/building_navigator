@@ -238,8 +238,8 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   void onJoinVertex(){
     bool isCreate = true;
     AdminInfo.clearConnection();
-    if(AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex.id == AdminInfo.secondSelectedVertex!.id)){
-      AdminInfo.connection = AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x) => x.nextVertex.id == AdminInfo.secondSelectedVertex!.id);
+    if(AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex!.id == AdminInfo.secondSelectedVertex!.id)){
+      AdminInfo.connection = AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x) => x.nextVertex!.id == AdminInfo.secondSelectedVertex!.id);
       isCreate = false;
     }
     Navi.push(context, PanoramaVertexAdminRoute(
@@ -251,10 +251,10 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
 }
 
 void _drawLine(Vertex first, Vertex second, List<Widget> points, PictureSize pictureSize) {
-  double x1 = pictureSize.width / (first.map2DWidth! / first.pointX!);
-  double y1 = pictureSize.width / (first.map2DWidth! / first.pointY!);
-  double x2 = pictureSize.width / (second.map2DWidth! / second.pointX!);
-  double y2 = pictureSize.width / (second.map2DWidth! / second.pointY!);
+  double x1 = pictureSize.width / (first.areaWidth! / first.pointX!);
+  double y1 = pictureSize.width / (first.areaWidth! / first.pointY!);
+  double x2 = pictureSize.width / (second.areaWidth! / second.pointX!);
+  double y2 = pictureSize.width / (second.areaWidth! / second.pointY!);
   double xDif = (x1 - x2).abs() / 2;
   double yDif = (y1 - y2).abs() / 2;
   double x2Res = 0;
@@ -296,10 +296,10 @@ Future<void> _deleteSelected(AreaAdminScreen widget, Function func) async {
 
 void _deleteConnectionVertexOfNextVertexes(){
   _deleteAreaAndConnectionOfNextVertex();
-  for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
-    for(int j = 0; j < (AdminInfo.area.vertexes?[i].vertexConnections?.length ?? 0); ++j){
-      if(AdminInfo.area.vertexes?[i].vertexConnections?[j].nextVertex.id == AdminInfo.selectedVertex?.id){
-        AdminInfo.area.vertexes?[i].vertexConnections?.remove(AdminInfo.area.vertexes?[i].vertexConnections?[j]);
+  for(int i = 0; i < AdminInfo.area.vertexes.length; ++i){
+    for(int j = 0; j < (AdminInfo.area.vertexes[i].vertexConnections?.length ?? 0); ++j){
+      if(AdminInfo.area.vertexes[i].vertexConnections?[j].nextVertex!.id == AdminInfo.selectedVertex?.id){
+        AdminInfo.area.vertexes[i].vertexConnections?.remove(AdminInfo.area.vertexes[i].vertexConnections?[j]);
       }
     }
   }
@@ -308,11 +308,11 @@ void _deleteConnectionVertexOfNextVertexes(){
 void _deleteAreaAndConnectionOfNextVertex(){
   if(AdminInfo.selectedVertex?.areaConnection != null){
     var nextArea = AdminInfo.building.areas.firstWhere((x) => x.id == AdminInfo.selectedVertex?.areaConnection!.id);
-    for(int i = 0; i < nextArea.vertexes!.length; ++i){
-      for(int j = 0; j < (nextArea.vertexes?[i].vertexConnections?.length ?? 0); ++j){
-        if(nextArea.vertexes?[i].vertexConnections?[j].nextVertex.id == AdminInfo.selectedVertex?.id){
-          nextArea.vertexes?[i].areaConnection = null;
-          nextArea.vertexes?[i].vertexConnections?.remove(nextArea.vertexes?[i].vertexConnections?[j]);
+    for(int i = 0; i < nextArea.vertexes.length; ++i){
+      for(int j = 0; j < (nextArea.vertexes[i].vertexConnections?.length ?? 0); ++j){
+        if(nextArea.vertexes[i].vertexConnections?[j].nextVertex!.id == AdminInfo.selectedVertex?.id){
+          nextArea.vertexes[i].areaConnection = null;
+          nextArea.vertexes[i].vertexConnections?.remove(nextArea.vertexes[i].vertexConnections?[j]);
         }
       }
     }
@@ -339,9 +339,9 @@ Future _setLines(AreaAdminScreen widget, PictureSize pictureSize) async {
     for(int j = 0; j < AdminInfo.area.vertexes![i].vertexConnections!.length; ++j){
       if((AdminInfo.area.vertexes![i].areaConnection != null
           && AdminInfo.area.vertexes![i].vertexConnections![j]
-              .nextVertex.areaConnection != null) == false){
+              .nextVertex?.areaConnection != null) == false){
         _drawLine(AdminInfo.area.vertexes![i],
-            AdminInfo.area.vertexes![i].vertexConnections![j].nextVertex,
+            AdminInfo.area.vertexes![i].vertexConnections![j].nextVertex!,
             widget.points,
             pictureSize);
       }
