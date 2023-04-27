@@ -6,25 +6,30 @@ import 'package:uuid/uuid.dart';
 
 class Room extends Comparable<Room> {
   late String id;
+  late String vertexId;
   late String title;
-  late Vertex vertex;
-  late double titleX = 0;
-  late double titleY = 0;
-  late double direction = 0;
-  late double fontSize = 18;
-  late double titleBoxWidth = 100;
-  late double titleBoxHeight = 100;
-  late Color color = Colors.red;
-  Room({required this.id, required this.title});
+  late double titleX;
+  late double titleY;
+  late double direction;
+  late double fontSize;
+  late double titleBoxWidth;
+  late double titleBoxHeight;
+  late Color color;
 
-  Room.setAll(this.id, this.title, this.titleX, this.titleY, this.direction);
-  Room.createEmpty(){
+  late Vertex vertex;
+
+  Room(this.id, this.vertexId, this.title, this.titleX, this.titleY,
+      this.direction, this.fontSize, this.titleBoxHeight, this.titleBoxWidth, this.color);
+  Room.empty(this.vertexId){
     id = const Uuid().v1();
     title = "";
-    vertex = Vertex.createEmpty();
     titleX = 0;
     titleY = 0;
     direction = 0;
+    fontSize = 18;
+    titleBoxWidth = 100;
+    titleBoxHeight = 100;
+    color = Colors.red;
   }
   void setCoordination(double x, double y, double direction){
     titleX = x;
@@ -43,11 +48,10 @@ class Room extends Comparable<Room> {
     titleX = data['titleX'];
     titleY = data['titleY'];
     direction = data['direction'];
-    vertex = Vertex.fromJsonForConnection(data["vertex"]);
-  }
-
-  Room copy(){
-    return Room.setAll(id, title, titleX, titleY, direction);
+    fontSize = data['fontSize'];
+    titleBoxWidth = data['titleBoxWidth'];
+    titleBoxHeight = data['titleBoxHeight'];
+    color = Color(data["color"]);
   }
 
   Map<String, dynamic> toMap(){
@@ -57,7 +61,14 @@ class Room extends Comparable<Room> {
       "titleX": titleX,
       "titleY": titleY,
       "direction": direction,
-      "vertex" : vertex.toMapForConnection(),
+      "fontSize": fontSize,
+      "titleBoxWidth": titleBoxWidth,
+      "titleBoxHeight": titleBoxHeight,
+      "color": color.value,
     };
+  }
+
+  Room copy(){
+    return Room(id, vertexId, title, titleX, titleY, direction, fontSize, titleBoxHeight, titleBoxWidth, color);
   }
 }

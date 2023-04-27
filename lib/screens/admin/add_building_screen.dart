@@ -5,6 +5,7 @@ import 'package:lnu_navigator/screens/widgets/paddings/main_padding.dart';
 import '../../navigation/navi.dart';
 import '../../models/admin_info.dart';
 import '../../services/database.dart';
+import '../../services/locator.dart';
 import '../widgets/app_bars/app_bars.dart';
 import '../widgets/buttons/main_button.dart';
 import '../widgets/containers/main_container.dart';
@@ -71,7 +72,7 @@ class _AddBuildingScreenState extends State<AddBuildingScreen> {
                     title: "Save",
                     onPressed: () {
                       //
-                      DatabaseService.addOrUpdateBuilding(AdminInfo.building);
+                      getIt<DatabaseService>().addOrUpdate(AdminInfo.building);
                       //
                       Navi.popAndPushReplacement(context, BuildingsListAdminRoute());
                     },

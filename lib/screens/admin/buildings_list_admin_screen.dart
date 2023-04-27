@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../navigation/app_router.gr.dart';
 import '../../navigation/navi.dart';
+import '../../services/locator.dart';
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
 import '../../models/building_model.dart';
@@ -54,7 +55,7 @@ class _BuildingsListAdminScreenState extends State<BuildingsListAdminScreen> {
   }
 
   Future<List<Building>> getBuildings() async {
-    return buildings = await DatabaseService.getAll();
+    return buildings = await getIt<DatabaseService>().getAll();
   }
 
   Widget getItemBuilder(int index){

@@ -2,6 +2,7 @@ import 'package:lnu_navigator/models/room_model.dart';
 import 'package:lnu_navigator/models/vertex_model.dart';
 
 import '../algorithm_new/building_navigator.dart';
+import '../screens/functions/functions.dart';
 import 'building_model.dart';
 
 class PathInfo {
@@ -13,7 +14,7 @@ class PathInfo {
   static int _currentIndex = 0;
 
   static late Vertex? sourceVertex;
-  static Room? destinationRoom = Room.createEmpty();
+  static Room? destinationRoom = Room.empty("");
 
   static bool isWalk = false;
 
@@ -51,15 +52,15 @@ class PathInfo {
     currentVertex = null;
     sourceVertex = null;
     nextVertex = null;
-    destinationRoom = Room.createEmpty();
+    destinationRoom = Room.empty("");
     isReadyToGo = false;
   }
 
-  static void setPath(Building building){
-    PathFinder client = PathFinder(building.getEdges(), building.getAllVertexes());
+  static Future<void> setPath(Building building) async {
+    PathFinder client = PathFinder(await getEdges(building), await getAllVertexes(building));
     var VertexIds = client.GetPath(PathInfo.sourceVertex!.id, PathInfo.destinationRoom!.vertex.id);
     List<Vertex> vertexes = [];
-    var allVertexes = building.getAllVertexes();
+    var allVertexes = await getAllVertexes(building);
     for(int i = 0; i < VertexIds!.length; ++i)
     {
       for(int j = 0; j < allVertexes.length; ++j)

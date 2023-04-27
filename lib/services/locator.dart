@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import '../navigation/app_router.gr.dart';
+import 'database.dart';
 
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -15,6 +16,6 @@ Future<void> setupServiceLocator() async {
   //final sharedPreferences = await SharedPreferences.getInstance();
 
   getIt.registerSingleton<AppRouter>(appRouter);
-  //getIt.registerSingleton<UserService>(UserService());
+  getIt.registerSingleton<DatabaseService>(DatabaseService());
 
 }

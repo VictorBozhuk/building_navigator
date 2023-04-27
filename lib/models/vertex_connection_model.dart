@@ -3,31 +3,35 @@ import 'package:uuid/uuid.dart';
 
 class VertexConnection {
   late String id;
+  late String vertexId;
+  late String nextVertexId;
   late double direction;
   late double iconX;
   late double iconY;
-  late double iconSize = 100;
-  late int iconAngle = 0;
+  late double iconSize;
+  late int iconAngle;
   late double length;
-  late Vertex nextVertex;
 
-  VertexConnection(this.nextVertex, this.direction, this.iconX, this.iconY, this.iconSize, this.length, this.iconAngle){
+  late Vertex? nextVertex;
+
+  VertexConnection(this.vertexId, this.nextVertexId, this.direction, this.iconX, this.iconY, this.iconSize, this.length, this.iconAngle){
     id = const Uuid().v1();
   }
-  VertexConnection.createEmpty(){
+  VertexConnection.empty(){
     id = const Uuid().v1();
-    nextVertex = Vertex.createEmpty();
+    nextVertex = null;
     direction = 0;
     iconX = 0;
     iconY = 0;
-    iconSize = 0;
+    iconSize = 100;
     iconAngle = 0;
     length = 0;
   }
 
   VertexConnection.fromJson(Map<String, dynamic> data) {
     id = data['id'];
-    nextVertex = Vertex.fromJsonForConnection(data['nextVertex']);
+    vertexId = data['vertexId'];
+    nextVertexId = data['nextVertexId'];
     direction = data['direction'];
     iconX = data['iconX'];
     iconY = data['iconY'];
@@ -36,14 +40,11 @@ class VertexConnection {
     iconAngle = data['iconAngle'] ?? 0;
   }
 
-  VertexConnection copy(){
-    return VertexConnection(nextVertex, direction, iconX, iconY, iconSize, length, iconAngle);
-  }
-
   Map<String, dynamic> toMap(){
     return {
       "id" : id,
-      "nextVertex": nextVertex.toMapForConnection(),
+      "vertexId" : vertexId,
+      "nextVertexId" : nextVertexId,
       "direction": direction,
       "iconX": iconX,
       "iconY": iconY,

@@ -6,53 +6,62 @@ import 'package:uuid/uuid.dart';
 import 'area_model.dart';
 
 class Vertex {
-  late final String id;
+  late String id;
+  late String areaId;
+  late String? areaConnectionId;
   late String? title;
-  late List<Room>? rooms = [];
   late String? panoramaImagePath;
-  late List<VertexConnection>? vertexConnections = [];
   late double? pointX;
   late double? pointY;
-  late double? map2DWidth;
-  late double? map2DHeight;
-  late Area? areaConnection;
+  late double? areaWidth;
+  late double? areaHeight;
 
-  Vertex({ this.title,
-        this.panoramaImagePath,
-        this.rooms,
-        this.pointX,
-        this.pointY,
-        this.map2DWidth,
-        this.map2DHeight,
-        this.vertexConnections}){
+  late Area? areaConnection;
+  late List<Room>? rooms;
+  late List<VertexConnection>? vertexConnections;
+
+  Vertex(this.areaId, {
+    this.title,
+    this.panoramaImagePath,
+    this.rooms,
+    this.pointX,
+    this.pointY,
+    this.areaWidth,
+    this.areaHeight,
+    this.areaConnectionId,
+    this.vertexConnections}){
     id = const Uuid().v1();
   }
 
-  Vertex.createOnlyPoint(this.pointX, this.pointY, this.map2DWidth, this.map2DHeight,){
+  Vertex.point(this.areaId, this.pointX, this.pointY, this.areaWidth, this.areaHeight){
     id = const Uuid().v1();
     title = null;
     panoramaImagePath = null;
     rooms = [];
     vertexConnections = [];
+    areaConnectionId = null;
     areaConnection = null;
   }
 
-  Vertex.createEmpty(){
+  Vertex.empty(this.areaId){
     id = const Uuid().v1();
     title = "";
     panoramaImagePath = "";
-    rooms = [];
     pointX = 0;
     pointY = 0;
-    map2DWidth = 0;
-    map2DHeight = 0;
+    areaWidth = 0;
+    areaHeight = 0;
     vertexConnections = [];
+    rooms = [];
+    areaConnectionId = null;
     areaConnection = null;
   }
 
   bool isFullInfo(){
-    if(title == null || (title?.isEmpty ?? true)
-    || panoramaImagePath == null || (panoramaImagePath?.isEmpty ?? true)){
+    if(title == null
+      || (title?.isEmpty ?? true)
+      || panoramaImagePath == null
+      || (panoramaImagePath?.isEmpty ?? true)){
       return false;
     }
 
@@ -65,10 +74,8 @@ class Vertex {
     panoramaImagePath = data['panoramaImagePath'];
     pointX = data['pointX'];
     pointY = data['pointY'];
-    areaConnection = data['areaConnection'] == null
-        ? null : Area.fromJson(data['areaConnection']);
-    map2DWidth = data['map2DWidth'];
-    map2DHeight = data['map2DHeight'];
+    areaWidth = data['areaWidth'];
+    areaHeight = data['areaHeight'];
     if(data['rooms'] == null){
       rooms = [];
     }else{
@@ -83,25 +90,11 @@ class Vertex {
     }
   }
 
-  Vertex.fromJsonForConnection(Map<String, dynamic> data) {
-    id = data["id"];
-    title = data['title'];
-    panoramaImagePath = data['panoramaImagePath'];
-    pointX = data['pointX'];
-    pointY = data['pointY'];
-    map2DWidth = data['map2DWidth'];
-    map2DHeight = data['map2DHeight'];
-    areaConnection = data['areaConnection'] == null
-        ? null : Area.fromJson(data["areaConnection"]);
-    rooms = [];
-    vertexConnections = [];
-  }
-
+  //
+  // Why copy?
+  //
   Vertex copy(){
-    var copiedRooms = rooms?.map((w) => w.copy()).toList();
-    var copiedVertexConnections = vertexConnections?.map((w) => w.copy()).toList();
-
-    return Vertex(title: title, rooms: copiedRooms, vertexConnections: copiedVertexConnections, panoramaImagePath:  panoramaImagePath);
+    return Vertex(areaId, title: title, panoramaImagePath:  panoramaImagePath, );
   }
 
   Map<String, dynamic> toMap(){
@@ -113,22 +106,8 @@ class Vertex {
       "rooms": rooms?.map((w) => w.toMap()).toList(),
       "pointX" : pointX,
       "pointY" : pointY,
-      "map2DWidth" : map2DWidth,
-      "map2DHeight" : map2DHeight,
-      "areaConnection" : areaConnection?.toMapForConnection(),
-    };
-  }
-
-  Map<String, dynamic> toMapForConnection(){
-    return {
-      "id" : id,
-      "title": title,
-      "panoramaImagePath": panoramaImagePath,
-      "pointX" : pointX,
-      "pointY" : pointY,
-      "map2DWidth" : map2DWidth,
-      "map2DHeight" : map2DHeight,
-      "areaConnection" : areaConnection?.toMapForConnection(),
+      "areaWidth" : areaWidth,
+      "areaHeight" : areaHeight,
     };
   }
 }

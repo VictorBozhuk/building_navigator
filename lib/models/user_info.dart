@@ -8,11 +8,11 @@ import 'area_model.dart';
 import 'building_model.dart';
 
 class UserInfo{
-  static Vertex vertex = Vertex.createEmpty();
-  static Area area = Area.createEmpty();
-  static Building building = Building.createEmpty();
-  static Room room = Room.createEmpty();
-  static VertexConnection connection = VertexConnection.createEmpty();
+  static Vertex vertex = Vertex.empty("");
+  static Area area = Area.empty("");
+  static Building building = Building.empty();
+  static Room room = Room.empty("");
+  static VertexConnection connection = VertexConnection.empty();
   static double x = 0;
   static double y = 0;
   static double direction = 0;
@@ -20,7 +20,7 @@ class UserInfo{
   static Vertex? selectedVertex;
   static Vertex? secondSelectedVertex;
   static bool isCreateAreaConnection = false;
-  static Area areaConnection = Area.createEmpty();
+  static Area areaConnection = Area.empty("");
   static Vertex? selectedVertexOnOtherArea;
 
   static void clear(){
@@ -32,33 +32,33 @@ class UserInfo{
 
   static void clearBuilding(){
     clear();
-    building = Building.createEmpty();
+    building = Building.empty();
   }
 
   static void clearArea(){
     clear();
-    area = Area.createEmpty();
+    area = Area.empty("");
   }
 
   static void clearAreaConnection(){
     isCreateAreaConnection = false;
-    areaConnection = Area.createEmpty();
+    areaConnection = Area.empty("");
     selectedVertexOnOtherArea = null;
   }
 
   static void clearVertex(){
     clear();
-    vertex = Vertex.createEmpty();
+    vertex = Vertex.empty("");
   }
 
   static void clearRoom(){
     clear();
-    room = Room.createEmpty();
+    room = Room.empty("");
   }
 
   static void clearConnection(){
     clear();
-    connection = VertexConnection.createEmpty();
+    connection = VertexConnection.empty();
   }
 
   static void setRoomCoordinates(){

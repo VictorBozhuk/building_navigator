@@ -8,6 +8,7 @@ import 'package:lnu_navigator/screens/widgets/drawer/app_drawer.dart';
 import 'package:lnu_navigator/screens/widgets/indicators/background_indicator.dart';
 import 'package:lnu_navigator/screens/widgets/lists/list_separated.dart';
 import '../navigation/navi.dart';
+import '../services/locator.dart';
 import '../styles/images.dart';
 import '../models/building_model.dart';
 import '../models/path_model.dart';
@@ -52,7 +53,7 @@ class _BuildingsListScreenState extends State<BuildingsListScreen> {
   }
 
   Future<List<Building>> getBuildings() async {
-    return buildings = await DatabaseService.getAll();
+    return buildings = await getIt<DatabaseService>().getAll();
   }
 
   Widget getItemBuilder(int index){
