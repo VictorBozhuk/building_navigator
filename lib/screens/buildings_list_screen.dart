@@ -10,12 +10,9 @@ import 'package:lnu_navigator/screens/widgets/lists/list_separated.dart';
 import '../navigation/navi.dart';
 import '../services/building_servce.dart';
 import '../services/locator.dart';
-import '../styles/images.dart';
 import '../models/building_model.dart';
 import '../models/path_model.dart';
 import '../models/user_info.dart';
-import '../services/database.dart';
-import 'areas_list_screen.dart';
 
 class BuildingsListScreen extends StatefulWidget {
 

@@ -1,22 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/navigation/app_router.gr.dart';
+import '../loader/building_loader.dart';
 import '../navigation/navi.dart';
-import '../services/database.dart';
+import '../services/building_servce.dart';
 import '../services/locator.dart';
 import '../styles/text_styles/text_styles.dart';
 import 'buildings_list_screen.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    Future.delayed(const Duration(milliseconds: 500), () async {
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       //
+      await BuildingLoader().addBuildings();
       //await deleteAllBuildings();
       //
       Navi.push(context, BuildingsListRoute());
     });
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -45,12 +56,10 @@ class SplashScreen extends StatelessWidget {
     );
   }
 
-
   Future<void> deleteAllBuildings() async {
-    var buildings = await getIt<DatabaseService>().getAll();
+    var buildings = await getIt<BuildingService>().getAll();
     for(var b in buildings){
-      await getIt<DatabaseService>().delete(b);
+      await getIt<BuildingService>().delete(b);
     }
   }
-
 }

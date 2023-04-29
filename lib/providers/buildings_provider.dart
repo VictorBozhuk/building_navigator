@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/building_model.dart';
-import '../services/database.dart';
+import '../services/building_servce.dart';
 import '../services/locator.dart';
 
 class BuildingsProvider with ChangeNotifier {
@@ -16,17 +16,17 @@ class BuildingsProvider with ChangeNotifier {
   }
 
   Future<List<Building>> getAll() async {
-    return _buildings = await getIt<DatabaseService>().getAll();
+    return _buildings = await getIt<BuildingService>().getAll();
   }
 
   Future<void> delete(Building building) async {
-    await getIt<DatabaseService>().delete(building);
+    await getIt<BuildingService>().delete(building);
     _buildings.remove(building);
     notifyListeners();
   }
 
   Future<void> addOrUpdate(Building building) async {
-    await getIt<DatabaseService>().addOrUpdate(building);
+    await getIt<BuildingService>().addOrUpdate(building);
     notifyListeners();
   }
 }

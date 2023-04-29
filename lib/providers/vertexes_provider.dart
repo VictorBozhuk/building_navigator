@@ -4,8 +4,6 @@ import '../models/area_model.dart';
 import '../models/building_model.dart';
 import '../models/vertex_connection_model.dart';
 import '../models/vertex_model.dart';
-import '../services/area_service.dart';
-import '../services/database.dart';
 import '../services/locator.dart';
 import '../services/vertex_service.dart';
 

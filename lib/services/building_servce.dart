@@ -12,8 +12,8 @@ class BuildingService {
     return connection.doc(buildingId);
   }
 
-  Future addOrUpdate(Building building) async {
-    return await connection.doc(building.id).set(building.toMap());
+  Future addOrUpdate(Building building) {
+    return connection.doc(building.id).set(building.toMap());
   }
 
   Future delete(Building building) async {

@@ -3,9 +3,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:lnu_navigator/services/vertex_service.dart';
 
 import '../navigation/app_router.gr.dart';
-import 'database.dart';
+import 'area_service.dart';
+import 'building_servce.dart';
 
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -16,6 +18,8 @@ Future<void> setupServiceLocator() async {
   //final sharedPreferences = await SharedPreferences.getInstance();
 
   getIt.registerSingleton<AppRouter>(appRouter);
-  getIt.registerSingleton<DatabaseService>(DatabaseService());
+  getIt.registerSingleton<BuildingService>(BuildingService());
+  getIt.registerSingleton<AreaService>(AreaService());
+  getIt.registerSingleton<VertexService>(VertexService());
 
 }
