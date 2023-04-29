@@ -47,7 +47,10 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   void initState() {
     super.initState();
     AdminInfo.clearSelectedVertexes();
-    //WidgetsBinding.instance.addPostFrameCallback((_) async => await _calculateDimension());
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await getData();
+      //await _calculateDimension();
+    });
   }
 
   void setStateAnalog(){
@@ -73,20 +76,10 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
         body: Column(children: [
           Expanded(
             key: expanderKey,
-            child: FutureBuilder<bool>(
-              future: getData(),
-              builder: (_, AsyncSnapshot<bool> snapshot) {
-                if(snapshot.hasData){
-                  return TransformDetector(notifier,
-                    shouldRotate: false,
-                    child: Stack(children: points,),
-                  );
-                } else {
-                  return const BackgroundIndicator();
-                }
-              },
-
-            )
+            child: TransformDetector(notifier,
+              shouldRotate: false,
+              child: Stack(children: points,),
+            ),
           ),
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
