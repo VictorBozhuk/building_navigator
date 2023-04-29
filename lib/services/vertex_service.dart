@@ -28,8 +28,8 @@ class VertexService {
 
   Future<void> _deleteConnectionOfNextVertexes(Vertex vertex, Area area) async {
     await _deleteConnectionOfNextArea(vertex, area);
-    for(var vc in vertex.vertexConnections!){
-      vc.nextVertex!.vertexConnections!.removeWhere((nvc) => nvc.nextVertexId == vertex.id);
+    for(var vc in vertex.vertexConnections){
+      vc.nextVertex!.vertexConnections.removeWhere((nvc) => nvc.nextVertexId == vertex.id);
       if(vc.nextVertex!.areaId != area.id){
         await addOrUpdate(vc.nextVertex!, area);
       }

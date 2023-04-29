@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       //
-      await BuildingLoader().addBuildings();
+      //await BuildingLoader().addBuildings();
       //await deleteAllBuildings();
       //
       Navi.push(context, BuildingsListRoute());

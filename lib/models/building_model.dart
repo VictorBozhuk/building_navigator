@@ -11,6 +11,7 @@ class Building {
   late String id;
   late String title;
   late String imagePath;
+
   late List<Area> areas;
 
   Building(this.title, this.imagePath){

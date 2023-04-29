@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../actions/actions.dart';
 import 'matrix_gesture_detector.dart';
 
 class TransformDetector extends StatelessWidget {
@@ -12,6 +13,17 @@ class TransformDetector extends StatelessWidget {
     return MatrixGestureDetector(
       onMatrixUpdate: (m, tm, sm, rm) {
         notifier.value = m;
+        //notifier.value.setEntry(0, 3, 0);
+        //notifier.value.setEntry(1, 3, 0);
+        //notifier.value.setEntry(0, 0, 1);
+        //notifier.value.setEntry(1, 1, 1);
+        var x_ = notifier.value.entry(0, 3);
+        var y_ = notifier.value.entry(1, 3);
+        var s_ = notifier.value.entry(0, 0);
+        var rX = roundDouble(x_);
+        var rY = roundDouble(y_);
+        var rS = roundDouble(s_);
+        print("coords:   x = $rX y = $rY s = $rS");
       },
       onScaleStart: () { },
       onScaleEnd: () { },

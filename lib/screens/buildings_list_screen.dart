@@ -7,7 +7,9 @@ import 'package:lnu_navigator/screens/widgets/containers/main_container.dart';
 import 'package:lnu_navigator/screens/widgets/drawer/app_drawer.dart';
 import 'package:lnu_navigator/screens/widgets/indicators/background_indicator.dart';
 import 'package:lnu_navigator/screens/widgets/lists/list_separated.dart';
+import 'package:provider/provider.dart';
 import '../navigation/navi.dart';
+import '../providers/buildings_provider.dart';
 import '../services/building_servce.dart';
 import '../services/locator.dart';
 import '../models/building_model.dart';
@@ -23,11 +25,14 @@ class BuildingsListScreen extends StatefulWidget {
 }
 
 class _BuildingsListScreenState extends State<BuildingsListScreen> {
+  late BuildingsProvider buildingProvider;
+
   late List<Building> buildings;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    buildingProvider = Provider.of<BuildingsProvider>(context, listen: false);
+  return Scaffold(
         appBar: getAppBar("Buildings", context),
         drawer: AppDrawer(),
         body: FutureBuilder<List<Building>>(
@@ -51,7 +56,7 @@ class _BuildingsListScreenState extends State<BuildingsListScreen> {
   }
 
   Future<List<Building>> getBuildings() async {
-    return buildings = await getIt<BuildingService>().getAll();
+    return buildings = await buildingProvider.getAll();
   }
 
   Widget getItemBuilder(int index){

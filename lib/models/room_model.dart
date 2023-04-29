@@ -42,21 +42,10 @@ class Room extends Comparable<Room> {
     return title == other.title ? 1 : 0;
   }
 
-  Room.fromJson(Map<String, dynamic> data) {
-    id = data["id"];
-    title = data['title'];
-    titleX = data['titleX'];
-    titleY = data['titleY'];
-    direction = data['direction'];
-    fontSize = data['fontSize'];
-    titleBoxWidth = data['titleBoxWidth'];
-    titleBoxHeight = data['titleBoxHeight'];
-    color = Color(data["color"]);
-  }
-
   Map<String, dynamic> toMap(){
     return {
       "id" : id,
+      "vertexId" : vertexId,
       "title": title,
       "titleX": titleX,
       "titleY": titleY,
@@ -67,6 +56,21 @@ class Room extends Comparable<Room> {
       "color": color.value,
     };
   }
+
+  Room.fromJson(Map<String, dynamic> data) {
+    id = data["id"];
+    vertexId = data["vertexId"];
+    title = data['title'];
+    titleX = data['titleX'];
+    titleY = data['titleY'];
+    direction = data['direction'];
+    fontSize = data['fontSize'];
+    titleBoxWidth = data['titleBoxWidth'];
+    titleBoxHeight = data['titleBoxHeight'];
+    color = Color(data["color"]);
+  }
+
+
 
   Room copy(){
     return Room(id, vertexId, title, titleX, titleY, direction, fontSize, titleBoxHeight, titleBoxWidth, color);

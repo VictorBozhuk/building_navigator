@@ -65,8 +65,26 @@ class Vertex {
     return true;
   }
 
+  Map<String, dynamic> toMap(){
+    return {
+      "id" : id,
+      "areaId" : areaId,
+      "areaConnectionId" : areaConnectionId,
+      "title": title,
+      "panoramaImagePath": panoramaImagePath,
+      "vertexConnections": vertexConnections.map((w) => w.toMap()).toList(),
+      "rooms": rooms.map((w) => w.toMap()).toList(),
+      "pointX" : pointX,
+      "pointY" : pointY,
+      "areaWidth" : areaWidth,
+      "areaHeight" : areaHeight,
+    };
+  }
+
   Vertex.fromJson(Map<String, dynamic> data) {
     id = data["id"];
+    areaId = data["areaId"];
+    areaConnectionId = data["areaConnectionId"];
     title = data['title'];
     panoramaImagePath = data['panoramaImagePath'];
     pointX = data['pointX'];
@@ -85,17 +103,4 @@ class Vertex {
   //  return Vertex(areaId, title: title, panoramaImagePath:  panoramaImagePath, );
   //}
 
-  Map<String, dynamic> toMap(){
-    return {
-      "id" : id,
-      "title": title,
-      "panoramaImagePath": panoramaImagePath,
-      "vertexConnections": vertexConnections.map((w) => w.toMap()).toList(),
-      "rooms": rooms.map((w) => w.toMap()).toList(),
-      "pointX" : pointX,
-      "pointY" : pointY,
-      "areaWidth" : areaWidth,
-      "areaHeight" : areaHeight,
-    };
-  }
 }

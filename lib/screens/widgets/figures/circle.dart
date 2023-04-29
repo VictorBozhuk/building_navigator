@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lnu_navigator/models/admin_info.dart';
 import 'package:lnu_navigator/models/user_info.dart';
 import 'package:lnu_navigator/navigation/app_router.gr.dart';
+import 'package:lnu_navigator/providers/vertexes_provider.dart';
 
 import '../../../data/globals.dart';
 import '../../../models/path_model.dart';
@@ -34,68 +35,69 @@ class Circle extends CustomPainter {
   }
 }
 
-Positioned getVertexAsButtonOn2DMap(Vertex vertex, Function func, PictureSize pictureSize, {double radius = 10}) {
+Positioned getVertexAsButtonOn2DMap({
+  required Vertex vertex,
+  required Function func,
+  required PictureSize pictureSize,
+  VertexesProvider? vertexProvider,
+  double radius = 10}) {
   return getVertexAsButton(
-    vertex,
-    () => {
+    vertex: vertex,
+    onTap: () => {
       AdminInfo.selectedVertex = vertex,
       //print("pressed (${vertex.title}) $x , $y");
       func(),
     },
-    () {
+    onLongPress: () {
       AdminInfo.secondSelectedVertex = vertex;
       func();
     },
-    defaultFunc,
-    pictureSize,
+    pictureSize: pictureSize,
     radius: radius
   );
 }
 
 Positioned getSecondVertexAsButtonOnSecondArea(Vertex vertex, BuildContext context, PictureSize pictureSize) {
   return getVertexAsButton(
-    vertex,
-    () {
+    vertex: vertex,
+    onTap: () {
       AdminInfo.selectedVertexOnOtherArea = vertex;
       //Navi.pop(context);
       //Navi.popAndPushReplacement(context, AddVertexRoute());
     },
-    defaultFunc,
-    defaultFunc,
-    pictureSize
+    pictureSize: pictureSize
   );
 }
 
 Positioned getVertexAsButtonOn2DMapForUser(Vertex vertex, BuildContext context, Function func, PictureSize pictureSize, {double radius = 10}) {
   return getVertexAsButton(
-    vertex,
-    () {
+    vertex: vertex,
+    onTap: () {
       AdminInfo.selectedVertex = vertex;
       PathInfo.sourceVertex = vertex;
       //print("pressed (${vertex.title}) $x , $y");
       func();
     },
-    (){
+    onLongPress: (){
       AdminInfo.selectedVertex = vertex;
       PathInfo.sourceVertex = vertex;
       Navi.push(context, PanoramaRoute(currentVertex: vertex));
     },
-      defaultFunc,
-    pictureSize,
+    pictureSize: pictureSize,
     radius: radius
   );
 }
 
 Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext context, Function func, PictureSize pictureSize, {double radius = 10}) {
   return getVertexAsButton(
-    vertex,
-    () {
+    vertex: vertex,
+    onTap: () {
       AdminInfo.selectedVertex = vertex;
       PathInfo.sourceVertex = vertex;
       //print("pressed (${vertex.title}) $x , $y");
       func();
     },
-    () {
+    onLongPress: () {
       ///
       /// Показати іншу зону
       ///
@@ -104,29 +106,37 @@ Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext c
         Navi.popAndPush(context, AreaRoute(area: vertex.areaConnection!));
       }
     },
-    (){
+    onDoubleTap: (){
       AdminInfo.selectedVertex = vertex;
       PathInfo.sourceVertex = vertex;
       PathInfo.setNewVertexes(vertex);
       Navi.push(context, PanoramaRoute(currentVertex: PathInfo.currentVertex!, nextVertex: PathInfo.nextVertex,));
     },
-    pictureSize,
+    pictureSize: pictureSize,
     radius: radius
   );
 }
 
 
-Positioned getVertexAsButton(Vertex vertex, Function onTap, Function onLongPress, Function onDoubleTap, PictureSize pictureSize, {double radius = 10}) {
-  var x = (pictureSize.width / (vertex.areaWidth! / vertex.pointX!)) - pictureSize.getRadius();
-  var y = (pictureSize.height / (vertex.areaHeight! / vertex.pointY!)) - pictureSize.getRadius();
+Positioned getVertexAsButton({
+  required Vertex vertex,
+  required Function onTap,
+  required PictureSize pictureSize,
+  Function onLongPress = defaultFunc,
+  Function onDoubleTap = defaultFunc,
+  VertexesProvider? vertexProvider,
+  double radius = 10})
+{
+  var x = (pictureSize.width / (vertex.areaWidth / vertex.pointX)) - pictureSize.getRadius();
+  var y = (pictureSize.height / (vertex.areaHeight / vertex.pointY)) - pictureSize.getRadius();
   MaterialColor color = Colors.red;
   if(vertex.isFullInfo()){
     color = Colors.blue;
   }
-  if(vertex.areaConnection != null){
+  if(vertex.areaConnectionId != null){
     color = Colors.yellow;
   }
-  if(vertex.id == AdminInfo.selectedVertex?.id){
+  if(vertexProvider?.firstSelected != null && vertex.id == vertexProvider!.firstSelected!.id){
     color = Colors.green;
   }
   double vertexDiameter = 0;

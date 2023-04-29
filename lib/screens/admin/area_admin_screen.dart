@@ -21,8 +21,10 @@ import '../widgets/buttons/small_button.dart';
 import '../widgets/figures/circle.dart';
 import '../widgets/figures/line.dart';
 
+import '../widgets/indicators/background_indicator.dart';
 import '../widgets/paddings/main_padding.dart';
 import '../widgets/transformation/matrix_gesture_detector.dart';
+import '../widgets/transformation/transform_detector.dart';
 import 'add_area_screen.dart';
 import 'add_vertex_screen.dart';
 import 'dart:async';
@@ -40,12 +42,12 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   late List<Vertex> vertexes;
   late List<Widget> points = [];
   final GlobalKey expanderKey = GlobalKey();
+  PictureSize imageSize = PictureSize.empty();
   @override
   void initState() {
     super.initState();
     AdminInfo.clearSelectedVertexes();
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) async => await _calculateDimension());
+    //WidgetsBinding.instance.addPostFrameCallback((_) async => await _calculateDimension());
   }
 
   void setStateAnalog(){
@@ -71,43 +73,19 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
         body: Column(children: [
           Expanded(
             key: expanderKey,
-            child: MatrixGestureDetector(
-              shouldRotate: false,
-              onMatrixUpdate: (m, tm, sm, rm) {
-                notifier.value = m;
-
-                //notifier.value.setEntry(0, 3, 0);
-                //notifier.value.setEntry(1, 3, 0);
-                //notifier.value.setEntry(0, 0, 1);
-                //notifier.value.setEntry(1, 1, 1);
-
-                var x_ = notifier.value.entry(0, 3);
-                var y_ = notifier.value.entry(1, 3);
-                var s_ = notifier.value.entry(0, 0);
-                var rX = roundDouble(x_);
-                var rY = roundDouble(y_);
-                var rS = roundDouble(s_);
-                if (kDebugMode) {
-                  print("coords:   x = $rX y = $rY s = $rS");
+            child: FutureBuilder<bool>(
+              future: getData(),
+              builder: (_, AsyncSnapshot<bool> snapshot) {
+                if(snapshot.hasData){
+                  return TransformDetector(notifier,
+                    child: Stack(children: points,),
+                  );
+                } else {
+                  return const BackgroundIndicator();
                 }
               },
-              onScaleStart: () { },
-              onScaleEnd: () { },
-              child: GestureDetector(
-                onTapUp: onAreaTap,
-                child: AnimatedBuilder(
-                  animation: notifier,
-                  builder: (ctx, child) {
-                    return Transform(
-                      transform: notifier.value,
-                      child: Stack(
-                        children: points,
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
+
+            )
           ),
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -120,7 +98,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
                       style: textStyleMainNormalTextBlack),
                   Text("Second: ${vertexProvider.secondSelected?.title ?? "none"}",
                       style: textStyleMainNormalTextBlack),
-                  Text("Length: ${getLengthByPixels(vertexProvider.firstSelected, vertexProvider.secondSelected, widget.area.imageSize)}",
+                  Text("Length: ${getLengthByPixels(vertexProvider.firstSelected, vertexProvider.secondSelected, imageSize)}",
                       style: textStyleMainNormalTextBlack),
                 ]),
             ),
@@ -188,6 +166,12 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
     );
   }
 
+  Future<bool> getData() async {
+    vertexes = await vertexProvider.getAll(widget.area);;
+    await _calculateDimension();
+    return true;
+  }
+
   Future<void> onRightArrow() async {
     vertexProvider.firstSelected!.pointX
     = vertexProvider.firstSelected!.pointX + 1;
@@ -252,11 +236,11 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   }
 
   Future<void> _setWidgets(Function func) async {
-    widget.area.imageSize = await getPictureSizes(expanderKey, widget.area.imagePath);
+    imageSize = await getPictureSizes(expanderKey, widget.area.imagePath);
     points.clear();
     _setMap();
-    _setLines(widget.area.imageSize);
-    _setPoints(func, widget.area.imageSize);
+    _setLines(imageSize);
+    _setPoints(func, imageSize);
   }
 
   void _setMap(){
@@ -266,10 +250,9 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   }
 
   Future _setLines(PictureSize pictureSize) async {
-    for(var v in widget.area.vertexes){
-      for(var vc in v.vertexConnections!){
-        if((v.areaConnection != null
-            && vc.nextVertex?.areaConnection != null) == false){
+    for(var v in vertexes){
+      for(var vc in v.vertexConnections){
+        if((v.areaConnection != null && vc.nextVertex?.areaConnection != null) == false){
           points.add(drawLine(v, vc.nextVertex!, pictureSize));
         }
       }
@@ -277,11 +260,13 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   }
 
   void _setPoints(Function func, PictureSize pictureSize){
-    for(var v in widget.area.vertexes){
+    for(var v in vertexes){
       if(widget.area.title == "1 floor"){
-        points.add(getVertexAsButtonOn2DMap(v, func, pictureSize, radius: widget.area.vertexRadius));
+        points.add(getVertexAsButtonOn2DMap(vertex: v, func: func,
+            pictureSize: pictureSize, radius: widget.area.vertexRadius, vertexProvider: vertexProvider));
       } else{
-        points.add(getVertexAsButtonOn2DMap(v, func, pictureSize));
+        points.add(getVertexAsButtonOn2DMap(vertex: v, func: func,
+            pictureSize: pictureSize, vertexProvider: vertexProvider));
       }
     }
   }

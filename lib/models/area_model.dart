@@ -11,7 +11,6 @@ class Area {
   late double vertexRadius;
 
   late List<Vertex> vertexes;
-  late PictureSize imageSize;
 
   Area(this.title, this.buildingId, this.imagePath, this.pixelsInMeter, this.vertexRadius){
     id = const Uuid().v1();
@@ -30,23 +29,22 @@ class Area {
   Map<String, dynamic> toMap(){
     return {
       "id" : id,
+      "buildingId" : buildingId,
       "title": title,
       "imagePath": imagePath,
       "pixelsInMeter" : pixelsInMeter,
+      "vertexRadius" : vertexRadius,
       //"vertexes": vertexes.map((w) => w.toMap()).toList(),
     };
   }
 
   Area.fromJson(Map<String, dynamic> data) {
     id = data['id'];
+    buildingId = data['buildingId'];
     title = data['title'];
     imagePath = data['imagePath'];
     pixelsInMeter = data['pixelsInMeter'];
-    //if(data['vertexes'] == null){
-    //  vertexes = [];
-    //} else{
-    //  vertexes = (data['vertexes'] as List).map((w) => Vertex.fromJson(w)).toList();
-    //}
+    vertexRadius = data['vertexRadius'];
   }
 
   Area copy(){

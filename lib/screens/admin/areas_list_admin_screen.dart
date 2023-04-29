@@ -68,12 +68,8 @@ class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
         onTap: ()
         {
           if(widget.isSelectAreaConnection == false){
-            AdminInfo.clearArea();
-            AdminInfo.area = AdminInfo.building.areas[index];
             Navi.push(context, AreaAdminRoute(area: areas[index]));
           } else {
-            AdminInfo.areaConnection = AdminInfo.building.areas[index];
-            AdminInfo.selectedVertex?.areaConnection = AdminInfo.building.areas[index].copy();
             Navi.push(context, SelectVertexRoute(area: AdminInfo.areaConnection,));
           }
         }
