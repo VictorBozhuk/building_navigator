@@ -6,11 +6,13 @@ import 'matrix_gesture_detector.dart';
 class TransformDetector extends StatelessWidget {
   late ValueNotifier<Matrix4> notifier;
   late Widget child;
-  TransformDetector(this.notifier, {super.key, required this.child});
+  late bool shouldRotate;
+  TransformDetector(this.notifier, {super.key, required this.child, required this.shouldRotate});
 
   @override
   Widget build(BuildContext context) {
     return MatrixGestureDetector(
+      shouldRotate: shouldRotate,
       onMatrixUpdate: (m, tm, sm, rm) {
         notifier.value = m;
         //notifier.value.setEntry(0, 3, 0);

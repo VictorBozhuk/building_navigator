@@ -78,6 +78,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
               builder: (_, AsyncSnapshot<bool> snapshot) {
                 if(snapshot.hasData){
                   return TransformDetector(notifier,
+                    shouldRotate: false,
                     child: Stack(children: points,),
                   );
                 } else {
