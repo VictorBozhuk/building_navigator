@@ -35,7 +35,7 @@ class AddAreaScreenState extends State<AddAreaScreen> {
     txtScale.addListener(() {
       widget.area.pixelsInMeter = int.parse(txtScale.text);
     });
-    txtImagePath.text = AdminInfo.area.imagePath;
+    txtImagePath.text = widget.area.imagePath;
     txtImagePath.addListener(() {
       widget.area.imagePath = txtImagePath.text;
     });
