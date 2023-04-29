@@ -13,8 +13,6 @@ import 'dart:async';
 import '../widgets/transformation/matrix_gesture_detector.dart';
 
 class SelectVertexScreen extends StatefulWidget {
-  late List<Widget> points = [];
-  final GlobalKey expanderKey = GlobalKey();
   final Area area;
   SelectVertexScreen({super.key, required this.area});
 
@@ -23,6 +21,8 @@ class SelectVertexScreen extends StatefulWidget {
 }
 
 class _SelectVertexScreenState extends State<SelectVertexScreen> {
+  late List<Widget> points = [];
+  final GlobalKey expanderKey = GlobalKey();
   @override
   void initState() {
     super.initState();
@@ -32,7 +32,7 @@ class _SelectVertexScreenState extends State<SelectVertexScreen> {
 
   Future _calculateDimension() async {
     //await outputPoints(widget.expanderKey, widget.area.imagePath);
-    _setWidgets(widget, context);
+    _setWidgets(context);
     setState(() { });
   }
 
@@ -44,7 +44,7 @@ class _SelectVertexScreenState extends State<SelectVertexScreen> {
       appBar: getAppBar(AdminInfo.area.title, context),
       body: Column(children: [
         Expanded(
-          key: widget.expanderKey,
+          key: expanderKey,
           child: MatrixGestureDetector(
             onMatrixUpdate: (m, tm, sm, rm) {
               notifier.value = m;
@@ -61,9 +61,9 @@ class _SelectVertexScreenState extends State<SelectVertexScreen> {
             onScaleEnd: () { },
             child: GestureDetector(
               onTapUp: (TapUpDetails details) async {
-                AdminInfo.area.vertexes?.add(await getCreatedVertexOnMap(details, widget.area, widget.expanderKey));
+                AdminInfo.area.vertexes?.add(await getCreatedVertexOnMap(details, widget.area, expanderKey));
                 setState(() async {
-                  await _setWidgets(widget, context);
+                  await _setWidgets(context);
                 });
               },
               child: AnimatedBuilder(
@@ -72,7 +72,7 @@ class _SelectVertexScreenState extends State<SelectVertexScreen> {
                   return Transform(
                     transform: notifier.value,
                     child: Stack(
-                      children: widget.points,
+                      children: points,
                     ),
                   );
                 },
@@ -84,23 +84,25 @@ class _SelectVertexScreenState extends State<SelectVertexScreen> {
       ),
     );
   }
-}
 
+  Future<void> _setWidgets(BuildContext context) async {
+    var pictureSize = await getPictureSizes(expanderKey, AdminInfo.area.imagePath);
+    _setMap();
+    _setPoints(context, pictureSize);
+  }
 
-Future<void> _setWidgets(SelectVertexScreen widget, BuildContext context) async {
-  var pictureSize = await getPictureSizes(widget.expanderKey, AdminInfo.area.imagePath);
-  _setMap(widget);
-  _setPoints(widget, context, pictureSize);
-}
+  void _setMap(){
+    points.add(Container(
+      child: getAreaImage(widget.area.imagePath),
+    ));
+  }
 
-void _setMap(SelectVertexScreen widget){
-  widget.points.add(Container(
-    child: getAreaImage(widget.area.imagePath),
-  ));
-}
-
-void _setPoints(SelectVertexScreen widget, BuildContext context, PictureSize pictureSize){
-  for(int i = 0; i < widget.area.vertexes!.length; ++i){
-    widget.points.add(getSecondVertexAsButtonOnSecondArea(widget.area.vertexes![i], context, pictureSize));
+  void _setPoints(BuildContext context, PictureSize pictureSize){
+    for(int i = 0; i < widget.area.vertexes!.length; ++i){
+      points.add(getSecondVertexAsButtonOnSecondArea(widget.area.vertexes![i], context, pictureSize));
+    }
   }
 }
+
+
+

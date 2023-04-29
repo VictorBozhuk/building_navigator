@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/admin/select_vertex_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/area_model.dart';
+import '../../models/building_model.dart';
 import '../../navigation/app_router.gr.dart';
 import '../../navigation/navi.dart';
+import '../../providers/areas_provider.dart';
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
 import '../widgets/app_bars/app_bars.dart';
@@ -15,22 +18,25 @@ import 'add_area_screen.dart';
 import 'area_admin_screen.dart';
 
 class AreasListAdminScreen extends StatefulWidget{
-
-  AreasListAdminScreen({super.key});
+  late Building building;
+  late bool isSelectAreaConnection;
+  AreasListAdminScreen({super.key, required this.building, required this.isSelectAreaConnection});
 
   @override
   State<AreasListAdminScreen> createState() => _AreasListAdminScreenState();
 }
 
 class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
+  late AreasProvider areaProvider;
   late List<Area> areas;
 
   @override
   Widget build(BuildContext context) {
+    areaProvider = Provider.of<AreasProvider>(context);
     return Scaffold(
         appBar: getAppBarWithIcon("Areas", context, onTap:  () {
           AdminInfo.clearArea();
-          Navi.push(context, AddAreaRoute(isCreate: true));
+          Navi.push(context, AddAreaRoute(area: Area.empty(widget.building.id)));
         }),
         body: FutureBuilder<List<Area>>(
             future: getAreas(),
@@ -53,7 +59,7 @@ class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
   }
 
   Future<List<Area>> getAreas() async {
-    return areas = AdminInfo.building.areas;
+    return areas = await areaProvider.getAll(widget.building.id);
   }
 
   Widget getItemBuilder(int index){
@@ -61,12 +67,11 @@ class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
         area: areas[index],
         onTap: ()
         {
-          if(AdminInfo.isCreateAreaConnection == false){
+          if(widget.isSelectAreaConnection == false){
             AdminInfo.clearArea();
             AdminInfo.area = AdminInfo.building.areas[index];
-            Navi.push(context, AreaAdminRoute());
-          }
-          else {
+            Navi.push(context, AreaAdminRoute(area: areas[index]));
+          } else {
             AdminInfo.areaConnection = AdminInfo.building.areas[index];
             AdminInfo.selectedVertex?.areaConnection = AdminInfo.building.areas[index].copy();
             Navi.push(context, SelectVertexRoute(area: AdminInfo.areaConnection,));

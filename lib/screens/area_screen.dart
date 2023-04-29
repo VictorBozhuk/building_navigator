@@ -51,7 +51,7 @@ class _AreaScreenState extends State<AreaScreen> {
               onPressed: () {
                 PathInfo.isWalk = false;
                 //PathInfo.nextVertexImagePath = '';
-                Navi.push(context, const RoomsListRoute());
+                Navi.pushThenAction(context, const RoomsListRoute(), action: () => setState(() {}));
               },
               label: const Text('Search'),
               icon: Icon(Icons.search),

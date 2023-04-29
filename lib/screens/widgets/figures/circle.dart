@@ -57,8 +57,8 @@ Positioned getSecondVertexAsButtonOnSecondArea(Vertex vertex, BuildContext conte
     vertex,
     () {
       AdminInfo.selectedVertexOnOtherArea = vertex;
-      Navi.pop(context);
-      Navi.popAndPushReplacement(context, AddVertexRoute());
+      //Navi.pop(context);
+      //Navi.popAndPushReplacement(context, AddVertexRoute());
     },
     defaultFunc,
     defaultFunc,
@@ -96,9 +96,12 @@ Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext c
       func();
     },
     () {
-      if(vertex.areaConnection != null){
+      ///
+      /// Показати іншу зону
+      ///
+      if(vertex.areaConnectionId != null){
         UserInfo.area = UserInfo.building.areas.firstWhere((x) => x.id == vertex.areaConnection!.id);
-        Navi.popAndPush(context, AreaRoute());
+        Navi.popAndPush(context, AreaRoute(area: vertex.areaConnection!));
       }
     },
     (){

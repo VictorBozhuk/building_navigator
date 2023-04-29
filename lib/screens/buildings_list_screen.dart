@@ -66,7 +66,7 @@ class _BuildingsListScreenState extends State<BuildingsListScreen> {
         PathInfo.building = buildings[index];
         PathInfo.isWalk = true;
         PathInfo.clear();
-        Navi.push(context, AreasListRoute());
+        Navi.push(context, AreasListRoute(building: buildings[index]));
       }
     );
   }

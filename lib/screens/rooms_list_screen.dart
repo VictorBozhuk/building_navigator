@@ -91,6 +91,7 @@ class _RoomsListScreenState extends State<RoomsListScreen> {
     PathInfo.isWalk = false;
     PathInfo.setDestination(rooms[index]);
     PathInfo.setPath(PathInfo.building);
-    Navi.popAndPushReplacement(context, AreaRoute());
+    Navi.pop(context);
+    //Navi.popAndPushReplacement(context, AreaRoute());
   }
 }

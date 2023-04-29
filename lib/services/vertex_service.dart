@@ -16,11 +16,40 @@ class VertexService {
   }
 
   Future delete(Vertex vertex, Area area) async {
+    await _deleteConnectionOfNextVertexes(vertex, area);
     return await getCollection(area).doc(vertex.id).delete();
   }
 
   Future<List<Vertex>> getAll(Area area) {
     return getCollection(area).snapshots().map((data) => data.docs.map((doc) =>
         Vertex.fromJson(doc.data())).toList()).first;
+  }
+
+
+  Future<void> _deleteConnectionOfNextVertexes(Vertex vertex, Area area) async {
+    await _deleteConnectionOfNextArea(vertex, area);
+    for(var vc in vertex.vertexConnections!){
+      vc.nextVertex!.vertexConnections!.removeWhere((nvc) => nvc.nextVertexId == vertex.id);
+      if(vc.nextVertex!.areaId != area.id){
+        await addOrUpdate(vc.nextVertex!, area);
+      }
+    }
+  }
+
+  Future<void> _deleteConnectionOfNextArea(Vertex vertex, Area area) async {
+    if(vertex.areaConnectionId != null){
+      var nextArea = (await getIt<AreaService>().getAll(area.buildingId))
+          .firstWhere((x) => x.id == vertex.areaConnectionId);
+      var vertexes = await getAll(nextArea);
+      for(var v in vertexes){
+        for(var vc in v.vertexConnections!.toList()){
+          if(vc.nextVertex!.id == vertex.id){
+            v.areaConnectionId = null;
+            v.vertexConnections?.remove(vc);
+            await addOrUpdate(v, nextArea);
+          }
+        }
+      }
+    }
   }
 }

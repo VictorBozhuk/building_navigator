@@ -4,6 +4,7 @@ import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:panorama/panorama.dart';
 import '../../models/admin_info.dart';
 import '../../models/room_model.dart';
+import '../../models/vertex_model.dart';
 import '../../navigation/navi.dart';
 import '../../styles/text_styles/text_styles.dart';
 import '../actions/actions.dart';
@@ -14,13 +15,11 @@ import '../widgets/paddings/main_padding.dart';
 import '../widgets/text_inputs/add_text_input.dart';
 
 class PanoramaRoomAdminScreen extends StatefulWidget{
-  final String panoramaImagePath;
+  late Vertex vertex;
   final Room room;
-  final bool isCreate;
-  const PanoramaRoomAdminScreen({Key? key,
-    required this.panoramaImagePath,
-    required this.room,
-    required this.isCreate,}) : super(key: key);
+  PanoramaRoomAdminScreen({Key? key,
+    required this.vertex,
+    required this.room,}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _PanoramaRoomAdminScreenState();
@@ -32,13 +31,13 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
   bool isColorPanelVisible = false;
 
   void setStateAnalog(){
-    setState(() {
-      hotspots = [getHotspot(widget.room)];
-    });
+    hotspots = [getHotspot()];
+    setState(() { });
   }
 
   void changeColor(Color color) {
-    setState(() => widget.room.color = color);
+    widget.room.color = color;
+    setState(() => {});
   }
 
   @override
@@ -74,7 +73,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
             },
             sensitivity: 2,
             hotspots: hotspots,
-            child: Image.network(widget.panoramaImagePath),
+            child: Image.network(widget.vertex.panoramaImagePath!),
           ),
           Column(
             children: [
@@ -84,7 +83,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
                 onSuffixTap: () {
                   FocusManager.instance.primaryFocus?.unfocus();
                   setStateAnalog();
-                  },
+                },
               ),
               MainPadding(
                 top: 0,
@@ -139,9 +138,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
                     setStateAnalog();
                   },
                   ),
-
-                ],
-                ),
+                ],),
               ),
             ],
           ),
@@ -151,6 +148,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
               MainPadding(
                 child: ElevatedButton.icon(
                   onPressed: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
                     isColorPanelVisible = !isColorPanelVisible;
                     setStateAnalog();
                   },
@@ -165,69 +163,67 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
             ],
           ),
           if(isColorPanelVisible)
-            SizedBox.expand(child:
-                Container(
-                  margin: const EdgeInsets.all(60),
-                  padding: const EdgeInsets.all(10),
-                  transformAlignment: Alignment.center,
-                    constraints: const BoxConstraints(
-                      minHeight: 300,
-                    ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10.0),),
-                  child: Column(children: [
-                    ColorPicker(
-                      pickerColor: widget.room.color,
-                      onColorChanged: changeColor,),
-                    MainComponentButton(title: 'Ok',
-                      onPressed: () {
-                        isColorPanelVisible = !isColorPanelVisible;
-                        setStateAnalog();
-                      },)
-                  ])
-              ),)
+            buildColorPicker(),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         onPressed: () {
-            if (widget.isCreate == true) {
-              AdminInfo.selectedVertex!.rooms ??= [];
-              AdminInfo.selectedVertex!.rooms?.add(AdminInfo.room);
-            }
-            else {
-              var room = AdminInfo.selectedVertex!.rooms!.firstWhere((x) =>
-              x.id == AdminInfo.room.id);
-              room.title = AdminInfo.room.title;
-              room.titleX = AdminInfo.room.titleX;
-              room.titleY = AdminInfo.room.titleY;
-              room.direction = AdminInfo.room.direction;
-            }
-            Navi.popAndPushReplacement(context, const RoomsListAdminRoute());
+          if(widget.vertex.rooms.any((r) => r.id == widget.room.id) == false){
+            widget.vertex.rooms.add(widget.room);
+          }
+          Navi.pop(context);
+          //Navi.popAndPushReplacement(context, const RoomsListAdminRoute());
         },
         child: const Icon(Icons.check),
       ),
     );
   }
-}
 
-Hotspot getHotspot(Room room)
-{
-  return Hotspot(
-    width: AdminInfo.room.titleBoxWidth,
-    height: AdminInfo.room.titleBoxHeight,
-    longitude: room.titleX,
-    latitude: room.titleY,
-    orgin: Offset.fromDirection(0),
-    widget: Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: room.color)
+  Widget buildColorPicker(){
+    return SizedBox.expand(child:
+      Container(
+          margin: const EdgeInsets.all(60),
+          padding: const EdgeInsets.all(10),
+          transformAlignment: Alignment.center,
+          constraints: const BoxConstraints(
+            minHeight: 300,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10.0),),
+          child: Column(children: [
+            ColorPicker(
+              pickerColor: widget.room.color,
+              onColorChanged: changeColor,),
+            MainComponentButton(title: 'Ok',
+              onPressed: () {
+                isColorPanelVisible = !isColorPanelVisible;
+                setStateAnalog();
+              },)
+          ])
       ),
+    );
+  }
 
-      child: Text(AdminInfo.room.title,
-          textAlign: TextAlign.center,
-          style: textStyleRoomTitleOnPanorama(room)),
-    ),
-  );
+  Hotspot getHotspot()
+  {
+    return Hotspot(
+      width: widget.room.titleBoxWidth,
+      height: widget.room.titleBoxHeight,
+      longitude: widget.room.titleX,
+      latitude: widget.room.titleY,
+      orgin: Offset.fromDirection(0),
+      widget: Container(
+        decoration: BoxDecoration(
+            border: Border.all(color: widget.room.color)
+        ),
+
+        child: Text(AdminInfo.room.title,
+            textAlign: TextAlign.center,
+            style: textStyleRoomTitleOnPanorama(widget.room)),
+      ),
+    );
+  }
 }
+

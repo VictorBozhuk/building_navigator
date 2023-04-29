@@ -9,34 +9,34 @@ class Vertex {
   late String id;
   late String areaId;
   late String? areaConnectionId;
-  late String? title;
-  late String? panoramaImagePath;
-  late double? pointX;
-  late double? pointY;
-  late double? areaWidth;
-  late double? areaHeight;
+  late String title;
+  late String panoramaImagePath;
+  late double pointX;
+  late double pointY;
+  late double areaWidth;
+  late double areaHeight;
+  late List<Room> rooms;
+  late List<VertexConnection> vertexConnections;
 
   late Area? areaConnection;
-  late List<Room>? rooms;
-  late List<VertexConnection>? vertexConnections;
 
   Vertex(this.areaId, {
-    this.title,
-    this.panoramaImagePath,
-    this.rooms,
-    this.pointX,
-    this.pointY,
-    this.areaWidth,
-    this.areaHeight,
+    required this.title,
+    required this.panoramaImagePath,
+    required this.rooms,
+    required this.pointX,
+    required this.pointY,
+    required this.areaWidth,
+    required this.areaHeight,
     this.areaConnectionId,
-    this.vertexConnections}){
+    required this.vertexConnections}){
     id = const Uuid().v1();
   }
 
   Vertex.point(this.areaId, this.pointX, this.pointY, this.areaWidth, this.areaHeight){
     id = const Uuid().v1();
-    title = null;
-    panoramaImagePath = null;
+    title = '';
+    panoramaImagePath = '';
     rooms = [];
     vertexConnections = [];
     areaConnectionId = null;
@@ -58,10 +58,7 @@ class Vertex {
   }
 
   bool isFullInfo(){
-    if(title == null
-      || (title?.isEmpty ?? true)
-      || panoramaImagePath == null
-      || (panoramaImagePath?.isEmpty ?? true)){
+    if(title.isEmpty || panoramaImagePath.isEmpty){
       return false;
     }
 
@@ -76,34 +73,25 @@ class Vertex {
     pointY = data['pointY'];
     areaWidth = data['areaWidth'];
     areaHeight = data['areaHeight'];
-    if(data['rooms'] == null){
-      rooms = [];
-    }else{
-      rooms = (data['rooms'] as List).map((w) => Room.fromJson(w)).toList();
-    }
-
-    if(data['vertexConnections'] == null){
-      vertexConnections = [];
-    }else{
-      vertexConnections = (data['vertexConnections']
+    rooms = (data['rooms'] as List).map((w) => Room.fromJson(w)).toList();
+    vertexConnections = (data['vertexConnections']
         as List).map((w) => VertexConnection.fromJson(w)).toList();
-    }
   }
 
   //
   // Why copy?
   //
-  Vertex copy(){
-    return Vertex(areaId, title: title, panoramaImagePath:  panoramaImagePath, );
-  }
+  //Vertex copy(){
+  //  return Vertex(areaId, title: title, panoramaImagePath:  panoramaImagePath, );
+  //}
 
   Map<String, dynamic> toMap(){
     return {
       "id" : id,
       "title": title,
       "panoramaImagePath": panoramaImagePath,
-      "vertexConnections": vertexConnections?.map((w) => w.toMap()).toList(),
-      "rooms": rooms?.map((w) => w.toMap()).toList(),
+      "vertexConnections": vertexConnections.map((w) => w.toMap()).toList(),
+      "rooms": rooms.map((w) => w.toMap()).toList(),
       "pointX" : pointX,
       "pointY" : pointY,
       "areaWidth" : areaWidth,

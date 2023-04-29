@@ -1,9 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/admin/panorama_vertex_admin_screen.dart';
+import 'package:provider/provider.dart';
+import '../../models/area_model.dart';
 import '../../models/picture_size_model.dart';
 import '../../navigation/app_router.gr.dart';
 import '../../navigation/navi.dart';
+import '../../providers/areas_provider.dart';
+import '../../providers/vertexes_provider.dart';
 import '../../styles/appTheme.dart';
 import '../../styles/text_styles/text_styles.dart';
 import '../../models/admin_info.dart';
@@ -24,15 +28,18 @@ import 'add_vertex_screen.dart';
 import 'dart:async';
 
 class AreaAdminScreen extends StatefulWidget {
-  late List<Widget> points = [];
-  final GlobalKey expanderKey = GlobalKey();
-  AreaAdminScreen({super.key});
+  late Area area;
+  AreaAdminScreen({super.key, required this.area});
 
   @override
   State<StatefulWidget> createState() => _AreaAdminScreenState();
 }
 
 class _AreaAdminScreenState extends State<AreaAdminScreen> {
+  late VertexesProvider vertexProvider;
+  late List<Vertex> vertexes;
+  late List<Widget> points = [];
+  final GlobalKey expanderKey = GlobalKey();
   @override
   void initState() {
     super.initState();
@@ -46,25 +53,24 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   }
 
   Future _calculateDimension() async {
-    //await outputPoints(widget.expanderKey, AdminInfo.area.imagePath);
-    await _setWidgets(widget, setStateAnalog);
+    await _setWidgets(setStateAnalog);
     setState(() { });
   }
 
   @override
   Widget build(BuildContext context) {
+    vertexProvider = Provider.of<VertexesProvider>(context);
     final ValueNotifier<Matrix4> notifier = ValueNotifier(Matrix4.identity());
     return Scaffold(
         backgroundColor: AppTheme.imageBackground,
         appBar: getAppBarWithIcon(
-            AdminInfo.area.title,
+            widget.area.title,
             context,
-            onTap: () => {
-              Navi.push(context, AddAreaRoute(isCreate: false))
-        }, icon: Icons.edit),
+            onTap: () => Navi.push(context, AddAreaRoute(area: widget.area)),
+            icon: Icons.edit),
         body: Column(children: [
           Expanded(
-            key: widget.expanderKey,
+            key: expanderKey,
             child: MatrixGestureDetector(
               shouldRotate: false,
               onMatrixUpdate: (m, tm, sm, rm) {
@@ -85,31 +91,17 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
                   print("coords:   x = $rX y = $rY s = $rS");
                 }
               },
-              onScaleStart: () {
-                //var x_ = notifier.value.entry(0, 3);
-                //var y_ = notifier.value.entry(1, 3);
-                //var s_ = notifier.value.entry(0, 0);
-                //var rX = roundDouble(x_);
-                //var rY = roundDouble(y_);
-                //var rS = roundDouble(s_);
-                //if (kDebugMode) {
-                //  print("coords:   x = $rX y = $rY s = $rS");
-                //}
-              },
+              onScaleStart: () { },
               onScaleEnd: () { },
               child: GestureDetector(
-                onTapUp: (TapUpDetails details) async {
-                  AdminInfo.area.vertexes?.add(await getCreatedVertexOnMap(details, AdminInfo.area, widget.expanderKey));
-                  await _setWidgets(widget, setStateAnalog);
-                  setState(() { });
-                },
+                onTapUp: onAreaTap,
                 child: AnimatedBuilder(
                   animation: notifier,
                   builder: (ctx, child) {
                     return Transform(
                       transform: notifier.value,
                       child: Stack(
-                        children: widget.points,
+                        children: points,
                       ),
                     );
                   },
@@ -124,11 +116,11 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("First: ${AdminInfo.selectedVertex?.title ?? "none"}",
+                  Text("First: ${vertexProvider.firstSelected?.title ?? "none"}",
                       style: textStyleMainNormalTextBlack),
-                  Text("Second: ${AdminInfo.secondSelectedVertex?.title ?? "none"}",
+                  Text("Second: ${vertexProvider.secondSelected?.title ?? "none"}",
                       style: textStyleMainNormalTextBlack),
-                  Text("Length: ${getLengthByPixels(AdminInfo.selectedVertex, AdminInfo.secondSelectedVertex, AdminInfo.pictureSize)}",
+                  Text("Length: ${getLengthByPixels(vertexProvider.firstSelected, vertexProvider.secondSelected, widget.area.imageSize)}",
                       style: textStyleMainNormalTextBlack),
                 ]),
             ),
@@ -179,15 +171,15 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
               children: [
                 MainComponentButton(
                   title: "Join",
-                  onPressed: onJoinVertex
+                  onPressed: onJoin
                 ),
                 MainComponentButton(
                   title: "Delete",
-                  onPressed: onDeleteVertex
+                  onPressed: onDelete
                 ),
                 MainComponentButton(
                     title: "Edit",
-                    onPressed: onEditVertex
+                    onPressed: onEdit
                 ),
               ],),
             ),
@@ -197,164 +189,102 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   }
 
   Future<void> onRightArrow() async {
-    AdminInfo.selectedVertex?.pointX
-    = AdminInfo.selectedVertex!.pointX! + 1;
-    await _setWidgets(widget, setStateAnalog);
+    vertexProvider.firstSelected!.pointX
+    = vertexProvider.firstSelected!.pointX + 1;
+    await _setWidgets(setStateAnalog);
     setState(() { });
   }
 
   Future<void> onLeftArrow() async {
-    AdminInfo.selectedVertex?.pointX
-    = AdminInfo.selectedVertex!.pointX! - 1;
-    await _setWidgets(widget, setStateAnalog);
+    vertexProvider.firstSelected!.pointX
+    = vertexProvider.firstSelected!.pointX - 1;
+    await _setWidgets(setStateAnalog);
     setState(() { });
   }
 
   Future<void> onTopArrow() async {
-    AdminInfo.selectedVertex?.pointY
-    = AdminInfo.selectedVertex!.pointY! - 1;
-    await _setWidgets(widget, setStateAnalog);
+    vertexProvider.firstSelected!.pointY
+    = vertexProvider.firstSelected!.pointY - 1;
+    await _setWidgets(setStateAnalog);
     setState(() { });
   }
 
   Future<void> onBottomArrow() async {
-    AdminInfo.selectedVertex?.pointY
-    = AdminInfo.selectedVertex!.pointY! + 1;
-    await _setWidgets(widget, setStateAnalog);
+    vertexProvider.firstSelected!.pointY
+    = vertexProvider.firstSelected!.pointY + 1;
+    await _setWidgets(setStateAnalog);
     setState(() { });
   }
 
-  void onEditVertex(){
-    if(AdminInfo.selectedVertex != null){
+  void onEdit(){
+    if(vertexProvider.firstSelected != null){
       //AdminInfo.vertex = AdminInfo.selectedVertex!;
-      Navi.push(context, AddVertexRoute());
+      Navi.push(context, AddVertexRoute(area: widget.area, vertex: vertexProvider.firstSelected!));
     }
   }
 
-  Future<void> onDeleteVertex() async {
-    await _deleteSelected(widget, setStateAnalog);
+  void onJoin(){
+    //
+    // check if vertex is not red
+    //
+    if(vertexProvider.setConnection()){
+      Navi.push(context, PanoramaVertexAdminRoute(
+        area: widget.area,
+        first: vertexProvider.firstSelected!,
+        second: vertexProvider.secondSelected!,
+        connection: vertexProvider.connection!,
+      ));
+    }
   }
 
-  void onJoinVertex(){
-    bool isCreate = true;
-    AdminInfo.clearConnection();
-    if(AdminInfo.selectedVertex!.vertexConnections!.any((x) => x.nextVertex!.id == AdminInfo.secondSelectedVertex!.id)){
-      AdminInfo.connection = AdminInfo.selectedVertex!.vertexConnections!.firstWhere((x) => x.nextVertex!.id == AdminInfo.secondSelectedVertex!.id);
-      isCreate = false;
-    }
-    Navi.push(context, PanoramaVertexAdminRoute(
-      isCreate: isCreate,
-      panoramaImagePath: AdminInfo.selectedVertex?.panoramaImagePath ?? '',
-      connection: AdminInfo.connection,
+  Future<void> onAreaTap(TapUpDetails details) async {
+    var vertex = await getCreatedVertexOnMap(details, widget.area, expanderKey);
+    vertexes.add(vertex);
+    await vertexProvider.addOrUpdate(vertex, widget.area);
+    await _setWidgets(setStateAnalog);
+    setState(() { });
+  }
+
+  Future<void> onDelete() async {
+    await vertexProvider.delete(vertexProvider.firstSelected!, widget.area);
+    await _setWidgets(setStateAnalog);
+    setStateAnalog();
+  }
+
+  Future<void> _setWidgets(Function func) async {
+    widget.area.imageSize = await getPictureSizes(expanderKey, widget.area.imagePath);
+    points.clear();
+    _setMap();
+    _setLines(widget.area.imageSize);
+    _setPoints(func, widget.area.imageSize);
+  }
+
+  void _setMap(){
+    points.add(Container(
+      child: getAreaImage(widget.area.imagePath),
     ));
   }
-}
 
-void _drawLine(Vertex first, Vertex second, List<Widget> points, PictureSize pictureSize) {
-  double x1 = pictureSize.width / (first.areaWidth! / first.pointX!);
-  double y1 = pictureSize.width / (first.areaWidth! / first.pointY!);
-  double x2 = pictureSize.width / (second.areaWidth! / second.pointX!);
-  double y2 = pictureSize.width / (second.areaWidth! / second.pointY!);
-  double xDif = (x1 - x2).abs() / 2;
-  double yDif = (y1 - y2).abs() / 2;
-  double x2Res = 0;
-  double y2Res = 0;
-  if(x1 < x2){
-    if(y1 < y2){
-      x2Res = x1 + xDif;
-      y2Res = y1 + yDif;
-    }
-    else{
-      x2Res = x1 + xDif;
-      y2Res = y1 - yDif;
-    }
-  }
-  else{
-    if(y1 < y2){
-      x2Res = x1 - xDif;
-      y2Res = y1 + yDif;
-    }
-    else{
-      x2Res = x1 - xDif;
-      y2Res = y1 - yDif;
-    }
-  }
-
-  points.add(CustomPaint(
-    foregroundPainter: Line(x1, y1, x2Res, y2Res),
-    child: Container(color: Colors.transparent),
-  ));
-}
-
-Future<void> _deleteSelected(AreaAdminScreen widget, Function func) async {
-  _deleteConnectionVertexOfNextVertexes();
-  AdminInfo.area.vertexes?.removeWhere((x) => x.id == AdminInfo.selectedVertex?.id);
-  await _setWidgets(widget, func);
-  AdminInfo.clearSelectedVertexes();
-  func();
-}
-
-void _deleteConnectionVertexOfNextVertexes(){
-  _deleteAreaAndConnectionOfNextVertex();
-  for(int i = 0; i < AdminInfo.area.vertexes.length; ++i){
-    for(int j = 0; j < (AdminInfo.area.vertexes[i].vertexConnections?.length ?? 0); ++j){
-      if(AdminInfo.area.vertexes[i].vertexConnections?[j].nextVertex!.id == AdminInfo.selectedVertex?.id){
-        AdminInfo.area.vertexes[i].vertexConnections?.remove(AdminInfo.area.vertexes[i].vertexConnections?[j]);
-      }
-    }
-  }
-}
-
-void _deleteAreaAndConnectionOfNextVertex(){
-  if(AdminInfo.selectedVertex?.areaConnection != null){
-    var nextArea = AdminInfo.building.areas.firstWhere((x) => x.id == AdminInfo.selectedVertex?.areaConnection!.id);
-    for(int i = 0; i < nextArea.vertexes.length; ++i){
-      for(int j = 0; j < (nextArea.vertexes[i].vertexConnections?.length ?? 0); ++j){
-        if(nextArea.vertexes[i].vertexConnections?[j].nextVertex!.id == AdminInfo.selectedVertex?.id){
-          nextArea.vertexes[i].areaConnection = null;
-          nextArea.vertexes[i].vertexConnections?.remove(nextArea.vertexes[i].vertexConnections?[j]);
+  Future _setLines(PictureSize pictureSize) async {
+    for(var v in widget.area.vertexes){
+      for(var vc in v.vertexConnections!){
+        if((v.areaConnection != null
+            && vc.nextVertex?.areaConnection != null) == false){
+          points.add(drawLine(v, vc.nextVertex!, pictureSize));
         }
       }
     }
   }
-}
 
-Future<void> _setWidgets(AreaAdminScreen widget, Function func) async {
-  var pictureSize = await getPictureSizes(widget.expanderKey, AdminInfo.area.imagePath);
-  AdminInfo.pictureSize = pictureSize;
-  widget.points = [];
-  _setMap(widget);
-  _setLines(widget, pictureSize);
-  _setPoints(widget, func, pictureSize);
-}
-
-void _setMap(AreaAdminScreen widget){
-  widget.points.add(Container(
-    child: getAreaImage(AdminInfo.area.imagePath),
-  ));
-}
-
-Future _setLines(AreaAdminScreen widget, PictureSize pictureSize) async {
-  for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
-    for(int j = 0; j < AdminInfo.area.vertexes![i].vertexConnections!.length; ++j){
-      if((AdminInfo.area.vertexes![i].areaConnection != null
-          && AdminInfo.area.vertexes![i].vertexConnections![j]
-              .nextVertex?.areaConnection != null) == false){
-        _drawLine(AdminInfo.area.vertexes![i],
-            AdminInfo.area.vertexes![i].vertexConnections![j].nextVertex!,
-            widget.points,
-            pictureSize);
+  void _setPoints(Function func, PictureSize pictureSize){
+    for(var v in widget.area.vertexes){
+      if(widget.area.title == "1 floor"){
+        points.add(getVertexAsButtonOn2DMap(v, func, pictureSize, radius: widget.area.vertexRadius));
+      } else{
+        points.add(getVertexAsButtonOn2DMap(v, func, pictureSize));
       }
     }
   }
 }
 
-void _setPoints(AreaAdminScreen widget, Function func, PictureSize pictureSize){
-  for(int i = 0; i < AdminInfo.area.vertexes!.length; ++i){
-    if(AdminInfo.area.title == "1 floor"){
-      widget.points.add(getVertexAsButtonOn2DMap(AdminInfo.area.vertexes![i], func, pictureSize, radius: AdminInfo.area.vertexRadius));
-    } else{
-      widget.points.add(getVertexAsButtonOn2DMap(AdminInfo.area.vertexes![i], func, pictureSize));
-    }
-  }
-}
+

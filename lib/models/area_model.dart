@@ -1,3 +1,4 @@
+import 'package:lnu_navigator/models/picture_size_model.dart';
 import 'package:lnu_navigator/models/vertex_model.dart';
 import 'package:uuid/uuid.dart';
 
@@ -10,6 +11,7 @@ class Area {
   late double vertexRadius;
 
   late List<Vertex> vertexes;
+  late PictureSize imageSize;
 
   Area(this.title, this.buildingId, this.imagePath, this.pixelsInMeter, this.vertexRadius){
     id = const Uuid().v1();

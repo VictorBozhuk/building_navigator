@@ -71,7 +71,7 @@ class _AreasListScreenState extends State<AreasListScreen> {
         {
           PathInfo.isWalk = true;
           UserInfo.area = UserInfo.building.areas[index];
-          Navi.push(context, AreaRoute());
+          Navi.push(context, AreaRoute(area: areas[index]));
         }
     );
   }

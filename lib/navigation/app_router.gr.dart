@@ -15,11 +15,11 @@ import 'package:auto_route/auto_route.dart' as _i19;
 import 'package:auto_route/empty_router_widgets.dart' as _i1;
 import 'package:flutter/material.dart' as _i20;
 
-import '../models/area_model.dart' as _i23;
+import '../models/area_model.dart' as _i22;
 import '../models/building_model.dart' as _i21;
 import '../models/room_model.dart' as _i24;
 import '../models/vertex_connection_model.dart' as _i25;
-import '../models/vertex_model.dart' as _i22;
+import '../models/vertex_model.dart' as _i23;
 import '../screens/admin/add_area_screen.dart' as _i13;
 import '../screens/admin/add_building_screen.dart' as _i10;
 import '../screens/admin/add_vertex_screen.dart' as _i15;
@@ -65,19 +65,23 @@ class AppRouter extends _i19.RootStackRouter {
       );
     },
     AreasListRoute.name: (routeData) {
-      final args = routeData.argsAs<AreasListRouteArgs>(
-          orElse: () => const AreasListRouteArgs());
+      final args = routeData.argsAs<AreasListRouteArgs>();
       return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i4.AreasListScreen(key: args.key),
+        child: _i4.AreasListScreen(
+          key: args.key,
+          building: args.building,
+        ),
       );
     },
     AreaRoute.name: (routeData) {
-      final args =
-          routeData.argsAs<AreaRouteArgs>(orElse: () => const AreaRouteArgs());
+      final args = routeData.argsAs<AreaRouteArgs>();
       return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i5.AreaScreen(key: args.key),
+        child: _i5.AreaScreen(
+          key: args.key,
+          area: args.area,
+        ),
       );
     },
     SelectRoomsRoute.name: (routeData) {
@@ -108,25 +112,30 @@ class AppRouter extends _i19.RootStackRouter {
       );
     },
     BuildingsListAdminRoute.name: (routeData) {
-      final args = routeData.argsAs<BuildingsListAdminRouteArgs>(
-          orElse: () => const BuildingsListAdminRouteArgs());
       return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i9.BuildingsListAdminScreen(key: args.key),
+        child: const _i9.BuildingsListAdminScreen(),
       );
     },
     AddBuildingRoute.name: (routeData) {
+      final args = routeData.argsAs<AddBuildingRouteArgs>();
       return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i10.AddBuildingScreen(),
+        child: _i10.AddBuildingScreen(
+          key: args.key,
+          building: args.building,
+        ),
       );
     },
     AreasListAdminRoute.name: (routeData) {
-      final args = routeData.argsAs<AreasListAdminRouteArgs>(
-          orElse: () => const AreasListAdminRouteArgs());
+      final args = routeData.argsAs<AreasListAdminRouteArgs>();
       return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i11.AreasListAdminScreen(key: args.key),
+        child: _i11.AreasListAdminScreen(
+          key: args.key,
+          building: args.building,
+          isSelectAreaConnection: args.isSelectAreaConnection,
+        ),
       );
     },
     SelectVertexRoute.name: (routeData) {
@@ -145,30 +154,39 @@ class AppRouter extends _i19.RootStackRouter {
         routeData: routeData,
         child: _i13.AddAreaScreen(
           key: args.key,
-          isCreate: args.isCreate,
+          area: args.area,
         ),
       );
     },
     AreaAdminRoute.name: (routeData) {
-      final args = routeData.argsAs<AreaAdminRouteArgs>(
-          orElse: () => const AreaAdminRouteArgs());
+      final args = routeData.argsAs<AreaAdminRouteArgs>();
       return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i14.AreaAdminScreen(key: args.key),
+        child: _i14.AreaAdminScreen(
+          key: args.key,
+          area: args.area,
+        ),
       );
     },
     AddVertexRoute.name: (routeData) {
-      final args = routeData.argsAs<AddVertexRouteArgs>(
-          orElse: () => const AddVertexRouteArgs());
+      final args = routeData.argsAs<AddVertexRouteArgs>();
       return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i15.AddVertexScreen(key: args.key),
+        child: _i15.AddVertexScreen(
+          key: args.key,
+          vertex: args.vertex,
+          area: args.area,
+        ),
       );
     },
     RoomsListAdminRoute.name: (routeData) {
+      final args = routeData.argsAs<RoomsListAdminRouteArgs>();
       return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i16.RoomsListAdminScreen(),
+        child: _i16.RoomsListAdminScreen(
+          key: args.key,
+          vertex: args.vertex,
+        ),
       );
     },
     PanoramaRoomAdminRoute.name: (routeData) {
@@ -177,9 +195,8 @@ class AppRouter extends _i19.RootStackRouter {
         routeData: routeData,
         child: _i17.PanoramaRoomAdminScreen(
           key: args.key,
-          panoramaImagePath: args.panoramaImagePath,
+          vertex: args.vertex,
           room: args.room,
-          isCreate: args.isCreate,
         ),
       );
     },
@@ -189,9 +206,10 @@ class AppRouter extends _i19.RootStackRouter {
         routeData: routeData,
         child: _i18.PanoramaVertexAdminScreen(
           key: args.key,
-          panoramaImagePath: args.panoramaImagePath,
+          first: args.first,
           connection: args.connection,
-          isCreate: args.isCreate,
+          second: args.second,
+          area: args.area,
         ),
       );
     },
@@ -352,48 +370,68 @@ class BuildingsListRouteArgs {
 /// generated route for
 /// [_i4.AreasListScreen]
 class AreasListRoute extends _i19.PageRouteInfo<AreasListRouteArgs> {
-  AreasListRoute({_i20.Key? key})
-      : super(
+  AreasListRoute({
+    _i20.Key? key,
+    required _i21.Building building,
+  }) : super(
           AreasListRoute.name,
           path: 'buildings_list/areas_list',
-          args: AreasListRouteArgs(key: key),
+          args: AreasListRouteArgs(
+            key: key,
+            building: building,
+          ),
         );
 
   static const String name = 'AreasListRoute';
 }
 
 class AreasListRouteArgs {
-  const AreasListRouteArgs({this.key});
+  const AreasListRouteArgs({
+    this.key,
+    required this.building,
+  });
 
   final _i20.Key? key;
 
+  final _i21.Building building;
+
   @override
   String toString() {
-    return 'AreasListRouteArgs{key: $key}';
+    return 'AreasListRouteArgs{key: $key, building: $building}';
   }
 }
 
 /// generated route for
 /// [_i5.AreaScreen]
 class AreaRoute extends _i19.PageRouteInfo<AreaRouteArgs> {
-  AreaRoute({_i20.Key? key})
-      : super(
+  AreaRoute({
+    _i20.Key? key,
+    required _i22.Area area,
+  }) : super(
           AreaRoute.name,
           path: 'buildings_list/areas_list/area',
-          args: AreaRouteArgs(key: key),
+          args: AreaRouteArgs(
+            key: key,
+            area: area,
+          ),
         );
 
   static const String name = 'AreaRoute';
 }
 
 class AreaRouteArgs {
-  const AreaRouteArgs({this.key});
+  const AreaRouteArgs({
+    this.key,
+    required this.area,
+  });
 
   final _i20.Key? key;
 
+  final _i22.Area area;
+
   @override
   String toString() {
-    return 'AreaRouteArgs{key: $key}';
+    return 'AreaRouteArgs{key: $key, area: $area}';
   }
 }
 
@@ -448,8 +486,8 @@ class RoomsListRoute extends _i19.PageRouteInfo<void> {
 class PanoramaRoute extends _i19.PageRouteInfo<PanoramaRouteArgs> {
   PanoramaRoute({
     _i20.Key? key,
-    required _i22.Vertex currentVertex,
-    _i22.Vertex? nextVertex,
+    required _i23.Vertex currentVertex,
+    _i23.Vertex? nextVertex,
   }) : super(
           PanoramaRoute.name,
           path: 'buildings_list/areas_list/area/panorama',
@@ -472,9 +510,9 @@ class PanoramaRouteArgs {
 
   final _i20.Key? key;
 
-  final _i22.Vertex currentVertex;
+  final _i23.Vertex currentVertex;
 
-  final _i22.Vertex? nextVertex;
+  final _i23.Vertex? nextVertex;
 
   @override
   String toString() {
@@ -484,62 +522,86 @@ class PanoramaRouteArgs {
 
 /// generated route for
 /// [_i9.BuildingsListAdminScreen]
-class BuildingsListAdminRoute
-    extends _i19.PageRouteInfo<BuildingsListAdminRouteArgs> {
-  BuildingsListAdminRoute({_i20.Key? key})
+class BuildingsListAdminRoute extends _i19.PageRouteInfo<void> {
+  const BuildingsListAdminRoute()
       : super(
           BuildingsListAdminRoute.name,
           path: 'buildings_list_admin',
-          args: BuildingsListAdminRouteArgs(key: key),
         );
 
   static const String name = 'BuildingsListAdminRoute';
 }
 
-class BuildingsListAdminRouteArgs {
-  const BuildingsListAdminRouteArgs({this.key});
-
-  final _i20.Key? key;
-
-  @override
-  String toString() {
-    return 'BuildingsListAdminRouteArgs{key: $key}';
-  }
-}
-
 /// generated route for
 /// [_i10.AddBuildingScreen]
-class AddBuildingRoute extends _i19.PageRouteInfo<void> {
-  const AddBuildingRoute()
-      : super(
+class AddBuildingRoute extends _i19.PageRouteInfo<AddBuildingRouteArgs> {
+  AddBuildingRoute({
+    _i20.Key? key,
+    required _i21.Building building,
+  }) : super(
           AddBuildingRoute.name,
           path: 'buildings_list_admin/add_building',
+          args: AddBuildingRouteArgs(
+            key: key,
+            building: building,
+          ),
         );
 
   static const String name = 'AddBuildingRoute';
 }
 
+class AddBuildingRouteArgs {
+  const AddBuildingRouteArgs({
+    this.key,
+    required this.building,
+  });
+
+  final _i20.Key? key;
+
+  final _i21.Building building;
+
+  @override
+  String toString() {
+    return 'AddBuildingRouteArgs{key: $key, building: $building}';
+  }
+}
+
 /// generated route for
 /// [_i11.AreasListAdminScreen]
 class AreasListAdminRoute extends _i19.PageRouteInfo<AreasListAdminRouteArgs> {
-  AreasListAdminRoute({_i20.Key? key})
-      : super(
+  AreasListAdminRoute({
+    _i20.Key? key,
+    required _i21.Building building,
+    required bool isSelectAreaConnection,
+  }) : super(
           AreasListAdminRoute.name,
           path: 'buildings_list_admin/add_building/areas_list_admin',
-          args: AreasListAdminRouteArgs(key: key),
+          args: AreasListAdminRouteArgs(
+            key: key,
+            building: building,
+            isSelectAreaConnection: isSelectAreaConnection,
+          ),
         );
 
   static const String name = 'AreasListAdminRoute';
 }
 
 class AreasListAdminRouteArgs {
-  const AreasListAdminRouteArgs({this.key});
+  const AreasListAdminRouteArgs({
+    this.key,
+    required this.building,
+    required this.isSelectAreaConnection,
+  });
 
   final _i20.Key? key;
 
+  final _i21.Building building;
+
+  final bool isSelectAreaConnection;
+
   @override
   String toString() {
-    return 'AreasListAdminRouteArgs{key: $key}';
+    return 'AreasListAdminRouteArgs{key: $key, building: $building, isSelectAreaConnection: $isSelectAreaConnection}';
   }
 }
 
@@ -548,7 +610,7 @@ class AreasListAdminRouteArgs {
 class SelectVertexRoute extends _i19.PageRouteInfo<SelectVertexRouteArgs> {
   SelectVertexRoute({
     _i20.Key? key,
-    required _i23.Area area,
+    required _i22.Area area,
   }) : super(
           SelectVertexRoute.name,
           path:
@@ -570,7 +632,7 @@ class SelectVertexRouteArgs {
 
   final _i20.Key? key;
 
-  final _i23.Area area;
+  final _i22.Area area;
 
   @override
   String toString() {
@@ -583,13 +645,13 @@ class SelectVertexRouteArgs {
 class AddAreaRoute extends _i19.PageRouteInfo<AddAreaRouteArgs> {
   AddAreaRoute({
     _i20.Key? key,
-    required bool isCreate,
+    required _i22.Area area,
   }) : super(
           AddAreaRoute.name,
           path: 'buildings_list_admin/add_building/areas_list_admin/add_area',
           args: AddAreaRouteArgs(
             key: key,
-            isCreate: isCreate,
+            area: area,
           ),
         );
 
@@ -599,79 +661,126 @@ class AddAreaRoute extends _i19.PageRouteInfo<AddAreaRouteArgs> {
 class AddAreaRouteArgs {
   const AddAreaRouteArgs({
     this.key,
-    required this.isCreate,
+    required this.area,
   });
 
   final _i20.Key? key;
 
-  final bool isCreate;
+  final _i22.Area area;
 
   @override
   String toString() {
-    return 'AddAreaRouteArgs{key: $key, isCreate: $isCreate}';
+    return 'AddAreaRouteArgs{key: $key, area: $area}';
   }
 }
 
 /// generated route for
 /// [_i14.AreaAdminScreen]
 class AreaAdminRoute extends _i19.PageRouteInfo<AreaAdminRouteArgs> {
-  AreaAdminRoute({_i20.Key? key})
-      : super(
+  AreaAdminRoute({
+    _i20.Key? key,
+    required _i22.Area area,
+  }) : super(
           AreaAdminRoute.name,
           path: 'buildings_list_admin/add_building/areas_list_admin/area_admin',
-          args: AreaAdminRouteArgs(key: key),
+          args: AreaAdminRouteArgs(
+            key: key,
+            area: area,
+          ),
         );
 
   static const String name = 'AreaAdminRoute';
 }
 
 class AreaAdminRouteArgs {
-  const AreaAdminRouteArgs({this.key});
+  const AreaAdminRouteArgs({
+    this.key,
+    required this.area,
+  });
 
   final _i20.Key? key;
 
+  final _i22.Area area;
+
   @override
   String toString() {
-    return 'AreaAdminRouteArgs{key: $key}';
+    return 'AreaAdminRouteArgs{key: $key, area: $area}';
   }
 }
 
 /// generated route for
 /// [_i15.AddVertexScreen]
 class AddVertexRoute extends _i19.PageRouteInfo<AddVertexRouteArgs> {
-  AddVertexRoute({_i20.Key? key})
-      : super(
+  AddVertexRoute({
+    _i20.Key? key,
+    required _i23.Vertex vertex,
+    required _i22.Area area,
+  }) : super(
           AddVertexRoute.name,
           path:
               'buildings_list_admin/add_building/areas_list_admin/area_admin/add_vertex',
-          args: AddVertexRouteArgs(key: key),
+          args: AddVertexRouteArgs(
+            key: key,
+            vertex: vertex,
+            area: area,
+          ),
         );
 
   static const String name = 'AddVertexRoute';
 }
 
 class AddVertexRouteArgs {
-  const AddVertexRouteArgs({this.key});
+  const AddVertexRouteArgs({
+    this.key,
+    required this.vertex,
+    required this.area,
+  });
 
   final _i20.Key? key;
 
+  final _i23.Vertex vertex;
+
+  final _i22.Area area;
+
   @override
   String toString() {
-    return 'AddVertexRouteArgs{key: $key}';
+    return 'AddVertexRouteArgs{key: $key, vertex: $vertex, area: $area}';
   }
 }
 
 /// generated route for
 /// [_i16.RoomsListAdminScreen]
-class RoomsListAdminRoute extends _i19.PageRouteInfo<void> {
-  const RoomsListAdminRoute()
-      : super(
+class RoomsListAdminRoute extends _i19.PageRouteInfo<RoomsListAdminRouteArgs> {
+  RoomsListAdminRoute({
+    _i20.Key? key,
+    required _i23.Vertex vertex,
+  }) : super(
           RoomsListAdminRoute.name,
           path:
               'buildings_list_admin/add_building/areas_list_admin/area_admin/add_vertex/rooms_list_admin',
+          args: RoomsListAdminRouteArgs(
+            key: key,
+            vertex: vertex,
+          ),
         );
 
   static const String name = 'RoomsListAdminRoute';
+}
+
+class RoomsListAdminRouteArgs {
+  const RoomsListAdminRouteArgs({
+    this.key,
+    required this.vertex,
+  });
+
+  final _i20.Key? key;
+
+  final _i23.Vertex vertex;
+
+  @override
+  String toString() {
+    return 'RoomsListAdminRouteArgs{key: $key, vertex: $vertex}';
+  }
 }
 
 /// generated route for
@@ -680,18 +789,16 @@ class PanoramaRoomAdminRoute
     extends _i19.PageRouteInfo<PanoramaRoomAdminRouteArgs> {
   PanoramaRoomAdminRoute({
     _i20.Key? key,
-    required String panoramaImagePath,
+    required _i23.Vertex vertex,
     required _i24.Room room,
-    required bool isCreate,
   }) : super(
           PanoramaRoomAdminRoute.name,
           path:
               'buildings_list_admin/add_building/areas_list_admin/area_admin/add_vertex/rooms_list_admin/panorama_room',
           args: PanoramaRoomAdminRouteArgs(
             key: key,
-            panoramaImagePath: panoramaImagePath,
+            vertex: vertex,
             room: room,
-            isCreate: isCreate,
           ),
         );
 
@@ -701,22 +808,19 @@ class PanoramaRoomAdminRoute
 class PanoramaRoomAdminRouteArgs {
   const PanoramaRoomAdminRouteArgs({
     this.key,
-    required this.panoramaImagePath,
+    required this.vertex,
     required this.room,
-    required this.isCreate,
   });
 
   final _i20.Key? key;
 
-  final String panoramaImagePath;
+  final _i23.Vertex vertex;
 
   final _i24.Room room;
 
-  final bool isCreate;
-
   @override
   String toString() {
-    return 'PanoramaRoomAdminRouteArgs{key: $key, panoramaImagePath: $panoramaImagePath, room: $room, isCreate: $isCreate}';
+    return 'PanoramaRoomAdminRouteArgs{key: $key, vertex: $vertex, room: $room}';
   }
 }
 
@@ -726,18 +830,20 @@ class PanoramaVertexAdminRoute
     extends _i19.PageRouteInfo<PanoramaVertexAdminRouteArgs> {
   PanoramaVertexAdminRoute({
     _i20.Key? key,
-    required String panoramaImagePath,
+    required _i23.Vertex first,
     required _i25.VertexConnection connection,
-    required bool isCreate,
+    required _i23.Vertex second,
+    required _i22.Area area,
   }) : super(
           PanoramaVertexAdminRoute.name,
           path:
               'buildings_list_admin/add_building/areas_list_admin/area_admin/add_vertex/panorama_vertex',
           args: PanoramaVertexAdminRouteArgs(
             key: key,
-            panoramaImagePath: panoramaImagePath,
+            first: first,
             connection: connection,
-            isCreate: isCreate,
+            second: second,
+            area: area,
           ),
         );
 
@@ -747,21 +853,24 @@ class PanoramaVertexAdminRoute
 class PanoramaVertexAdminRouteArgs {
   const PanoramaVertexAdminRouteArgs({
     this.key,
-    required this.panoramaImagePath,
+    required this.first,
     required this.connection,
-    required this.isCreate,
+    required this.second,
+    required this.area,
   });
 
   final _i20.Key? key;
 
-  final String panoramaImagePath;
+  final _i23.Vertex first;
 
   final _i25.VertexConnection connection;
 
-  final bool isCreate;
+  final _i23.Vertex second;
+
+  final _i22.Area area;
 
   @override
   String toString() {
-    return 'PanoramaVertexAdminRouteArgs{key: $key, panoramaImagePath: $panoramaImagePath, connection: $connection, isCreate: $isCreate}';
+    return 'PanoramaVertexAdminRouteArgs{key: $key, first: $first, connection: $connection, second: $second, area: $area}';
   }
 }
