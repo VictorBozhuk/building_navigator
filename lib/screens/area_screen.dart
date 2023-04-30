@@ -6,11 +6,13 @@ import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/figures/circle.dart';
 import 'package:lnu_navigator/screens/widgets/indicators/indicator.dart';
 import 'package:lnu_navigator/screens/widgets/transformation/matrix_gesture_detector.dart';
+import 'package:provider/provider.dart';
 import '../models/area_model.dart';
 import '../models/path_model.dart';
 import '../models/picture_size_model.dart';
 import '../models/user_info.dart';
 import '../navigation/navi.dart';
+import '../providers/vertexes_provider.dart';
 import '../styles/appTheme.dart';
 import 'actions/actions.dart';
 import 'rooms_list_screen.dart';
@@ -24,6 +26,7 @@ class AreaScreen extends StatefulWidget {
 }
 
 class _AreaScreenState extends State<AreaScreen> {
+  late VertexesProvider vertexProvider;
   bool isExpanderBuilded = false;
   late List<Widget> points = [];
   final GlobalKey expanderKey = GlobalKey();
@@ -43,10 +46,11 @@ class _AreaScreenState extends State<AreaScreen> {
 
   @override
   Widget build(BuildContext context) {
+    vertexProvider = Provider.of<VertexesProvider>(context);
     final ValueNotifier<Matrix4> notifier = ValueNotifier(Matrix4.identity());
     return Scaffold(
             backgroundColor: Colors.white,
-            appBar: getAppBar(UserInfo.area.title, context),
+            appBar: getAppBar(widget.area.title, context),
             floatingActionButton: FloatingActionButton.extended(
               onPressed: () {
                 PathInfo.isWalk = false;
@@ -108,7 +112,7 @@ class _AreaScreenState extends State<AreaScreen> {
     if(isExpanderBuilded == false){
       isExpanderBuilded = true;
     }
-    var pictureSize = await getPictureSizes(expanderKey, UserInfo.area.imagePath);
+    var pictureSize = await getPictureSizes(expanderKey, widget.area.imagePath);
     if(PathInfo.isReadyToGo){
       _setWidgetsOfPath(context, setStateAnalog, pictureSize);
     }else {
@@ -128,28 +132,50 @@ class _AreaScreenState extends State<AreaScreen> {
 
   void _setMap(){
     points.add(Container(
-      child: getAreaImage(UserInfo.area.imagePath),
+      child: getAreaImage(widget.area.imagePath),
     ));
   }
 
   void _setPoints(BuildContext context, Function func, PictureSize pictureSize){
-    for(int i = 0; i < UserInfo.area.vertexes!.length; ++i){
-      if(UserInfo.area.title == "1 floor"){
-        points.add(getVertexAsButtonOn2DMapForUser(UserInfo.area.vertexes![i], context, func, pictureSize, radius: UserInfo.area.vertexRadius));
+    for(int i = 0; i < widget.area.vertexes!.length; ++i){
+      if(widget.area.title == "1 floor"){
+        points.add(getVertexAsButtonOn2DMapForUser(
+            vertex: widget.area.vertexes[i],
+            context: context,
+            func: func,
+            pictureSize: pictureSize,
+            vertexProvider: vertexProvider,
+            radius: widget.area.vertexRadius));
       }else{
-        points.add(getVertexAsButtonOn2DMapForUser(UserInfo.area.vertexes![i], context, func, pictureSize));
+        points.add(getVertexAsButtonOn2DMapForUser(
+            vertex: widget.area.vertexes[i],
+            context: context,
+            func: func,
+            vertexProvider: vertexProvider,
+            pictureSize: pictureSize));
       }
     }
   }
 
   void _setPointsOfPath(BuildContext context, Function func, PictureSize pictureSize){
-    for(int i = 0; i < UserInfo.area.vertexes!.length; ++i){
+    for(int i = 0; i < widget.area.vertexes.length; ++i){
       for(int j = 0; j < PathInfo.listVertexes!.length; ++j){
-        if(UserInfo.area.vertexes![i].id == PathInfo.listVertexes![j].id){
+        if(UserInfo.area.vertexes[i].id == PathInfo.listVertexes![j].id){
           if(UserInfo.area.title == "1 floor"){
-            points.add(getVertexAsButtonOn2DMapForUserWithPath(UserInfo.area.vertexes![i], context, func, pictureSize, radius: UserInfo.area.vertexRadius));
+            points.add(getVertexAsButtonOn2DMapForUserWithPath(
+                vertex: widget.area.vertexes[i],
+                context: context,
+                func: func,
+                pictureSize: pictureSize,
+                vertexProvider: vertexProvider,
+                radius: widget.area.vertexRadius));
           } else{
-            points.add(getVertexAsButtonOn2DMapForUserWithPath(UserInfo.area.vertexes![i], context, func, pictureSize));
+            points.add(getVertexAsButtonOn2DMapForUserWithPath(
+                vertex: widget.area.vertexes[i],
+                context: context,
+                func: func,
+                vertexProvider: vertexProvider,
+                pictureSize: pictureSize));
           }
           break;
         }

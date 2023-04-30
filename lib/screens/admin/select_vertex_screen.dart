@@ -99,7 +99,7 @@ class _SelectVertexScreenState extends State<SelectVertexScreen> {
 
   void _setPoints(BuildContext context, PictureSize pictureSize){
     for(int i = 0; i < widget.area.vertexes!.length; ++i){
-      points.add(getSecondVertexAsButtonOnSecondArea(widget.area.vertexes![i], context, pictureSize));
+      //points.add(getSecondVertexAsButtonOnSecondArea(vertex: widget.area.vertexes![i], context: context, pictureSize: pictureSize));
     }
   }
 }

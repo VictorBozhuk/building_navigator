@@ -41,9 +41,9 @@ class PathInfo {
   }
 
   static setNewVertexes(Vertex vertex){
-    currentVertex = listVertexes?.firstWhere((x) => x.id == vertex.id);
-    _currentIndex = listVertexes!.indexOf(currentVertex!);
-    nextVertex = listVertexes![1 + _currentIndex];
+    //currentVertex = listVertexes?.firstWhere((x) => x.id == vertex.id);
+    //_currentIndex = listVertexes!.indexOf(currentVertex!);
+    //nextVertex = listVertexes![1 + _currentIndex];
   }
 
   static void clear(){

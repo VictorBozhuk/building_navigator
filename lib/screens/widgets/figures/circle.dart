@@ -37,63 +37,82 @@ class Circle extends CustomPainter {
 
 Positioned getVertexAsButtonOn2DMap({
   required Vertex vertex,
-  required Function func,
+  required Future Function() func,
   required PictureSize pictureSize,
   VertexesProvider? vertexProvider,
   double radius = 10}) {
   return getVertexAsButton(
     vertex: vertex,
-    onTap: () => {
-      AdminInfo.selectedVertex = vertex,
+    onTap: () async {
+      vertexProvider!.firstSelected = vertex;
       //print("pressed (${vertex.title}) $x , $y");
-      func(),
+      await func();
     },
-    onLongPress: () {
-      AdminInfo.secondSelectedVertex = vertex;
-      func();
+    onLongPress: () async {
+      vertexProvider!.secondSelected = vertex;
+      await func();
     },
     pictureSize: pictureSize,
-    radius: radius
+    radius: radius,
+    vertexProvider: vertexProvider,
   );
 }
 
-Positioned getSecondVertexAsButtonOnSecondArea(Vertex vertex, BuildContext context, PictureSize pictureSize) {
+Positioned getSecondVertexAsButtonOnSecondArea({
+  required Vertex vertex,
+  required BuildContext context,
+  required VertexesProvider vertexProvider,
+  required PictureSize pictureSize}) {
   return getVertexAsButton(
     vertex: vertex,
     onTap: () {
-      AdminInfo.selectedVertexOnOtherArea = vertex;
+      vertexProvider.differentAreaSelected = vertex;
       //Navi.pop(context);
       //Navi.popAndPushReplacement(context, AddVertexRoute());
     },
-    pictureSize: pictureSize
+    pictureSize: pictureSize,
+    vertexProvider: vertexProvider,
   );
 }
 
-Positioned getVertexAsButtonOn2DMapForUser(Vertex vertex, BuildContext context, Function func, PictureSize pictureSize, {double radius = 10}) {
+Positioned getVertexAsButtonOn2DMapForUser({
+  required Vertex vertex,
+  required BuildContext context,
+  required Function func,
+  required VertexesProvider vertexProvider,
+  required PictureSize pictureSize,
+  double radius = 10}) {
   return getVertexAsButton(
     vertex: vertex,
     onTap: () {
-      AdminInfo.selectedVertex = vertex;
-      PathInfo.sourceVertex = vertex;
+      vertexProvider.firstSelected = vertex;
+      //PathInfo.sourceVertex = vertex;
       //print("pressed (${vertex.title}) $x , $y");
       func();
     },
     onLongPress: (){
-      AdminInfo.selectedVertex = vertex;
-      PathInfo.sourceVertex = vertex;
+      vertexProvider.firstSelected = vertex;
+      //PathInfo.sourceVertex = vertex;
       Navi.push(context, PanoramaRoute(currentVertex: vertex));
     },
     pictureSize: pictureSize,
-    radius: radius
+    radius: radius,
+    vertexProvider: vertexProvider,
   );
 }
 
-Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext context, Function func, PictureSize pictureSize, {double radius = 10}) {
+Positioned getVertexAsButtonOn2DMapForUserWithPath({
+  required Vertex vertex,
+  required BuildContext context,
+  required Function func,
+  required VertexesProvider vertexProvider,
+  required PictureSize pictureSize,
+  double radius = 10}) {
   return getVertexAsButton(
     vertex: vertex,
     onTap: () {
-      AdminInfo.selectedVertex = vertex;
-      PathInfo.sourceVertex = vertex;
+      vertexProvider.firstSelected = vertex;
+      //PathInfo.sourceVertex = vertex;
       //print("pressed (${vertex.title}) $x , $y");
       func();
     },
@@ -102,18 +121,24 @@ Positioned getVertexAsButtonOn2DMapForUserWithPath(Vertex vertex, BuildContext c
       /// Показати іншу зону
       ///
       if(vertex.areaConnectionId != null){
-        UserInfo.area = UserInfo.building.areas.firstWhere((x) => x.id == vertex.areaConnection!.id);
+        if(vertex.areaConnection == null){
+          print("///");
+          print("vertex.areaConnection is NULL");
+          print("///");
+          return;
+        }
         Navi.popAndPush(context, AreaRoute(area: vertex.areaConnection!));
       }
     },
     onDoubleTap: (){
-      AdminInfo.selectedVertex = vertex;
-      PathInfo.sourceVertex = vertex;
+      vertexProvider.firstSelected = vertex;
+      //PathInfo.sourceVertex = vertex;
       PathInfo.setNewVertexes(vertex);
-      Navi.push(context, PanoramaRoute(currentVertex: PathInfo.currentVertex!, nextVertex: PathInfo.nextVertex,));
+      //Navi.push(context, PanoramaRoute(currentVertex: PathInfo.currentVertex!, nextVertex: PathInfo.nextVertex,));
     },
     pictureSize: pictureSize,
-    radius: radius
+    radius: radius,
+    vertexProvider: vertexProvider
   );
 }
 

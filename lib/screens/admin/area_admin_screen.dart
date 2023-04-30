@@ -58,7 +58,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   }
 
   Future _calculateDimension() async {
-    await _setWidgets(setStateAnalog);
+    await _setWidgets(_calculateDimension);
     setState(() { });
   }
 
@@ -161,7 +161,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   }
 
   Future<bool> getData() async {
-    vertexes = await vertexProvider.getAll(widget.area);;
+    vertexes = await vertexProvider.getAll(widget.area);
     await _calculateDimension();
     return true;
   }
@@ -169,28 +169,28 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   Future<void> onRightArrow() async {
     vertexProvider.firstSelected!.pointX
     = vertexProvider.firstSelected!.pointX + 1;
-    await _setWidgets(setStateAnalog);
+    await _setWidgets(_calculateDimension);
     setState(() { });
   }
 
   Future<void> onLeftArrow() async {
     vertexProvider.firstSelected!.pointX
     = vertexProvider.firstSelected!.pointX - 1;
-    await _setWidgets(setStateAnalog);
+    await _setWidgets(_calculateDimension);
     setState(() { });
   }
 
   Future<void> onTopArrow() async {
     vertexProvider.firstSelected!.pointY
     = vertexProvider.firstSelected!.pointY - 1;
-    await _setWidgets(setStateAnalog);
+    await _setWidgets(_calculateDimension);
     setState(() { });
   }
 
   Future<void> onBottomArrow() async {
     vertexProvider.firstSelected!.pointY
     = vertexProvider.firstSelected!.pointY + 1;
-    await _setWidgets(setStateAnalog);
+    await _setWidgets(_calculateDimension);
     setState(() { });
   }
 
@@ -219,17 +219,17 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
     var vertex = await getCreatedVertexOnMap(details, widget.area, expanderKey);
     vertexes.add(vertex);
     await vertexProvider.addOrUpdate(vertex, widget.area);
-    await _setWidgets(setStateAnalog);
+    await _setWidgets(_calculateDimension);
     setState(() { });
   }
 
   Future<void> onDelete() async {
     await vertexProvider.delete(vertexProvider.firstSelected!, widget.area);
-    await _setWidgets(setStateAnalog);
+    await _setWidgets(_calculateDimension);
     setStateAnalog();
   }
 
-  Future<void> _setWidgets(Function func) async {
+  Future<void> _setWidgets(Future Function() func) async {
     imageSize = await getPictureSizes(expanderKey, widget.area.imagePath);
     points.clear();
     _setMap();
@@ -253,7 +253,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
     }
   }
 
-  void _setPoints(Function func, PictureSize pictureSize){
+  void _setPoints(Future Function() func, PictureSize pictureSize){
     for(var v in vertexes){
       if(widget.area.title == "1 floor"){
         points.add(getVertexAsButtonOn2DMap(vertex: v, func: func,
