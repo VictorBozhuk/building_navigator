@@ -206,13 +206,16 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
     //
     // check if vertex is not red
     //
-    if(vertexProvider.setConnection()){
-      Navi.push(context, PanoramaVertexAdminRoute(
-        area: widget.area,
-        first: vertexProvider.firstSelected!,
-        second: vertexProvider.secondSelected!,
-        connection: vertexProvider.connection!,
-      ));
+    if(vertexProvider.isJoinPossible()){
+      Navi.pushThenFutureAction(context,
+        PanoramaVertexAdminRoute(
+          area: widget.area,
+          first: vertexProvider.firstSelected!,
+          second: vertexProvider.secondSelected!,
+          connection: vertexProvider.getConnection(),
+        ),
+        action: _calculateDimension
+      );
     }
   }
 
@@ -247,8 +250,9 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   Future _setLines(PictureSize pictureSize) async {
     for(var v in vertexes){
       for(var vc in v.vertexConnections){
-        if((v.areaConnection != null && vc.nextVertex?.areaConnection != null) == false){
-          points.add(drawLine(v, vc.nextVertex!, pictureSize));
+        if(vertexes.any((v) => v.id == vc.nextVertexId)){
+          var next = vertexes.firstWhere((v) => v.id == vc.nextVertexId);
+          points.add(drawLine(v, next, pictureSize));
         }
       }
     }

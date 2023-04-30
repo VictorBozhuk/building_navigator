@@ -94,6 +94,7 @@ class Vertex {
     rooms = (data['rooms'] as List).map((w) => Room.fromJson(w)).toList();
     vertexConnections = (data['vertexConnections']
         as List).map((w) => VertexConnection.fromJson(w)).toList();
+    areaConnection = null;
   }
 
   //

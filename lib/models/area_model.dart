@@ -34,7 +34,6 @@ class Area {
       "imagePath": imagePath,
       "pixelsInMeter" : pixelsInMeter,
       "vertexRadius" : vertexRadius,
-      //"vertexes": vertexes.map((w) => w.toMap()).toList(),
     };
   }
 

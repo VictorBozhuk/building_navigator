@@ -17,7 +17,7 @@ class VertexConnection {
   VertexConnection(this.vertexId, this.nextVertexId, this.direction, this.iconX, this.iconY, this.iconSize, this.length, this.iconAngle){
     id = const Uuid().v1();
   }
-  VertexConnection.empty(){
+  VertexConnection.empty(this.vertexId, this.nextVertexId){
     id = const Uuid().v1();
     nextVertex = null;
     direction = 0;

@@ -36,7 +36,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
   @override
   void initState(){
     super.initState();
-    txtTitle.text = AdminInfo.selectedVertex!.title ?? "";
+    txtTitle.text = widget.vertex.title ?? "";
     txtTitle.addListener(() {
       widget.vertex.title = txtTitle.text;
     });
@@ -125,8 +125,8 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
   }
   
   void onSetCoordinates(){
-    if(widget.vertex.vertexConnections!.any((x) => x.nextVertex!.id == vertexProvider.differentAreaSelected!.id)){
-      vertexProvider.connection = widget.vertex.vertexConnections!
+    if(widget.vertex.vertexConnections.any((x) => x.nextVertex!.id == vertexProvider.differentAreaSelected!.id)){
+      vertexProvider.connection = widget.vertex.vertexConnections
           .firstWhere((x) => x.nextVertex!.id == vertexProvider.differentAreaSelected!.id);
       vertexProvider.secondSelected = vertexProvider.differentAreaSelected;
       Navi.push(context, PanoramaVertexAdminRoute(

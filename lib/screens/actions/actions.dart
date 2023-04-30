@@ -76,10 +76,10 @@ double getLengthByPixels(Vertex? first, Vertex? second, PictureSize pictureSize)
 }
 
 CustomPaint drawLine(Vertex first, Vertex second, PictureSize pictureSize) {
-  double x1 = pictureSize.width / (first.areaWidth! / first.pointX!);
-  double y1 = pictureSize.width / (first.areaWidth! / first.pointY!);
-  double x2 = pictureSize.width / (second.areaWidth! / second.pointX!);
-  double y2 = pictureSize.width / (second.areaWidth! / second.pointY!);
+  double x1 = pictureSize.width / (first.areaWidth / first.pointX);
+  double y1 = pictureSize.width / (first.areaWidth / first.pointY);
+  double x2 = pictureSize.width / (second.areaWidth / second.pointX);
+  double y2 = pictureSize.width / (second.areaWidth / second.pointY);
   double xDif = (x1 - x2).abs() / 2;
   double yDif = (y1 - y2).abs() / 2;
   double x2Res = 0;

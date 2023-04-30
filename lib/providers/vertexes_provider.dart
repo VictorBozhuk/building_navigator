@@ -40,12 +40,15 @@ class VertexesProvider with ChangeNotifier {
   }
 
 
-  bool setConnection(){
-    if(firstSelected!.vertexConnections.any((x) => x.nextVertex!.id == secondSelected!.id)){
-      connection = firstSelected!.vertexConnections.firstWhere((x) => x.nextVertex!.id == secondSelected!.id);
-      return true;
+  VertexConnection getConnection(){
+    if(firstSelected!.vertexConnections.any((x) => x.nextVertexId == secondSelected!.id)){
+      return firstSelected!.vertexConnections.firstWhere((x) => x.nextVertexId == secondSelected!.id);
     }
 
-    return false;
+    return VertexConnection.empty(firstSelected!.id, secondSelected!.id);
+  }
+
+  bool isJoinPossible(){
+    return firstSelected != null && secondSelected != null;
   }
 }

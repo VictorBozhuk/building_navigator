@@ -13,7 +13,7 @@ class AdminInfo{
   static Area area = Area.empty("");
   static Building building = Building.empty();
   static Room room = Room.empty("");
-  static VertexConnection connection = VertexConnection.empty();
+  static VertexConnection connection = VertexConnection.empty("", "");
   static Vertex? selectedVertex;
   static Vertex? secondSelectedVertex;
   static bool isCreateAreaConnection = false;
@@ -44,7 +44,7 @@ class AdminInfo{
   }
 
   static void clearConnection(){
-    connection = VertexConnection.empty();
+    connection = VertexConnection.empty("", "");
   }
 
   static clearSelectedVertexes(){

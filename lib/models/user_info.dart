@@ -12,7 +12,7 @@ class UserInfo{
   static Area area = Area.empty("");
   static Building building = Building.empty();
   static Room room = Room.empty("");
-  static VertexConnection connection = VertexConnection.empty();
+  static VertexConnection connection = VertexConnection.empty("", "");
   static double x = 0;
   static double y = 0;
   static double direction = 0;
@@ -58,7 +58,7 @@ class UserInfo{
 
   static void clearConnection(){
     clear();
-    connection = VertexConnection.empty();
+    connection = VertexConnection.empty("", "");
   }
 
   static void setRoomCoordinates(){

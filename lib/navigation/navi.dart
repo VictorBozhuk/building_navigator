@@ -28,6 +28,10 @@ class Navi {
     context.router.push(route).then((_) => action());
   }
 
+  static void pushThenFutureAction(BuildContext context, PageRouteInfo route, {required Future Function() action}){
+    context.router.push(route).then((_) => action());
+  }
+
   static void pop(BuildContext context){
     context.router.pop();
   }
