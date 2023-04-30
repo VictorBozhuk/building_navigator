@@ -12,6 +12,7 @@ class VertexesProvider with ChangeNotifier {
   Vertex? secondSelected;
   Vertex? differentAreaSelected;
   VertexConnection? connection;
+  late Area area;
 
   late Building building;
   late List<Vertex> _vertexes;

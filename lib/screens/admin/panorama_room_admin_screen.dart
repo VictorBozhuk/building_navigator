@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:panorama/panorama.dart';
+import 'package:provider/provider.dart';
 import '../../models/admin_info.dart';
 import '../../models/room_model.dart';
 import '../../models/vertex_model.dart';
 import '../../navigation/navi.dart';
+import '../../providers/vertexes_provider.dart';
 import '../../styles/text_styles/text_styles.dart';
 import '../actions/actions.dart';
 import '../widgets/app_bars/app_bars.dart';
@@ -26,6 +28,7 @@ class PanoramaRoomAdminScreen extends StatefulWidget{
 }
 
 class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
+  late VertexesProvider vertexProvider;
   late List<Hotspot> hotspots = [];
   late TextEditingController txtTitle = TextEditingController();
   bool isColorPanelVisible = false;
@@ -58,6 +61,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
 
   @override
   Widget build(BuildContext context) {
+    vertexProvider = Provider.of<VertexesProvider>(context, listen: false);
     return Scaffold(
       appBar: getAppBar(widget.room.title, context),
       body: Stack(
@@ -168,10 +172,11 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
-        onPressed: () {
+        onPressed: () async {
           if(widget.vertex.rooms.any((r) => r.id == widget.room.id) == false){
             widget.vertex.rooms.add(widget.room);
           }
+          await vertexProvider.addOrUpdate(widget.vertex, vertexProvider.area);
           Navi.pop(context);
           //Navi.popAndPushReplacement(context, const RoomsListAdminRoute());
         },
@@ -219,7 +224,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
             border: Border.all(color: widget.room.color)
         ),
 
-        child: Text(AdminInfo.room.title,
+        child: Text(widget.room.title,
             textAlign: TextAlign.center,
             style: textStyleRoomTitleOnPanorama(widget.room)),
       ),

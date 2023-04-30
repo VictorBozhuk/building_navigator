@@ -168,35 +168,34 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   }
 
   Future<void> onRightArrow() async {
-    vertexProvider.firstSelected!.pointX
-    = vertexProvider.firstSelected!.pointX + 1;
-    await _setWidgets(_calculateDimension);
-    setState(() { });
+    if(vertexProvider.firstSelected != null){
+      vertexProvider.firstSelected!.pointX = vertexProvider.firstSelected!.pointX + 1;
+      await vertexProvider.addOrUpdate(vertexProvider.firstSelected!, widget.area);
+      await _calculateDimension();
+    }
   }
 
   Future<void> onLeftArrow() async {
-    vertexProvider.firstSelected!.pointX
-    = vertexProvider.firstSelected!.pointX - 1;
-    await _setWidgets(_calculateDimension);
-    setState(() { });
+    vertexProvider.firstSelected!.pointX = vertexProvider.firstSelected!.pointX - 1;
+    await vertexProvider.addOrUpdate(vertexProvider.firstSelected!, widget.area);
+    await _calculateDimension();
   }
 
   Future<void> onTopArrow() async {
-    vertexProvider.firstSelected!.pointY
-    = vertexProvider.firstSelected!.pointY - 1;
-    await _setWidgets(_calculateDimension);
-    setState(() { });
+    vertexProvider.firstSelected!.pointY = vertexProvider.firstSelected!.pointY - 1;
+    await vertexProvider.addOrUpdate(vertexProvider.firstSelected!, widget.area);
+    await _calculateDimension();
   }
 
   Future<void> onBottomArrow() async {
-    vertexProvider.firstSelected!.pointY
-    = vertexProvider.firstSelected!.pointY + 1;
-    await _setWidgets(_calculateDimension);
-    setState(() { });
+    vertexProvider.firstSelected!.pointY = vertexProvider.firstSelected!.pointY + 1;
+    await vertexProvider.addOrUpdate(vertexProvider.firstSelected!, widget.area);
+    await _calculateDimension();
   }
 
   void onEdit(){
     if(vertexProvider.firstSelected != null){
+      vertexProvider.area = widget.area;
       //AdminInfo.vertex = AdminInfo.selectedVertex!;
       Navi.push(context, AddVertexRoute(area: widget.area, vertex: vertexProvider.firstSelected!));
     }

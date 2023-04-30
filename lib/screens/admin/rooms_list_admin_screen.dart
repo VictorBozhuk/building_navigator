@@ -55,9 +55,11 @@ class _RoomsListAdminScreenState extends State<RoomsListAdminScreen> {
   }
 
   void onAppBarAdd(){
-    Navi.push(context, PanoramaRoomAdminRoute(
-      vertex: widget.vertex,
-      room: Room.empty(widget.vertex.id),)
+    Navi.pushThenAction(context,
+      PanoramaRoomAdminRoute(
+        vertex: widget.vertex,
+        room: Room.empty(widget.vertex.id),),
+      action: () => setState(() {})
     );
   }
 
