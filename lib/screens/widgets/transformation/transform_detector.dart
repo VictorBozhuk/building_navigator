@@ -7,7 +7,8 @@ class TransformDetector extends StatelessWidget {
   late ValueNotifier<Matrix4> notifier;
   late Widget child;
   late bool shouldRotate;
-  TransformDetector(this.notifier, {super.key, required this.child, required this.shouldRotate});
+  late Future Function(TapUpDetails details) onTap;
+  TransformDetector(this.notifier, {super.key, required this.child, required this.shouldRotate, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class TransformDetector extends StatelessWidget {
       },
       onScaleStart: () { },
       onScaleEnd: () { },
-      child: GestureDetector(onTapUp: (TapUpDetails details) { },
+      child: GestureDetector(onTapUp: onTap,
         child: AnimatedBuilder(
           animation: notifier,
           builder: (ctx, child) {

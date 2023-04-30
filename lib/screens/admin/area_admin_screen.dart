@@ -77,6 +77,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
           Expanded(
             key: expanderKey,
             child: TransformDetector(notifier,
+              onTap: onAreaTap,
               shouldRotate: false,
               child: Stack(children: points,),
             ),
