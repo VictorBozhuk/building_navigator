@@ -40,17 +40,27 @@ Positioned getVertexAsButtonOn2DMap({
   required Future Function() func,
   required PictureSize pictureSize,
   VertexesProvider? vertexProvider,
-  double radius = 10}) {
+  required double radius,
+  bool isAreaConnection = false
+}) {
   return getVertexAsButton(
     vertex: vertex,
     onTap: () async {
+      if(isAreaConnection == true){
+        vertexProvider!.differentAreaVertexSelected = vertex;
+        await func();
+        return;
+      }
+
       vertexProvider!.firstSelected = vertex;
       //print("pressed (${vertex.title}) $x , $y");
       await func();
     },
     onLongPress: () async {
-      vertexProvider!.secondSelected = vertex;
-      await func();
+      if(isAreaConnection == false){
+        vertexProvider!.secondSelected = vertex;
+        await func();
+      }
     },
     pictureSize: pictureSize,
     radius: radius,
@@ -62,15 +72,17 @@ Positioned getSecondVertexAsButtonOnSecondArea({
   required Vertex vertex,
   required BuildContext context,
   required VertexesProvider vertexProvider,
+  required double radius,
   required PictureSize pictureSize}) {
   return getVertexAsButton(
     vertex: vertex,
     onTap: () {
-      vertexProvider.differentAreaSelected = vertex;
+      vertexProvider.differentAreaVertexSelected = vertex;
       //Navi.pop(context);
       //Navi.popAndPushReplacement(context, AddVertexRoute());
     },
     pictureSize: pictureSize,
+    radius: radius,
     vertexProvider: vertexProvider,
   );
 }
@@ -81,7 +93,7 @@ Positioned getVertexAsButtonOn2DMapForUser({
   required Function func,
   required VertexesProvider vertexProvider,
   required PictureSize pictureSize,
-  double radius = 10}) {
+  required double radius}) {
   return getVertexAsButton(
     vertex: vertex,
     onTap: () {
@@ -107,7 +119,7 @@ Positioned getVertexAsButtonOn2DMapForUserWithPath({
   required Function func,
   required VertexesProvider vertexProvider,
   required PictureSize pictureSize,
-  double radius = 10}) {
+  required double radius}) {
   return getVertexAsButton(
     vertex: vertex,
     onTap: () {
@@ -150,7 +162,7 @@ Positioned getVertexAsButton({
   Function onLongPress = defaultFunc,
   Function onDoubleTap = defaultFunc,
   VertexesProvider? vertexProvider,
-  double radius = 10})
+  required double radius})
 {
   var x = (pictureSize.width / (vertex.areaWidth / vertex.pointX)) - pictureSize.getRadius();
   var y = (pictureSize.height / (vertex.areaHeight / vertex.pointY)) - pictureSize.getRadius();
@@ -164,13 +176,6 @@ Positioned getVertexAsButton({
   if(vertexProvider?.firstSelected != null && vertex.id == vertexProvider!.firstSelected!.id){
     color = Colors.green;
   }
-  double vertexDiameter = 0;
-  if(radius == 10){
-    vertexDiameter = pictureSize.getRadius() * 2;
-  }
-  else{
-    vertexDiameter = radius;
-  }
   return Positioned(
       top: y,
       left: x,
@@ -182,10 +187,10 @@ Positioned getVertexAsButton({
               onTap: () { onTap(); },
               onLongPress: () { onLongPress(); },
               child: SizedBox(
-                height: vertexDiameter,
-                width: vertexDiameter,
+                height: radius,
+                width: radius,
                 child: CustomPaint(
-                  foregroundPainter: Circle(color, vertexDiameter / 2),
+                  foregroundPainter: Circle(color, radius / 2),
                   child: Container(
                     color: Colors.transparent,
                   ),

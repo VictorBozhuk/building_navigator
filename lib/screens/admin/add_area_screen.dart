@@ -23,6 +23,7 @@ class AddAreaScreenState extends State<AddAreaScreen> {
   late AreasProvider areaProvider;
   TextEditingController txtTitle = TextEditingController();
   TextEditingController txtScale = TextEditingController();
+  TextEditingController txtVertexRadius = TextEditingController();
   TextEditingController txtImagePath = TextEditingController();
 
   @override
@@ -33,7 +34,17 @@ class AddAreaScreenState extends State<AddAreaScreen> {
     });
     txtScale.text = widget.area.pixelsInMeter.toString();
     txtScale.addListener(() {
+      //
+      // Check value exp
+      //
       widget.area.pixelsInMeter = int.parse(txtScale.text);
+    });
+    txtVertexRadius.text = widget.area.vertexRadius.toString();
+    txtVertexRadius.addListener(() {
+      //
+      // Check value exp
+      //
+      widget.area.vertexRadius = double.parse(txtVertexRadius.text);
     });
     txtImagePath.text = widget.area.imagePath;
     txtImagePath.addListener(() {
@@ -67,6 +78,10 @@ class AddAreaScreenState extends State<AddAreaScreen> {
                     hint: "Count pixels in one meter",
                 ),
                 MainTextInput(
+                  inputController: txtVertexRadius,
+                  hint: "Vertex radius",
+                ),
+                MainTextInput(
                     inputController: txtImagePath,
                     hint: "Photo",
                 ),
@@ -83,6 +98,6 @@ class AddAreaScreenState extends State<AddAreaScreen> {
 
   Future<void> onSave() async {
     await areaProvider.addOrUpdate(widget.area);
-    Navi.pop(context);
+    Navi.popAndPushReplacement(context, AreaAdminRoute(area: widget.area));
   }
 }

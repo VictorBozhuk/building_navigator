@@ -165,6 +165,7 @@ class AppRouter extends _i19.RootStackRouter {
         child: _i14.AreaAdminScreen(
           key: args.key,
           area: args.area,
+          isSelectAreaConnection: args.isSelectAreaConnection,
         ),
       );
     },
@@ -572,7 +573,7 @@ class AreasListAdminRoute extends _i19.PageRouteInfo<AreasListAdminRouteArgs> {
   AreasListAdminRoute({
     _i20.Key? key,
     required _i21.Building building,
-    required bool isSelectAreaConnection,
+    bool isSelectAreaConnection = false,
   }) : super(
           AreasListAdminRoute.name,
           path: 'buildings_list_admin/add_building/areas_list_admin',
@@ -590,7 +591,7 @@ class AreasListAdminRouteArgs {
   const AreasListAdminRouteArgs({
     this.key,
     required this.building,
-    required this.isSelectAreaConnection,
+    this.isSelectAreaConnection = false,
   });
 
   final _i20.Key? key;
@@ -680,12 +681,14 @@ class AreaAdminRoute extends _i19.PageRouteInfo<AreaAdminRouteArgs> {
   AreaAdminRoute({
     _i20.Key? key,
     required _i22.Area area,
+    bool isSelectAreaConnection = false,
   }) : super(
           AreaAdminRoute.name,
           path: 'buildings_list_admin/add_building/areas_list_admin/area_admin',
           args: AreaAdminRouteArgs(
             key: key,
             area: area,
+            isSelectAreaConnection: isSelectAreaConnection,
           ),
         );
 
@@ -696,15 +699,18 @@ class AreaAdminRouteArgs {
   const AreaAdminRouteArgs({
     this.key,
     required this.area,
+    this.isSelectAreaConnection = false,
   });
 
   final _i20.Key? key;
 
   final _i22.Area area;
 
+  final bool isSelectAreaConnection;
+
   @override
   String toString() {
-    return 'AreaAdminRouteArgs{key: $key, area: $area}';
+    return 'AreaAdminRouteArgs{key: $key, area: $area, isSelectAreaConnection: $isSelectAreaConnection}';
   }
 }
 

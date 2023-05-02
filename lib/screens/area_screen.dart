@@ -138,22 +138,13 @@ class _AreaScreenState extends State<AreaScreen> {
 
   void _setPoints(BuildContext context, Function func, PictureSize pictureSize){
     for(int i = 0; i < widget.area.vertexes!.length; ++i){
-      if(widget.area.title == "1 floor"){
-        points.add(getVertexAsButtonOn2DMapForUser(
-            vertex: widget.area.vertexes[i],
-            context: context,
-            func: func,
-            pictureSize: pictureSize,
-            vertexProvider: vertexProvider,
-            radius: widget.area.vertexRadius));
-      }else{
-        points.add(getVertexAsButtonOn2DMapForUser(
-            vertex: widget.area.vertexes[i],
-            context: context,
-            func: func,
-            vertexProvider: vertexProvider,
-            pictureSize: pictureSize));
-      }
+      points.add(getVertexAsButtonOn2DMapForUser(
+          vertex: widget.area.vertexes[i],
+          context: context,
+          func: func,
+          pictureSize: pictureSize,
+          vertexProvider: vertexProvider,
+          radius: widget.area.vertexRadius));
     }
   }
 
@@ -161,22 +152,13 @@ class _AreaScreenState extends State<AreaScreen> {
     for(int i = 0; i < widget.area.vertexes.length; ++i){
       for(int j = 0; j < PathInfo.listVertexes!.length; ++j){
         if(UserInfo.area.vertexes[i].id == PathInfo.listVertexes![j].id){
-          if(UserInfo.area.title == "1 floor"){
-            points.add(getVertexAsButtonOn2DMapForUserWithPath(
-                vertex: widget.area.vertexes[i],
-                context: context,
-                func: func,
-                pictureSize: pictureSize,
-                vertexProvider: vertexProvider,
-                radius: widget.area.vertexRadius));
-          } else{
-            points.add(getVertexAsButtonOn2DMapForUserWithPath(
-                vertex: widget.area.vertexes[i],
-                context: context,
-                func: func,
-                vertexProvider: vertexProvider,
-                pictureSize: pictureSize));
-          }
+          points.add(getVertexAsButtonOn2DMapForUserWithPath(
+              vertex: widget.area.vertexes[i],
+              context: context,
+              func: func,
+              pictureSize: pictureSize,
+              vertexProvider: vertexProvider,
+              radius: widget.area.vertexRadius));
           break;
         }
       }

@@ -10,7 +10,7 @@ import '../services/vertex_service.dart';
 class VertexesProvider with ChangeNotifier {
   Vertex? firstSelected;
   Vertex? secondSelected;
-  Vertex? differentAreaSelected;
+  Vertex? differentAreaVertexSelected;
   VertexConnection? connection;
   late Area area;
 

@@ -25,7 +25,7 @@ class PanoramaVertexAdminScreen extends StatefulWidget{
     required this.first,
     required this.connection,
     required this.second,
-    required this.area
+    required this.area,
   }) : super(key: key);
 
   @override
@@ -43,7 +43,7 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
 
   @override
   Widget build(BuildContext context) {
-    vertexProvider = Provider.of<VertexesProvider>(context);
+    vertexProvider = Provider.of<VertexesProvider>(context, listen: false);
     return Scaffold(
       appBar: getAppBar("Tap on ${widget.second.title}", context),
       body: Stack(
@@ -107,7 +107,6 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
       ),
     );
   }
-
 
   Future<void> onSave() async {
     if(widget.first.vertexConnections.any((vc) => vc.id == widget.connection.id) == false){

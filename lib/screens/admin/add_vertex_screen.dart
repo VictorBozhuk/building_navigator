@@ -58,11 +58,9 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
   Widget build(BuildContext context) {
     vertexProvider = Provider.of<VertexesProvider>(context);
 
-    if(widget.vertex.areaConnection != null
-        && vertexProvider.differentAreaSelected == null
-        && widget.vertex.vertexConnections.any((x) => x.nextVertex!.areaConnection != null)){
-      vertexProvider.differentAreaSelected = widget.vertex.vertexConnections
-          .firstWhere((x) => x.nextVertex!.areaConnectionId != null).nextVertex;
+    if(widget.vertex.areaConnectionId != null){
+      vertexProvider.differentAreaVertexSelected = widget.vertex.vertexConnections
+          .firstWhere((x) => x.nextVertex!.areaId != widget.area.id).nextVertex;
     }
 
     return Scaffold(
@@ -87,19 +85,12 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
               if(isAreaConnection == true)
                 MainText(text: "Area: ${widget.vertex.areaConnection?.title}"),
               if(isAreaConnection == true)
-                MainText(text: "Vertex: ${vertexProvider.differentAreaSelected?.title}"),
+                MainText(text: "Vertex: ${vertexProvider.differentAreaVertexSelected?.title}"),
               if(isAreaConnection == true)
                 MainPadding(
                   child: MainButton(
                       title: "Join area",
                       onPressed: onJoinArea
-                  ),
-                ),
-              if(isAreaConnection == true)
-                MainPadding(
-                  child: MainButton(
-                      title: "Set coordinates",
-                      onPressed: onSetCoordinates
                   ),
                 ),
               MainPadding(
@@ -121,21 +112,11 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
   }
   
   void onJoinArea(){
-    Navi.push(context, AreasListAdminRoute(building: vertexProvider.building, isSelectAreaConnection: true));
-  }
-  
-  void onSetCoordinates(){
-    if(widget.vertex.vertexConnections.any((x) => x.nextVertex!.id == vertexProvider.differentAreaSelected!.id)){
+    if(widget.vertex.areaConnection != null){
       vertexProvider.connection = widget.vertex.vertexConnections
-          .firstWhere((x) => x.nextVertex!.id == vertexProvider.differentAreaSelected!.id);
-      vertexProvider.secondSelected = vertexProvider.differentAreaSelected;
-      Navi.push(context, PanoramaVertexAdminRoute(
-        area: widget.area,
-        first: vertexProvider.firstSelected!,
-        second: vertexProvider.secondSelected!,
-        connection: vertexProvider.connection!,
-      ));
+          .firstWhere((vc) => vc.nextVertex!.areaId != widget.vertex.areaId);
     }
+    Navi.push(context, AreasListAdminRoute(building: vertexProvider.building, isSelectAreaConnection: true));
   }
   
   void onRooms(){

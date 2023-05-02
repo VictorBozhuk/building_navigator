@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lnu_navigator/models/vertex_connection_model.dart';
 import 'package:lnu_navigator/screens/admin/panorama_vertex_admin_screen.dart';
 import 'package:provider/provider.dart';
 import '../../models/area_model.dart';
@@ -31,7 +32,8 @@ import 'dart:async';
 
 class AreaAdminScreen extends StatefulWidget {
   late Area area;
-  AreaAdminScreen({super.key, required this.area});
+  late bool isSelectAreaConnection;
+  AreaAdminScreen({super.key, required this.area, this.isSelectAreaConnection = false});
 
   @override
   State<StatefulWidget> createState() => _AreaAdminScreenState();
@@ -39,7 +41,6 @@ class AreaAdminScreen extends StatefulWidget {
 
 class _AreaAdminScreenState extends State<AreaAdminScreen> {
   late VertexesProvider vertexProvider;
-  late List<Vertex> vertexes;
   late List<Widget> points = [];
   final GlobalKey expanderKey = GlobalKey();
   PictureSize imageSize = PictureSize.empty();
@@ -53,14 +54,6 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
     });
   }
 
-  void setStateAnalog(){
-    setState(() {});
-  }
-
-  Future _calculateDimension() async {
-    await _setWidgets(_calculateDimension);
-    setState(() { });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +64,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
         appBar: getAppBarWithIcon(
             widget.area.title,
             context,
-            onTap: () => Navi.push(context, AddAreaRoute(area: widget.area)),
+            onTap: () => Navi.pushThenAction(context, AddAreaRoute(area: widget.area), action: () => setState(() {})),
             icon: Icons.edit),
         body: Column(children: [
           Expanded(
@@ -82,87 +75,131 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
               child: Stack(children: points,),
             ),
           ),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-            MainPadding(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          if(!widget.isSelectAreaConnection)
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("First: ${vertexProvider.firstSelected?.title ?? "none"}",
-                      style: textStyleMainNormalTextBlack),
-                  Text("Second: ${vertexProvider.secondSelected?.title ?? "none"}",
-                      style: textStyleMainNormalTextBlack),
-                  Text("Length: ${getLengthByPixels(vertexProvider.firstSelected, vertexProvider.secondSelected, imageSize)}",
-                      style: textStyleMainNormalTextBlack),
-                ]),
-            ),
+              MainPadding(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("First: ${vertexProvider.firstSelected?.title ?? "none"}",
+                        style: textStyleMainNormalTextBlack),
+                    Text("Second: ${vertexProvider.secondSelected?.title ?? "none"}",
+                        style: textStyleMainNormalTextBlack),
+                    Text("Length: ${getLengthByPixels(vertexProvider.firstSelected, vertexProvider.secondSelected, imageSize)}",
+                        style: textStyleMainNormalTextBlack),
+                  ]),
+              ),
+              MainPadding(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ArrowButton(
+                        icon: const RotatedBox(
+                          quarterTurns: 1,
+                          child: Icon(Icons.arrow_back_ios_new),
+                        ),
+                        onPressed: onTopArrow
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ArrowButton(
+                            icon: const RotatedBox(
+                              quarterTurns: 0,
+                              child: Icon(Icons.arrow_back_ios_new),
+                            ),
+                            onPressed: onLeftArrow
+                        ),
+                        const Padding(padding: EdgeInsets.only(left: 15, right: 15),),
+                        ArrowButton(
+                            icon: const RotatedBox(
+                              quarterTurns: 2,
+                              child: Icon(Icons.arrow_back_ios_new),
+                            ),
+                            onPressed: onRightArrow
+                        )
+                      ],
+                    ),
+                    ArrowButton(
+                        icon: const RotatedBox(
+                          quarterTurns: 3,
+                          child: Icon(Icons.arrow_back_ios_new),
+                        ),
+                        onPressed: onBottomArrow
+                    ),
+                  ],),
+              ),
+            ]),
+
+          if(!widget.isSelectAreaConnection)
             MainPadding(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ArrowButton(
-                      icon: const RotatedBox(
-                        quarterTurns: 1,
-                        child: Icon(Icons.arrow_back_ios_new),
-                      ),
-                      onPressed: onTopArrow
+                  MainComponentButton(
+                    title: "Join",
+                    onPressed: onJoin
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ArrowButton(
-                          icon: const RotatedBox(
-                            quarterTurns: 0,
-                            child: Icon(Icons.arrow_back_ios_new),
-                          ),
-                          onPressed: onLeftArrow
-                      ),
-                      const Padding(padding: EdgeInsets.only(left: 15, right: 15),),
-                      ArrowButton(
-                          icon: const RotatedBox(
-                            quarterTurns: 2,
-                            child: Icon(Icons.arrow_back_ios_new),
-                          ),
-                          onPressed: onRightArrow
-                      )
-                    ],
+                  MainComponentButton(
+                    title: "Delete",
+                    onPressed: onDelete
                   ),
-                  ArrowButton(
-                      icon: const RotatedBox(
-                        quarterTurns: 3,
-                        child: Icon(Icons.arrow_back_ios_new),
-                      ),
-                      onPressed: onBottomArrow
+                  MainComponentButton(
+                      title: "Edit",
+                      onPressed: onEdit
                   ),
                 ],),
-            ),
-          ]),
-          MainPadding(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                MainComponentButton(
-                  title: "Join",
-                  onPressed: onJoin
-                ),
-                MainComponentButton(
-                  title: "Delete",
-                  onPressed: onDelete
-                ),
-                MainComponentButton(
-                    title: "Edit",
-                    onPressed: onEdit
-                ),
-              ],),
-            ),
+              ),
           ],
         ),
     );
   }
 
+  void setStateAnalog(){
+    setState(() {});
+  }
+
+  Future _calculateDimension() async {
+    await _setWidgets(_calculateDimension);
+    setState(() { });
+  }
+
+  Future<void> calculateDimensionOnForAreaConnection() {
+    return _setWidgets(naviToAddVertexFromAreaConnection);
+  }
+
+  Future<void> naviToAddVertexFromAreaConnection() async {
+    vertexProvider.firstSelected!.areaConnectionId = widget.area.id;
+    //vertexProvider.firstSelected!.areaConnection = widget.area;
+    if(vertexProvider.firstSelected!.vertexConnections
+        .any((vc) => vc.nextVertex!.areaId != vertexProvider.firstSelected!.areaId) == true){
+      vertexProvider.connection = vertexProvider.firstSelected!.vertexConnections
+          .firstWhere((vc) => vc.nextVertex!.areaId != vertexProvider.firstSelected!.areaId);
+    } else{
+      vertexProvider.connection = VertexConnection.empty(vertexProvider.firstSelected!.id, vertexProvider.differentAreaVertexSelected!.id);
+      vertexProvider.connection!.nextVertex = vertexProvider.differentAreaVertexSelected!;
+    }
+
+    Navi.pushReplacement(context, PanoramaVertexAdminRoute(
+      area: vertexProvider.area,
+      first: vertexProvider.firstSelected!,
+      second: vertexProvider.differentAreaVertexSelected!,
+      connection: vertexProvider.connection!,
+    ));
+  }
+
   Future<bool> getData() async {
-    vertexes = await vertexProvider.getAll(widget.area);
+    //vertexes = await vertexProvider.getAll(widget.area);
+
+    if(widget.isSelectAreaConnection){
+      vertexProvider.firstSelected!.areaConnection = widget.area;
+      await calculateDimensionOnForAreaConnection();
+      setState(() { });
+      return true;
+    }
+
     await _calculateDimension();
     return true;
   }
@@ -219,15 +256,18 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   }
 
   Future<void> onAreaTap(TapUpDetails details) async {
-    var vertex = await getCreatedVertexOnMap(details, widget.area, expanderKey);
-    vertexes.add(vertex);
-    await vertexProvider.addOrUpdate(vertex, widget.area);
-    await _setWidgets(_calculateDimension);
-    setState(() { });
+    if(!widget.isSelectAreaConnection){
+      var vertex = await getCreatedVertexOnMap(details, widget.area, expanderKey);
+      widget.area.vertexes.add(vertex);
+      await vertexProvider.addOrUpdate(vertex, widget.area);
+      await _setWidgets(_calculateDimension);
+      setState(() { });
+    }
   }
 
   Future<void> onDelete() async {
     await vertexProvider.delete(vertexProvider.firstSelected!, widget.area);
+    widget.area.vertexes.remove(vertexProvider.firstSelected!);
     await _setWidgets(_calculateDimension);
     setStateAnalog();
   }
@@ -247,10 +287,10 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   }
 
   Future _setLines(PictureSize pictureSize) async {
-    for(var v in vertexes){
+    for(var v in widget.area.vertexes){
       for(var vc in v.vertexConnections){
-        if(vertexes.any((v) => v.id == vc.nextVertexId)){
-          var next = vertexes.firstWhere((v) => v.id == vc.nextVertexId);
+        if(widget.area.vertexes.any((v) => v.id == vc.nextVertexId)){
+          var next = widget.area.vertexes.firstWhere((v) => v.id == vc.nextVertexId);
           points.add(drawLine(v, next, pictureSize));
         }
       }
@@ -258,14 +298,14 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   }
 
   void _setPoints(Future Function() func, PictureSize pictureSize){
-    for(var v in vertexes){
-      if(widget.area.title == "1 floor"){
-        points.add(getVertexAsButtonOn2DMap(vertex: v, func: func,
-            pictureSize: pictureSize, radius: widget.area.vertexRadius, vertexProvider: vertexProvider));
-      } else{
-        points.add(getVertexAsButtonOn2DMap(vertex: v, func: func,
-            pictureSize: pictureSize, vertexProvider: vertexProvider));
-      }
+    for(var v in widget.area.vertexes){
+      points.add(getVertexAsButtonOn2DMap(
+          vertex: v,
+          func: func,
+          pictureSize: pictureSize,
+          radius: widget.area.vertexRadius,
+          vertexProvider: vertexProvider,
+          isAreaConnection: widget.isSelectAreaConnection));
     }
   }
 }

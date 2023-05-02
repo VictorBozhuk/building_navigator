@@ -4,9 +4,11 @@ import 'package:provider/provider.dart';
 
 import '../../models/area_model.dart';
 import '../../models/building_model.dart';
+import '../../models/vertex_model.dart';
 import '../../navigation/app_router.gr.dart';
 import '../../navigation/navi.dart';
 import '../../providers/areas_provider.dart';
+import '../../providers/vertexes_provider.dart';
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
 import '../widgets/app_bars/app_bars.dart';
@@ -20,7 +22,7 @@ import 'area_admin_screen.dart';
 class AreasListAdminScreen extends StatefulWidget{
   late Building building;
   late bool isSelectAreaConnection;
-  AreasListAdminScreen({super.key, required this.building, required this.isSelectAreaConnection});
+  AreasListAdminScreen({super.key, required this.building, this.isSelectAreaConnection = false});
 
   @override
   State<AreasListAdminScreen> createState() => _AreasListAdminScreenState();
@@ -28,11 +30,13 @@ class AreasListAdminScreen extends StatefulWidget{
 
 class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
   late AreasProvider areaProvider;
+  late VertexesProvider vertexProvider;
   late List<Area> areas;
 
   @override
   Widget build(BuildContext context) {
     areaProvider = Provider.of<AreasProvider>(context);
+    vertexProvider = Provider.of<VertexesProvider>(context);
     return Scaffold(
         appBar: getAppBarWithIcon("Areas", context, onTap:  () {
           AdminInfo.clearArea();
@@ -59,7 +63,26 @@ class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
   }
 
   Future<List<Area>> getAreas() async {
-    return areas = await areaProvider.getAll(widget.building.id);
+    var allAreas = await areaProvider.getAll(widget.building.id);
+    List<Vertex> allVertexes = [];
+    areas = allAreas.toList();
+    for(var a in areas){
+      a.vertexes = await vertexProvider.getAll(a);
+      allVertexes.addAll(a.vertexes);
+    }
+
+    for(var a in areas){
+      for(var v in a.vertexes){
+        if(v.areaConnectionId != null){
+          v.areaConnection = allAreas.firstWhere((area) => area.id == v.areaConnectionId);
+        }
+        for(var vc in v.vertexConnections){
+          vc.nextVertex = allVertexes.firstWhere((av) => av.id == vc.nextVertexId);
+        }
+      }
+    }
+
+    return areas;
   }
 
   Widget getItemBuilder(int index){
@@ -70,7 +93,10 @@ class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
           if(widget.isSelectAreaConnection == false){
             Navi.push(context, AreaAdminRoute(area: areas[index]));
           } else {
-            Navi.push(context, SelectVertexRoute(area: AdminInfo.areaConnection,));
+            Navi.pushReplacement(context, AreaAdminRoute(
+                area: areas[index],
+                isSelectAreaConnection: widget.isSelectAreaConnection)
+            );
           }
         }
     );
