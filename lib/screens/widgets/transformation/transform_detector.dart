@@ -8,7 +8,7 @@ class TransformDetector extends StatelessWidget {
   late Widget child;
   late bool shouldRotate;
   late Future Function(TapUpDetails details) onTap;
-  TransformDetector(this.notifier, {super.key, required this.child, required this.shouldRotate, required this.onTap});
+  TransformDetector(this.notifier, {super.key, required this.child, required this.onTap, this.shouldRotate = true});
 
   @override
   Widget build(BuildContext context) {

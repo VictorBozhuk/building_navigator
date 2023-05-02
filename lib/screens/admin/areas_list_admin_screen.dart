@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lnu_navigator/screens/admin/select_vertex_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/area_model.dart';
@@ -30,13 +29,11 @@ class AreasListAdminScreen extends StatefulWidget{
 
 class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
   late AreasProvider areaProvider;
-  late VertexesProvider vertexProvider;
   late List<Area> areas;
 
   @override
   Widget build(BuildContext context) {
     areaProvider = Provider.of<AreasProvider>(context);
-    vertexProvider = Provider.of<VertexesProvider>(context);
     return Scaffold(
         appBar: getAppBarWithIcon("Areas", context, onTap:  () {
           AdminInfo.clearArea();
@@ -63,26 +60,7 @@ class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
   }
 
   Future<List<Area>> getAreas() async {
-    var allAreas = await areaProvider.getAll(widget.building.id);
-    List<Vertex> allVertexes = [];
-    areas = allAreas.toList();
-    for(var a in areas){
-      a.vertexes = await vertexProvider.getAll(a);
-      allVertexes.addAll(a.vertexes);
-    }
-
-    for(var a in areas){
-      for(var v in a.vertexes){
-        if(v.areaConnectionId != null){
-          v.areaConnection = allAreas.firstWhere((area) => area.id == v.areaConnectionId);
-        }
-        for(var vc in v.vertexConnections){
-          vc.nextVertex = allVertexes.firstWhere((av) => av.id == vc.nextVertexId);
-        }
-      }
-    }
-
-    return areas;
+    return areas = await areaProvider.getAllWithCollections(widget.building.id);
   }
 
   Widget getItemBuilder(int index){

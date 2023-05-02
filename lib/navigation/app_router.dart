@@ -8,7 +8,6 @@ import 'package:lnu_navigator/screens/admin/areas_list_admin_screen.dart';
 import 'package:lnu_navigator/screens/admin/panorama_room_admin_screen.dart';
 import 'package:lnu_navigator/screens/admin/panorama_vertex_admin_screen.dart';
 import 'package:lnu_navigator/screens/admin/rooms_list_admin_screen.dart';
-import 'package:lnu_navigator/screens/admin/select_vertex_screen.dart';
 import 'package:lnu_navigator/screens/buildings_list_screen.dart';
 import 'package:lnu_navigator/screens/panorama_screen.dart';
 import 'package:lnu_navigator/screens/select_rooms_screen.dart';
@@ -68,10 +67,6 @@ import '../screens/splash_screen.dart';
           AutoRoute(
               path: 'buildings_list_admin/add_building/areas_list_admin',
               page: AreasListAdminScreen
-          ),
-          AutoRoute(
-              path: 'buildings_list_admin/add_building/areas_list_admin/select_vertex',
-              page: SelectVertexScreen
           ),
           AutoRoute(
               path: 'buildings_list_admin/add_building/areas_list_admin/add_area',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/navigation/app_router.gr.dart';
+import 'package:lnu_navigator/providers/areas_provider.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/cards_list/list_tile_wt_s.dart';
 import 'package:lnu_navigator/screens/widgets/containers/main_container.dart';
@@ -8,6 +9,7 @@ import 'package:lnu_navigator/screens/widgets/lists/list_separated.dart';
 import 'package:lnu_navigator/screens/widgets/text_inputs/main_text_input.dart';
 import 'package:lnu_navigator/screens/widgets/text_inputs/search_text_field.dart';
 import 'package:lnu_navigator/screens/widgets/text_inputs/text_input.dart';
+import 'package:provider/provider.dart';
 
 import '../navigation/navi.dart';
 import '../styles/images.dart';
@@ -26,12 +28,12 @@ class RoomsListScreen extends StatefulWidget {
 }
 
 class _RoomsListScreenState extends State<RoomsListScreen> {
+  late AreasProvider areaProvider;
   late List<Room> allRooms;
   late List<Room> rooms;
   TextEditingController txtRoom = TextEditingController();
   @override
   void initState() {
-    rooms = getRoomsOfBuildingByTitle(UserInfo.building, '');
     txtRoom.addListener(() {
       setState(() {
         rooms = allRooms.where((r) => r.title.toLowerCase().contains(txtRoom.text.toLowerCase())).toList();
@@ -47,6 +49,7 @@ class _RoomsListScreenState extends State<RoomsListScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    areaProvider = Provider.of<AreasProvider>(context, listen: false);
     return Scaffold(
         appBar: getAppBar("Rooms", context),
         body: MainContainer(
@@ -76,7 +79,7 @@ class _RoomsListScreenState extends State<RoomsListScreen> {
   }
 
   Future<List<Room>> getRooms() async {
-    return rooms = allRooms = getRoomsOfBuildingByTitle(UserInfo.building, ""); // need await
+    return rooms = allRooms = areaProvider.allRooms; // need await
   }
 
   Widget getItemBuilder(int index){

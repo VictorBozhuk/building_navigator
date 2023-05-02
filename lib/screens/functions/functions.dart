@@ -14,18 +14,11 @@ import '../../providers/buildings_provider.dart';
 import '../../services/locator.dart';
 import '../widgets/hotspots/hotspots.dart';
 
-List<Room> getRoomsOfBuildingByTitle(Building building, String title)
+List<Room> getRoomsByTitle(List<Room> rooms, String title)
 {
-  List<Room> rooms = [];
-  for (var x in building.areas) {
-    x.vertexes.forEach((c) {
-      rooms.addAll(c.rooms?.where((v) =>
-          v.title.toLowerCase().contains(title.toLowerCase())) ?? []);
-    });
-  }
-
-  rooms.sort((a, b) => a.title.compareTo(b.title));
-  return rooms;
+  return rooms.where((r) => r.title.toLowerCase().contains(title.toLowerCase()))
+    .toList()
+    ..sort((a, b) => a.title.compareTo(b.title));
 }
 
 
@@ -42,9 +35,9 @@ Future<List<Vertex>> getAllVertexes(Building building) async {
 
 double getNextVertexDirection(Vertex current, Vertex next)
 {
-  for(int i = 0; i < current.vertexConnections!.length; ++i) {
-    if(current.vertexConnections![i].nextVertex!.id == next.id){
-      return current.vertexConnections![i].direction;
+  for(int i = 0; i < current.vertexConnections.length; ++i) {
+    if(current.vertexConnections[i].nextVertex!.id == next.id){
+      return current.vertexConnections[i].direction;
     }
   }
 
@@ -55,20 +48,20 @@ Future<List<Hotspot>> getAllHotspots(BuildContext context, Vertex current) async
 {
   List<Hotspot> hotspots = [];
 
-  for(int i = 0; i < current.rooms!.length; ++i){
-    hotspots.add(getRoomHotspot(current.rooms![i]));
+  for(int i = 0; i < current.rooms.length; ++i){
+    hotspots.add(getRoomHotspot(current.rooms[i]));
   }
 
-  for(int i = 0; i < current.vertexConnections!.length; ++i) {
+  for(int i = 0; i < current.vertexConnections.length; ++i) {
     var nextVertex = (await getAllVertexes(PathInfo.building)).firstWhere((x)
-    => x.id == current.vertexConnections![i].nextVertex!.id);
+    => x.id == current.vertexConnections[i].nextVertex!.id);
     hotspots.add(getHotspotPoint(
-      current.vertexConnections![i].iconX,
-      current.vertexConnections![i].iconY,
-      current.vertexConnections![i].iconSize,
+      current.vertexConnections[i].iconX,
+      current.vertexConnections[i].iconY,
+      current.vertexConnections[i].iconSize,
       context,
       nextVertex,
-      current.vertexConnections![i].iconAngle,
+      current.vertexConnections[i].iconAngle,
     ));
   }
 
@@ -79,21 +72,21 @@ Future<List<Hotspot>> getNextHotspots(BuildContext context, Vertex current, Vert
 {
   List<Hotspot> hotspots = [];
 
-  for(int i = 0; i < current.rooms!.length; ++i){
-    hotspots.add(getRoomHotspot(current.rooms![i]));
+  for(int i = 0; i < current.rooms.length; ++i){
+    hotspots.add(getRoomHotspot(current.rooms[i]));
   }
 
-  for(int i = 0; i < current.vertexConnections!.length; ++i) {
-    if(current.vertexConnections![i].nextVertex!.id == next.id){
+  for(int i = 0; i < current.vertexConnections.length; ++i) {
+    if(current.vertexConnections[i].nextVertex!.id == next.id){
       var nextVertex = (await getAllVertexes(PathInfo.building)).firstWhere((x)
       => x.id == next.id);
       hotspots.add(getHotspotNextPoint(
-          current.vertexConnections?[i].iconX ?? 0,
-          current.vertexConnections?[i].iconY ?? 0,
-          current.vertexConnections?[i].iconSize ?? 0,
+          current.vertexConnections[i].iconX ?? 0,
+          current.vertexConnections[i].iconY ?? 0,
+          current.vertexConnections[i].iconSize ?? 0,
           context,
           nextVertex,
-          current.vertexConnections?[i].iconAngle ?? 0
+          current.vertexConnections[i].iconAngle ?? 0
       ));
     }
   }
@@ -105,10 +98,10 @@ Future<List<Edge>> getEdges(Building building) async {
   List<Edge> edges = [];
   var vertexes = await getAllVertexes(building);
   for(var v in vertexes){
-    int length = v.vertexConnections?.length ?? 0;
+    int length = v.vertexConnections.length ?? 0;
     for(int j = 0; j < length; ++j){
-      if(isSameEdge(edges, v.vertexConnections![j].nextVertex!.id) == false){
-        edges.add(Edge(v.id, v.vertexConnections![j].nextVertex!.id, v.vertexConnections?[j].length ?? 0));
+      if(isSameEdge(edges, v.vertexConnections[j].nextVertex!.id) == false){
+        edges.add(Edge(v.id, v.vertexConnections[j].nextVertex!.id, v.vertexConnections[j].length ?? 0));
       }
     }
   }

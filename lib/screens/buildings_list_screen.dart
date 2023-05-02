@@ -64,10 +64,6 @@ class _BuildingsListScreenState extends State<BuildingsListScreen> {
       building: buildings[index],
       onTap: ()
       {
-        UserInfo.building = buildings[index];
-        PathInfo.building = buildings[index];
-        PathInfo.isWalk = true;
-        PathInfo.clear();
         Navi.push(context, AreasListRoute(building: buildings[index]));
       }
     );

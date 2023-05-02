@@ -68,67 +68,27 @@ Positioned getVertexAsButtonOn2DMap({
   );
 }
 
-Positioned getSecondVertexAsButtonOnSecondArea({
-  required Vertex vertex,
-  required BuildContext context,
-  required VertexesProvider vertexProvider,
-  required double radius,
-  required PictureSize pictureSize}) {
-  return getVertexAsButton(
-    vertex: vertex,
-    onTap: () {
-      vertexProvider.differentAreaVertexSelected = vertex;
-      //Navi.pop(context);
-      //Navi.popAndPushReplacement(context, AddVertexRoute());
-    },
-    pictureSize: pictureSize,
-    radius: radius,
-    vertexProvider: vertexProvider,
-  );
-}
-
 Positioned getVertexAsButtonOn2DMapForUser({
   required Vertex vertex,
   required BuildContext context,
-  required Function func,
+  required Future Function() func,
   required VertexesProvider vertexProvider,
   required PictureSize pictureSize,
   required double radius}) {
   return getVertexAsButton(
     vertex: vertex,
-    onTap: () {
+    onTap: () async {
       vertexProvider.firstSelected = vertex;
       //PathInfo.sourceVertex = vertex;
       //print("pressed (${vertex.title}) $x , $y");
-      func();
+      await func();
     },
-    onLongPress: (){
+    onLongPress: () {
       vertexProvider.firstSelected = vertex;
       //PathInfo.sourceVertex = vertex;
       Navi.push(context, PanoramaRoute(currentVertex: vertex));
     },
-    pictureSize: pictureSize,
-    radius: radius,
-    vertexProvider: vertexProvider,
-  );
-}
-
-Positioned getVertexAsButtonOn2DMapForUserWithPath({
-  required Vertex vertex,
-  required BuildContext context,
-  required Function func,
-  required VertexesProvider vertexProvider,
-  required PictureSize pictureSize,
-  required double radius}) {
-  return getVertexAsButton(
-    vertex: vertex,
-    onTap: () {
-      vertexProvider.firstSelected = vertex;
-      //PathInfo.sourceVertex = vertex;
-      //print("pressed (${vertex.title}) $x , $y");
-      func();
-    },
-    onLongPress: () {
+    onDoubleTap: (){
       ///
       /// Показати іншу зону
       ///
@@ -141,12 +101,6 @@ Positioned getVertexAsButtonOn2DMapForUserWithPath({
         }
         Navi.popAndPush(context, AreaRoute(area: vertex.areaConnection!));
       }
-    },
-    onDoubleTap: (){
-      vertexProvider.firstSelected = vertex;
-      //PathInfo.sourceVertex = vertex;
-      PathInfo.setNewVertexes(vertex);
-      //Navi.push(context, PanoramaRoute(currentVertex: PathInfo.currentVertex!, nextVertex: PathInfo.nextVertex,));
     },
     pictureSize: pictureSize,
     radius: radius,
