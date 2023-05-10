@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:lnu_navigator/screens/widgets/paddings/main_padding.dart';
 import 'package:provider/provider.dart';
 

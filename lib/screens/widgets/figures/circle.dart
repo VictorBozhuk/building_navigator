@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/models/admin_info.dart';
 import 'package:lnu_navigator/models/user_info.dart';
-import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:lnu_navigator/providers/vertexes_provider.dart';
 
 import '../../../data/globals.dart';
@@ -86,7 +85,7 @@ Positioned getVertexAsButtonOn2DMapForUser({
     onLongPress: () {
       vertexProvider.firstSelected = vertex;
       //PathInfo.sourceVertex = vertex;
-      Navi.push(context, PanoramaRoute(currentVertex: vertex));
+      Navi.push(context, PanoramaScreen(currentVertex: vertex));
     },
     onDoubleTap: (){
       ///
@@ -99,7 +98,7 @@ Positioned getVertexAsButtonOn2DMapForUser({
           print("///");
           return;
         }
-        Navi.popAndPush(context, AreaRoute(area: vertex.areaConnection!));
+        Navi.pushReplacement(context, AreaScreen(area: vertex.areaConnection!));
       }
     },
     pictureSize: pictureSize,

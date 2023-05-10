@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:lnu_navigator/screens/panorama_screen.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/buttons/main_button.dart';
@@ -64,7 +63,7 @@ class _SelectRoomsScreenState extends State<SelectRoomsScreen> {
             MainPadding(child:
               MainButton(title: "Search", onPressed: () async {
                 await setPath(widget.building);
-                Navi.push(context, PanoramaRoute(
+                Navi.push(context, PanoramaScreen(
                     currentVertex: PathInfo.currentVertex!,
                     nextVertex: PathInfo.destinationRoom!.vertex));
               },),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/area_model.dart';
@@ -11,6 +10,7 @@ import '../widgets/buttons/main_button.dart';
 import '../widgets/containers/main_container.dart';
 import '../widgets/paddings/main_padding.dart';
 import '../widgets/text_inputs/main_text_input.dart';
+import 'area_admin_screen.dart';
 
 class AddAreaScreen extends StatefulWidget{
   late Area area;
@@ -98,6 +98,6 @@ class AddAreaScreenState extends State<AddAreaScreen> {
 
   Future<void> onSave() async {
     await areaProvider.addOrUpdate(widget.area);
-    Navi.popAndPushReplacement(context, AreaAdminRoute(area: widget.area));
+    Navi.popAndPushReplacement(context, AreaAdminScreen(area: widget.area));
   }
 }

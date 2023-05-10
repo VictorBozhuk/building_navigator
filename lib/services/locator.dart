@@ -5,19 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lnu_navigator/services/vertex_service.dart';
 
-import '../navigation/app_router.gr.dart';
 import 'area_service.dart';
 import 'building_servce.dart';
 
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 final getIt = GetIt.I;
-final appRouter = AppRouter(navigatorKey);
 
 Future<void> setupServiceLocator() async {
   //final sharedPreferences = await SharedPreferences.getInstance();
 
-  getIt.registerSingleton<AppRouter>(appRouter);
   getIt.registerSingleton<BuildingService>(BuildingService());
   getIt.registerSingleton<AreaService>(AreaService());
   getIt.registerSingleton<VertexService>(VertexService());

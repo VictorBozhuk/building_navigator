@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:panorama/panorama.dart';
 import 'package:provider/provider.dart';
 import '../../models/admin_info.dart';

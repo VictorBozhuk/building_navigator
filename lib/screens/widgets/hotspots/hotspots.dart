@@ -4,7 +4,6 @@ import 'package:panorama/panorama.dart';
 import '../../../models/path_model.dart';
 import '../../../models/room_model.dart';
 import '../../../models/vertex_model.dart';
-import '../../../navigation/app_router.gr.dart';
 import '../../../navigation/navi.dart';
 import '../../../styles/text_styles/text_styles.dart';
 import '../../panorama_screen.dart';
@@ -62,7 +61,7 @@ Hotspot getHotspotPoint(double x, double y, double size,
         ),
         onPressed: () {
           PathInfo.move();
-          Navi.pushReplacement(context, PanoramaRoute(currentVertex: curent));
+          Navi.pushReplacement(context, PanoramaScreen(currentVertex: curent));
         },
         child: RotationTransition(
           turns: const AlwaysStoppedAnimation(0 / 360),
@@ -94,7 +93,7 @@ Hotspot getHotspotNextPoint(double x, double y, double size,
         ),
         onPressed: () {
           PathInfo.move();
-          Navi.pushReplacement(context, PanoramaRoute(currentVertex: current, nextVertex: PathInfo.nextVertex));
+          Navi.pushReplacement(context, PanoramaScreen(currentVertex: current, nextVertex: PathInfo.nextVertex));
         },
         child: RotationTransition(
           turns: const AlwaysStoppedAnimation(0 / 360),
@@ -124,7 +123,7 @@ Hotspot getHotspotOpenDoor(double x, double y, double angle, double size,
             borderRadius: BorderRadius.circular(50),
           ),
         ),
-        onPressed: () => Navi.pushReplacement(context, PanoramaRoute(currentVertex: current, nextVertex: next),),
+        onPressed: () => Navi.pushReplacement(context, PanoramaScreen(currentVertex: current, nextVertex: next),),
         child: RotationTransition(
           turns: AlwaysStoppedAnimation(angle / 360),
           child: const Image( opacity: AlwaysStoppedAnimation<double>(1),

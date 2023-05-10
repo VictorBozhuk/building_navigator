@@ -5,7 +5,6 @@ import 'package:lnu_navigator/screens/admin/panorama_vertex_admin_screen.dart';
 import 'package:provider/provider.dart';
 import '../../models/area_model.dart';
 import '../../models/picture_size_model.dart';
-import '../../navigation/app_router.gr.dart';
 import '../../navigation/navi.dart';
 import '../../providers/areas_provider.dart';
 import '../../providers/vertexes_provider.dart';
@@ -64,7 +63,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
         appBar: getAppBarWithIcon(
             widget.area.title,
             context,
-            onTap: () => Navi.pushThenAction(context, AddAreaRoute(area: widget.area), action: () => setState(() {})),
+            onTap: () => Navi.pushThenAction(context, AddAreaScreen(area: widget.area), action: () => setState(() {})),
             icon: Icons.edit),
         body: Column(children: [
           Expanded(
@@ -182,7 +181,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
       vertexProvider.connection!.nextVertex = vertexProvider.differentAreaVertexSelected!;
     }
 
-    Navi.pushReplacement(context, PanoramaVertexAdminRoute(
+    Navi.pushReplacement(context, PanoramaVertexAdminScreen(
       area: vertexProvider.area,
       first: vertexProvider.firstSelected!,
       second: vertexProvider.differentAreaVertexSelected!,
@@ -234,7 +233,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
     if(vertexProvider.firstSelected != null){
       vertexProvider.area = widget.area;
       //AdminInfo.vertex = AdminInfo.selectedVertex!;
-      Navi.push(context, AddVertexRoute(area: widget.area, vertex: vertexProvider.firstSelected!));
+      Navi.push(context, AddVertexScreen(area: widget.area, vertex: vertexProvider.firstSelected!));
     }
   }
 
@@ -244,7 +243,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
     //
     if(vertexProvider.isJoinPossible()){
       Navi.pushThenFutureAction(context,
-        PanoramaVertexAdminRoute(
+        PanoramaVertexAdminScreen(
           area: widget.area,
           first: vertexProvider.firstSelected!,
           second: vertexProvider.secondSelected!,

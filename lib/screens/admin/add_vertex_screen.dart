@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 
 import '../../models/area_model.dart';
 import '../../models/vertex_model.dart';
-import '../../navigation/app_router.gr.dart';
 import '../../navigation/navi.dart';
 import '../../providers/vertexes_provider.dart';
 import '../../styles/images.dart';
@@ -116,11 +115,11 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
       vertexProvider.connection = widget.vertex.vertexConnections
           .firstWhere((vc) => vc.nextVertex!.areaId != widget.vertex.areaId);
     }
-    Navi.push(context, AreasListAdminRoute(building: vertexProvider.building, isSelectAreaConnection: true));
+    Navi.push(context, AreasListAdminScreen(building: vertexProvider.building, isSelectAreaConnection: true));
   }
   
   void onRooms(){
-    Navi.push(context, RoomsListAdminRoute(vertex: vertexProvider.firstSelected!));
+    Navi.push(context, RoomsListAdminScreen(vertex: vertexProvider.firstSelected!));
   }
   
   Future<void> onSave() async {

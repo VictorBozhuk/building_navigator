@@ -3,7 +3,6 @@ import 'package:lnu_navigator/screens/admin/panorama_room_admin_screen.dart';
 
 import '../../models/room_model.dart';
 import '../../models/vertex_model.dart';
-import '../../navigation/app_router.gr.dart';
 import '../../navigation/navi.dart';
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
@@ -46,7 +45,7 @@ class _RoomsListAdminScreenState extends State<RoomsListAdminScreen> {
         //
         // перевірки чи всі змінні на місці
         //
-        Navi.pushThenAction(context, PanoramaRoomAdminRoute(
+        Navi.pushThenAction(context, PanoramaRoomAdminScreen(
           vertex: widget.vertex,
           room: widget.vertex.rooms[index],),
         action: () => setState(() {}));
@@ -56,7 +55,7 @@ class _RoomsListAdminScreenState extends State<RoomsListAdminScreen> {
 
   void onAppBarAdd(){
     Navi.pushThenAction(context,
-      PanoramaRoomAdminRoute(
+      PanoramaRoomAdminScreen(
         vertex: widget.vertex,
         room: Room.empty(widget.vertex.id),),
       action: () => setState(() {})

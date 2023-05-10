@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../navigation/app_router.gr.dart';
 import '../../navigation/navi.dart';
 import '../../providers/buildings_provider.dart';
 import '../../providers/vertexes_provider.dart';
@@ -18,6 +17,7 @@ import '../widgets/drawer/app_drawer.dart';
 import '../widgets/indicators/background_indicator.dart';
 import '../widgets/lists/list_separated.dart';
 import 'add_building_screen.dart';
+import 'areas_list_admin_screen.dart';
 
 class BuildingsListAdminScreen extends StatefulWidget{
   const BuildingsListAdminScreen({super.key});
@@ -35,7 +35,7 @@ class _BuildingsListAdminScreenState extends State<BuildingsListAdminScreen> {
     buildingProvider = Provider.of<BuildingsProvider>(context);
     return Scaffold(
         appBar: getAppBarWithIcon("Buildings", context, onTap: () =>
-          Navi.push(context, AddBuildingRoute(building: Building.empty()))
+          Navi.push(context, AddBuildingScreen(building: Building.empty()))
         ),
         drawer: AppDrawer(),
         body: FutureBuilder<List<Building>>(
@@ -71,7 +71,7 @@ class _BuildingsListAdminScreenState extends State<BuildingsListAdminScreen> {
           //AdminInfo.building = buildings[index],
         Provider.of<VertexesProvider>(context, listen: false).building = buildings[index];
           Navi.push(context,
-              AreasListAdminRoute(building: buildings[index], isSelectAreaConnection: false));
+              AreasListAdminScreen(building: buildings[index], isSelectAreaConnection: false));
         }
     );
   }

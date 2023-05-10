@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../../models/area_model.dart';
 import '../../models/building_model.dart';
 import '../../models/vertex_model.dart';
-import '../../navigation/app_router.gr.dart';
 import '../../navigation/navi.dart';
 import '../../providers/areas_provider.dart';
 import '../../providers/vertexes_provider.dart';
@@ -37,7 +36,7 @@ class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
     return Scaffold(
         appBar: getAppBarWithIcon("Areas", context, onTap:  () {
           AdminInfo.clearArea();
-          Navi.push(context, AddAreaRoute(area: Area.empty(widget.building.id)));
+          Navi.push(context, AddAreaScreen(area: Area.empty(widget.building.id)));
         }),
         body: FutureBuilder<List<Area>>(
             future: getAreas(),
@@ -69,9 +68,9 @@ class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
         onTap: ()
         {
           if(widget.isSelectAreaConnection == false){
-            Navi.push(context, AreaAdminRoute(area: areas[index]));
+            Navi.push(context, AreaAdminScreen(area: areas[index]));
           } else {
-            Navi.pushReplacement(context, AreaAdminRoute(
+            Navi.pushReplacement(context, AreaAdminScreen(
                 area: areas[index],
                 isSelectAreaConnection: widget.isSelectAreaConnection)
             );

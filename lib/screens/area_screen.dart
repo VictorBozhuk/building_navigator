@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/figures/circle.dart';
@@ -53,7 +52,7 @@ class _AreaScreenState extends State<AreaScreen> {
             appBar: getAppBar(widget.area.title, context),
             floatingActionButton: FloatingActionButton.extended(
               onPressed: () {
-                Navi.pushThenAction(context, const RoomsListRoute(), action: () => setState(() {}));
+                Navi.pushThenAction(context, const RoomsListScreen(), action: () => setState(() {}));
               },
               label: const Text('Search'),
               icon: const Icon(Icons.search),

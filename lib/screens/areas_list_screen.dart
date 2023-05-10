@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/models/area_model.dart';
-import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/cards_list/area_card.dart';
 import 'package:lnu_navigator/screens/widgets/containers/main_container.dart';
@@ -39,7 +38,7 @@ class _AreasListScreenState extends State<AreasListScreen> {
             onTap: () {
               PathInfo.clear();
               PathInfo.isWalk = false;
-              Navi.push(context, SelectRoomsRoute(building: UserInfo.building));
+              Navi.push(context, SelectRoomsScreen(building: UserInfo.building));
             },
             icon: Icons.search
         ),
@@ -72,7 +71,7 @@ class _AreasListScreenState extends State<AreasListScreen> {
         area: areas[index],
         onTap: ()
         {
-          Navi.push(context, AreaRoute(area: areas[index]));
+          Navi.push(context, AreaScreen(area: areas[index]));
         }
     );
   }

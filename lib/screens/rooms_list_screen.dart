@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:lnu_navigator/providers/areas_provider.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/cards_list/list_tile_wt_s.dart';

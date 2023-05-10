@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import '../loader/building_loader.dart';
 import '../navigation/navi.dart';
 import '../services/building_servce.dart';
@@ -22,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
       //await BuildingLoader().addBuildings();
       //await deleteAllBuildings();
       //
-      Navi.push(context, BuildingsListRoute());
+      Navi.pushReplacement(context, BuildingsListScreen());
     });
     super.initState();
   }

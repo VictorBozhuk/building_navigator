@@ -4,49 +4,43 @@ import 'package:flutter/material.dart';
 import '../screens/widgets/indicators/indicator.dart';
 
 class Navi {
-  static void pushReplacement(BuildContext context, PageRouteInfo route){
+  static void pushReplacement(BuildContext context, Widget screen){
     _hideKeyboard();
-    context.router.replace(route);
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => screen));
+    print('route replaced: ${screen.toStringShort()}');
   }
 
-  static void popAndPushReplacement(BuildContext context, PageRouteInfo route){
+  static void popAndPushReplacement(BuildContext context, Widget screen){
     _hideKeyboard();
-    int i = 0;
-    context.router.popUntil((_) => i++ >= 2);
-    //context.router.replace(route);
-    context.router.push(route);
+    Navigator.pop(context);
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => screen));
+    print('route pop and replaced: ${screen.toStringShort()}');
+    //int i = 0;
+    //context.router.popUntil((_) => i++ >= 2);
   }
 
-  static void popAndPop(BuildContext context){
+  static void push(BuildContext context, Widget screen){
     _hideKeyboard();
-    int i = 0;
-    context.router.popUntil((_) => i++ >= 2);
+    Navigator.push(context, MaterialPageRoute(builder: (_) => screen));
+    print('New route pushed: ${screen.toStringShort()}');
   }
 
-  static void push(BuildContext context, PageRouteInfo route){
+  static void pushThenAction(BuildContext context, Widget screen, {required Function() action}){
     _hideKeyboard();
-    context.router.push(route);
+    Navigator.push(context, MaterialPageRoute(builder: (_) => screen)).then((value) => action());
+    print('New route pushed: ${screen.toStringShort()}');
   }
 
-  static void popAndPush(BuildContext context, PageRouteInfo route){
+  static void pushThenFutureAction(BuildContext context, Widget screen, {required Future Function() action}){
     _hideKeyboard();
-    context.router.pop();
-    context.router.push(route);
-  }
-
-  static void pushThenAction(BuildContext context, PageRouteInfo route, {required Function() action}){
-    _hideKeyboard();
-    context.router.push(route).then((_) => action());
-  }
-
-  static void pushThenFutureAction(BuildContext context, PageRouteInfo route, {required Future Function() action}){
-    _hideKeyboard();
-    context.router.push(route).then((_) async {await action();});
+    Navigator.push(context, MaterialPageRoute(builder: (_) => screen)).then((_) async {await action();});
+    print('New route pushed: ${screen.toStringShort()}');
   }
 
   static void pop(BuildContext context){
     _hideKeyboard();
-    context.router.pop();
+    Navigator.pop(context);
+    print('route popped: ${context.widget.toStringShort()}');
   }
 
   static void popAlert(BuildContext context){

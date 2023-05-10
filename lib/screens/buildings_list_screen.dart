@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:lnu_navigator/navigation/app_router.gr.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/cards_list/building_card.dart';
 import 'package:lnu_navigator/screens/widgets/containers/main_container.dart';
@@ -15,6 +14,7 @@ import '../services/locator.dart';
 import '../models/building_model.dart';
 import '../models/path_model.dart';
 import '../models/user_info.dart';
+import 'areas_list_screen.dart';
 
 class BuildingsListScreen extends StatefulWidget {
 
@@ -64,7 +64,7 @@ class _BuildingsListScreenState extends State<BuildingsListScreen> {
       building: buildings[index],
       onTap: ()
       {
-        Navi.push(context, AreasListRoute(building: buildings[index]));
+        Navi.push(context, AreasListScreen(building: buildings[index]));
       }
     );
   }
