@@ -7,6 +7,7 @@ import '../../../data/globals.dart';
 import '../../../models/picture_size_model.dart';
 import '../../../models/vertex_model.dart';
 import '../../../navigation/navi.dart';
+import '../../../providers/areas_provider.dart';
 import '../../admin/add_vertex_screen.dart';
 import '../../area_screen.dart';
 import '../../functions/defaults.dart';
@@ -37,7 +38,7 @@ Positioned getVertexAsButtonOn2DMap({
   required Vertex vertex,
   required Future Function() func,
   required PictureSize pictureSize,
-  VertexesProvider? vertexProvider,
+  AreasProvider? areaProvider,
   required double radius,
   bool isAreaConnection = false
 }) {
@@ -45,24 +46,24 @@ Positioned getVertexAsButtonOn2DMap({
     vertex: vertex,
     onTap: () async {
       if(isAreaConnection == true){
-        vertexProvider!.differentAreaVertexSelected = vertex;
+        areaProvider!.differentAreaVertexSelected = vertex;
         await func();
         return;
       }
 
-      vertexProvider!.firstSelected = vertex;
+      areaProvider!.firstSelected = vertex;
       //print("pressed (${vertex.title}) $x , $y");
       await func();
     },
     onLongPress: () async {
       if(isAreaConnection == false){
-        vertexProvider!.secondSelected = vertex;
+        areaProvider!.secondSelected = vertex;
         await func();
       }
     },
     pictureSize: pictureSize,
     radius: radius,
-    vertexProvider: vertexProvider,
+    selectedVertex: areaProvider?.firstSelected,
   );
 }
 
@@ -70,19 +71,19 @@ Positioned getVertexAsButtonOn2DMapForUser({
   required Vertex vertex,
   required BuildContext context,
   required Future Function() func,
-  required VertexesProvider vertexProvider,
+  required AreasProvider areaProvider,
   required PictureSize pictureSize,
   required double radius}) {
   return getVertexAsButton(
     vertex: vertex,
     onTap: () async {
-      vertexProvider.firstSelected = vertex;
+      areaProvider.firstSelected = vertex;
       //PathInfo.sourceVertex = vertex;
       //print("pressed (${vertex.title}) $x , $y");
       await func();
     },
     onLongPress: () {
-      vertexProvider.firstSelected = vertex;
+      areaProvider.firstSelected = vertex;
       //PathInfo.sourceVertex = vertex;
       Navi.push(context, PanoramaScreen(currentVertex: vertex));
     },
@@ -102,7 +103,7 @@ Positioned getVertexAsButtonOn2DMapForUser({
     },
     pictureSize: pictureSize,
     radius: radius,
-    vertexProvider: vertexProvider
+    selectedVertex: areaProvider.firstSelected
   );
 }
 
@@ -113,7 +114,7 @@ Positioned getVertexAsButton({
   required PictureSize pictureSize,
   Function onLongPress = defaultFunc,
   Function onDoubleTap = defaultFunc,
-  VertexesProvider? vertexProvider,
+  Vertex? selectedVertex,
   required double radius})
 {
   var x = (pictureSize.width / (vertex.areaWidth / vertex.pointX)) - pictureSize.getRadius();
@@ -125,7 +126,7 @@ Positioned getVertexAsButton({
   if(vertex.areaConnectionId != null){
     color = Colors.yellow;
   }
-  if(vertexProvider?.firstSelected != null && vertex.id == vertexProvider!.firstSelected!.id){
+  if(selectedVertex != null && vertex.id == selectedVertex.id){
     color = Colors.green;
   }
   return Positioned(

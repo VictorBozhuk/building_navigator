@@ -5,19 +5,24 @@ import '../models/area_model.dart';
 import '../models/building_model.dart';
 import '../models/edge_model.dart';
 import '../models/room_model.dart';
+import '../models/vertex_connection_model.dart';
 import '../models/vertex_model.dart';
 import '../services/area_service.dart';
 import '../services/locator.dart';
 import '../services/vertex_service.dart';
 
 class AreasProvider with ChangeNotifier {
+  Vertex? firstSelected;
+  Vertex? secondSelected;
+  Vertex? differentAreaVertexSelected;
+  VertexConnection? connection;
+
   late List<Area> _areas;
   late List<Vertex> vertexesOfPath = [];
   late List<Vertex> allVertexes = [];
   late List<Room> _allRooms = [];
   bool isShowPath = false;
   late Room destination;
-  late Vertex source;
 
   int _currentIndex = 0;
   late Vertex current;
@@ -76,9 +81,21 @@ class AreasProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  VertexConnection getConnection(){
+    if(firstSelected!.vertexConnections.any((x) => x.nextVertexId == secondSelected!.id)){
+      return firstSelected!.vertexConnections.firstWhere((x) => x.nextVertexId == secondSelected!.id);
+    }
+
+    return VertexConnection.empty(firstSelected!.id, secondSelected!.id);
+  }
+
+  bool isJoinPossible(){
+    return firstSelected != null && secondSelected != null;
+  }
+
   Future<void> setPath() async {
     PathFinder client = PathFinder(await _getEdges(building), allVertexes);
-    var vertexIds = client.GetPath(source.id, _getDestinationVertex(destination).id);
+    var vertexIds = client.GetPath(firstSelected!.id, _getDestinationVertex(destination).id);
     vertexesOfPath.clear();
     for(var vi in vertexIds!){
       vertexesOfPath.add(allVertexes.firstWhere((av) => vi == av.id));
@@ -88,6 +105,7 @@ class AreasProvider with ChangeNotifier {
     current = vertexesOfPath[0];
     next = vertexesOfPath[1];
     // check if 2 objects
+    notifyListeners();
   }
 
   void move(){

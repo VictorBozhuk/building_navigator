@@ -9,7 +9,7 @@ class PathFinder
 
   PathFinder(List<Edge> edges, List<Vertex> vertexes)
   {
-    graph = Graph(Vertices: []);
+    graph = Graph(vertexes: []);
     for(int i = 0; i < vertexes.length; ++i)
     {
       graph.AddVertex(vertexes[i].title.toString());

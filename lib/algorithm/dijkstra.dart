@@ -14,9 +14,9 @@ class Dijkstra
   void InitInfo()
   {
     infos = [];
-    for(int i = 0; i < graph.Vertices.length; ++i)
+    for(int i = 0; i < graph.vertexes.length; ++i)
     {
-      infos.add(GraphVertexInfo(graph.Vertices[i]));
+      infos.add(GraphVertexInfo(graph.vertexes[i]));
     }
   }
 

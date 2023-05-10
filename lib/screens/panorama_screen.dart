@@ -7,6 +7,7 @@ import '../models/user_info.dart';
 import '../models/vertex_model.dart';
 import '../navigation/navi.dart';
 import '../providers/areas_provider.dart';
+import 'helper/direction.dart';
 
 class PanoramaScreen extends StatefulWidget {
   PanoramaScreen({Key? key, required this.currentVertex, this.nextVertex}) : super(key: key);
@@ -31,7 +32,7 @@ class _PanoramaScreenState extends State<PanoramaScreen> {
         builder: (_, AsyncSnapshot<bool> snapshot){
           if(snapshot.hasData){
             return Panorama(
-                longitude: UserInfo.getDirection(direction),
+                longitude: getDirection(direction),
                 sensitivity: 2,
                 hotspots: hotspots,
                 child: Image.network(widget.currentVertex.panoramaImagePath)

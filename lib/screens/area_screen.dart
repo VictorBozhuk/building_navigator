@@ -44,7 +44,7 @@ class _AreaScreenState extends State<AreaScreen> {
   @override
   Widget build(BuildContext context) {
     vertexProvider = Provider.of<VertexesProvider>(context);
-    areaProvider = Provider.of<AreasProvider>(context, listen: false);
+    areaProvider = Provider.of<AreasProvider>(context);
     final ValueNotifier<Matrix4> notifier = ValueNotifier(Matrix4.identity());
     return Scaffold(
       backgroundColor: Colors.white,
@@ -67,7 +67,12 @@ class _AreaScreenState extends State<AreaScreen> {
           areaProvider.isShowPath = false;
           await _calculateDimension();
         } else {
-          Navi.pushThenAction(context, const RoomsListScreen(), action: () => setState(() {}));
+          //
+          // Show message Select point
+          //
+          if(areaProvider.firstSelected != null){
+            Navi.pushThenAction(context, const RoomsListScreen(), action: () => setState(() {}));
+          }
         }
       },
       label: areaProvider.isShowPath ? const Text('Clear  ') : const Text('Search'),
@@ -100,7 +105,7 @@ class _AreaScreenState extends State<AreaScreen> {
           context: context,
           func: func,
           pictureSize: pictureSize,
-          vertexProvider: vertexProvider,
+          areaProvider: areaProvider,
           radius: widget.area.vertexRadius));
     }
   }
@@ -113,7 +118,7 @@ class _AreaScreenState extends State<AreaScreen> {
             context: context,
             func: func,
             pictureSize: pictureSize,
-            vertexProvider: vertexProvider,
+            areaProvider: areaProvider,
             radius: widget.area.vertexRadius));
       }
     }

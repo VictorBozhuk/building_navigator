@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../models/area_model.dart';
 import '../../models/vertex_model.dart';
 import '../../navigation/navi.dart';
+import '../../providers/areas_provider.dart';
 import '../../providers/vertexes_provider.dart';
 import '../../styles/images.dart';
 import '../../models/admin_info.dart';
@@ -29,6 +30,7 @@ class AddVertexScreen extends StatefulWidget{
 
 class _AddVertexScreenState extends State<AddVertexScreen> {
   late VertexesProvider vertexProvider;
+  late AreasProvider areaProvider;
   late bool isAreaConnection = widget.vertex.areaConnectionId != null;
   TextEditingController txtTitle = TextEditingController();
   TextEditingController txtImagePath = TextEditingController();
@@ -56,9 +58,10 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
   @override
   Widget build(BuildContext context) {
     vertexProvider = Provider.of<VertexesProvider>(context);
+    areaProvider = Provider.of<AreasProvider>(context, listen: false);
 
     if(widget.vertex.areaConnectionId != null){
-      vertexProvider.differentAreaVertexSelected = widget.vertex.vertexConnections
+      areaProvider.differentAreaVertexSelected = widget.vertex.vertexConnections
           .firstWhere((x) => x.nextVertex!.areaId != widget.area.id).nextVertex;
     }
 
@@ -84,7 +87,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
               if(isAreaConnection == true)
                 MainText(text: "Area: ${widget.vertex.areaConnection?.title}"),
               if(isAreaConnection == true)
-                MainText(text: "Vertex: ${vertexProvider.differentAreaVertexSelected?.title}"),
+                MainText(text: "Vertex: ${areaProvider.differentAreaVertexSelected?.title}"),
               if(isAreaConnection == true)
                 MainPadding(
                   child: MainButton(
@@ -112,14 +115,14 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
   
   void onJoinArea(){
     if(widget.vertex.areaConnection != null){
-      vertexProvider.connection = widget.vertex.vertexConnections
+      areaProvider.connection = widget.vertex.vertexConnections
           .firstWhere((vc) => vc.nextVertex!.areaId != widget.vertex.areaId);
     }
     Navi.push(context, AreasListAdminScreen(building: vertexProvider.building, isSelectAreaConnection: true));
   }
   
   void onRooms(){
-    Navi.push(context, RoomsListAdminScreen(vertex: vertexProvider.firstSelected!));
+    Navi.push(context, RoomsListAdminScreen(vertex: areaProvider.firstSelected!));
   }
   
   Future<void> onSave() async {

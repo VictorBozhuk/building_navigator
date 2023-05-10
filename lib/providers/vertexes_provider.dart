@@ -9,10 +9,6 @@ import '../services/locator.dart';
 import '../services/vertex_service.dart';
 
 class VertexesProvider with ChangeNotifier {
-  Vertex? firstSelected;
-  Vertex? secondSelected;
-  Vertex? differentAreaVertexSelected;
-  VertexConnection? connection;
   late Area area;
 
   late Building building;
@@ -31,15 +27,5 @@ class VertexesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  VertexConnection getConnection(){
-    if(firstSelected!.vertexConnections.any((x) => x.nextVertexId == secondSelected!.id)){
-      return firstSelected!.vertexConnections.firstWhere((x) => x.nextVertexId == secondSelected!.id);
-    }
 
-    return VertexConnection.empty(firstSelected!.id, secondSelected!.id);
-  }
-
-  bool isJoinPossible(){
-    return firstSelected != null && secondSelected != null;
-  }
 }

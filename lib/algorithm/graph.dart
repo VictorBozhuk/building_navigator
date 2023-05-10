@@ -2,22 +2,22 @@ import 'graphVertex.dart';
 
 class Graph
 {
-  final List<GraphVertex> Vertices;
+  final List<GraphVertex> vertexes;
 
-Graph({required this.Vertices});
+Graph({required this.vertexes});
 
 void AddVertex(String vertexName)
 {
-  Vertices.add(new GraphVertex(vertexName, Edges: []));
+  vertexes.add(new GraphVertex(vertexName, Edges: []));
 }
 
 GraphVertex? FindVertex(String vertexName)
 {
-  for(int i = 0 ; i < Vertices.length; ++i)
+  for(int i = 0 ; i < vertexes.length; ++i)
     {
-      if (Vertices[i].Name == vertexName)
+      if (vertexes[i].Name == vertexName)
       {
-        return Vertices[i];
+        return vertexes[i];
       }
     }
 

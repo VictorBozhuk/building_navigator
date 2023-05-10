@@ -91,6 +91,5 @@ class _RoomsListScreenState extends State<RoomsListScreen> {
     areaProvider.destination = rooms[index];
     areaProvider.setPath();
     Navi.pop(context);
-    //Navi.popAndPushReplacement(context, AreaRoute());
   }
 }
