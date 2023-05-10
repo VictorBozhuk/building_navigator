@@ -85,7 +85,7 @@ Positioned getVertexAsButtonOn2DMapForUser({
     onLongPress: () {
       areaProvider.firstSelected = vertex;
       //PathInfo.sourceVertex = vertex;
-      Navi.push(context, PanoramaScreen(currentVertex: vertex));
+      Navi.push(context, PanoramaScreen(currentVertex: vertex, nextVertex: areaProvider.getNextVertex(vertex),));
     },
     onDoubleTap: (){
       ///

@@ -8,7 +8,6 @@ import 'package:lnu_navigator/screens/widgets/text_inputs/add_text_input.dart';
 
 import '../navigation/navi.dart';
 import '../styles/images.dart';
-import '../algorithm_new/building_navigator.dart';
 import '../models/building_model.dart';
 import '../models/vertex_model.dart';
 import 'admin/rooms_list_admin_screen.dart';

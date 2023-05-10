@@ -3,6 +3,7 @@ import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/hotspots/hotspots.dart';
 import 'package:lnu_navigator/screens/widgets/indicators/indicator.dart';
 import 'package:panorama/panorama.dart';
+import 'package:provider/provider.dart';
 import '../models/user_info.dart';
 import '../models/vertex_model.dart';
 import '../navigation/navi.dart';
@@ -25,40 +26,31 @@ class _PanoramaScreenState extends State<PanoramaScreen> {
 
   @override
   Widget build(BuildContext context) {
+    areaProvider = Provider.of<AreasProvider>(context, listen: false);
+    getData();
     return Scaffold(
       appBar: getAppBar(widget.currentVertex.title, context),
-      body: FutureBuilder<bool>(
-        future: getData(),
-        builder: (_, AsyncSnapshot<bool> snapshot){
-          if(snapshot.hasData){
-            return Panorama(
-                longitude: getDirection(direction),
-                sensitivity: 2,
-                hotspots: hotspots,
-                child: Image.network(widget.currentVertex.panoramaImagePath)
-            );
-          } else{
-            return const Indicator();
-          }
-        }
+      body: Panorama(
+        longitude: getDirection(direction),
+        sensitivity: 2,
+        hotspots: hotspots,
+        child: Image.network(widget.currentVertex.panoramaImagePath)
       ),
     );
   }
 
-  Future<bool> getData() async {
-    if(areaProvider.isShowPath){
-      hotspots = await _getAllHotspots(context, widget.currentVertex);
-    } else {
-      hotspots = await _getNextHotspots(context, widget.currentVertex, widget.nextVertex!);
+  void getData() {
+    if(widget.nextVertex != null){
+      hotspots = _getNextHotspots(context, widget.currentVertex, widget.nextVertex!);
       direction = _getNextVertexDirection(widget.currentVertex, widget.nextVertex!);
+    } else {
+      hotspots = _getAllHotspots(context, widget.currentVertex);
     }
-
-    return true;
   }
 
 
 
-  Future<List<Hotspot>> _getAllHotspots(BuildContext context, Vertex current) async
+  List<Hotspot> _getAllHotspots(BuildContext context, Vertex current)
   {
     List<Hotspot> hotspots = getRoomHotspots(current);
 
@@ -81,7 +73,7 @@ class _PanoramaScreenState extends State<PanoramaScreen> {
     return hotspots;
   }
 
-  Future<List<Hotspot>> _getNextHotspots(BuildContext context, Vertex current, Vertex next) async
+  List<Hotspot> _getNextHotspots(BuildContext context, Vertex current, Vertex next)
   {
     List<Hotspot> hotspots = getRoomHotspots(current);
 

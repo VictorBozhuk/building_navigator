@@ -71,7 +71,7 @@ class _AreaScreenState extends State<AreaScreen> {
           // Show message Select point
           //
           if(areaProvider.firstSelected != null){
-            Navi.pushThenAction(context, const RoomsListScreen(), action: () => setState(() {}));
+            Navi.pushThenFutureAction(context, const RoomsListScreen(), action: _calculateDimension);
           }
         }
       },
@@ -112,7 +112,7 @@ class _AreaScreenState extends State<AreaScreen> {
 
   void _setPointsOfPath(BuildContext context, Future Function() func, PictureSize pictureSize){
     for(var v in widget.area.vertexes){
-      if(areaProvider.vertexesOfPath.contains(v)){
+      if(areaProvider.vertexesOfPath.any((vop) => vop.id == v.id) == true){
         points.add(getVertexAsButtonOn2DMapForUser(
             vertex: v,
             context: context,

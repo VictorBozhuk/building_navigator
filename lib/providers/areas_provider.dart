@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../algorithm/path_finder.dart';
+import '../algorithm/building_navigator.dart';
 import '../models/area_model.dart';
 import '../models/building_model.dart';
 import '../models/edge_model.dart';
@@ -26,7 +26,7 @@ class AreasProvider with ChangeNotifier {
 
   int _currentIndex = 0;
   late Vertex current;
-  late Vertex next;
+  late Vertex? next;
   late Building building;
 
   List<Area> get areas {
@@ -106,6 +106,20 @@ class AreasProvider with ChangeNotifier {
     next = vertexesOfPath[1];
     // check if 2 objects
     notifyListeners();
+  }
+
+  Vertex? getNextVertex(Vertex current){
+    if(vertexesOfPath.any((v) => v.id == current.id) == true){
+      var vertex = vertexesOfPath.firstWhere((v) => v.id == current.id);
+      _currentIndex = vertexesOfPath.indexOf(vertex);
+      if(_currentIndex + 1 < vertexesOfPath.length){
+        current = vertex;
+        next = vertexesOfPath[_currentIndex + 1];
+        return next;
+      }
+    }
+
+    return null;
   }
 
   void move(){
