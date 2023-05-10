@@ -4,14 +4,15 @@ import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/figures/circle.dart';
 import 'package:lnu_navigator/screens/widgets/indicators/indicator.dart';
+import 'package:lnu_navigator/screens/widgets/paddings/main_padding.dart';
 import 'package:lnu_navigator/screens/widgets/transformation/matrix_gesture_detector.dart';
 import 'package:lnu_navigator/screens/widgets/transformation/transform_detector.dart';
 import 'package:provider/provider.dart';
 import '../models/area_model.dart';
-import '../models/path_model.dart';
 import '../models/picture_size_model.dart';
 import '../models/user_info.dart';
 import '../navigation/navi.dart';
+import '../providers/areas_provider.dart';
 import '../providers/vertexes_provider.dart';
 import '../styles/appTheme.dart';
 import 'actions/actions.dart';
@@ -27,15 +28,12 @@ class AreaScreen extends StatefulWidget {
 
 class _AreaScreenState extends State<AreaScreen> {
   late VertexesProvider vertexProvider;
+  late AreasProvider areaProvider;
   late List<Widget> points = [];
   final GlobalKey expanderKey = GlobalKey();
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async => await _calculateDimension());
-    //SchedulerBinding.instance.addPostFrameCallback((_) async => await _calculateDimension());
-    //WidgetsBinding.instance.endOfFrame.then((_) async {
-    //  setState(() { });
-    //});
     super.initState();
   }
 
@@ -46,47 +44,47 @@ class _AreaScreenState extends State<AreaScreen> {
   @override
   Widget build(BuildContext context) {
     vertexProvider = Provider.of<VertexesProvider>(context);
+    areaProvider = Provider.of<AreasProvider>(context, listen: false);
     final ValueNotifier<Matrix4> notifier = ValueNotifier(Matrix4.identity());
     return Scaffold(
-            backgroundColor: Colors.white,
-            appBar: getAppBar(widget.area.title, context),
-            floatingActionButton: FloatingActionButton.extended(
-              onPressed: () {
-                Navi.pushThenAction(context, const RoomsListScreen(), action: () => setState(() {}));
-              },
-              label: const Text('Search'),
-              icon: const Icon(Icons.search),
-              backgroundColor: Theme.of(context).buttonTheme.colorScheme?.primary,
-            ),
-            body: Column(children: [
-              Expanded(key: expanderKey, child: TransformDetector(notifier,
-                onTap: onAreaTap,
-                child: Stack(children: points,),
-              ),)
-            ],)
+      backgroundColor: Colors.white,
+      appBar: getAppBar(widget.area.title, context),
+      floatingActionButton: getFloatingActionButton(),
+      body: Column(children: [
+        Expanded(key: expanderKey, child:
+          TransformDetector(notifier,
+            onTap: (TapUpDetails details) => Future.delayed(Duration.zero),
+            child: Stack(children: points,),
+          ),)
+      ],)
     );
   }
 
-  Future<void> onAreaTap(TapUpDetails details) => Future.delayed(Duration.zero);
+  Widget getFloatingActionButton(){
+    return FloatingActionButton.extended(
+      onPressed: () async {
+        if(areaProvider.isShowPath){
+          areaProvider.isShowPath = false;
+          await _calculateDimension();
+        } else {
+          Navi.pushThenAction(context, const RoomsListScreen(), action: () => setState(() {}));
+        }
+      },
+      label: areaProvider.isShowPath ? const Text('Clear  ') : const Text('Search'),
+      icon: areaProvider.isShowPath ? const Icon(Icons.clear) : const Icon(Icons.search),
+      backgroundColor: Theme.of(context).buttonTheme.colorScheme?.primary,
+    );
+  }
 
   Future _calculateDimension() async {
     var pictureSize = await getPictureSizes(expanderKey, widget.area.imagePath);
-    if(PathInfo.isReadyToGo){
-      _setWidgetsOfPath(context, _calculateDimension, pictureSize);
-    }else {
-      _setWidgets(context, _calculateDimension, pictureSize);
+    _setMap();
+    if(areaProvider.isShowPath){
+      _setPointsOfPath(context, _calculateDimension, pictureSize);
+    } else {
+      _setPoints(context, _calculateDimension, pictureSize);
     }
     setState(() { });
-  }
-
-  void _setWidgets(BuildContext context, Future Function() func, PictureSize pictureSize) {
-    _setMap();
-    _setPoints(context, func, pictureSize);
-  }
-
-  void _setWidgetsOfPath(BuildContext context, Future Function() func, PictureSize pictureSize){
-    _setMap();
-    _setPointsOfPath(context, func, pictureSize);
   }
 
   void _setMap(){
@@ -96,9 +94,9 @@ class _AreaScreenState extends State<AreaScreen> {
   }
 
   void _setPoints(BuildContext context, Future Function() func, PictureSize pictureSize){
-    for(int i = 0; i < widget.area.vertexes.length; ++i){
+    for(var v in widget.area.vertexes){
       points.add(getVertexAsButtonOn2DMapForUser(
-          vertex: widget.area.vertexes[i],
+          vertex: v,
           context: context,
           func: func,
           pictureSize: pictureSize,
@@ -108,18 +106,15 @@ class _AreaScreenState extends State<AreaScreen> {
   }
 
   void _setPointsOfPath(BuildContext context, Future Function() func, PictureSize pictureSize){
-    for(int i = 0; i < widget.area.vertexes.length; ++i){
-      for(int j = 0; j < PathInfo.listVertexes!.length; ++j){
-        if(UserInfo.area.vertexes[i].id == PathInfo.listVertexes![j].id){
-          points.add(getVertexAsButtonOn2DMapForUser(
-              vertex: widget.area.vertexes[i],
-              context: context,
-              func: func,
-              pictureSize: pictureSize,
-              vertexProvider: vertexProvider,
-              radius: widget.area.vertexRadius));
-          break;
-        }
+    for(var v in widget.area.vertexes){
+      if(areaProvider.vertexesOfPath.contains(v)){
+        points.add(getVertexAsButtonOn2DMapForUser(
+            vertex: v,
+            context: context,
+            func: func,
+            pictureSize: pictureSize,
+            vertexProvider: vertexProvider,
+            radius: widget.area.vertexRadius));
       }
     }
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:panorama/panorama.dart';
 
-import '../../../models/path_model.dart';
 import '../../../models/room_model.dart';
 import '../../../models/vertex_model.dart';
 import '../../../navigation/navi.dart';
@@ -41,16 +40,21 @@ Hotspot getHotspotArrow(double x, double y, double angle, double size)
   );
 }
 
-Hotspot getHotspotPoint(double x, double y, double size,
-    BuildContext context, Vertex curent, int iconAngle)
-{
+Hotspot getHotspotPoint({
+  required double x,
+  required double y,
+  required double size,
+  required BuildContext context,
+  required Vertex current,
+  required Function onPressed,
+  required int iconAngle}) {
   return Hotspot(
       height: size,
       width: size,
       longitude: x,
       latitude: y,
       orgin: Offset.fromDirection(0),
-      widget:ElevatedButton(
+      widget: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 0.0,
           shadowColor: Colors.transparent,
@@ -59,75 +63,11 @@ Hotspot getHotspotPoint(double x, double y, double size,
             borderRadius: BorderRadius.circular(50),
           ),
         ),
-        onPressed: () {
-          PathInfo.move();
-          Navi.pushReplacement(context, PanoramaScreen(currentVertex: curent));
-        },
+        onPressed: () => onPressed(),
         child: RotationTransition(
           turns: const AlwaysStoppedAnimation(0 / 360),
-          child: Image( opacity: const AlwaysStoppedAnimation<double>(1),
+          child: Image(opacity: const AlwaysStoppedAnimation<double>(1),
             image: AssetImage('assets/icons/point_$iconAngle.png'),
-          ),
-        )
-        ,)
-  );
-}
-
-Hotspot getHotspotNextPoint(double x, double y, double size,
-    BuildContext context, Vertex current, int iconAngle)
-{
-  return Hotspot(
-      height: size,
-      width: size,
-      longitude: x,
-      latitude: y,
-      orgin: Offset.fromDirection(0),
-      widget:ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          elevation: 0.0,
-          shadowColor: Colors.transparent,
-          primary: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50),
-          ),
-        ),
-        onPressed: () {
-          PathInfo.move();
-          Navi.pushReplacement(context, PanoramaScreen(currentVertex: current, nextVertex: PathInfo.nextVertex));
-        },
-        child: RotationTransition(
-          turns: const AlwaysStoppedAnimation(0 / 360),
-          child: Image( opacity: const AlwaysStoppedAnimation<double>(1),
-            image: AssetImage('assets/icons/point_$iconAngle.png'),
-          ),
-        ),
-      ),
-  );
-}
-
-Hotspot getHotspotOpenDoor(double x, double y, double angle, double size,
-    BuildContext context, Vertex current, Vertex next, Vertex currentVertex)
-{
-  return Hotspot(
-      height: size,
-      width: size,
-      longitude: x,
-      latitude: y,
-      orgin: Offset.fromDirection(0),
-      widget:ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          elevation: 0.0,
-          shadowColor: Colors.transparent,
-          primary: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50),
-          ),
-        ),
-        onPressed: () => Navi.pushReplacement(context, PanoramaScreen(currentVertex: current, nextVertex: next),),
-        child: RotationTransition(
-          turns: AlwaysStoppedAnimation(angle / 360),
-          child: const Image( opacity: AlwaysStoppedAnimation<double>(1),
-            image: AssetImage('assets/icons/open_door.png'),
           ),
         )
         ,)

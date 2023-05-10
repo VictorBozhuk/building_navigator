@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../styles/appTheme.dart';
 import '../../../styles/decorations/decorations.dart';
-import '../../functions/functions.dart';
 
 class CardWithoutSubtitle extends StatelessWidget {
   final String title;

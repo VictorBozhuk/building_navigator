@@ -26,7 +26,7 @@ class TransformDetector extends StatelessWidget {
         var rX = roundDouble(x_);
         var rY = roundDouble(y_);
         var rS = roundDouble(s_);
-        print("coords:   x = $rX y = $rY s = $rS");
+        //print("coords:   x = $rX y = $rY s = $rS");
       },
       onScaleStart: () { },
       onScaleEnd: () { },

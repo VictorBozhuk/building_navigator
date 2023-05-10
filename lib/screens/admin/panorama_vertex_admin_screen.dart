@@ -66,35 +66,39 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
                 Text("Icon size: ${widget.connection.iconSize.toInt()}",
                   style: const TextStyle(color: Colors.red, fontSize: 22),),
                 CircleButton(text: "-", onPressed: () {
-                  widget.connection.iconSize -= 10;
-                  _setStateAnalog();
-                },
+                    widget.connection.iconSize -= 10;
+                    _setStateAnalog();
+                  },
                 ),
                 CircleButton(text: "+", onPressed: () {
-                  widget.connection.iconSize += 10;
-                  _setStateAnalog();
-                },
+                    widget.connection.iconSize += 10;
+                    _setStateAnalog();
+                  },
                 ),
                 ],
               ),
-              Row(children: [
-                Text("Icon angle: ${widget.connection.iconAngle.toInt()}",
-                  style: const TextStyle(color: Colors.red, fontSize: 22),),
-                CircleButton(text: "-", onPressed: () {
-                  if(widget.connection.iconAngle > -10) {
-                    widget.connection.iconAngle -= 1;
-                    _setStateAnalog();
-                  }
-                },
-                ),
-                CircleButton(text: "+", onPressed: () {
-                  if(widget.connection.iconAngle < 10){
-                    widget.connection.iconAngle += 1;
-                    _setStateAnalog();
-                  }
-                },
-                ),
-              ],),
+              MainPadding(
+                left: 0,
+                top: 5,
+                child: Row(children: [
+                  Text("Icon angle: ${widget.connection.iconAngle.toInt()}",
+                    style: const TextStyle(color: Colors.red, fontSize: 22),),
+                  CircleButton(text: "-", onPressed: () {
+                    if(widget.connection.iconAngle > -10) {
+                      widget.connection.iconAngle -= 1;
+                      _setStateAnalog();
+                    }
+                  },
+                  ),
+                  CircleButton(text: "+", onPressed: () {
+                    if(widget.connection.iconAngle < 10){
+                      widget.connection.iconAngle += 1;
+                      _setStateAnalog();
+                    }
+                  },
+                  ),
+                ],),
+              ),
             ],),
           ),
         ],

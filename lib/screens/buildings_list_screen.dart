@@ -12,7 +12,6 @@ import '../providers/buildings_provider.dart';
 import '../services/building_servce.dart';
 import '../services/locator.dart';
 import '../models/building_model.dart';
-import '../models/path_model.dart';
 import '../models/user_info.dart';
 import 'areas_list_screen.dart';
 

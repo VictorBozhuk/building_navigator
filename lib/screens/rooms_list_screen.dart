@@ -13,11 +13,9 @@ import 'package:provider/provider.dart';
 import '../navigation/navi.dart';
 import '../styles/images.dart';
 import '../styles/text_styles/text_styles.dart';
-import '../models/path_model.dart';
 import '../models/room_model.dart';
 import '../models/user_info.dart';
 import 'area_screen.dart';
-import 'functions/functions.dart';
 
 class RoomsListScreen extends StatefulWidget {
   const RoomsListScreen({super.key});
@@ -90,9 +88,8 @@ class _RoomsListScreenState extends State<RoomsListScreen> {
   }
 
   void onTap(int index){
-    PathInfo.isWalk = false;
-    PathInfo.setDestination(rooms[index]);
-    PathInfo.setPath(PathInfo.building);
+    areaProvider.destination = rooms[index];
+    areaProvider.setPath();
     Navi.pop(context);
     //Navi.popAndPushReplacement(context, AreaRoute());
   }

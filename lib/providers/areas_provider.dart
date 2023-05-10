@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../algorithm/path_finder.dart';
 import '../models/area_model.dart';
+import '../models/building_model.dart';
+import '../models/edge_model.dart';
 import '../models/room_model.dart';
 import '../models/vertex_model.dart';
 import '../services/area_service.dart';
@@ -9,7 +12,17 @@ import '../services/vertex_service.dart';
 
 class AreasProvider with ChangeNotifier {
   late List<Area> _areas;
-  late List<Room> _allRooms;
+  late List<Vertex> vertexesOfPath = [];
+  late List<Vertex> allVertexes = [];
+  late List<Room> _allRooms = [];
+  bool isShowPath = false;
+  late Room destination;
+  late Vertex source;
+
+  int _currentIndex = 0;
+  late Vertex current;
+  late Vertex next;
+  late Building building;
 
   List<Area> get areas {
     return [..._areas];
@@ -23,18 +36,20 @@ class AreasProvider with ChangeNotifier {
     return _areas.firstWhere((l) => l.id == id);
   }
 
-  Future<List<Area>> getAll(String buildingId) async {
-    return _areas = await getIt<AreaService>().getAll(buildingId);
+  Future<List<Area>> getAll(Building building) async {
+    this.building = building;
+    return _areas = await getIt<AreaService>().getAll(building.id);
   }
 
-  Future<List<Area>> getAllWithCollections(String buildingId) async {
-    _areas = await getIt<AreaService>().getAll(buildingId);
-    List<Vertex> allVertexes = [];
+  Future<List<Area>> getAllWithCollections(Building building) async {
+    this.building = building;
+    _areas = await getIt<AreaService>().getAll(building.id);
+    allVertexes.clear();
     for(var a in _areas){
       a.vertexes = await getIt<VertexService>().getAll(a);
       allVertexes.addAll(a.vertexes);
     }
-    _allRooms = [];
+    _allRooms.clear();
     for(var a in areas){
       for(var v in a.vertexes){
         _allRooms.addAll(v.rooms);
@@ -59,5 +74,58 @@ class AreasProvider with ChangeNotifier {
   Future<void> addOrUpdate(Area area) async {
     await getIt<AreaService>().addOrUpdate(area);
     notifyListeners();
+  }
+
+  Future<void> setPath() async {
+    PathFinder client = PathFinder(await _getEdges(building), allVertexes);
+    var vertexIds = client.GetPath(source.id, _getDestinationVertex(destination).id);
+    vertexesOfPath.clear();
+    for(var vi in vertexIds!){
+      vertexesOfPath.add(allVertexes.firstWhere((av) => vi == av.id));
+    }
+    isShowPath = true;
+    _currentIndex = 0;
+    current = vertexesOfPath[0];
+    next = vertexesOfPath[1];
+    // check if 2 objects
+  }
+
+  void move(){
+    if(isShowPath){
+      if(_currentIndex + 2 != vertexesOfPath.length){
+        current = vertexesOfPath[++_currentIndex];
+        next = vertexesOfPath[1 + _currentIndex];
+      }
+      else{
+        current = vertexesOfPath[++_currentIndex];
+      }
+    }
+  }
+
+  Vertex _getDestinationVertex(Room room){
+    return allVertexes.firstWhere((v) => v.id == room.vertexId);
+  }
+
+  Future<List<Edge>> _getEdges(Building building) async {
+    List<Edge> edges = [];
+    for(var v in allVertexes){
+      for(var vc in v.vertexConnections){
+        if(_isSameEdge(edges, vc.nextVertex!.id) == false){
+          edges.add(Edge(v.id, vc.nextVertex!.id, vc.length));
+        }
+      }
+    }
+
+    return edges;
+  }
+
+  bool _isSameEdge(List<Edge> edges, String vertexId){
+    for(int i = 0; i < edges.length; ++i){
+      if(edges[i].vertexId1 == vertexId){
+        return true;
+      }
+    }
+
+    return false;
   }
 }

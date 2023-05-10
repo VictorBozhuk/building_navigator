@@ -59,7 +59,7 @@ class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
   }
 
   Future<List<Area>> getAreas() async {
-    return areas = await areaProvider.getAllWithCollections(widget.building.id);
+    return areas = await areaProvider.getAllWithCollections(widget.building);
   }
 
   Widget getItemBuilder(int index){

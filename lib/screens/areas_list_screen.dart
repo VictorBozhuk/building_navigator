@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 
 import '../../styles/images.dart';
 import '../models/building_model.dart';
-import '../models/path_model.dart';
 import '../models/user_info.dart';
 import '../navigation/navi.dart';
 import '../providers/areas_provider.dart';
@@ -36,8 +35,6 @@ class _AreasListScreenState extends State<AreasListScreen> {
     return Scaffold(
         appBar: getAppBarWithIcon("Areas", context,
             onTap: () {
-              PathInfo.clear();
-              PathInfo.isWalk = false;
               Navi.push(context, SelectRoomsScreen(building: UserInfo.building));
             },
             icon: Icons.search
@@ -63,7 +60,7 @@ class _AreasListScreenState extends State<AreasListScreen> {
   }
 
   Future<List<Area>> getAreas() async {
-    return areas = await areaProvider.getAllWithCollections(widget.building.id);
+    return areas = await areaProvider.getAllWithCollections(widget.building);
   }
 
   Widget getItemBuilder(int index){

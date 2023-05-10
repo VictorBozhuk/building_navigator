@@ -4,7 +4,6 @@ import 'package:lnu_navigator/models/user_info.dart';
 import 'package:lnu_navigator/providers/vertexes_provider.dart';
 
 import '../../../data/globals.dart';
-import '../../../models/path_model.dart';
 import '../../../models/picture_size_model.dart';
 import '../../../models/vertex_model.dart';
 import '../../../navigation/navi.dart';

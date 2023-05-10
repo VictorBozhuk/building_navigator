@@ -1,4 +1,3 @@
-import 'package:lnu_navigator/models/path_model.dart';
 import 'package:lnu_navigator/models/vertex_model.dart';
 import 'package:panorama/panorama.dart';
 import '../screens/widgets/hotspots/hotspots.dart';
