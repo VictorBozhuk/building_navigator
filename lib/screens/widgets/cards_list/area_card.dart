@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/user_info.dart';
 import '../../../styles/appTheme.dart';
 import '../../../styles/text_styles/text_styles.dart';
 import '../../../models/area_model.dart';

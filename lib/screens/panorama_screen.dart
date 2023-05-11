@@ -4,7 +4,6 @@ import 'package:lnu_navigator/screens/widgets/hotspots/hotspots.dart';
 import 'package:lnu_navigator/screens/widgets/indicators/indicator.dart';
 import 'package:panorama/panorama.dart';
 import 'package:provider/provider.dart';
-import '../models/user_info.dart';
 import '../models/vertex_model.dart';
 import '../navigation/navi.dart';
 import '../providers/areas_provider.dart';
@@ -47,8 +46,6 @@ class _PanoramaScreenState extends State<PanoramaScreen> {
       hotspots = _getAllHotspots(context, widget.currentVertex);
     }
   }
-
-
 
   List<Hotspot> _getAllHotspots(BuildContext context, Vertex current)
   {

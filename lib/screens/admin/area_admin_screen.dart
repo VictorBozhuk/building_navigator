@@ -10,7 +10,6 @@ import '../../providers/areas_provider.dart';
 import '../../providers/vertexes_provider.dart';
 import '../../styles/appTheme.dart';
 import '../../styles/text_styles/text_styles.dart';
-import '../../models/admin_info.dart';
 import '../../models/vertex_model.dart';
 import '../actions/actions.dart';
 import '../widgets/app_bars/app_bars.dart';
@@ -47,7 +46,6 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   @override
   void initState() {
     super.initState();
-    AdminInfo.clearSelectedVertexes();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getData();
       //await _calculateDimension();

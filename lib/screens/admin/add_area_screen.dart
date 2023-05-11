@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../../models/area_model.dart';
 import '../../navigation/navi.dart';
-import '../../models/admin_info.dart';
 import '../../providers/areas_provider.dart';
 import '../widgets/app_bars/app_bars.dart';
 import '../widgets/buttons/main_button.dart';

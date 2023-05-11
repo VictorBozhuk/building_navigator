@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 
 import '../../styles/images.dart';
 import '../models/building_model.dart';
-import '../models/user_info.dart';
 import '../navigation/navi.dart';
 import '../providers/areas_provider.dart';
 import '../services/area_service.dart';
@@ -35,7 +34,7 @@ class _AreasListScreenState extends State<AreasListScreen> {
     return Scaffold(
         appBar: getAppBarWithIcon("Areas", context,
             onTap: () {
-              Navi.push(context, SelectRoomsScreen(building: UserInfo.building));
+              Navi.push(context, SelectRoomsScreen());
             },
             icon: Icons.search
         ),

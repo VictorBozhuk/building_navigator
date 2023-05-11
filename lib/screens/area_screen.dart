@@ -10,7 +10,6 @@ import 'package:lnu_navigator/screens/widgets/transformation/transform_detector.
 import 'package:provider/provider.dart';
 import '../models/area_model.dart';
 import '../models/picture_size_model.dart';
-import '../models/user_info.dart';
 import '../navigation/navi.dart';
 import '../providers/areas_provider.dart';
 import '../providers/vertexes_provider.dart';

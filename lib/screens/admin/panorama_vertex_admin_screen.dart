@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:panorama/panorama.dart';
 import 'package:provider/provider.dart';
-import '../../models/admin_info.dart';
 import '../../models/area_model.dart';
 import '../../models/vertex_connection_model.dart';
 import '../../models/vertex_model.dart';
@@ -131,14 +130,14 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
     );
   }
 
-  double _getLength(Vertex first, Vertex second, Area area){
-    try{
-      return roundDouble(getLengthByPixels(first, second, AdminInfo.pictureSize) / area.pixelsInMeter);
-    }
-    catch(ex){
-      print(ex.toString());
-      return 1;
-    }
-  }
+  //double _getLength(Vertex first, Vertex second, Area area){
+  //  try{
+  //    return roundDouble(getLengthByPixels(first, second, AdminInfo.pictureSize) / area.pixelsInMeter);
+  //  }
+  //  catch(ex){
+  //    print(ex.toString());
+  //    return 1;
+  //  }
+  //}
 }
 

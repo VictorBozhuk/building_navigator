@@ -14,7 +14,6 @@ import '../navigation/navi.dart';
 import '../styles/images.dart';
 import '../styles/text_styles/text_styles.dart';
 import '../models/room_model.dart';
-import '../models/user_info.dart';
 import 'area_screen.dart';
 
 class RoomsListScreen extends StatefulWidget {

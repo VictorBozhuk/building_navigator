@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../../models/building_model.dart';
 import '../../navigation/navi.dart';
-import '../../models/admin_info.dart';
 import '../../providers/buildings_provider.dart';
 import '../../services/locator.dart';
 import '../widgets/app_bars/app_bars.dart';

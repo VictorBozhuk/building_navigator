@@ -14,8 +14,7 @@ import 'admin/rooms_list_admin_screen.dart';
 import 'rooms_list_screen.dart';
 
 class SelectRoomsScreen extends StatefulWidget{
-  final Building building;
-  SelectRoomsScreen({super.key, required this.building});
+  const SelectRoomsScreen({super.key});
 
   @override
   State<StatefulWidget> createState() => _SelectRoomsScreenState();
