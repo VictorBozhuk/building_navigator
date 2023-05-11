@@ -46,6 +46,7 @@ class AddAreaScreenState extends State<AddAreaScreen> {
       widget.area.vertexRadius = double.parse(txtVertexRadius.text);
     });
     txtImagePath.text = widget.area.imagePath;
+
     txtImagePath.addListener(() {
       widget.area.imagePath = txtImagePath.text;
     });
