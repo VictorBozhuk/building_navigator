@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:lnu_navigator/screens/widgets/alerts/alerts.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/building_widgets.dart';
 import 'package:lnu_navigator/screens/widgets/figures/circle.dart';
@@ -36,10 +37,6 @@ class _AreaScreenState extends State<AreaScreen> {
     super.initState();
   }
 
-  void setStateAnalog(){
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     vertexProvider = Provider.of<VertexesProvider>(context);
@@ -61,23 +58,24 @@ class _AreaScreenState extends State<AreaScreen> {
 
   Widget getFloatingActionButton(){
     return FloatingActionButton.extended(
-      onPressed: () async {
-        if(areaProvider.isShowPath){
-          areaProvider.isShowPath = false;
-          await _calculateDimension();
-        } else {
-          //
-          // Show message Select point
-          //
-          if(areaProvider.firstSelected != null){
-            Navi.pushThenFutureAction(context, const RoomsListScreen(), action: _calculateDimension);
-          }
-        }
-      },
+      onPressed: onFloatingButtonTap,
       label: areaProvider.isShowPath ? const Text('Clear  ') : const Text('Search'),
       icon: areaProvider.isShowPath ? const Icon(Icons.clear) : const Icon(Icons.search),
       backgroundColor: Theme.of(context).buttonTheme.colorScheme?.primary,
     );
+  }
+
+  Future<void> onFloatingButtonTap() async {
+    if(areaProvider.isShowPath){
+      areaProvider.isShowPath = false;
+      await _calculateDimension();
+    } else {
+      if(areaProvider.firstSelected != null){
+        Navi.pushThenFutureAction(context, const RoomsListScreen(), action: _calculateDimension);
+      } else{
+        alertSecondMessage(context, "Please, select start point!");
+      }
+    }
   }
 
   Future _calculateDimension() async {

@@ -5,10 +5,13 @@ import '../../../../styles/appTheme.dart';
 
 class BodyOfMessageAlert extends StatelessWidget {
   final String title;
-
+  final Color? foregroundColor;
+  final Color? background;
   const BodyOfMessageAlert({
     Key? key,
     required this.title,
+    this.foregroundColor,
+    this.background,
   }) : super(key: key);
 
   @override
@@ -21,7 +24,7 @@ class BodyOfMessageAlert extends StatelessWidget {
             height: 150,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
-                color: Theme.of(context).colorScheme.primary
+                color: background ?? Theme.of(context).colorScheme.primary
             ),
             child: Column(children: <Widget>[
               Padding(
@@ -32,7 +35,7 @@ class BodyOfMessageAlert extends StatelessWidget {
                   children: [
                     IconButton(
                         icon: Icon(Icons.close,
-                          size: alertSize.closeIconSize, color: Colors.white,),
+                          size: alertSize.closeIconSize, color: foregroundColor ?? Colors.white,),
                         onPressed: () =>
                             Navigator.of(context, rootNavigator: true).pop()),
                   ],
@@ -47,6 +50,7 @@ class BodyOfMessageAlert extends StatelessWidget {
                   title,
                   textAlign: TextAlign.center,
                   style: AppTheme.getAlertTitleTextStyle(
+                      color: foregroundColor ?? Colors.white,
                       alertSize.textSizeTitle),
                 ),
               ),

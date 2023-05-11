@@ -33,6 +33,13 @@ void alertMessage(BuildContext context, String message) {
   );
 }
 
+void alertSecondMessage(BuildContext context, String message) {
+  _alert(
+    context: context,
+    widget: BodyOfMessageAlert(title: message, foregroundColor: Colors.black, background: Colors.white),
+  );
+}
+
 void alertDelete(BuildContext context, String title, {required Function onDelete}) {
   _alert(
     context: context,

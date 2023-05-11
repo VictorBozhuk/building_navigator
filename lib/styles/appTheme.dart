@@ -100,9 +100,9 @@ class AppTheme {
     );
   }
 
-  static TextStyle getAlertTitleTextStyle(double size) {
+  static TextStyle getAlertTitleTextStyle(double size, {Color color = foreground}) {
     return TextStyle(
-      color: foreground,
+      color: color,
       fontFamily: AppTheme._fontFamily,
       fontSize: size,
       fontWeight: FontWeight.w600,
