@@ -12,16 +12,16 @@ import '../widgets/figures/line.dart';
 
 Future<Vertex> getCreatedVertexOnMap(TapUpDetails details, Area area, GlobalKey expanderKey) async {
   var pictureSize = await getPictureSizes(expanderKey, area.imagePath);
-  var x = roundDouble(details.localPosition.dx);
-  var y = roundDouble(details.localPosition.dy);
+  var x = details.localPosition.dx.toInt().toDouble();
+  var y = details.localPosition.dy.toInt().toDouble();
   if (kDebugMode) {
     print("Point:   x = $x   y = $y");
   }
   return Vertex.point(area.id, x, y, pictureSize.width, pictureSize.height);
 }
 
-double roundDouble(double value){
-  num mod = pow(10.0, 2);
+double roundDouble(double value, {int countOfSymbols = 2}){
+  num mod = pow(10.0, countOfSymbols);
   return ((value * mod).round().toDouble() / mod);
 }
 
