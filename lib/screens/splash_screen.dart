@@ -33,22 +33,23 @@ class _SplashScreenState extends State<SplashScreen> {
         height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/logo5.jpg"),
+            image: AssetImage("assets/lnu_logo_n.png"),
             fit: BoxFit.cover,
           ),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: const [
+            Padding(padding: EdgeInsets.only(top: 150)),
             Image(
               height: 100,
-              width: 100,
               color: Colors.white,
-              image: AssetImage("assets/NB.png"),
+              image: AssetImage("assets/lnu_l.png"),
               fit: BoxFit.cover,
             ),
+            Padding(padding: EdgeInsets.only(top: 10)),
             Text("Welcome to", style: textStyleOnSplashScreen),
-            Text('Building Navigator', style: textStyleOnSplashScreen),
+            Text('LNU Navigator', style: textStyleOnSplashScreen),
           ],
         ),
       ),

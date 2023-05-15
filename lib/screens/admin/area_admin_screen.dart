@@ -259,6 +259,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
       var vertex = await getCreatedVertexOnMap(details, widget.area, expanderKey);
       widget.area.vertexes.add(vertex);
       await vertexProvider.addOrUpdate(vertex, widget.area);
+      areaProvider.firstSelected = vertex;
       await _setWidgets(_calculateDimension);
       setState(() { });
     }
@@ -290,7 +291,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
       for(var vc in v.vertexConnections){
         if(widget.area.vertexes.any((v) => v.id == vc.nextVertexId)){
           var next = widget.area.vertexes.firstWhere((v) => v.id == vc.nextVertexId);
-          points.add(drawLine(v, next, pictureSize));
+          points.add(drawLine(v, next, pictureSize, widget.area.vertexRadius / 3));
         }
       }
     }

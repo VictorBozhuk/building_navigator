@@ -57,12 +57,23 @@ class _AreaScreenState extends State<AreaScreen> {
   }
 
   Widget getFloatingActionButton(){
-    return FloatingActionButton.extended(
-      onPressed: onFloatingButtonTap,
-      label: areaProvider.isShowPath ? const Text('Clear  ') : const Text('Search'),
-      icon: areaProvider.isShowPath ? const Icon(Icons.clear) : const Icon(Icons.search),
-      backgroundColor: Theme.of(context).buttonTheme.colorScheme?.primary,
-    );
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        MainPadding(
+          left: 15,
+          bottom: 0,
+          child: IconButton(onPressed: (){
+            alertSecondMessage(context, "This is explanation!");
+          }, icon: const Icon(Icons.info_outline, color: Colors.black, size: 40,)),
+        ),
+        FloatingActionButton.extended(
+          onPressed: onFloatingButtonTap,
+          label: areaProvider.isShowPath ? const Text('Clear  ') : const Text('Search'),
+          icon: areaProvider.isShowPath ? const Icon(Icons.clear) : const Icon(Icons.search),
+          backgroundColor: Theme.of(context).buttonTheme.colorScheme?.primary,
+      )
+    ],);
   }
 
   Future<void> onFloatingButtonTap() async {

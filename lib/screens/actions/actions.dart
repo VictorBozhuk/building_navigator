@@ -75,7 +75,7 @@ double getLengthByPixels(Vertex? first, Vertex? second, PictureSize pictureSize)
   return roundDouble(sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
 }
 
-CustomPaint drawLine(Vertex first, Vertex second, PictureSize pictureSize) {
+CustomPaint drawLine(Vertex first, Vertex second, PictureSize pictureSize, double lineWidth) {
   double x1 = pictureSize.width / (first.areaWidth / first.pointX);
   double y1 = pictureSize.width / (first.areaWidth / first.pointY);
   double x2 = pictureSize.width / (second.areaWidth / second.pointX);
@@ -106,7 +106,7 @@ CustomPaint drawLine(Vertex first, Vertex second, PictureSize pictureSize) {
   }
 
   return CustomPaint(
-    foregroundPainter: Line(x1, y1, x2Res, y2Res),
+    foregroundPainter: Line(x1, y1, x2Res, y2Res, lineWidth),
     child: Container(color: Colors.transparent),
   );
 }

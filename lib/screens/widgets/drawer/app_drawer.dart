@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../navigation/navi.dart';
 import '../../admin/buildings_list_admin_screen.dart';
 import '../../buildings_list_screen.dart';
+import '../../select_rooms_screen.dart';
 import '../cards_list/card_of_drawer.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -55,7 +56,7 @@ class AppDrawer extends StatelessWidget {
           CardOfDrawer(
               title: "Room search",
               icon: Icons.room,
-              onTap: () => { }),
+              onTap: () => Navi.push(context, SelectRoomsScreen())),
           CardOfDrawer(
               title: "Admin",
               icon: Icons.admin_panel_settings,

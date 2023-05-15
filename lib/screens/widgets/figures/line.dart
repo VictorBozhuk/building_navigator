@@ -5,7 +5,8 @@ class Line extends CustomPainter {
   double y1;
   double x2;
   double y2;
-  Line(this.x1, this.y1, this.x2, this.y2);
+  double width;
+  Line(this.x1, this.y1, this.x2, this.y2, this.width);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -13,7 +14,7 @@ class Line extends CustomPainter {
     final p2 = Offset(x2, y2);
     final paint = Paint()
       ..color = Colors.red
-      ..strokeWidth = 4;
+      ..strokeWidth = width;
     canvas.drawLine(p1, p2, paint);
   }
 

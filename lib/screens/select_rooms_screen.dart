@@ -54,7 +54,7 @@ class _SelectRoomsScreenState extends State<SelectRoomsScreen> {
           children: [
             AddInput(inputController: txtSource, hint: "Current room", onSuffixTap: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => RoomsListScreen()))),
-            AddInput(inputController: txtDestination, hint: "Destination", onSuffixTap: () => Navigator.push(context,
+            AddInput(inputController: txtDestination, hint: "Destination room", onSuffixTap: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => RoomsListScreen()))),
             MainPadding(child:
               MainButton(title: "Search", onPressed: () async {
