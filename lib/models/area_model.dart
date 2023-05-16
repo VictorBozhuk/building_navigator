@@ -22,7 +22,7 @@ class Area {
     title = '';
     imagePath = '';
     pixelsInMeter = 0;
-    vertexRadius = 3;
+    vertexRadius = 1.5;
     vertexes = [];
   }
 

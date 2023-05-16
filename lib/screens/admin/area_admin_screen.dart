@@ -291,7 +291,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
       for(var vc in v.vertexConnections){
         if(widget.area.vertexes.any((v) => v.id == vc.nextVertexId)){
           var next = widget.area.vertexes.firstWhere((v) => v.id == vc.nextVertexId);
-          points.add(drawLine(v, next, pictureSize, widget.area.vertexRadius / 3));
+          points.add(drawLine(v, next, pictureSize, widget.area.vertexRadius / 2));
         }
       }
     }

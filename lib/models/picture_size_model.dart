@@ -8,8 +8,4 @@ class PictureSize {
     height = 0;
     width = 0;
   }
-
-  double getRadius(){
-    return width / 55;
-  }
 }

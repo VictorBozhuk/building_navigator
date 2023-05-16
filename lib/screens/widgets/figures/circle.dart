@@ -115,8 +115,8 @@ Positioned getVertexAsButton({
   Vertex? selectedVertex,
   required double radius})
 {
-  var x = (pictureSize.width / (vertex.areaWidth / vertex.pointX)) - pictureSize.getRadius();
-  var y = (pictureSize.height / (vertex.areaHeight / vertex.pointY)) - pictureSize.getRadius();
+  var x = (pictureSize.width / (vertex.areaWidth / vertex.pointX));
+  var y = (pictureSize.height / (vertex.areaHeight / vertex.pointY));
   MaterialColor color = Colors.red;
   if(vertex.isFullInfo()){
     color = Colors.blue;
@@ -128,8 +128,10 @@ Positioned getVertexAsButton({
     color = Colors.green;
   }
   return Positioned(
-      top: y,
-      left: x,
+      top: y - radius,
+      left: x - radius,
+      height: radius * 2,
+      width: radius * 2,
       child: Material(
           color: Colors.transparent,
           child: InkWell(
@@ -137,14 +139,10 @@ Positioned getVertexAsButton({
               onDoubleTap: () { onDoubleTap(); },
               onTap: () { onTap(); },
               onLongPress: () { onLongPress(); },
-              child: SizedBox(
-                height: radius,
-                width: radius,
-                child: CustomPaint(
-                  foregroundPainter: Circle(color, radius / 2),
-                  child: Container(
-                    color: Colors.transparent,
-                  ),
+              child: CustomPaint(
+                foregroundPainter: Circle(color, radius),
+                child: Container(
+                  color: Colors.transparent,
                 ),
               ),
           )
