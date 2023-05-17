@@ -4,6 +4,7 @@ import 'package:lnu_navigator/models/vertex_connection_model.dart';
 import 'package:lnu_navigator/screens/admin/panorama_vertex_admin_screen.dart';
 import 'package:provider/provider.dart';
 import '../../models/area_model.dart';
+import '../../models/helper/transform_details.dart';
 import '../../models/picture_size_model.dart';
 import '../../navigation/navi.dart';
 import '../../providers/areas_provider.dart';
@@ -43,6 +44,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   late List<Widget> points = [];
   final GlobalKey expanderKey = GlobalKey();
   PictureSize imageSize = PictureSize.empty();
+  TransformDetails transformDetails = TransformDetails();
   @override
   void initState() {
     super.initState();
@@ -58,6 +60,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
     vertexProvider = Provider.of<VertexesProvider>(context);
     areaProvider = Provider.of<AreasProvider>(context, listen: false);
     final ValueNotifier<Matrix4> notifier = ValueNotifier(Matrix4.identity());
+    saveTransformedImage(notifier);
     return Scaffold(
         backgroundColor: AppTheme.imageBackground,
         appBar: getAppBarWithIcon(
@@ -71,6 +74,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
             child: TransformDetector(notifier,
               onTap: onAreaTap,
               shouldRotate: false,
+              transformDetails: transformDetails,
               child: Stack(children: points,),
             ),
           ),
@@ -156,8 +160,11 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
     );
   }
 
-  void setStateAnalog(){
-    setState(() {});
+  void saveTransformedImage(ValueNotifier<Matrix4> notifier){
+    notifier.value.setEntry(0, 3, transformDetails.x);
+    notifier.value.setEntry(1, 3, transformDetails.y);
+    notifier.value.setEntry(0, 0, transformDetails.scale);
+    notifier.value.setEntry(1, 1, transformDetails.scale);
   }
 
   Future _calculateDimension() async {
@@ -256,7 +263,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
 
   Future<void> onAreaTap(TapUpDetails details) async {
     if(!widget.isSelectAreaConnection){
-      var vertex = await getCreatedVertexOnMap(details, widget.area, expanderKey);
+      var vertex = await getCreatedVertexOnMap(details, transformDetails, widget.area, expanderKey);
       widget.area.vertexes.add(vertex);
       await vertexProvider.addOrUpdate(vertex, widget.area);
       areaProvider.firstSelected = vertex;
@@ -269,7 +276,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
     await vertexProvider.delete(areaProvider.firstSelected!, widget.area);
     widget.area.vertexes.remove(areaProvider.firstSelected!);
     await _setWidgets(_calculateDimension);
-    setStateAnalog();
+    setState(() {});
   }
 
   Future<void> _setWidgets(Future Function() func) async {

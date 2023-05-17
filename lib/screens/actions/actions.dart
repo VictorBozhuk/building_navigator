@@ -6,14 +6,15 @@ import 'package:tuple/tuple.dart';
 
 import '../../data/globals.dart';
 import '../../models/area_model.dart';
+import '../../models/helper/transform_details.dart';
 import '../../models/picture_size_model.dart';
 import '../../models/vertex_model.dart';
 import '../widgets/figures/line.dart';
 
-Future<Vertex> getCreatedVertexOnMap(TapUpDetails details, Area area, GlobalKey expanderKey) async {
+Future<Vertex> getCreatedVertexOnMap(TapUpDetails details, TransformDetails transformDetails, Area area, GlobalKey expanderKey) async {
   var pictureSize = await getPictureSizes(expanderKey, area.imagePath);
-  var x = details.localPosition.dx.toInt().toDouble();
-  var y = details.localPosition.dy.toInt().toDouble();
+  var x = (details.localPosition.dx.toInt().toDouble() - transformDetails.x) / transformDetails.scale;
+  var y = (details.localPosition.dy.toInt().toDouble() - transformDetails.y) / transformDetails.scale;
   if (kDebugMode) {
     print("Point:   x = $x   y = $y");
   }

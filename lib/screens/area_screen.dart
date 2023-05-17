@@ -10,6 +10,7 @@ import 'package:lnu_navigator/screens/widgets/transformation/matrix_gesture_dete
 import 'package:lnu_navigator/screens/widgets/transformation/transform_detector.dart';
 import 'package:provider/provider.dart';
 import '../models/area_model.dart';
+import '../models/helper/transform_details.dart';
 import '../models/picture_size_model.dart';
 import '../navigation/navi.dart';
 import '../providers/areas_provider.dart';
@@ -50,6 +51,7 @@ class _AreaScreenState extends State<AreaScreen> {
         Expanded(key: expanderKey, child:
           TransformDetector(notifier,
             onTap: (TapUpDetails details) => Future.delayed(Duration.zero),
+            transformDetails: TransformDetails(),
             child: Stack(children: points,),
           ),)
       ],)
