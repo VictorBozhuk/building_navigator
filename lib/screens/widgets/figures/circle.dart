@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/providers/vertexes_provider.dart';
 
-import '../../../data/globals.dart';
 import '../../../models/picture_size_model.dart';
 import '../../../models/vertex_model.dart';
 import '../../../navigation/navi.dart';

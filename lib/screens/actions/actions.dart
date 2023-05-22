@@ -4,7 +4,6 @@ import 'dart:math';
 import 'dart:async';
 import 'package:tuple/tuple.dart';
 
-import '../../data/globals.dart';
 import '../../models/area_model.dart';
 import '../../models/helper/transform_details.dart';
 import '../../models/picture_size_model.dart';

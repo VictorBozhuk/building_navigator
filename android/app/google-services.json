@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "374178562350",
-    "project_id": "lnu-navigator",
-    "storage_bucket": "lnu-navigator.appspot.com"
+    "project_number": "943641956462",
+    "project_id": "lnu-navigator-c9c2d",
+    "storage_bucket": "lnu-navigator-c9c2d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:374178562350:android:0551a2dad2cbe3afc1babf",
+        "mobilesdk_app_id": "1:943641956462:android:fa3bdc6daa4bb8345d567f",
         "android_client_info": {
           "package_name": "com.example.lnu_navigator"
         }
       },
       "oauth_client": [
         {
-          "client_id": "374178562350-29chh45am4ih6ifujm63n38k0lka5hma.apps.googleusercontent.com",
+          "client_id": "943641956462-eqp849nlj986giq4r7qh3bh7dkbtlnlt.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCm4b_edwOzifPSuxlDHMem6_GXgx9tO-A"
+          "current_key": "AIzaSyClZZqMuS3U6yA3Uad3D8UtP_ec3_vrTuw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "374178562350-29chh45am4ih6ifujm63n38k0lka5hma.apps.googleusercontent.com",
+              "client_id": "943641956462-eqp849nlj986giq4r7qh3bh7dkbtlnlt.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
