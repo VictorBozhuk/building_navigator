@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../algorithm/building_navigator.dart';
 import '../models/area_model.dart';
-import '../models/building_model.dart';
 import '../models/edge_model.dart';
 import '../models/room_model.dart';
 import '../models/vertex_connection_model.dart';
@@ -27,7 +26,6 @@ class AreasProvider with ChangeNotifier {
   int _currentIndex = 0;
   late Vertex current;
   late Vertex? next;
-  late Building building;
 
   List<Area> get areas {
     return [..._areas];
@@ -41,14 +39,12 @@ class AreasProvider with ChangeNotifier {
     return _areas.firstWhere((l) => l.id == id);
   }
 
-  Future<List<Area>> getAll(Building building) async {
-    this.building = building;
-    return _areas = await getIt<AreaService>().getAll(building.id);
+  Future<List<Area>> getAll() async {
+    return _areas = await getIt<AreaService>().getAll();
   }
 
-  Future<List<Area>> getAllWithCollections(Building building) async {
-    this.building = building;
-    _areas = await getIt<AreaService>().getAll(building.id);
+  Future<List<Area>> getAllWithCollections() async {
+    _areas = await getIt<AreaService>().getAll();
     allVertexes.clear();
     for(var a in _areas){
       a.vertexes = await getIt<VertexService>().getAll(a);
@@ -94,7 +90,7 @@ class AreasProvider with ChangeNotifier {
   }
 
   Future<void> setPath() async {
-    PathFinder client = PathFinder(await _getEdges(building), allVertexes);
+    PathFinder client = PathFinder(await _getEdges(), allVertexes);
     var vertexIds = client.GetPath(firstSelected!.id, _getDestinationVertex(destination).id);
     vertexesOfPath.clear();
     for(var vi in vertexIds!){
@@ -138,7 +134,7 @@ class AreasProvider with ChangeNotifier {
     return allVertexes.firstWhere((v) => v.id == room.vertexId);
   }
 
-  Future<List<Edge>> _getEdges(Building building) async {
+  Future<List<Edge>> _getEdges() async {
     List<Edge> edges = [];
     for(var v in allVertexes){
       for(var vc in v.vertexConnections){

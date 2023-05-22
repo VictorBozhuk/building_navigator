@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../styles/appTheme.dart';
 import '../../../styles/text_styles/text_styles.dart';
 import '../../../models/area_model.dart';
-import '../../../models/building_model.dart';
 import '../../../models/room_model.dart';
 
 

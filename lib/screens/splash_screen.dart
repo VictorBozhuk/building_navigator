@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import '../loader/building_loader.dart';
 import '../navigation/navi.dart';
-import '../services/building_servce.dart';
 import '../services/locator.dart';
 import '../styles/text_styles/text_styles.dart';
-import 'buildings_list_screen.dart';
+import 'areas_list_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
       //await BuildingLoader().addBuildings();
       //await deleteAllBuildings();
       //
-      Navi.pushReplacement(context, BuildingsListScreen());
+      Navi.pushReplacement(context, const AreasListScreen());
     });
     super.initState();
   }
@@ -56,10 +55,10 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  Future<void> deleteAllBuildings() async {
-    var buildings = await getIt<BuildingService>().getAll();
-    for(var b in buildings){
-      await getIt<BuildingService>().delete(b);
-    }
-  }
+  //Future<void> deleteAllBuildings() async {
+  //  var buildings = await getIt<BuildingService>().getAll();
+  //  for(var b in buildings){
+  //    await getIt<BuildingService>().delete(b);
+  //  }
+  //}
 }

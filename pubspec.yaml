@@ -42,8 +42,4 @@ flutter:
   assets:
     - assets/
     - assets/icons/
-    - assets/buildings/
-    - assets/dormitory_3/
-    - assets/dormitory_3/6/
-    - assets/dormitory_3/7/
   uses-material-design: true

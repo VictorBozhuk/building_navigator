@@ -6,7 +6,6 @@ import 'package:get_it/get_it.dart';
 import 'package:lnu_navigator/services/vertex_service.dart';
 
 import 'area_service.dart';
-import 'building_servce.dart';
 
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -15,7 +14,6 @@ final getIt = GetIt.I;
 Future<void> setupServiceLocator() async {
   //final sharedPreferences = await SharedPreferences.getInstance();
 
-  getIt.registerSingleton<BuildingService>(BuildingService());
   getIt.registerSingleton<AreaService>(AreaService());
   getIt.registerSingleton<VertexService>(VertexService());
 

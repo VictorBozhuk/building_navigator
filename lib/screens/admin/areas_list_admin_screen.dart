@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/area_model.dart';
-import '../../models/building_model.dart';
 import '../../models/vertex_model.dart';
 import '../../navigation/navi.dart';
 import '../../providers/areas_provider.dart';
@@ -16,9 +15,8 @@ import 'add_area_screen.dart';
 import 'area_admin_screen.dart';
 
 class AreasListAdminScreen extends StatefulWidget{
-  late Building building;
   late bool isSelectAreaConnection;
-  AreasListAdminScreen({super.key, required this.building, this.isSelectAreaConnection = false});
+  AreasListAdminScreen({super.key, this.isSelectAreaConnection = false});
 
   @override
   State<AreasListAdminScreen> createState() => _AreasListAdminScreenState();
@@ -33,7 +31,7 @@ class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
     areaProvider = Provider.of<AreasProvider>(context);
     return Scaffold(
         appBar: getAppBarWithIcon("Areas", context, onTap:  () {
-          Navi.push(context, AddAreaScreen(area: Area.empty(widget.building.id)));
+          Navi.push(context, AddAreaScreen(area: Area.empty()));
         }),
         body: FutureBuilder<List<Area>>(
             future: getAreas(),
@@ -56,7 +54,7 @@ class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
   }
 
   Future<List<Area>> getAreas() async {
-    return areas = await areaProvider.getAllWithCollections(widget.building);
+    return areas = await areaProvider.getAllWithCollections();
   }
 
   Widget getItemBuilder(int index){

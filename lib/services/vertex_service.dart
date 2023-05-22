@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/area_model.dart';
-import '../models/building_model.dart';
 import '../models/vertex_model.dart';
 import 'area_service.dart';
-import 'building_servce.dart';
 import 'locator.dart';
 
 class VertexService {
@@ -38,7 +36,7 @@ class VertexService {
 
   Future<void> _deleteConnectionOfNextArea(Vertex vertex, Area area) async {
     if(vertex.areaConnectionId != null){
-      var nextArea = (await getIt<AreaService>().getAll(area.buildingId))
+      var nextArea = (await getIt<AreaService>().getAll())
           .firstWhere((x) => x.id == vertex.areaConnectionId);
       var vertexes = await getAll(nextArea);
       for(var v in vertexes){

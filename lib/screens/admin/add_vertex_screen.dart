@@ -116,7 +116,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
       areaProvider.connection = widget.vertex.vertexConnections
           .firstWhere((vc) => vc.nextVertex!.areaId != widget.vertex.areaId);
     }
-    Navi.push(context, AreasListAdminScreen(building: vertexProvider.building, isSelectAreaConnection: true));
+    Navi.push(context, AreasListAdminScreen(isSelectAreaConnection: true));
   }
   
   void onRooms(){

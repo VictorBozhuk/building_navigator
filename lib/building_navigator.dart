@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/providers/areas_provider.dart';
-import 'package:lnu_navigator/providers/buildings_provider.dart';
 import 'package:lnu_navigator/providers/vertexes_provider.dart';
 import 'package:lnu_navigator/screens/splash_screen.dart';
 import 'package:lnu_navigator/services/locator.dart';
@@ -15,7 +14,6 @@ class BuildingNavigator extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => BuildingsProvider(),),
         ChangeNotifierProvider(create: (_) => AreasProvider(),),
         ChangeNotifierProvider(create: (_) => VertexesProvider(),),
       ],

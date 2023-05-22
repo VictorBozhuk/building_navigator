@@ -7,7 +7,6 @@ import 'package:lnu_navigator/screens/widgets/indicators/background_indicator.da
 import 'package:lnu_navigator/screens/widgets/lists/list_separated.dart';
 import 'package:provider/provider.dart';
 
-import '../models/building_model.dart';
 import '../navigation/navi.dart';
 import '../providers/areas_provider.dart';
 import '../services/area_service.dart';
@@ -16,8 +15,7 @@ import 'area_screen.dart';
 import 'select_rooms_screen.dart';
 
 class AreasListScreen extends StatefulWidget{
-  final Building building;
-  const AreasListScreen({super.key, required this.building});
+  const AreasListScreen({super.key});
 
   @override
   State<AreasListScreen> createState() => _AreasListScreenState();
@@ -58,7 +56,7 @@ class _AreasListScreenState extends State<AreasListScreen> {
   }
 
   Future<List<Area>> getAreas() async {
-    return areas = await areaProvider.getAllWithCollections(widget.building);
+    return areas = await areaProvider.getAllWithCollections();
   }
 
   Widget getItemBuilder(int index){

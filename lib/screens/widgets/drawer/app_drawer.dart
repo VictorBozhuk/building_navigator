@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../navigation/navi.dart';
-import '../../admin/buildings_list_admin_screen.dart';
-import '../../buildings_list_screen.dart';
+import '../../admin/areas_list_admin_screen.dart';
+import '../../areas_list_screen.dart';
 import '../../select_rooms_screen.dart';
 import '../cards_list/card_of_drawer.dart';
 
@@ -24,7 +24,7 @@ class AppDrawer extends StatelessWidget {
   );
 
   Widget buildHeader(BuildContext context) => Container(
-    height: 150,
+    height: 250,
     decoration: const BoxDecoration(
       image: DecorationImage(
         image: AssetImage("assets/lnu_logo_n.png"),
@@ -37,7 +37,6 @@ class AppDrawer extends StatelessWidget {
     child: Center(child:
       Image(
         height: 130,
-        width: 130,
         color: Colors.white.withOpacity(0.8),
         image: const AssetImage("assets/lnu_l.png"),
         fit: BoxFit.cover,
@@ -52,7 +51,7 @@ class AppDrawer extends StatelessWidget {
           CardOfDrawer(
             title: "Buildings",
             icon: Icons.home_work_outlined,
-            onTap: () => Navi.push(context, BuildingsListScreen())),
+            onTap: () => Navi.push(context, AreasListScreen())),
           CardOfDrawer(
               title: "Room search",
               icon: Icons.room,
@@ -60,7 +59,7 @@ class AppDrawer extends StatelessWidget {
           CardOfDrawer(
               title: "Admin",
               icon: Icons.admin_panel_settings,
-              onTap: () => Navi.push(context, BuildingsListAdminScreen())),
+              onTap: () => Navi.push(context, AreasListAdminScreen())),
         ],
       ));
 }

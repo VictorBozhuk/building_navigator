@@ -4,7 +4,6 @@ import 'package:uuid/uuid.dart';
 
 class Area {
   late String id;
-  late String buildingId;
   late String title;
   late String imagePath;
   late int pixelsInMeter;
@@ -12,12 +11,12 @@ class Area {
 
   late List<Vertex> vertexes;
 
-  Area(this.title, this.buildingId, this.imagePath, this.pixelsInMeter, this.vertexRadius){
+  Area(this.title, this.imagePath, this.pixelsInMeter, this.vertexRadius){
     id = const Uuid().v1();
   }
-  Area.copy(this.id, this.title, this.buildingId, this.imagePath, this.pixelsInMeter, this.vertexRadius);
+  Area.copy(this.id, this.title, this.imagePath, this.pixelsInMeter, this.vertexRadius);
 
-  Area.empty(this.buildingId){
+  Area.empty(){
     id = const Uuid().v1();
     title = '';
     imagePath = '';
@@ -29,7 +28,6 @@ class Area {
   Map<String, dynamic> toMap(){
     return {
       "id" : id,
-      "buildingId" : buildingId,
       "title": title,
       "imagePath": imagePath,
       "pixelsInMeter" : pixelsInMeter,
@@ -39,7 +37,6 @@ class Area {
 
   Area.fromJson(Map<String, dynamic> data) {
     id = data['id'];
-    buildingId = data['buildingId'];
     title = data['title'];
     imagePath = data['imagePath'];
     pixelsInMeter = data['pixelsInMeter'];
@@ -47,6 +44,6 @@ class Area {
   }
 
   Area copy(){
-    return Area.copy(id, title, buildingId, imagePath, pixelsInMeter, vertexRadius);
+    return Area.copy(id, title, imagePath, pixelsInMeter, vertexRadius);
   }
 }
