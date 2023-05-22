@@ -7,7 +7,6 @@ import 'package:lnu_navigator/screens/widgets/indicators/background_indicator.da
 import 'package:lnu_navigator/screens/widgets/lists/list_separated.dart';
 import 'package:provider/provider.dart';
 
-import '../../styles/images.dart';
 import '../models/building_model.dart';
 import '../navigation/navi.dart';
 import '../providers/areas_provider.dart';

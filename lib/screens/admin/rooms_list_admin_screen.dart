@@ -4,7 +4,6 @@ import 'package:lnu_navigator/screens/admin/panorama_room_admin_screen.dart';
 import '../../models/room_model.dart';
 import '../../models/vertex_model.dart';
 import '../../navigation/navi.dart';
-import '../../styles/images.dart';
 import '../widgets/app_bars/app_bars.dart';
 import '../widgets/cards_list/list_tile_wt_s.dart';
 import '../widgets/containers/main_container.dart';

@@ -7,7 +7,6 @@ import '../../providers/buildings_provider.dart';
 import '../../providers/vertexes_provider.dart';
 import '../../services/building_servce.dart';
 import '../../services/locator.dart';
-import '../../styles/images.dart';
 import '../../models/building_model.dart';
 import '../widgets/app_bars/app_bars.dart';
 import '../widgets/cards_list/building_card.dart';

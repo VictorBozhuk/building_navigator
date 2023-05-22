@@ -11,7 +11,6 @@ import 'package:lnu_navigator/screens/widgets/text_inputs/text_input.dart';
 import 'package:provider/provider.dart';
 
 import '../navigation/navi.dart';
-import '../styles/images.dart';
 import '../styles/text_styles/text_styles.dart';
 import '../models/room_model.dart';
 import 'area_screen.dart';

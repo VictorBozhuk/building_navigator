@@ -9,7 +9,6 @@ import '../../models/vertex_model.dart';
 import '../../navigation/navi.dart';
 import '../../providers/areas_provider.dart';
 import '../../providers/vertexes_provider.dart';
-import '../../styles/images.dart';
 import '../widgets/app_bars/app_bars.dart';
 import '../widgets/containers/main_container.dart';
 import '../widgets/swithes/main_switch.dart';

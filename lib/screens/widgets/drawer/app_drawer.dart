@@ -27,7 +27,7 @@ class AppDrawer extends StatelessWidget {
     height: 150,
     decoration: const BoxDecoration(
       image: DecorationImage(
-        image: AssetImage("assets/DrawerLogo.jpg"),
+        image: AssetImage("assets/lnu_logo_n.png"),
         fit: BoxFit.cover,
       ),
     ),
@@ -39,7 +39,7 @@ class AppDrawer extends StatelessWidget {
         height: 130,
         width: 130,
         color: Colors.white.withOpacity(0.8),
-        image: const AssetImage("assets/NB.png"),
+        image: const AssetImage("assets/lnu_l.png"),
         fit: BoxFit.cover,
       ),
     ),
