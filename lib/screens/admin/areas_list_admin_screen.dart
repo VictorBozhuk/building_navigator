@@ -6,6 +6,7 @@ import '../../models/vertex_model.dart';
 import '../../navigation/navi.dart';
 import '../../providers/areas_provider.dart';
 import '../../providers/vertexes_provider.dart';
+import '../widgets/alerts/alerts.dart';
 import '../widgets/app_bars/app_bars.dart';
 import '../widgets/cards_list/area_card.dart';
 import '../widgets/containers/main_container.dart';
@@ -72,7 +73,13 @@ class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
                 isSelectAreaConnection: widget.isSelectAreaConnection)
             );
           }
-        }
+        },
+      onLongPress: () {
+        alertEditAndDelete(context, areas[index].title,
+            onEdit: () => Navi.push(context, AddAreaScreen(area: areas[index])),
+        onDelete: () async => await areaProvider.delete(areas[index]),
+        );
+      },
     );
   }
 }

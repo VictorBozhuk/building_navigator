@@ -4,12 +4,14 @@ import '../../../styles/appTheme.dart';
 import '../../../styles/text_styles/text_styles.dart';
 import '../../../models/area_model.dart';
 import '../../../models/room_model.dart';
+import '../../functions/defaults.dart';
 
 
 class AreaCard extends StatelessWidget {
   final Area area;
   late Function onTap;
-  AreaCard({super.key, required this.area, required this.onTap});
+  late Function onLongPress;
+  AreaCard({super.key, required this.area, required this.onTap, this.onLongPress = defaultFunc});
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,7 @@ class AreaCard extends StatelessWidget {
           ]
       ),
       onTap: () => onTap(),
+      onLongPress: () => onLongPress(),
     );
   }
 }

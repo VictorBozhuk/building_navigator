@@ -98,6 +98,7 @@ class AddAreaScreenState extends State<AddAreaScreen> {
 
   Future<void> onSave() async {
     await areaProvider.addOrUpdate(widget.area);
-    Navi.popAndPushReplacement(context, AreaAdminScreen(area: widget.area));
+    Navi.pop(context);
+    //Navi.popAndPushReplacement(context, AreaAdminScreen(area: widget.area));
   }
 }

@@ -23,6 +23,8 @@ class TextInput extends StatelessWidget {
       validator: validator,
       cursorColor: AppTheme.foreground,
       decoration: InputDecoration(
+          labelText: hint,
+          labelStyle: const TextStyle(color: Colors.grey),
           hoverColor: Colors.white,
           fillColor: Colors.white,
           focusColor: Colors.white,
