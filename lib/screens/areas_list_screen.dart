@@ -3,6 +3,7 @@ import 'package:lnu_navigator/models/area_model.dart';
 import 'package:lnu_navigator/screens/widgets/app_bars/app_bars.dart';
 import 'package:lnu_navigator/screens/widgets/cards_list/area_card.dart';
 import 'package:lnu_navigator/screens/widgets/containers/main_container.dart';
+import 'package:lnu_navigator/screens/widgets/drawer/app_drawer.dart';
 import 'package:lnu_navigator/screens/widgets/indicators/background_indicator.dart';
 import 'package:lnu_navigator/screens/widgets/lists/list_separated.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,8 @@ class _AreasListScreenState extends State<AreasListScreen> {
   Widget build(BuildContext context) {
     areaProvider = Provider.of<AreasProvider>(context);
     return Scaffold(
-        appBar: getAppBarWithIcon("Areas", context,
+      drawer: AppDrawer(),
+        appBar: getAppBarWithDrowerAndIcon("Areas", context,
             onTap: () {
               Navi.push(context, SelectRoomsScreen());
             },

@@ -9,6 +9,7 @@ import '../../providers/vertexes_provider.dart';
 import '../widgets/app_bars/app_bars.dart';
 import '../widgets/cards_list/area_card.dart';
 import '../widgets/containers/main_container.dart';
+import '../widgets/drawer/app_drawer.dart';
 import '../widgets/indicators/background_indicator.dart';
 import '../widgets/lists/list_separated.dart';
 import 'add_area_screen.dart';
@@ -30,7 +31,8 @@ class _AreasListAdminScreenState extends State<AreasListAdminScreen> {
   Widget build(BuildContext context) {
     areaProvider = Provider.of<AreasProvider>(context);
     return Scaffold(
-        appBar: getAppBarWithIcon("Areas", context, onTap:  () {
+        drawer: AppDrawer(),
+        appBar: getAppBarWithDrowerAndIcon("Areas", context, onTap:  () {
           Navi.push(context, AddAreaScreen(area: Area.empty()));
         }),
         body: FutureBuilder<List<Area>>(
