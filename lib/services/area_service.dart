@@ -5,8 +5,8 @@ import 'locator.dart';
 class AreaService {
   final CollectionReference _connection = FirebaseFirestore.instance.collection('areas');
 
-  DocumentReference getDoc(Area area){
-    return _connection.doc(area.id);
+  DocumentReference getDoc(String areaId){
+    return _connection.doc(areaId);
   }
 
   Future addOrUpdate(Area area) async {

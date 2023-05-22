@@ -9,10 +9,10 @@ class Vertex7Loader {
   Vertex7Loader(this.area);
 
   Future<void> addVertexes() async {
-    await getIt<VertexService>().addOrUpdate(v7_6(), area);
-    await getIt<VertexService>().addOrUpdate(v7(), area);
-    await getIt<VertexService>().addOrUpdate(v701A(), area);
-    await getIt<VertexService>().addOrUpdate(v714A(), area);
+    await getIt<VertexService>().addOrUpdate(v7_6());
+    await getIt<VertexService>().addOrUpdate(v7());
+    await getIt<VertexService>().addOrUpdate(v701A());
+    await getIt<VertexService>().addOrUpdate(v714A());
   }
 
   Vertex v7_6(){
@@ -45,10 +45,10 @@ class Vertex6Loader {
   Vertex6Loader(this.area);
 
   Future<void> addVertexes() async {
-    await getIt<VertexService>().addOrUpdate(v6_7(), area);
-    await getIt<VertexService>().addOrUpdate(v6(), area);
-    await getIt<VertexService>().addOrUpdate(v601A(), area);
-    await getIt<VertexService>().addOrUpdate(v614A(), area);
+    await getIt<VertexService>().addOrUpdate(v6_7());
+    await getIt<VertexService>().addOrUpdate(v6());
+    await getIt<VertexService>().addOrUpdate(v601A());
+    await getIt<VertexService>().addOrUpdate(v614A());
   }
 
   Vertex v6_7() {

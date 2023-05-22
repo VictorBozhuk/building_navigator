@@ -14,13 +14,13 @@ class VertexesProvider with ChangeNotifier {
     return getIt<VertexService>().getAll(area);
   }
 
-  Future<void> delete(Vertex vertex, Area area) async {
-    await getIt<VertexService>().delete(vertex, area);
+  Future<void> delete(Vertex vertex) async {
+    await getIt<VertexService>().delete(vertex);
     notifyListeners();
   }
 
-  Future<void> addOrUpdate(Vertex vertex, Area area) async {
-    await getIt<VertexService>().addOrUpdate(vertex, area);
+  Future<void> addOrUpdate(Vertex vertex) async {
+    await getIt<VertexService>().addOrUpdate(vertex);
     notifyListeners();
   }
 

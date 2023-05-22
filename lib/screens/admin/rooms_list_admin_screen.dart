@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lnu_navigator/screens/admin/panorama_room_admin_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/room_model.dart';
 import '../../models/vertex_model.dart';
 import '../../navigation/navi.dart';
+import '../../providers/vertexes_provider.dart';
+import '../widgets/alerts/alerts.dart';
 import '../widgets/app_bars/app_bars.dart';
 import '../widgets/cards_list/list_tile_wt_s.dart';
 import '../widgets/containers/main_container.dart';
@@ -47,6 +50,13 @@ class _RoomsListAdminScreenState extends State<RoomsListAdminScreen> {
           vertex: widget.vertex,
           room: widget.vertex.rooms[index],),
         action: () => setState(() {}));
+      },
+      onLongPress: () async {
+        alertDelete(context, widget.vertex.rooms[index].title, onDelete: () async {
+          widget.vertex.rooms.remove(widget.vertex.rooms[index]);
+          await Provider.of<VertexesProvider>(context, listen: false).addOrUpdate(widget.vertex);
+          setState(() { });
+        });
       },
     );
   }

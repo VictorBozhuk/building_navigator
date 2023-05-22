@@ -174,7 +174,7 @@ class _PanoramaRoomAdminScreenState extends State<PanoramaRoomAdminScreen> {
           if(widget.vertex.rooms.any((r) => r.id == widget.room.id) == false){
             widget.vertex.rooms.add(widget.room);
           }
-          await vertexProvider.addOrUpdate(widget.vertex, vertexProvider.area);
+          await vertexProvider.addOrUpdate(widget.vertex);
           Navi.pop(context);
           //Navi.popAndPushReplacement(context, const RoomsListAdminRoute());
         },

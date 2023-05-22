@@ -124,7 +124,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
   }
   
   Future<void> onSave() async {
-    await vertexProvider.addOrUpdate(widget.vertex, widget.area);
+    await vertexProvider.addOrUpdate(widget.vertex);
     Navi.pop(context);
     //Navi.popAndPushReplacement(context, AreaAdminRoute(area: widget.area));
   }

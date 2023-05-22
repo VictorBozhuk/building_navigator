@@ -114,7 +114,7 @@ class _PanoramaVertexAdminScreenState extends State<PanoramaVertexAdminScreen> {
     if(widget.first.vertexConnections.any((vc) => vc.id == widget.connection.id) == false){
       widget.first.vertexConnections.add(widget.connection);
     }
-    await vertexProvider.addOrUpdate(widget.first, widget.area);
+    await vertexProvider.addOrUpdate(widget.first);
     Navi.pop(context);
   }
 

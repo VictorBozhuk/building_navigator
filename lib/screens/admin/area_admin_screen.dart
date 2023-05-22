@@ -213,26 +213,26 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   Future<void> onRightArrow() async {
     if(areaProvider.firstSelected != null){
       areaProvider.firstSelected!.pointX = areaProvider.firstSelected!.pointX + 1;
-      await vertexProvider.addOrUpdate(areaProvider.firstSelected!, widget.area);
+      await vertexProvider.addOrUpdate(areaProvider.firstSelected!);
       await _calculateDimension();
     }
   }
 
   Future<void> onLeftArrow() async {
     areaProvider.firstSelected!.pointX = areaProvider.firstSelected!.pointX - 1;
-    await vertexProvider.addOrUpdate(areaProvider.firstSelected!, widget.area);
+    await vertexProvider.addOrUpdate(areaProvider.firstSelected!);
     await _calculateDimension();
   }
 
   Future<void> onTopArrow() async {
     areaProvider.firstSelected!.pointY = areaProvider.firstSelected!.pointY - 1;
-    await vertexProvider.addOrUpdate(areaProvider.firstSelected!, widget.area);
+    await vertexProvider.addOrUpdate(areaProvider.firstSelected!);
     await _calculateDimension();
   }
 
   Future<void> onBottomArrow() async {
     areaProvider.firstSelected!.pointY = areaProvider.firstSelected!.pointY + 1;
-    await vertexProvider.addOrUpdate(areaProvider.firstSelected!, widget.area);
+    await vertexProvider.addOrUpdate(areaProvider.firstSelected!);
     await _calculateDimension();
   }
 
@@ -265,7 +265,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
     if(!widget.isSelectAreaConnection){
       var vertex = await getCreatedVertexOnMap(details, transformDetails, widget.area, expanderKey);
       widget.area.vertexes.add(vertex);
-      await vertexProvider.addOrUpdate(vertex, widget.area);
+      await vertexProvider.addOrUpdate(vertex);
       areaProvider.firstSelected = vertex;
       await _setWidgets(_calculateDimension);
       setState(() { });
@@ -273,7 +273,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   }
 
   Future<void> onDelete() async {
-    await vertexProvider.delete(areaProvider.firstSelected!, widget.area);
+    await vertexProvider.delete(areaProvider.firstSelected!);
     widget.area.vertexes.remove(areaProvider.firstSelected!);
     await _setWidgets(_calculateDimension);
     setState(() {});
