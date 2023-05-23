@@ -24,15 +24,12 @@ class RoomsListScreen extends StatefulWidget {
 
 class _RoomsListScreenState extends State<RoomsListScreen> {
   late AreasProvider areaProvider;
-  late List<Room> allRooms;
   late List<Room> rooms;
   TextEditingController txtRoom = TextEditingController();
   @override
   void initState() {
     txtRoom.addListener(() {
-      setState(() {
-        rooms = allRooms.where((r) => r.title.toLowerCase().contains(txtRoom.text.toLowerCase())).toList();
-      });
+      setState(() { });
     });
     super.initState();
   }
@@ -74,7 +71,7 @@ class _RoomsListScreenState extends State<RoomsListScreen> {
   }
 
   Future<List<Room>> getRooms() async {
-    return rooms = allRooms = areaProvider.allRooms; // need await
+    return rooms = areaProvider.allRooms.where((r) => r.title.toLowerCase().contains(txtRoom.text.toLowerCase())).toList(); // need await
   }
 
   Widget getItemBuilder(int index){

@@ -112,7 +112,7 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
   }
   
   void onJoinArea(){
-    if(widget.vertex.areaConnection != null){
+    if(widget.vertex.areaConnectionId != null){
       areaProvider.connection = widget.vertex.vertexConnections
           .firstWhere((vc) => vc.nextVertex!.areaId != widget.vertex.areaId);
     }

@@ -21,7 +21,6 @@ class BodyOfMessageAlert extends StatelessWidget {
     return IntrinsicHeight(
         child: Container(
             width: alertSize.width,
-            height: 150,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                 color: background ?? Theme.of(context).colorScheme.primary

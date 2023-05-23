@@ -18,18 +18,20 @@ class VertexService {
     return await getCollection(vertex.areaId).doc(vertex.id).delete();
   }
 
-  Future<List<Vertex>> getAll(Area area) {
-    return getCollection(area.id).snapshots().map((data) => data.docs.map((doc) =>
+  Future<List<Vertex>> getAll(String areaId) {
+    return getCollection(areaId).snapshots().map((data) => data.docs.map((doc) =>
         Vertex.fromJson(doc.data())).toList()).first;
   }
 
 
   Future<void> _deleteConnectionOfNextVertexes(Vertex vertex) async {
     await _deleteConnectionOfNextArea(vertex);
+    var vertexes = await getAll(vertex.areaId);
     for(var vc in vertex.vertexConnections){
-      vc.nextVertex!.vertexConnections.removeWhere((nvc) => nvc.nextVertexId == vertex.id);
-      if(vc.nextVertex!.areaId != vertex.areaId){
-        await addOrUpdate(vc.nextVertex!);
+      if(vertexes.any((v) => v.id == vc.nextVertexId)){
+        var nextVertex = vertexes.firstWhere((v) => v.id == vc.nextVertexId);
+        nextVertex.vertexConnections.removeWhere((nvc) => nvc.nextVertexId == vertex.id);
+        await addOrUpdate(nextVertex);
       }
     }
   }
@@ -38,12 +40,13 @@ class VertexService {
     if(vertex.areaConnectionId != null){
       var nextArea = (await getIt<AreaService>().getAll())
           .firstWhere((x) => x.id == vertex.areaConnectionId);
-      var vertexes = await getAll(nextArea);
+      var vertexes = await getAll(nextArea.id);
       for(var v in vertexes){
         for(var vc in v.vertexConnections.toList()){
-          if(vc.nextVertex!.id == vertex.id){
+          if(vc.nextVertexId == vertex.id){
             v.areaConnectionId = null;
             v.vertexConnections.remove(vc);
+            vertex.vertexConnections.removeWhere((vvc) => vvc.nextVertexId == v.id);
             await addOrUpdate(v);
           }
         }

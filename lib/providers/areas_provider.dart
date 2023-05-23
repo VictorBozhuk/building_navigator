@@ -47,21 +47,28 @@ class AreasProvider with ChangeNotifier {
     _areas = await getIt<AreaService>().getAll();
     allVertexes.clear();
     for(var a in _areas){
-      a.vertexes = await getIt<VertexService>().getAll(a);
+      a.vertexes = await getIt<VertexService>().getAll(a.id);
       allVertexes.addAll(a.vertexes);
     }
     _allRooms.clear();
-    for(var a in areas){
-      for(var v in a.vertexes){
-        _allRooms.addAll(v.rooms);
-        if(v.areaConnectionId != null){
-          v.areaConnection = areas.firstWhere((area) => area.id == v.areaConnectionId);
-        }
-        for(var vc in v.vertexConnections){
-          vc.nextVertex = allVertexes.firstWhere((av) => av.id == vc.nextVertexId);
+      for(var a in areas){
+        for(var v in a.vertexes){
+          try{
+              _allRooms.addAll(v.rooms);
+            if(v.areaConnectionId != null){
+              v.areaConnection = areas.firstWhere((area) => area.id == v.areaConnectionId);
+            }
+            for(var vc in v.vertexConnections){
+              vc.nextVertex = allVertexes.firstWhere((av) => av.id == vc.nextVertexId);
+            }
+          }
+          catch(ex){
+            print("-----------------" + ex.toString() + "---------- " + v.title);
+          }
         }
       }
-    }
+
+
 
     return _areas;
   }

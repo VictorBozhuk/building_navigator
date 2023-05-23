@@ -177,6 +177,7 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
   }
 
   Future<void> naviToAddVertexFromAreaConnection() async {
+    areaProvider.firstSelected!.areaConnection = widget.area;
     areaProvider.firstSelected!.areaConnectionId = widget.area.id;
     //vertexProvider.firstSelected!.areaConnection = widget.area;
     if(areaProvider.firstSelected!.vertexConnections
@@ -200,7 +201,6 @@ class _AreaAdminScreenState extends State<AreaAdminScreen> {
     //vertexes = await vertexProvider.getAll(widget.area);
 
     if(widget.isSelectAreaConnection){
-      areaProvider.firstSelected!.areaConnection = widget.area;
       await calculateDimensionOnForAreaConnection();
       setState(() { });
       return true;

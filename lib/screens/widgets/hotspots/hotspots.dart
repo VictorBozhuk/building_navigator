@@ -54,16 +54,8 @@ Hotspot getHotspotPoint({
       longitude: x,
       latitude: y,
       orgin: Offset.fromDirection(0),
-      widget: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          elevation: 0.0,
-          shadowColor: Colors.transparent,
-          primary: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50),
-          ),
-        ),
-        onPressed: () => onPressed(),
+      widget: GestureDetector(
+        onTap: () => onPressed(),
         child: RotationTransition(
           turns: const AlwaysStoppedAnimation(0 / 360),
           child: Image(opacity: const AlwaysStoppedAnimation<double>(1),

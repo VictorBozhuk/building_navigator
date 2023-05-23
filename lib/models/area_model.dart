@@ -41,6 +41,7 @@ class Area {
     imagePath = data['imagePath'];
     pixelsInMeter = data['pixelsInMeter'];
     vertexRadius = data['vertexRadius'];
+    vertexes = [];
   }
 
   Area copy(){

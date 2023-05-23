@@ -11,7 +11,7 @@ class VertexesProvider with ChangeNotifier {
   late Area area;
 
   Future<List<Vertex>> getAll(Area area) {
-    return getIt<VertexService>().getAll(area);
+    return getIt<VertexService>().getAll(area.id);
   }
 
   Future<void> delete(Vertex vertex) async {

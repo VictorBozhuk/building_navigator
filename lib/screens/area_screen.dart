@@ -66,7 +66,7 @@ class _AreaScreenState extends State<AreaScreen> {
           left: 15,
           bottom: 0,
           child: IconButton(onPressed: (){
-            alertSecondMessage(context, "This is explanation!");
+            alertSecondMessage(context, "Натисніть один раз на вершину, щоб вказати ваше місце знаходження\n\nЗатисніть вершину щоб відкрити панорамну\n\nЗробіть подвійний клік на жовту вершину, щоб перейти на іншу мапу\n ");
           }, icon: const Icon(Icons.info_outline, color: Colors.black, size: 40,)),
         ),
         FloatingActionButton.extended(
