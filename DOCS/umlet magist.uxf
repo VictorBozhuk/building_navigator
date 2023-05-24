@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>11</zoom_level>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>1111</x>
+      <y>440</y>
+      <w>66</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>user</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>594</x>
+      <y>198</y>
+      <w>330</w>
+      <h>572</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>704</x>
+      <y>209</y>
+      <w>187</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>View list of floors</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>704</x>
+      <y>297</y>
+      <w>187</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>View floor map</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>649</x>
+      <y>484</y>
+      <w>242</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>View panorama of vertex</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>627</x>
+      <y>583</y>
+      <w>264</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>View list of rooms</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>616</x>
+      <y>682</y>
+      <w>275</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>View the path to the selected room</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>880</x>
+      <y>231</y>
+      <w>264</w>
+      <h>275</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+</panel_attributes>
+    <additional_attributes>220.0;230.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>880</x>
+      <y>319</y>
+      <w>264</w>
+      <h>187</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+</panel_attributes>
+    <additional_attributes>220.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>880</x>
+      <y>473</y>
+      <w>264</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+</panel_attributes>
+    <additional_attributes>220.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>880</x>
+      <y>473</y>
+      <w>264</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+</panel_attributes>
+    <additional_attributes>220.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>880</x>
+      <y>473</y>
+      <w>264</w>
+      <h>264</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+</panel_attributes>
+    <additional_attributes>220.0;10.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>0</x>
+      <y>451</y>
+      <w>66</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>admin</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>187</x>
+      <y>121</y>
+      <w>374</w>
+      <h>781</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>264</x>
+      <y>165</y>
+      <w>187</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>View list of floors</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>264</x>
+      <y>319</y>
+      <w>187</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>View floor map</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>264</x>
+      <y>550</y>
+      <w>242</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>View panorama of vertex</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>264</x>
+      <y>726</y>
+      <w>264</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>View list of rooms</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>44</x>
+      <y>176</y>
+      <w>242</w>
+      <h>341</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;290.0;200.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>44</x>
+      <y>341</y>
+      <w>242</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;140.0;200.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>44</x>
+      <y>484</y>
+      <w>242</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>44</x>
+      <y>484</y>
+      <w>242</w>
+      <h>297</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>44</x>
+      <y>484</y>
+      <w>242</w>
+      <h>385</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;330.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>264</x>
+      <y>242</y>
+      <w>187</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>Add, Edit, Delete floor</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>264</x>
+      <y>473</y>
+      <w>187</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>Add, Edit, Delete Vertex</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>704</x>
+      <y>396</y>
+      <w>187</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>View list of vertexes</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>264</x>
+      <y>396</y>
+      <w>187</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>View list of vertexes</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>264</x>
+      <y>638</y>
+      <w>242</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>Add, Edit, Delete panorama</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>264</x>
+      <y>814</y>
+      <w>264</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>Add, Edit, Delete room</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>44</x>
+      <y>484</y>
+      <w>242</w>
+      <h>209</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>44</x>
+      <y>473</y>
+      <w>242</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;20.0;200.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>44</x>
+      <y>418</y>
+      <w>242</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;70.0;200.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>44</x>
+      <y>264</y>
+      <w>242</w>
+      <h>253</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;210.0;200.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>880</x>
+      <y>418</y>
+      <w>253</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+</panel_attributes>
+    <additional_attributes>210.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2079</x>
+      <y>451</y>
+      <w>341</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>/Vertex/
+-
++Id:String
++AreaId:String
++AreaConnectionId:String
++Title:String
++ImagePath:String
++Rooms:List&lt;Room&gt;?
++VertexConnections:List&lt;VertexConnection&gt;
++X:Double
++Y:Double
++MapWidth:Double
++MapHeight:Double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2563</x>
+      <y>605</y>
+      <w>187</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>/Room/
+-
++Id:String
++VertexId:String
++Title:String
++TitleX:double
++TitleY:double
++Direction:double
++FontSize:double
++Width:double
++Height:double
++Color:Color</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2684</x>
+      <y>396</y>
+      <w>187</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>/VertexConnection/
+-
++Id:String
++VertexId:String
++NextVertexId:String
++Length:double
++IconSize:double
++IconX:double
++IconY:double
++IconAngle:int
++Direction:double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2409</x>
+      <y>605</y>
+      <w>176</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..1</panel_attributes>
+    <additional_attributes>140.0;20.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2409</x>
+      <y>451</y>
+      <w>297</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..1</panel_attributes>
+    <additional_attributes>250.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2453</x>
+      <y>231</y>
+      <w>187</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>/Area/
+-
++Id:String
++Title:String
++ImagePath:String
++Vertexes:List&lt;Vertex&gt;
++VertexRadius:double
++PixelsInMeter:int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2398</x>
+      <y>363</y>
+      <w>99</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..1</panel_attributes>
+    <additional_attributes>10.0;80.0;60.0;10.0</additional_attributes>
+  </element>
+</diagram>
