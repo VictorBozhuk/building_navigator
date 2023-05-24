@@ -19,6 +19,11 @@ class VertexesProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> deleteConnectionOfNextArea(Vertex vertex) async {
+    await getIt<VertexService>().deleteConnectionOfNextArea(vertex);
+    notifyListeners();
+  }
+
   Future<void> addOrUpdate(Vertex vertex) async {
     await getIt<VertexService>().addOrUpdate(vertex);
     notifyListeners();

@@ -75,7 +75,7 @@ class _PanoramaScreenState extends State<PanoramaScreen> {
     List<Hotspot> hotspots = getRoomHotspots(current);
 
     for(var vc in current.vertexConnections){
-      if(vc.nextVertex!.id == next.id){
+      if(vc.nextVertexId == next.id){
         var nextVertex = areaProvider.allVertexes.firstWhere((x) => x.id == next.id);
         hotspots.add(getHotspotPoint(
             x: vc.iconX,
@@ -107,7 +107,7 @@ class _PanoramaScreenState extends State<PanoramaScreen> {
   double _getNextVertexDirection(Vertex current, Vertex next)
   {
     for(var vc in current.vertexConnections){
-      if(vc.nextVertex!.id == next.id){
+      if(vc.nextVertexId == next.id){
         return vc.direction;
       }
     }

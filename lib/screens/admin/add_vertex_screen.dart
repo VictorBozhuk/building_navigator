@@ -93,6 +93,13 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
                       onPressed: onJoinArea
                   ),
                 ),
+              if(isAreaConnection == true)
+                MainPadding(
+                  child: MainButton(
+                      title: "Delete join",
+                      onPressed: onDeleteJoin
+                  ),
+                ),
               MainPadding(
                 child: MainButton(
                   title: "Rooms",
@@ -117,6 +124,13 @@ class _AddVertexScreenState extends State<AddVertexScreen> {
           .firstWhere((vc) => vc.nextVertex!.areaId != widget.vertex.areaId);
     }
     Navi.push(context, AreasListAdminScreen(isSelectAreaConnection: true));
+  }
+
+  void onDeleteJoin()async {
+    isAreaConnection = false;
+    areaProvider.differentAreaVertexSelected = null;
+    await vertexProvider.deleteConnectionOfNextArea(widget.vertex);
+
   }
   
   void onRooms(){

@@ -49,11 +49,11 @@ class AppDrawer extends StatelessWidget {
       child: Wrap(
         children: [
           CardOfDrawer(
-            title: "Buildings",
+            title: "Areas",
             icon: Icons.home_work_outlined,
             onTap: () => Navi.push(context, AreasListScreen())),
           CardOfDrawer(
-              title: "Room search",
+              title: "Search",
               icon: Icons.room,
               onTap: () => Navi.push(context, SelectRoomsScreen())),
           CardOfDrawer(

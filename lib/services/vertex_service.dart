@@ -25,7 +25,7 @@ class VertexService {
 
 
   Future<void> _deleteConnectionOfNextVertexes(Vertex vertex) async {
-    await _deleteConnectionOfNextArea(vertex);
+    await deleteConnectionOfNextArea(vertex);
     var vertexes = await getAll(vertex.areaId);
     for(var vc in vertex.vertexConnections){
       if(vertexes.any((v) => v.id == vc.nextVertexId)){
@@ -36,20 +36,29 @@ class VertexService {
     }
   }
 
-  Future<void> _deleteConnectionOfNextArea(Vertex vertex) async {
+  Future<void> deleteConnectionOfNextArea(Vertex vertex) async {
     if(vertex.areaConnectionId != null){
       var nextArea = (await getIt<AreaService>().getAll())
           .firstWhere((x) => x.id == vertex.areaConnectionId);
       var vertexes = await getAll(nextArea.id);
-      for(var v in vertexes){
-        for(var vc in v.vertexConnections.toList()){
-          if(vc.nextVertexId == vertex.id){
-            v.areaConnectionId = null;
-            v.vertexConnections.remove(vc);
-            vertex.vertexConnections.removeWhere((vvc) => vvc.nextVertexId == v.id);
-            await addOrUpdate(v);
+      try{
+        for(var v in vertexes){
+          for(var vc in v.vertexConnections.toList()){
+            if(vc.nextVertexId == vertex.id){
+              v.areaConnection = null;
+              vertex.areaConnection = null;
+              v.areaConnectionId = null;
+              vertex.areaConnectionId = null;
+              v.vertexConnections.remove(vc);
+              vertex.vertexConnections.removeWhere((vvc) => vvc.nextVertexId == v.id);
+              await addOrUpdate(vertex);
+              await addOrUpdate(v);
+            }
           }
         }
+      }
+      catch(ex){
+        print("------------------${ex.toString()}");
       }
     }
   }
